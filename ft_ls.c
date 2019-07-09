@@ -13,7 +13,7 @@
 #include "libft.h"
 
 
-//---<PRINTF_EN.PDF>--------------------------------------------------{{{
+//---<FT_LS_EN.PDF>--------------------------------------------------{{{
 
 /* Within your mandatory part you are allowed to use the following functions: */
 /* ◦ write */
