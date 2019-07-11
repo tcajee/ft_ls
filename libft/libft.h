@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:27:09 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/11 09:54:26 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/11 10:27:24 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,19 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
+# include <sys/types.h>
+# include <dirent.h>
+# include <pwd.h>
+# include <uuid/uuid.h>
+# include <grp.h>
+# include <uuid/uuid.h>
+# include <sys/xattr.h>
+# include <stdio.h>
+# include <errno.h>
+# include <time.h>
 # define FT_(x, y) if (x) return y;
 # define BUFF_SIZE 1024
 # if defined(__APPLE__) && defined(__MACH__)
