@@ -15,19 +15,21 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
+
+# include <stdio.h>
 # include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/xattr.h>
+# include <sys/ioctl.h>
 # include <dirent.h>
 # include <pwd.h>
-# include <uuid/uuid.h>
 # include <grp.h>
 # include <uuid/uuid.h>
-# include <sys/xattr.h>
-# include <stdio.h>
 # include <errno.h>
 # include <time.h>
+# include <sys/acl.h>
+# include <limits.h>
+
 # define FT_(x, y) if (x) return y;
 # define BUFF_SIZE 1024
 # if defined(__APPLE__) && defined(__MACH__)
@@ -35,6 +37,11 @@
 # elif defined(__linux__)
 #  define FT_OPEN_MAX 1024
 # endif
+
+typedef struct stat		t_stat;
+typedef struct dirent	t_dirent;
+typedef struct passwd	t_passwd;
+typedef struct group	t_group;
 
 typedef struct		s_files
 {

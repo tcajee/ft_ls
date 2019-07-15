@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/* *************************************************** *********************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_ls.c                                            :+:      :+:    :+:   */
@@ -10,9 +10,170 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft/libft.h"
+
+enum	acl_type
+{
+	ACL_T_NONE,
+	ACL_T_LSM_CONTEXT_ONLY, 
+	ACL_T_YES
+};
+
+enum	ftype
+{
+	unknown,
+	fifo,
+	chardev,
+	directory,
+	blockdev,
+	normal,
+	symbolic_link,
+	sock,
+	whiteout,
+	arg_directory
+};
+
+struct	finfo
+{
+	/* The file name.  */
+	char *name;
+	/* For symbolic link, name of the file linked to, otherwise zero.  */
+	char *linkname; /* For terminal hyperlinks. */
+	char *absolute_name;
+	struct stat fstat;
+	enum ftype ftype;
+	/* For symbolic link and long listing, st_mode of file linked to, otherwise zero.  */
+	mode_t linkmode;
+	/* security context.  */
+	char *scontext;
+	bool stat_ok;
+	/* For symbolic link and color printing, true if linked-to file exists, otherwise false.  */
+	bool linkok;
+	/* For long listings, true if the file has an access control list, or a security context.  */
+	enum acl_type acl_type;
+	/* For color listings, true if a regular file has capability info.  */
+	bool has_capability; /* Whether file name needs quoting. tri-state with -1 == unknown.  */
+	int quoted;
+};
+
+struct fstat
+{
+	st_mode	The current permissions on the file.
+	st_ino	The inode for the file (note that this number is unique to all files and directories on a Linux System.
+	st_dev	The device that the file currently resides on.
+	st_uid	The User ID for the file.
+	st_gid	The Group ID for the file.
+	st_atime	The most recent time that the file was accessed.
+	st_ctime	The most recent time that the file's permissions were changed.
+	st_mtime	The most recent time that the file's contents were modified.
+	st_nlink	The number of links that there are to this file.
+	st_size
+};
+
+/* The table of files in the current directory:
+   'cwd_file' points to a vector of 'struct fileinfo', one per file.
+   'cwd_n_alloc' is the number of elements space has been allocated for.
+   'cwd_n_used' is the number actually in use.  */
+
+/* Address of block containing the files that are described.  */
+static struct finfo *cwd_file;
+
+/* Length of block that 'cwd_file' points to, measured in files.  */
+static size_t cwd_n_alloc;
+
+/* Index of first unused slot in 'cwd_file'.  */
+static size_t cwd_n_used;
+
+/* Whether files needs may need padding due to quoting.  */
+static bool cwd_some_quoted;
+
+/* Record of one pending directory waiting to be listed.  */
+
+struct pending
+  {
+    char *name;
+    /* If the directory is actually the file pointed to by a symbolic link we
+       were told to list, 'realname' will contain the name of the symbolic
+       link, otherwise zero.  */
+    char *realname;
+    bool command_line_arg;
+    struct pending *next;
+  };
+
+static struct pending *pending_dirs;
+
+/* Current time in seconds and nanoseconds since 1970, updated as
+   needed when deciding whether a file is recent.  */
+
+static struct timespec current_time;
 
 
+/* The number of columns to use for columns containing inode numbers,
+   block sizes, link counts, owners, groups, authors, major device
+   numbers, minor device numbers, and file sizes, respectively.  */
+
+static int inode_number_width;
+static int block_size_width;
+static int nlink_width;
+static int scontext_width;
+static int owner_width;
+static int group_width;
+static int author_width;
+static int major_device_number_width;
+static int minor_device_number_width;
+static int file_size_width;
+
+/* Option flags */
+
+/* long_format for lots of info, one per line.
+   one_per_line for just names, one per line.
+   many_per_line for just names, many per line, sorted vertically.
+   horizontal for just names, many per line, sorted horizontally.
+   with_commas for just names, many per line, separated by commas.
+   -l (and other options that imply -l), -1, -C, -x and -m control
+   this parameter.  */
+
+enum format
+  {
+    long_format,		/* -l and other options that imply -l */
+    one_per_line,		/* -1 */
+    many_per_line,		/* -C */
+    horizontal,			/* -x */
+    with_commas			/* -m */
+  };
+
+enum time_type
+  {
+    time_mtime,			/* default */
+    time_ctime,			/* -c */
+    time_atime,			/* -u */
+    time_numtypes		/* the number of elements of this enum */
+  };
+static enum time_type time_type;
+
+/* The file characteristic to sort by.  Controlled by -t, -S, -U, -X, -v.
+   The values of each item of this enum are important since they are
+   used as indices in the sort functions array (see sort_files()).  */
+
+enum sort_type
+  {
+    sort_none = -1,		/* -U */
+    sort_name,			/* default */
+    sort_extension,		/* -X */
+    sort_size,			/* -S */
+    sort_version,		/* -v */
+    sort_time,			/* -t */
+    sort_numtypes		/* the number of elements of this enum */
+  };
+
+
+static enum sort_type sort_type;
+
+/* Direction of sort.
+   false means highest first if numeric,
+   lowest first if alphabetic;
+   these are the defaults.
+   true means the opposite order in each case.  -r  */
 //---<FT_LS_EN.PDF>--------------------------------------------------{{{
 
 /* Within your mandatory part you are allowed to use the following functions: */
