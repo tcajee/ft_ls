@@ -15,15 +15,15 @@
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*new;
+	size_t	len;
 
 	new = NULL;
 	if (s1 && s2)
 	{
-		FT_(!(new = ft_strnew((ft_strlen(s1) + ft_strlen(s2)))), NULL);
-		if (s1)
-			new = ft_strcpy(new, s1);
-		if (s2)
-			new = ft_strcat(new, s2);
+		len = ft_strlen(s1) + ft_strlen(s2) + 1;
+		FT_(!(new = (char *)malloc(sizeof(char) * len)), NULL);
+		ft_memset((new + len), '\0', 1);
+		new = ft_strcat(ft_strcat(new, s1), s2);
 	}
 	return (new);
 }

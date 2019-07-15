@@ -24,10 +24,10 @@ char	*ft_strtrim(char const *s)
 	{
 		len = 0;
 		end = (s + (ft_strlen(s)));
-		while (ft_isspace(*s) == 1 && *s)
+		while (ft_isspace(*s) && *s)
 			s++;
 		start = s;
-		while (ft_isspace(*(end - 1)) == 1 && end != s)
+		while (ft_isspace(*(end - 1)) && end != s)
 			end--;
 		while (s++ != end)
 			len++;

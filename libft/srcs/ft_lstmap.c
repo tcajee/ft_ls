@@ -28,7 +28,7 @@ t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 		while (lst)
 		{
 			copy = f(lst);
-			FT_(!(next->next = \
+			FT_(!(next->next =
 						ft_lstnew(copy->content, copy->content_size)), NULL);
 			next = next->next;
 			lst = lst->next;

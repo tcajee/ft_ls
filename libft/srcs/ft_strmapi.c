@@ -14,15 +14,18 @@
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	size_t	i;
 	char	*cursor;
 	char	*new;
+	size_t	len;
+	size_t	i;
 
 	new = NULL;
 	if (s && f)
 	{
 		i = 0;
-		FT_(!(new = ft_strnew(ft_strlen(s))), NULL);
+		len = ft_strlen(s) + 1;
+		FT_(!(new = (char *)malloc(sizeof(char) * len)), NULL);
+		ft_memset((new + len), '\0', 1);
 		cursor = new;
 		while (*s)
 			*cursor++ = f(i++, *s++);

@@ -21,8 +21,9 @@ char	*ft_strdup(const char *s1)
 	len = 0;
 	if (s1)
 	{
-		len = ft_strlen(s1);
-		FT_(!(new = ft_strnew(len)), NULL);
+		len = ft_strlen(s1) + 1;
+		FT_(!(new = (char *)malloc(sizeof(char) * len)), NULL);
+		ft_memset((new + len), '\0', 1);
 	}
-	return (ft_memcpy(new, s1, len));
+	return (ft_memcpy(new, s1, --len));
 }

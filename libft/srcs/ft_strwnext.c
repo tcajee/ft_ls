@@ -12,7 +12,7 @@
 
 #include "../incs/libft.h"
 
-const char	*ft_strwnext(const char *s, char c)
+const char	*ft_strwnext(const char *s, int c)
 {
 	if (s)
 	{

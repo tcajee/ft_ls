@@ -26,7 +26,7 @@ char	**ft_strsplit(char const *s, char c)
 		words = ft_strwcount(s, c);
 		FT_(!(array = (char **)malloc(words * sizeof(char *) + 1)), NULL);
 		insert = array;
-		while (words-- > 0)
+		while (words--)
 		{
 			start = ft_strwnext(s, c);
 			len = ft_strwlen(start, c);

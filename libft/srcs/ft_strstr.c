@@ -12,17 +12,14 @@
 
 #include "../incs/libft.h"
 
-char	*ft_strstr(const char *haystack, const char *needle)
+char	*ft_strstr(const char *hstack, const char *needle)
 {
 	int i;
 
-	i = 0;
-	FT_(needle[0] == '\0', ((char *)haystack));
-	while (haystack[i])
-	{
-		FT_(haystack[i] == needle[0] && (ft_strncmp(&haystack[i], needle, \
-						ft_strlen(needle))) == 0, ((char *)&haystack[i]));
-		i++;
-	}
+	i = -1;
+	FT_(!*needle, ((char *)hstack));
+	while (hstack[++i])
+		FT_(hstack[i] == *needle && !ft_strncmp
+				(&hstack[i], needle, ft_strlen(needle)), ((char *)&hstack[i]));
 	return (NULL);
 }

@@ -12,10 +12,14 @@
 
 #include "../incs/libft.h"
 
-char	*ft_strncpy(char *dst, const char *src, size_t len)
+char	*ft_strncpy(char *dst, const char *src, size_t n)
 {
+	size_t	len;
+
 	if (src)
-		FT_(ft_strlen(src) < len, ft_memcpy(\
-					ft_memset(dst, '\0', len), src, ft_strlen(src)));
-	return (ft_memcpy(dst, src, len));
+	{
+		len = ft_strlen(src);
+		FT_(len < n, ft_memcpy(ft_memset(dst, '\0', n), src, len));
+	}
+	return (ft_memcpy(dst, src, n));
 }

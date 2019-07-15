@@ -12,7 +12,7 @@
 
 #include "../incs/libft.h"
 
-size_t	ft_strwcount(const char *s, char c)
+size_t	ft_strwcount(const char *s, int c)
 {
 	size_t	words;
 
@@ -23,7 +23,7 @@ size_t	ft_strwcount(const char *s, char c)
 		{
 			while (*s && *s == c)
 				s++;
-			if (*s != c && *s != '\0')
+			if (*s && *s != c)
 				words++;
 			while (*s && *s != c)
 				s++;

@@ -14,6 +14,10 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	FT_(!s, NULL);
-	return (ft_memchr(s, c, ft_strlen(s) + 1));
+	if (s)
+	{
+		while (*s)
+			FT_(*((unsigned char *)s) == (unsigned char)c, (void *)s++);
+	}
+	return (NULL);
 }

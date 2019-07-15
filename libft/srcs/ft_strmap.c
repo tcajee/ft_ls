@@ -14,13 +14,16 @@
 
 char	*ft_strmap(char const *s, char (*f)(char))
 {
-	char *cursor;
-	char *new;
+	char	*cursor;
+	char	*new;
+	size_t	len;
 
 	new = NULL;
 	if (s && f)
 	{
-		FT_(!(new = ft_strnew(ft_strlen(s))), NULL);
+		len = ft_strlen(s) + 1;
+		FT_(!(new = (char *)malloc(sizeof(char) * len)), NULL);
+		ft_memset((new + len), '\0', 1);
 		cursor = new;
 		while (*s)
 			*cursor++ = f(*s++);
