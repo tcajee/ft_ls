@@ -1,0 +1,7 @@
+#ignore buildfiles
+*.o
+*.a
+*.swp
+*.gch
+.DS_Store
+ft_ls
