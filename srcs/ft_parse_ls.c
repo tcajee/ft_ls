@@ -21,9 +21,9 @@ int	ft_parse_ls(int argc, char **argv)
 	char flags[2];
 
 	i = 1;
-	parse = 0;
 	while (i < argc)
 	{
+		parse = 0;
 		while (argv[i][parse] == '-' && (len = ft_strlen(argv[i])) > 1)
 		{
 			j = 0;
@@ -34,7 +34,6 @@ int	ft_parse_ls(int argc, char **argv)
 				return (ft_error_ls(99));
 			else if (len > 2 && parse < 2)
 				ft_flags_ls(i, argv);
-			parse = 0;
 		}
 		i++;
 	}
