@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../libft/incs/libft.h"
 
 int	ft_ls(int argc, char **argv)
 {
 	ft_parse_ls(argc, argv);
-
 
 	return (0);
 }

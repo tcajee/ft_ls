@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../libft/incs/libft.h"
 
 int	ft_error_ls(int ERROR)
 {

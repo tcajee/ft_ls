@@ -11,48 +11,45 @@
 # **************************************************************************** #
 
 # Project file
-NAME = libft.a
+NAME		= libft.a
 
 # Project builds and dirs
 SRCDIR		= ./srcs/
 SRCNAMES	= $(shell ls $(SRCDIR) | grep -E ".+\.c")
 SRC			= $(addprefix $(SRCDIR), $(SRCNAMES))
 INCDIR		= ./incs/
-OBJDIR		= ./objs/
-BUILDOBJS	= $(addprefix $(OBJDIR), $(SRCNAMES:.c=.o))
+BUILDDIR	= ./build/
+BUILDOBJS	= $(addprefix $(BUILDDIR), $(SRCNAMES:.c=.o))
 
 # Optimization and Compiler flags and commands
 CC			= clang
-OPFLAGS		= -g3 -funroll-loops
 CFLAGS		= -Wall -Werror -Wextra
 
-# Debugging flags
-DEBUG = -g
-
 # Main rule
-all: $(OBJDIR) $(LIBFT) $(NAME)
+all: $(BUILDDIR) $(NAME)
 
-# Object dir rule
-$(OBJDIR):
-	mkdir -p $(OBJDIR)
+# Objects dir rule
+$(BUILDDIR):
+	@echo "Compiling: $(NAME)"
+	@mkdir -p $(BUILDDIR)
 
 # Objects rule
-$(OBJDIR)%.o:$(SRCDIR)%.c
-	$(CC) $(DEBUG) $(CFLAGS) -I$(INCDIR) -o $@ -c $<
+$(BUILDDIR)%.o:$(SRCDIR)%.c
+	@$(CC) $(CFLAGS) -I$(INCDIR) -o $@ -c $<
 
 # Project file rule
 $(NAME): $(BUILDOBJS)
-	$(CC) $(DEBUG) $(CFLAGS) -o $(NAME) $(BUILDOBJS)
+	@ar -rc $(NAME) $(BUILDOBJS)
+	@ranlib $(NAME)
+	@echo "Compiled: $(NAME)"
 
 # Cleaning up the object files
 clean:
-	rm -rf $(OBJDIR)
-	make -C $(OBJDIR) clean
+	@rm -rf $(BUILDDIR)
 
 # Getting rid of the project file
 fclean: clean
-	rm -rf $(NAME)
-	make -C $(OBJDIR) fclean
+	@rm -rf $(NAME)
 
 # Do both of the above
 re: fclean all
