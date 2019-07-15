@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 14:32:59 by tcajee           ###   ########.fr       */
+/*   Created: 2019/05/21 14:28:07 by tcajee            #+#    #+#             */
+/*   Updated: 2019/07/15 15:04:14 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../incs/libft.h"
 
-int	ft_ls(int argc, char **argv)
+int	ft_isalpha(int c)
 {
-	ft_parse_ls(argc, argv);
-
-
-	return (0);
+	return ((c < 91 && c > 64) || (c < 123 && c > 96));
 }

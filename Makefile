@@ -6,7 +6,7 @@
 #    By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/29 13:11:02 by tcajee            #+#    #+#              #
-#    Updated: 2019/06/29 13:12:59 by tcajee           ###   ########.fr        #
+#    Updated: 2019/07/15 14:50:34 by tcajee           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ BUILDOBJS	= $(addprefix $(BUILDDIR), $(SRCNAMES:.c=.o))
 # Libft builds and dirs
 LIBDIR		= ./libft/
 LIBFT		= ./libft/libft.a
-LIBINC		= ./libft
+LIBINC		= ./libft/incs
 
 # Optimization and Compiler flags and commands
 CC			= clang

@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 14:32:59 by tcajee           ###   ########.fr       */
+/*   Created: 2019/06/08 16:14:39 by tcajee            #+#    #+#             */
+/*   Updated: 2019/07/15 15:05:18 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../incs/libft.h"
 
-int	ft_ls(int argc, char **argv)
+void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
 {
-	ft_parse_ls(argc, argv);
-
-
-	return (0);
+	while (lst && f)
+	{
+		f(lst);
+		lst = lst->next;
+	}
 }

@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 14:32:59 by tcajee           ###   ########.fr       */
+/*   Created: 2019/05/28 12:04:43 by tcajee            #+#    #+#             */
+/*   Updated: 2019/07/15 15:05:19 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../incs/libft.h"
 
-int	ft_ls(int argc, char **argv)
+char	*ft_strrchr(const char *s, int c)
 {
-	ft_parse_ls(argc, argv);
+	int	i;
 
-
-	return (0);
+	if (s)
+	{
+		i = ft_strlen(s);
+		while (i >= 0)
+		{
+			FT_(s[i] == (char)c, ((char *)&s[i]));
+			i--;
+		}
+	}
+	return (NULL);
 }

@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_strwlen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 14:32:59 by tcajee           ###   ########.fr       */
+/*   Created: 2019/05/31 11:37:13 by tcajee            #+#    #+#             */
+/*   Updated: 2019/07/15 15:05:20 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../incs/libft.h"
 
-int	ft_ls(int argc, char **argv)
+size_t	ft_strwlen(const char *s, char c)
 {
-	ft_parse_ls(argc, argv);
+	size_t len;
 
-
-	return (0);
+	len = 0;
+	if (s)
+	{
+		while (*s && *s++ != c)
+			len++;
+	}
+	return (len);
 }

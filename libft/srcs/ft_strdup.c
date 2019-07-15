@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 14:32:59 by tcajee           ###   ########.fr       */
+/*   Created: 2019/05/28 08:10:57 by tcajee            #+#    #+#             */
+/*   Updated: 2019/07/15 15:05:19 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../incs/libft.h"
 
-int	ft_ls(int argc, char **argv)
+char	*ft_strdup(const char *s1)
 {
-	ft_parse_ls(argc, argv);
+	size_t	len;
+	char	*new;
 
-
-	return (0);
+	new = NULL;
+	len = 0;
+	if (s1)
+	{
+		len = ft_strlen(s1);
+		FT_(!(new = ft_strnew(len)), NULL);
+	}
+	return (ft_memcpy(new, s1, len));
 }

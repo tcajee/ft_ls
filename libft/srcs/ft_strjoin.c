@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 14:32:59 by tcajee           ###   ########.fr       */
+/*   Created: 2019/05/30 11:34:12 by tcajee            #+#    #+#             */
+/*   Updated: 2019/07/15 15:05:19 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../incs/libft.h"
 
-int	ft_ls(int argc, char **argv)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	ft_parse_ls(argc, argv);
+	char	*new;
 
-
-	return (0);
+	new = NULL;
+	if (s1 && s2)
+	{
+		FT_(!(new = ft_strnew((ft_strlen(s1) + ft_strlen(s2)))), NULL);
+		if (s1)
+			new = ft_strcpy(new, s1);
+		if (s2)
+			new = ft_strcat(new, s2);
+	}
+	return (new);
 }

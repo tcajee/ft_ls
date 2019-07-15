@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 14:32:59 by tcajee           ###   ########.fr       */
+/*   Created: 2019/06/08 12:03:13 by tcajee            #+#    #+#             */
+/*   Updated: 2019/07/15 15:05:18 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../incs/libft.h"
 
-int	ft_ls(int argc, char **argv)
+void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	ft_parse_ls(argc, argv);
+	t_list *delete;
+	t_list *next;
 
-
-	return (0);
+	delete = *alst;
+	while (alst && delete && del)
+	{
+		next = delete->next;
+		del(delete->content, delete->content_size);
+		ft_memdel((void **)&delete);
+		delete = next;
+	}
+	*alst = NULL;
 }

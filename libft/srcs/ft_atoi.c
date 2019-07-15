@@ -1,21 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 14:32:59 by tcajee           ###   ########.fr       */
+/*   Created: 2019/05/21 14:52:36 by tcajee            #+#    #+#             */
+/*   Updated: 2019/07/15 15:02:46 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../incs/libft.h"
 
-int	ft_ls(int argc, char **argv)
+int	ft_atoi(const char *str)
 {
-	ft_parse_ls(argc, argv);
+	long		res;
+	long		sign;
+	const char	*input;
 
-
-	return (0);
+	res = 0;
+	input = str;
+	sign = 1;
+	if (str)
+	{
+		while (ft_isspace(*input) == 1)
+			input++;
+		if (*input == '-' || *input == '+')
+		{
+			if (*input == '-')
+				sign = -1;
+			input++;
+		}
+		while (*input && ft_isdigit(*input))
+			res = res * 10 + (*input++ - '0');
+	}
+	return ((int)res * (int)sign);
 }

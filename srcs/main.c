@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 14:32:59 by tcajee           ###   ########.fr       */
+/*   Created: 2019/07/15 10:04:27 by tcajee            #+#    #+#             */
+/*   Updated: 2019/07/15 14:31:11 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 
-int	ft_ls(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	ft_parse_ls(argc, argv);
-
-
+	if (argc == 1)
+		printf("NO ARGS\n");
+	else if (argc > 1)
+		return (ft_ls(argc, argv));
 	return (0);
 }

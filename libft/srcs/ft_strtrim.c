@@ -1,21 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 14:32:59 by tcajee           ###   ########.fr       */
+/*   Created: 2019/05/30 16:03:32 by tcajee            #+#    #+#             */
+/*   Updated: 2019/07/15 15:05:20 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../incs/libft.h"
 
-int	ft_ls(int argc, char **argv)
+char	*ft_strtrim(char const *s)
 {
-	ft_parse_ls(argc, argv);
+	const char	*start;
+	const char	*end;
+	char		*new;
+	size_t		len;
 
-
-	return (0);
+	new = NULL;
+	if (s)
+	{
+		len = 0;
+		end = (s + (ft_strlen(s)));
+		while (ft_isspace(*s) == 1 && *s)
+			s++;
+		start = s;
+		while (ft_isspace(*(end - 1)) == 1 && end != s)
+			end--;
+		while (s++ != end)
+			len++;
+		FT_(!(new = ft_strsub(start, 0, len)), NULL);
+	}
+	return (new);
 }
