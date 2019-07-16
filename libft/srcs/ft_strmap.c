@@ -12,7 +12,27 @@
 
 #include "../incs/libft.h"
 
-char	*ft_strmap(char const *s, char (*f)(char))
+char	*ft_strmap(int func, ...)
+
+ft_strmap(func, int (*f1)(int), int (*f2)(int), char (*f3)(int))
+{
+	va_list	v_list
+	int *out;
+
+	*out = 4;
+	va_start(v_list, func);
+
+	while (*out)
+	va_arg()
+
+
+	va_end(v_list);
+
+
+}
+
+char	*ft_strmap(char const *s, 
+		char (*f)(char))
 {
 	char	*cursor;
 	char	*new;

@@ -35,6 +35,8 @@ int	ft_parse_ls(int argc, char **argv)
 			else if (len > 2 && parse < 2)
 				ft_flags_ls(i, argv);
 		}
+		/* flags[parse] = '\0'; */
+		/* printf("ls %s\n", flags); */
 		i++;
 	}
 	return (0);

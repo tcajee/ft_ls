@@ -12,7 +12,7 @@
 
 #include "../libft/incs/libft.h"
 
-char	*ft_flags_ls(int i, char **argv)
+int	ft_flags_ls(int i, char **argv)
 {
 	int j;
 	int parse;
@@ -20,10 +20,11 @@ char	*ft_flags_ls(int i, char **argv)
 
 	parse = 0;
 	j = 0;
+	flags[parse++] = '-';
 	while (argv[i][parse] && j < 11)
 	{
-		/* if (argv[i][parse] < 65 || argv[i][parse] > 122) */
-			/* return (ft_error_ls(99)); */
+		if (argv[i][parse] < 65 || argv[i][parse] > 122)
+			return (ft_error_ls(99));
 		if (argv[i][parse] == 'l')
 			flags[j++] = argv[i][parse++];
 		else if (argv[i][parse] == 'R')
@@ -47,5 +48,6 @@ char	*ft_flags_ls(int i, char **argv)
 	}
 	flags[parse] = '\0';
 	printf("ls %s\n", flags);
-	return (ft_strdup(flags));
+	/* return (ft_strdup(flags)); */
+	return (0);
 }

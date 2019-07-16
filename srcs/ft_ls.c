@@ -15,62 +15,52 @@
 int	ft_ls(int argc, char **argv)
 {
 
-	time_type = time_mtime;
-	sort_type = sort_name;
-	sort_reverse = false;
-	/* numeric_ids = false; */
-	print_block_size = false;
-	/* indicator_style = none; */
-	print_inode = false;
-	/* dereference = DEREF_UNDEFINED; */
-	recursive = false;
-	immediate_dirs = false;
-	ignore_mode = IGNORE_DEFAULT;
-	/* ignore_patterns = NULL; */
-	/* hide_patterns = NULL; */
-	/* print_scontext = false; */
-
-	format = long_format;
-	print_with_color = false;
-	print_hyperlink = false;
-
-case 'a':
-ignore_mode = IGNORE_MINIMAL;
-
-case 'd':
-immediate_dirs = true;
-
-case 'f':
-/* Same as enabling -a -U and disabling -l -s.  */
-ignore_mode = IGNORE_MINIMAL;
-sort_type = sort_none;
-sort_type_specified = true;
-/* disable -l */
-if (format == long_format)
-format = (isatty (STDOUT_FILENO) ? many_per_line : one_per_line);
-print_block_size = false;	/* disable -s */
-print_with_color = false;	/* disable --color */
-print_hyperlink = false;	/* disable --hyperlink */
-
-case 'g':
-format = long_format;
-print_owner = false;
-
-case 'l':
-format = long_format;
-
-case 'r':
-sort_reverse = true;
-
-case 't':
-sort_type = sort_time;
-sort_type_specified = true;
-
-case 'u':
-time_type = time_atime;
-
-case 'R':
-recursive = true;
+	/* time_type = time_mtime; */
+	/* sort_type = sort_name; */
+	/* sort_reverse = false; */
+	/* /1* numeric_ids = false; *1/ */
+	/* print_block_size = false; */
+	/* /1* indicator_style = none; *1/ */
+	/* print_inode = false; */
+	/* /1* dereference = DEREF_UNDEFINED; *1/ */
+	/* recursive = false; */
+	/* immediate_dirs = false; */
+	/* ignore_mode = IGNORE_DEFAULT; */
+	/* /1* ignore_patterns = NULL; *1/ */
+	/* /1* hide_patterns = NULL; *1/ */
+	/* /1* print_scontext = false; *1/ */
+	/* format = long_format; */
+	/* print_with_color = false; */
+	/* print_hyperlink = false; */
+/* case 'a': */
+/* ignore_mode = IGNORE_MINIMAL; */
+/* case 'd': */
+/* immediate_dirs = true; */
+/* case 'f': */
+/* /1* Same as enabling -a -U and disabling -l -s.  *1/ */
+/* ignore_mode = IGNORE_MINIMAL; */
+/* sort_type = sort_none; */
+/* sort_type_specified = true; */
+/* /1* disable -l *1/ */
+/* if (format == long_format) */
+/* format = (isatty (STDOUT_FILENO) ? many_per_line : one_per_line); */
+/* print_block_size = false;	/1* disable -s *1/ */
+/* print_with_color = false;	/1* disable --color *1/ */
+/* print_hyperlink = false;	/1* disable --hyperlink *1/ */
+/* case 'g': */
+/* format = long_format; */
+/* print_owner = false; */
+/* case 'l': */
+/* format = long_format; */
+/* case 'r': */
+/* sort_reverse = true; */
+/* case 't': */
+/* sort_type = sort_time; */
+/* sort_type_specified = true; */
+/* case 'u': */
+/* time_type = time_atime; */
+/* case 'R': */
+/* recursive = true; */
 
 
 
