@@ -14,9 +14,5 @@
 
 int	main(int argc, char **argv)
 {
-	if (argc == 1)
-		printf("NO ARGS\n");
-	else if (argc > 1)
-		return (ft_ls(argc, argv));
-	return (0);
+	return (ft_ls(argc, argv));
 }

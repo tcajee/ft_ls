@@ -14,23 +14,22 @@
 
 int	ft_flags_ls(int i, char **argv)
 {
-	int j;
+	struct t_flags	flags;
 	int parse;
-	char flags[11];
 
 	parse = 0;
-	j = 0;
-	flags[parse++] = '-';
-	while (argv[i][parse] && j < 11)
+	while (argv[i][parse])
 	{
 		if (argv[i][parse] < 65 || argv[i][parse] > 122)
 			return (ft_error_ls(99));
 		if (argv[i][parse] == 'l')
-			flags[j++] = argv[i][parse++];
+		{
+			flags.format = 1;
+		}
 		else if (argv[i][parse] == 'R')
 			flags[j++] = argv[i][parse++];
 		else if (argv[i][parse] == 'a')
-			flags[j++] = argv[i][parse++];
+			ignore_mode = -1;
 		else if (argv[i][parse] == 'r')
 			flags[j++] = argv[i][parse++];
 		else if (argv[i][parse] == 't')
@@ -38,16 +37,40 @@ int	ft_flags_ls(int i, char **argv)
 		else if (argv[i][parse] == 'u')
 			flags[j++] = argv[i][parse++];
 		else if (argv[i][parse] == 'f')
-			flags[j++] = argv[i][parse++];
+		{
+			ignore_mode = IGNORE_MINIMAL;
+			sort_type = 0;
+			sort_type_specified = true;
+			if (format)
+			{ 
+				format = (isatty (STDOUT_FILENO) ? many_per_line : one_per_line);
+				print_block_size = false;	/* disable -s */
+				print_with_color = false;	/* disable --color */
+				print_hyperlink = false;	/* disable --hyperlink */
+				}
+		}
 		else if (argv[i][parse] == 'g')
+		{
+			format = 1;
+			print_owner = false;
+		}
 			flags[j++] = argv[i][parse++];
 		else if (argv[i][parse] == 'd')
-			flags[j++] = argv[i][parse++];
+			immediate_dirs = true;
 		else
 			parse++;
 	}
-	flags[parse] = '\0';
-	printf("ls %s\n", flags);
+	case 'l':
+	case 'r':
+	sort_reverse = true;
+	case 't':
+	sort_type = sort_time;
+	sort_type_specified = true;
+	case 'u':
+	time_type = time_atime;
+	case 'R':
+	recursive = true;
+	
 	/* return (ft_strdup(flags)); */
 	return (0);
 }

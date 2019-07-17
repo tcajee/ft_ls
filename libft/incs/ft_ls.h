@@ -17,65 +17,40 @@
 # include <sys/stat.h>
 # include <sys/xattr.h>
 # include <sys/ioctl.h>
+# include <sys/acl.h>
 # include <dirent.h>
 # include <pwd.h>
 # include <grp.h>
 # include <uuid/uuid.h>
 # include <errno.h>
 # include <time.h>
-# include <sys/acl.h>
 # include <limits.h>
 
-/* typedef struct stat		t_stat; */
-/* typedef struct dirent	t_dirent; */
-/* typedef struct passwd	t_passwd; */
-/* typedef struct group	t_group; */
+# include <stdbool.h>
 
-/* -l, -r, -t, -u,
- * -R,
- * -a,
- * -f, 
- * -g, -d, ACL COLOURS COLUMNS */
-
-/* Option flags */
-
-/* long_format for lots of info, one per line.
--l (and other options that imply -l), -1, -C, -x and -m control this parameter*/
-
-enum format
-  {
-    format_long,		/* -l and other options that imply -l */
-    format_numtypes		/* the number of elements of this enum */
-  };
-
-enum time_type
+typedef struct	s_flags
 {
-	time_mtime,			/* default */
-	time_atime,			/* -u */
-	time_numtypes		/* the number of elements of this enum */
-};
+	bool		flags;
+	bool		recursive;
+	bool		immediate_dirs;
+	bool		sort_type_specified;
+	bool		sort_reverse;
+	bool		print_block_size;
+	bool		print_inode;
+	bool		print_with_color;
+	bool		print_hyperlink;
+	int			sort_type;
+	int			format;
+	int			time_type;
+	int			ignore_mode;
+}				t_flags;
 
-/* The file characteristic to sort by.  Controlled by -t, -S, -U, -X, -v.
-   The values of each item of this enum are important since they are
-   used as indices in the sort functions array (see sort_files()).  */
+int				ft_ls(int argc, char** argv);
+int				ft_parse_ls(int argc, char **argv);
+int				ft_flags_ls(int i, char **argv);
+int				ft_error_ls(int ERROR);
 
-/* Direction of sort.
-   false means highest first if numeric,
-   lowest first if alphabetic;
-   these are the defaults.
-   true means the opposite order in each case.  -r  */
-
-enum sort_type
-  {
-    sort_name,			/* default */
-    sort_time,
-	sort_reverse,		/* -t */
-    sort_direction,			/* -r */
-    sort_numtypes		/* the number of elements of this enum */
-  };
-
-
-
+#endif
 //---<DECODE>---------------------------------------------------------{{{
 
 
@@ -163,12 +138,54 @@ enum sort_type
 
 //}}}
 
+/* typedef struct stat		t_stat; */
+/* typedef struct dirent	t_dirent; */
+/* typedef struct passwd	t_passwd; */
+/* typedef struct group	t_group; */
+
+/* -l, -r, -t, -u,
+ * -R,
+ * -a,
+ * -f, 
+ * -g, -d, ACL COLOURS COLUMNS */
+
+/* Option flags */
+
+/* long_format for lots of info, one per line.
+-l (and other options that imply -l), -1, -C, -x and -m control this parameter*/
+
+/* enum format */
+/*   { */
+/*     format_long,		/1* -l and other options that imply -l *1/ */
+/*     format_numtypes		/1* the number of elements of this enum *1/ */
+/*   }; */
+
+/* enum time_type */
+/* { */
+/* 	time_mtime,			/1* default *1/ */
+/* 	time_atime,			/1* -u *1/ */
+/* 	time_numtypes		/1* the number of elements of this enum *1/ */
+/* }; */
+
+/* The file characteristic to sort by.  Controlled by -t, -S, -U, -X, -v.
+   The values of each item of this enum are important since they are
+   used as indices in the sort functions array (see sort_files()).  */
+
+/* Direction of sort.
+   false means highest first if numeric,
+   lowest first if alphabetic;
+   these are the defaults.
+   true means the opposite order in each case.  -r  */
+
+/* enum sort_type */
+/*   { */
+/*     sort_name,			/1* default *1/ */
+/*     sort_time, */
+/* 	psort_reverse,		/1* -t *1/ */
+/*     sort_direction,			/1* -r *1/ */
+/*     sort_numtypes		/1* the number of elements of this enum *1/ */
+/*   }; */
 
 
 
-int					ft_ls(int argc, char** argv);
-int					ft_parse_ls(int argc, char **argv);
-int					ft_flags_ls(int i, char **argv);
-int					ft_error_ls(int ERROR);
 
-#endif
