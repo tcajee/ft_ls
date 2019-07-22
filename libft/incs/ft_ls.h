@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 15:07:50 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/22 13:39:10 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,30 @@
 # include <time.h>
 # include <limits.h>
 
-# include <stdbool.h>
+/* flags */
+/* files */
+/* dirs */
+/* date */
+/* format */
+
 
 typedef struct	s_flags
 {
-	bool		flags;
-	bool		recursive;
-	bool		immediate_dirs;
-	bool		sort_type_specified;
-	bool		sort_reverse;
-	bool		print_block_size;
-	bool		print_inode;
-	bool		print_with_color;
-	bool		print_hyperlink;
-	int			sort_type;
-	int			format;
-	int			time_type;
-	int			ignore_mode;
+	int		flags;
+	int		recursive;
+	int		immediate_dirs;
+	int		sort_type_specified;
+	int		sort_reverse;
+	int		print_block_size;
+	int		print_inode;
+	int		print_with_color;
+	int		print_hyperlink;
+	int		sort_type;
+	int		format;
+	int		time_type;
+	int		ignore_mode;
 }				t_flags;
 
-int				ft_ls(int argc, char** argv);
 int				ft_parse_ls(int argc, char **argv);
 int				ft_flags_ls(int i, char **argv);
 int				ft_error_ls(int ERROR);
