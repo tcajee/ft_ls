@@ -32,6 +32,25 @@
 /* date */
 /* format */
 
+typedef enum	e_flags
+{
+	LONG_LISTING_FLAG = 1, // -l
+	RECURSIVE_FLAG = 2, // -R
+	ALL_FLAG = 4, // -a
+	REVERSE_FLAG = 8, // -r
+	MODIFICATION_DATE_SORT = 16, // -t
+	DISPLAY_UID_AND_GID = 32, // -n
+	SUPRESS_OWNER = 64, // -g
+	ONE_ENTRY_PER_LINE = 128, // -1
+	COLUMN_DISPLAY = 256, // -C
+	CREATION_DATE_SORT = 512, // -U
+	LAST_ACCESS_DATE_SORT = 1024, // -a
+	LAST_STATUS_CHANGE_SORT = 2048, // -c
+	HIDE_CURR_AND_PREV_DIRS = 4096, // -A
+	FILE_SIZE_SORT = 8192, // -S
+	COLORED_OUTPUT = 16384 // -G
+} 				t_flags;
+
 
 typedef struct	s_flags
 {
