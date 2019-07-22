@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/22 13:39:10 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/22 16:18:28 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,26 @@
 /* date */
 /* format */
 
-typedef enum	e_flags
-{
-	LONG_LISTING_FLAG = 1, // -l
-	RECURSIVE_FLAG = 2, // -R
-	ALL_FLAG = 4, // -a
-	REVERSE_FLAG = 8, // -r
-	MODIFICATION_DATE_SORT = 16, // -t
-	DISPLAY_UID_AND_GID = 32, // -n
-	SUPRESS_OWNER = 64, // -g
-	ONE_ENTRY_PER_LINE = 128, // -1
-	COLUMN_DISPLAY = 256, // -C
-	CREATION_DATE_SORT = 512, // -U
-	LAST_ACCESS_DATE_SORT = 1024, // -a
-	LAST_STATUS_CHANGE_SORT = 2048, // -c
-	HIDE_CURR_AND_PREV_DIRS = 4096, // -A
-	FILE_SIZE_SORT = 8192, // -S
-	COLORED_OUTPUT = 16384 // -G
-} 				t_flags;
+/* typedef enum	e_flags */
+/* { */
+/* 	LONG_LISTING_FLAG = 1,			// -l */
+/* 	RECURSIVE_FLAG = 2,				// -R */
+/* 	ALL_FLAG = 4,					// -a */
+/* 	LAST_ACCESS_DATE_SORT = 1024, 	// -a */
+/* 	REVERSE_FLAG = 8,				// -r */
+/* 	MODIFICATION_DATE_SORT = 16,	// -t */
+/* 	CREATION_DATE_SORT = 512, 		// -u */
+/* 	F_ = 2048, 						// -f */
+/* 	COLORED_OUTPUT = 16384 			// -g */
+/* 	FILE_SIZE_SORT = 8192, 			// -d */
+/* } 				t_flags; */
 
 
 typedef struct	s_flags
 {
 	int		flags;
 	int		recursive;
-	int		immediate_dirs;
+	int		immediate_dirs; 
 	int		sort_type_specified;
 	int		sort_reverse;
 	int		print_block_size;
@@ -69,9 +64,10 @@ typedef struct	s_flags
 	int		ignore_mode;
 }				t_flags;
 
-int				ft_parse_ls(int argc, char **argv);
-int				ft_flags_ls(int i, char **argv);
-int				ft_error_ls(int ERROR);
+int				ft_flags(int argc, char **argv);
+int				ft_dirs(int argc, char **argv);
+int				ft_prints(int i, char **argv);
+int				ft_errors(int ERROR);
 
 #endif
 //---<DECODE>---------------------------------------------------------{{{

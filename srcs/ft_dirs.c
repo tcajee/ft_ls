@@ -1,15 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_args_ls.c                                       :+:      :+:    :+:   */
+/*   ft_dirs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
+/*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/15 11:36:46 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 14:11:26 by tcajee           ###   ########.fr       */
+/*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
+/*   Updated: 2019/07/22 16:24:22 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/incs/libft.h"
-
-int	ft_args_ls(int argc, char **argv);
+int	ft_dirs(int argc, char **argv);
