@@ -32,19 +32,18 @@
 /* date */
 /* format */
 
-/* typedef enum	e_flags */
-/* { */
-/* 	LONG_LISTING_FLAG = 1,			// -l */
-/* 	RECURSIVE_FLAG = 2,				// -R */
-/* 	ALL_FLAG = 4,					// -a */
-/* 	LAST_ACCESS_DATE_SORT = 1024, 	// -a */
-/* 	REVERSE_FLAG = 8,				// -r */
-/* 	MODIFICATION_DATE_SORT = 16,	// -t */
-/* 	CREATION_DATE_SORT = 512, 		// -u */
-/* 	F_ = 2048, 						// -f */
-/* 	COLORED_OUTPUT = 16384 			// -g */
-/* 	FILE_SIZE_SORT = 8192, 			// -d */
-/* } 				t_flags; */
+typedef enum	e_flags
+{
+	F_L = 1, // -l
+	F_R = 2, // -R
+	F_A = 4, // -a
+	F_U = 8, // -u
+	F_r = 16, // -r
+	F_T = 32, // -t
+	F_G = 64, // -g
+	F_D = 128, // d
+	F_F = 256, // f
+} 				t_flags;
 
 
 typedef struct	s_flags
