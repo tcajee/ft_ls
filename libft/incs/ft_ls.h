@@ -26,47 +26,22 @@
 # include <time.h>
 # include <limits.h>
 
-/* flags */
-/* files */
-/* dirs */
-/* date */
-/* format */
-
-typedef enum	e_flags
-{
-	F_L = 1, // -l
-	F_R = 2, // -R
-	F_A = 4, // -a
-	F_U = 8, // -u
-	F_r = 16, // -r
-	F_T = 32, // -t
-	F_G = 64, // -g
-	F_D = 128, // d
-	F_F = 256, // f
-} 				t_flags;
-
+# define V_FLAGS "lRartufgd"
 
 typedef struct	s_flags
 {
-	int		flags;
-	int		recursive;
-	int		immediate_dirs; 
-	int		sort_type_specified;
-	int		sort_reverse;
-	int		print_block_size;
-	int		print_inode;
-	int		print_with_color;
-	int		print_hyperlink;
-	int		sort_type;
-	int		format;
-	int		time_type;
-	int		ignore_mode;
+	char		*flags;
+	char		*vflags;
 }				t_flags;
 
-int				ft_flags(int argc, char **argv);
+int				ft_ls(char **argv);
+int				ft_errors(int ERROR);
+int				ft_flags(char **argv, t_flags *flags);
+void 			ft_set_flags(char *arg, t_flags *flags);
+void			ft_check_flags(char flag, t_flags *flags);
+void			ft_add_flags(char flag, t_flags *flags);
 int				ft_dirs(int argc, char **argv);
 int				ft_prints(int i, char **argv);
-int				ft_errors(int ERROR);
 
 #endif
 //---<DECODE>---------------------------------------------------------{{{
@@ -156,54 +131,69 @@ int				ft_errors(int ERROR);
 
 //}}}
 
-/* typedef struct stat		t_stat; */
-/* typedef struct dirent	t_dirent; */
-/* typedef struct passwd	t_passwd; */
-/* typedef struct group	t_group; */
+/* {{{TITLE
 
-/* -l, -r, -t, -u,
+flags
+files
+dirs
+date
+format
+typedef enum	e_flags
+{
+	F_L = 1, // -l
+	F_R = 2, // -R
+	F_A = 4, // -a
+	F_U = 8, // -u
+	F_r = 16, // -r
+	F_T = 32, // -t
+	F_G = 64, // -g
+	F_D = 128, // d
+	F_F = 256, // f
+} 				t_flags;
+typedef struct	s_flags
+{
+	int		flags;
+	int		recursive;
+	int		immediate_dirs; 
+	int		sort_type_specified;
+	int		sort_reverse;
+	int		print_block_size;
+	int		print_inode;
+	int		print_with_color;
+	int		print_hyperlink;
+	int		sort_type;
+	int		format;
+	int		time_type;
+	int		ignore_mode;
+}				t_flags;
+
+typedef struct stat		t_stat;
+typedef struct dirent	t_dirent;
+typedef struct passwd	t_passwd;
+typedef struct group	t_group;
+
+ -l, -r, -t, -u,
  * -R,
  * -a,
- * -f, 
- * -g, -d, ACL COLOURS COLUMNS */
+* -f, 
+* -g, -d, ACL COLOURS COLUMNS 
 
-/* Option flags */
+Option flags
 
-/* long_format for lots of info, one per line.
--l (and other options that imply -l), -1, -C, -x and -m control this parameter*/
+* long_format for lots of info, one per line.
+-l (and other options that imply -l), -1, -C, -x and -m control this parameter*
 
-/* enum format */
-/*   { */
-/*     format_long,		/1* -l and other options that imply -l *1/ */
-/*     format_numtypes		/1* the number of elements of this enum *1/ */
-/*   }; */
 
-/* enum time_type */
-/* { */
-/* 	time_mtime,			/1* default *1/ */
-/* 	time_atime,			/1* -u *1/ */
-/* 	time_numtypes		/1* the number of elements of this enum *1/ */
-/* }; */
-
-/* The file characteristic to sort by.  Controlled by -t, -S, -U, -X, -v.
+* The file characteristic to sort by.  Controlled by -t, -S, -U, -X, -v.
    The values of each item of this enum are important since they are
-   used as indices in the sort functions array (see sort_files()).  */
+   used as indices in the sort functions array (see sort_files()).  *
 
-/* Direction of sort.
+* Direction of sort.
    false means highest first if numeric,
    lowest first if alphabetic;
    these are the defaults.
-   true means the opposite order in each case.  -r  */
-
-/* enum sort_type */
-/*   { */
-/*     sort_name,			/1* default *1/ */
-/*     sort_time, */
-/* 	psort_reverse,		/1* -t *1/ */
-/*     sort_direction,			/1* -r *1/ */
-/*     sort_numtypes		/1* the number of elements of this enum *1/ */
-/*   }; */
+   true means the opposite order in each case.  -r  *
 
 
 
-
+ * }}} */

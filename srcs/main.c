@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,22 +12,21 @@
 
 #include "../libft/incs/libft.h"
 
-int ft_ls(char **argv)
+int	main(int argc, char **argv)
 {
-	t_flags flags;
-	int		i;
-
-	flags.flags = ft_strnew(256);
-	ft_memset(flags.flags, '\0', 256);
-	flags.vflags = ft_strdup("lRartufgd");
-	// handle flags
-	i = ft_flags(argv, &flags);
-	// handle dirs
-	// handle printing
-	// handle memory
-	free(flags.flags);
-	free(flags.vflags);
-	return (i);
+   printf("PATH : %s\n", getenv("PATH"));
+   printf("HOME : %s\n", getenv("HOME"));
+   printf("ROOT : %s\n", getenv("ROOT"));
+	
+   sleep(100);
+	perror("./ft_ls");
+	if (argc == 1)
+		printf("TODO: handle default behaviours\n");
+	else if (argc > 1)
+		return(ft_ls(argv));
+	perror("./ft_ls");
+	printf("done\n");
+	return (0);
 }
 
 /* {{{temp
@@ -68,9 +67,9 @@ int ft_ls(char **argv)
 /* disable -l */
 /* if (format == long_format) */
 /* format = (isatty (STDOUT_FILENO) ? many_per_line : one_per_line); */
-/* print_block_size = false;	 disable -s */ 
-/* print_with_color = false;	 disable --color */ 
-/* print_hyperlink = false;	 disable --hyperlink */ 
+/* print_block_size = false;	* disable -s * */
+/* print_with_color = false;	* disable --color * */
+/* print_hyperlink = false;	* disable --hyperlink * */
 /* case 'g': */
 /* format = long_format; */
 /* print_owner = false; */

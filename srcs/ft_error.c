@@ -12,7 +12,7 @@
 
 #include "../libft/incs/libft.h"
 
-int	ft_error_ls(int ERROR)
+int	ft_errors(int ERROR)
 {
 	if (ERROR == 99)
 	{
