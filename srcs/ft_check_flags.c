@@ -1,42 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_flags.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/24 16:22:11 by sminnaar         ###   ########.fr       */
+/*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
+/*   Updated: 2019/07/24 15:54:05 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-int ft_ls(int argc, char **argv)
+void	ft_check_flags(short flag, t_flags *flags)
 {
-	t_flags flags;
-	int		i;
-
-	i = argc;
-	if (argc == 1)
-	{
-		// handle dirs
-		i = ft_dirs(argc, argv);
-		// handle memory
-		// handle printing
-		// handle errors
-	}
-	else if (argc > 1)
-	{
-		// handle flags
-		flags = 0;
-		i = ft_flags(argv, &flags);
-		// handle dirs
-		if (i < argc)
-			i = ft_dirs(argc, argv + i);
-		// handle memory
-		// handle printing
-		// handle errors
-	}
-	return (i);
+	if (!(*flags & flag))
+			*flags |= flag;
+	ft_print_flags(flags);
+	printf("\n");
 }

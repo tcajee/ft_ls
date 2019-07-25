@@ -1,42 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/24 16:22:11 by sminnaar         ###   ########.fr       */
+/*   Created: 2019/07/15 11:36:46 by tcajee            #+#    #+#             */
+/*   Updated: 2019/07/15 14:11:26 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-int ft_ls(int argc, char **argv)
+int	ft_error_flags(char flag, int error)
 {
-	t_flags flags;
-	int		i;
-
-	i = argc;
-	if (argc == 1)
-	{
-		// handle dirs
-		i = ft_dirs(argc, argv);
-		// handle memory
-		// handle printing
-		// handle errors
-	}
-	else if (argc > 1)
-	{
-		// handle flags
-		flags = 0;
-		i = ft_flags(argv, &flags);
-		// handle dirs
-		if (i < argc)
-			i = ft_dirs(argc, argv + i);
-		// handle memory
-		// handle printing
-		// handle errors
-	}
-	return (i);
+	ft_putendl_fd("./ft_ls: illegal option -- -", 2);
+	ft_putendl_fd("usage: ./ft_ls [-lRartufgd] [file ...]", 2);
+	return (error);
 }

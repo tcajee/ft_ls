@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error_ls.c                                      :+:      :+:    :+:   */
+/*   ft_print_flags.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/15 11:36:46 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 14:11:26 by tcajee           ###   ########.fr       */
+/*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
+/*   Updated: 2019/07/24 15:54:05 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-int	ft_errors(int ERROR)
+void	ft_print_flags(t_flags *flags)
 {
-	if (ERROR == 99)
+	size_t i;
+
+	i = 16;
+	while (i--)
 	{
-		/* perror("./ft_ls: illegal option -- -"); */
-		/* perror("usage: ./ft_ls [-lRartufgd] [file ...]"); */
-		
-		ft_putendl("./ft_ls: illegal option -- -");
-		ft_putendl("usage: ./ft_ls [-lRartufgd] [file ...]");
-	}
-	return (ERROR);
+		ft_putnbr(*flags >> i & 1);
+		if (i % 8 == 0 && i != 16)
+			 ft_putchar(' ');
+	 }
 }

@@ -26,8 +26,6 @@
 # include <time.h>
 # include <limits.h>
 
-# define V_FLAGS "lRartufgd"
-
 typedef enum e_flags
 {
 	F_L = 1, // -l
@@ -35,33 +33,36 @@ typedef enum e_flags
 	F_A = 4, // -a
 	F_r = 8, // -r
 	F_T = 16, // -t
+	F_1 = 32, // -1
 
-	F_U = 32 , // -u
-	F_F = 256, // f
-	F_D = 128, // d
-	F_G = 64, // -g
-} 				t_flags;
-
-
-
-
-//void			ft_sorts();
-//void			ft_cleans;
+	F_U = 64, // -u
+	F_F = 128, // f
+	F_D = 256, // d
+	F_G = 512, // -g
+} 			t_flags;
 
 int				ft_ls(int argc, char **argv);
 
 int				ft_flags(char **argv, t_flags *flags);
 void 			ft_set_flags(char *arg, t_flags *flags);
-void			ft_check_flags(size_t flag, t_flags *flags);
+void			ft_check_flags(short flag, t_flags *flags);
+int				ft_error_flags(char flag, int error);
+void			ft_print_flags(t_flags *flags);
 
-void			ft_print_flags(unsigned char c);
-void			ft_ls_open(char *path);
-
-
-int				ft_errors(int ERROR);
 int				ft_dirs(int argc, char **argv);
-int				ft_isdir(char *name);
+int				ft_parse_dirs(int argc, char **argv);
+int				ft_check_dirs(char *name);
+void			ft_open_dirs(char *path);
+int				ft_error_dirs(char flag, int error);
+
+int				ft_sorts(int argc, char **argv);
+
 int				ft_prints(int i, char **argv);
+int				ft_defualt_prints(int i, char **argv);
+int				ft_list_prints(int i, char **argv);
+int				ft_error_prints(char flag, int error);
+
+int				ft_cleans(int argc, char **argv);
 
 #endif
 //---<DECODE>---------------------------------------------------------{{{
