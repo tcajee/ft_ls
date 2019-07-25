@@ -12,7 +12,7 @@
 
 #include "../libft/incs/libft.h"
 
-void	ft_set_flags(char *arg, t_flags *flags)
+int	ft_set_flags(char *arg, t_flags *flags)
 {
 	size_t i = 0;
 	size_t len = ft_strlen(arg);
@@ -40,6 +40,6 @@ void	ft_set_flags(char *arg, t_flags *flags)
 		else if (arg[i] == 'd')
 			ft_check_flags(F_D, flags);
 		else
-			return (ft_errors(99));
+			return (ft_error_flags(arg[i], -1));
 	}
 }

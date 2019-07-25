@@ -12,21 +12,24 @@
 
 #include "../libft/incs/libft.h"
 
-int	ft_flags(char **argv, t_flags *flags)
+int	ft_flags(int argc, char **argv, t_flags *flags)
 {
 	int i;
 
 	i = 0;
-	while (argv[++i])
+	if (argc > 1)
 	{
-		if (argv[i][0] != '-')
-			return (-1);
-		else if (!ft_strcmp(argv[i], "--"))
-			return (-1);
-		else if (argv[i][0] == '-' && argv[i][1])
-			ft_set_flags(argv[i], flags);
-		else
-			return (-1);
+		while (argv[++i])
+		{
+			if (argv[i][0] != '-')
+				return (-1);
+			else if (!ft_strcmp(argv[i], "--"))
+				return (-1);
+			else if (argv[i][0] == '-' && argv[i][1])
+				ft_set_flags(argv[i], flags);
+			else
+				return (-1);
+		}
 	}
 	return (i);
 }

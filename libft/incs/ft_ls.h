@@ -34,7 +34,6 @@ typedef enum e_flags
 	F_r = 8, // -r
 	F_T = 16, // -t
 	F_1 = 32, // -1
-
 	F_U = 64, // -u
 	F_F = 128, // f
 	F_D = 256, // d
@@ -43,14 +42,16 @@ typedef enum e_flags
 
 int				ft_ls(int argc, char **argv);
 
-int				ft_flags(char **argv, t_flags *flags);
+int				ft_parses(int argc, char **argv, t_flags *flags);
+
+int				ft_flags(int argc, char **argv, t_flags *flags);
+int				ft_init_flags(t_flags *flags);
 void 			ft_set_flags(char *arg, t_flags *flags);
-void			ft_check_flags(short flag, t_flags *flags);
-int				ft_error_flags(char flag, int error);
+int				ft_check_flags(short flag, t_flags *flags);
 void			ft_print_flags(t_flags *flags);
+int				ft_error_flags(char flag, int error);
 
 int				ft_dirs(int argc, char **argv);
-int				ft_parse_dirs(int argc, char **argv);
 int				ft_check_dirs(char *name);
 void			ft_open_dirs(char *path);
 int				ft_error_dirs(char flag, int error);
