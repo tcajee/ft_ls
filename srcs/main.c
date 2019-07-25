@@ -6,26 +6,25 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/22 16:08:34 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/24 15:58:17 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-int	main(argc, argv)
-int argc;
-char **argv;
+int	main(int argc, char **argv)
 {
-   printf("PATH : %s\n", getenv("PATH"));
-   printf("HOME : %s\n", getenv("HOME"));
-   printf("ROOT : %s\n", getenv("ROOT"));
-	
-	perror("./ft_ls");
+   //printf("PATH : %s\n", getenv("PATH"));
+   //printf("HOME : %s\n", getenv("HOME"));
+   //printf("ROOT : %s\n", getenv("ROOT"));
+
 	if (argc == 1)
+	{
+		ft_ls_open(".");
 		printf("TODO: handle default behaviours\n");
+	}
 	else if (argc > 1)
-		return(ft_ls(argv));
-	perror("./ft_ls");
+		return(ft_ls(argc, argv));
 	printf("done\n");
 	return (0);
 }
@@ -61,7 +60,7 @@ char **argv;
 /* case 'd': */
 /* immediate_dirs = true; */
 /* case 'f': */
-/* Same as enabling -a -U and disabling -l -s. */ 
+/* Same as enabling -a -U and disabling -l -s. */
 /* ignore_mode = IGNORE_MINIMAL; */
 /* sort_type = sort_none; */
 /* sort_type_specified = true; */

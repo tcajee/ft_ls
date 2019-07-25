@@ -6,12 +6,103 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/22 16:27:48 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/24 15:54:05 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
+void	ft_print_flags(unsigned char c)
+{
+	size_t i;
+
+	i = 32;
+	while (i--)
+	{
+		ft_putnbr(c >> i & 1);
+		if (i % 8 == 0 && i != 32)
+			ft_putchar(' ');
+	}
+}
+
+void	ft_check_flags(size_t flag, t_flags *flags)
+{
+	printf("checking flags\n");
+	if (!(*flags & flag))
+			*flags |= flag;
+	printf("FLAGS: \n");
+	ft_print_flags(*flags);
+	printf("\n");
+}
+
+void	ft_set_flags(char *arg, t_flags *flags)
+{
+	size_t i = 0;
+	size_t len = ft_strlen(arg);
+
+	if (len > 1)
+		FT_((arg[0] == '-' && arg[1] == '-') && arg[2],);
+	while (arg[++i] && i < len)
+	{
+		printf("arg[%zu]: %c\n", i, arg[i]);
+		if (arg[i] == 'l')
+			ft_check_flags(F_L, flags);
+		else if (arg[i] == 'R')
+			ft_check_flags(F_R, flags);
+		else if (arg[i] == 'a')
+			ft_check_flags(F_A, flags);
+		else if (arg[i] == 'r')
+			ft_check_flags(F_r, flags);
+		else if (arg[i] == 't')
+			ft_check_flags(F_T, flags);
+		else if (arg[i] == 'u')
+			ft_check_flags(F_U, flags);
+		else if (arg[i] == 'f')
+			ft_check_flags(F_F, flags);
+		else if (arg[i] == 'g')
+			ft_check_flags(F_G, flags);
+		else if (arg[i] == 'd')
+			ft_check_flags(F_D, flags);
+		else
+		{
+			ft_errors(99);
+			break ;
+		}
+	}
+}
+
+int	ft_flags(char **argv, t_flags *flags)
+{
+	int i;
+
+	i = 0;
+	while (argv[++i])
+	{
+		printf("argv[%d]\n", i);
+		if (argv[i][0] != '-')
+		{
+			printf("NO -\n");
+			return (0);
+		}
+		else if (!ft_strcmp(argv[i], "--"))
+		{
+			printf("found --\n");
+			break ;
+		}
+		else if (argv[i][0] == '-' && argv[i][1])
+		{
+			printf("setting flags\n");
+			ft_set_flags(argv[i], flags);
+		}
+		else
+		{
+			ft_errors(99);
+			perror("FLAG ERROR");
+			break ;
+		}
+	}
+	return (i);
+}
 /* int	ft_flags(char **argv, t_flags *flags) */
 /* { */
 /* 	int parse; */
@@ -117,98 +208,3 @@
 
 
 
-void	ft_add_flags(char flag, t_flags *flags)
-{
-	printf("adding flags\n");
-	char *temp;
-	char *temp2;
-
-	temp = ft_strnew(1);
-	temp[0] = flag;
-	temp2 = flags->flags;
-	flags->flags = ft_strjoin(temp2, temp);
-	free(temp);
-	free(temp2);
-}
-
-void	ft_check_flags(char flag, t_flags *flags)
-{
-	printf("checking flags\n");
-	if (ft_strchr(flags->vflags, flag))
-	{
-		printf("vflag\n");
-		if (!ft_strchr(flags->flags, flag))
-			ft_add_flags(flag, flags);
-	}
-	else
-	{
-		printf("vflag\n");
-		return ;
-	}
-}
-
-void	ft_set_flags(char *arg, t_flags *flags)
-{
-	size_t i = 0;
-	size_t len = ft_strlen(arg);
-
-	if (len > 1)
-		FT_((arg[0] == '-' && arg[1] == '-') && arg[2],);
-	while (arg[++i] && i < len)
-	{
-		printf("arg[%zu]\n", i);
-		if (arg[i] == 'R')
-			ft_check_flags(arg[i], flags);
-		else if (arg[i] == 'R')
-			ft_check_flags(arg[i], flags);
-		else if (arg[i] == 'a')
-			ft_check_flags(arg[i], flags);
-		else if (arg[i] == 'r')
-			ft_check_flags(arg[i], flags);
-		else if (arg[i] == 't')
-			ft_check_flags(arg[i], flags);
-		else if (arg[i] == 'u')
-			ft_check_flags(arg[i], flags);
-		else if (arg[i] == 'f')
-			ft_check_flags(arg[i], flags);
-		else if (arg[i] == 'g')
-			ft_check_flags(arg[i], flags);
-		else if (arg[i] == 'd')
-			ft_check_flags(arg[i], flags);
-		else
-		{
-			ft_errors(99);
-			break ;
-		}
-	}
-}
-
-int	ft_flags(char **argv, t_flags *flags)
-{
-	int i;
-
-	i = 0;
-	while (argv[++i])
-	{
-		printf("argv[%d]\n", i);
-		if (argv[i][0] != '-')
-		{
-			printf("NO -\n");
-			break;
-		}
-		else if (!ft_strcmp(argv[i], "--"))
-		{
-			printf("found --\n");
-			break ;
-		}
-		else if (argv[i][0] == '-' && argv[i][1])
-		{
-			printf("setting flags\n");
-			ft_set_flags(argv[i], flags);
-		}
-		else
-			break ;
-	}
-	printf("%s\n", flags->flags);
-	return (i);
-}

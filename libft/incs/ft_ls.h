@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/22 16:18:28 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/24 16:27:32 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,39 @@
 
 # define V_FLAGS "lRartufgd"
 
-typedef struct	s_flags
+typedef enum e_flags
 {
-	char		*flags;
-	char		*vflags;
-}				t_flags;
+	F_L = 1, // -l
+	F_R = 2, // -R
+	F_A = 4, // -a
+	F_r = 8, // -r
+	F_T = 16, // -t
 
-int				ft_ls(char **argv);
-int				ft_errors(int ERROR);
+	F_U = 32 , // -u
+	F_F = 256, // f
+	F_D = 128, // d
+	F_G = 64, // -g
+} 				t_flags;
+
+
+
+
+//void			ft_sorts();
+//void			ft_cleans;
+
+int				ft_ls(int argc, char **argv);
+
 int				ft_flags(char **argv, t_flags *flags);
 void 			ft_set_flags(char *arg, t_flags *flags);
-void			ft_check_flags(char flag, t_flags *flags);
-void			ft_add_flags(char flag, t_flags *flags);
+void			ft_check_flags(size_t flag, t_flags *flags);
+
+void			ft_print_flags(unsigned char c);
+void			ft_ls_open(char *path);
+
+
+int				ft_errors(int ERROR);
 int				ft_dirs(int argc, char **argv);
+int				ft_isdir(char *name);
 int				ft_prints(int i, char **argv);
 
 #endif
@@ -138,18 +158,6 @@ files
 dirs
 date
 format
-typedef enum	e_flags
-{
-	F_L = 1, // -l
-	F_R = 2, // -R
-	F_A = 4, // -a
-	F_U = 8, // -u
-	F_r = 16, // -r
-	F_T = 32, // -t
-	F_G = 64, // -g
-	F_D = 128, // d
-	F_F = 256, // f
-} 				t_flags;
 typedef struct	s_flags
 {
 	int		flags;
