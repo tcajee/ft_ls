@@ -12,13 +12,14 @@
 
 #include "../libft/incs/libft.h"
 
-int	main(int argc, char **argv)
+int	main(argc, argv)
+int argc;
+char **argv;
 {
    printf("PATH : %s\n", getenv("PATH"));
    printf("HOME : %s\n", getenv("HOME"));
    printf("ROOT : %s\n", getenv("ROOT"));
 	
-   sleep(100);
 	perror("./ft_ls");
 	if (argc == 1)
 		printf("TODO: handle default behaviours\n");
