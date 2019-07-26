@@ -12,19 +12,13 @@
 
 #include "../libft/incs/libft.h"
 
-int	ft_dirs(char **argv)
+int	ft_dirs(char **argv, t_flags *flags)
 {
-	
-//return 2d array of dirs to print
+	int i;
 
-	/* if (!ft_check_dirs(arg, &s_stat)) */
-	/* 	ft_def_prints(arg); */
-	/* else */
-	/* { */
-	/* 	return(ft_errors(99)); */
-	/* 	perror("ft_dirs"); */
-	/* } */
-	/* return (0); */
-
+	i = 0;
+	while (argv[i])
+		FT_(!ft_check_dirs(argv[i++]), 0);
+	return (1);
 }
 

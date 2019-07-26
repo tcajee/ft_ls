@@ -51,17 +51,17 @@ typedef struct group	t_group;
 
 int				ft_parses(int argc, char **argv);
 
-int				ft_ls(char *path, t_flags *flags);
+int				ft_ls(char **argv, t_flags *flags);
 
-int 			ft_flags(char *arg, t_flags *flags);
+int 			ft_flags(char **arg, t_flags *flags);
 void			ft_init_flags(t_flags *flags);
 int				ft_set_flags(char *arg, t_flags *flags);
 void			ft_check_flags(short flag, t_flags *flags);
 void			ft_print_flags(t_flags *flags);
 int				ft_error_flags(char flag);
 
-int				ft_dirs(char **argv);
-int				ft_check_dirs(char *path, struct stat *s_stat);
+int				ft_dirs(char **argv, t_flags *falgs);
+int				ft_check_dirs(char *path);
 void			ft_open_dirs(char *path);
 int				ft_error_dirs(char flag, int error);
 

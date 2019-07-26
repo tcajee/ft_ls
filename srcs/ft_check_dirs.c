@@ -10,19 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/incs/ft_ls.h"
+#include "../libft/incs/libft.h"
 
-int		ft_check_dirs(char *path, struct stat *s_stat)
+int		ft_check_dirs(char *path)
 {
-	if (lstat(path, s_stat) != -1)
-	{
-		perror("lstat: ");
-		return (0);
-	}
-	if (s_stat->st_mode & S_IFDIR)
-		return (1);
-	if (s_stat->st_mode & S_IFREG)
-		return (0);
-	else
-		return (0);
+	struct stat *s_stat;
+
+	s_stat = NULL;
+	FT_(stat(path, s_stat) != -1, 0);
+	FT_(s_stat->st_mode & S_IFDIR, 1);
+	return (1);
 }

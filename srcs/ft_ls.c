@@ -12,9 +12,18 @@
 
 #include "../libft/incs/libft.h"
 
-int	ft_ls(char *path, t_flags *flags)
+int	ft_ls(char **dirs, t_flags *flags)
 {
-	ft_def_prints(path);
+	int i;
+
+	i = 0;
+	if(!dirs && *flags == F_1)
+		ft_def_prints(".");
+	else if (dirs)
+	{
+		while (dirs[i])
+			ft_def_prints(dirs[i++]);
+	}
 	// handle memory
 	// handle sorting
 	// handle printing

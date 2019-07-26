@@ -15,19 +15,14 @@
 int	ft_parses(int argc, char **argv)
 {
 	t_flags flags;
-	char **dirs;
 	int i;
 
-	i = 0;
 	flags = 0;
 	FT(!flags, ft_init_flags(&flags));
-	FT_(argc < 2, ft_ls(".", &flags));
-	while(argv[i] && ft_flags(argv[i], &flags))
-		i++;
-	FT_(!flags, E_FLAGS);
-	dirs = ft_dirs(argv + i);
-	while (dirs[i++])
-		ft_ls(dirs[i], &flags);
+	FT_(argc < 2, ft_ls(NULL, &flags));
+	FT_(!(i = ft_flags(argv, &flags)), E_FLAGS);
+	FT_(i == argc, ft_ls(NULL, &flags));
+	FT_(i < argc, ft_dirs(argv + i, &flags));
 	return (0);
 }
 
