@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/26 16:07:56 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/26 17:13:58 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,15 @@ int				ft_parses(int argc, char **argv);
 
 int				ft_ls(char *path, t_flags *flags);
 
-t_flags			*ft_flags(char *arg, t_flags *flags);
-t_flags			*ft_init_flags(t_flags *flags);
-t_flags			*ft_set_flags(char *arg, t_flags *flags);
-void				ft_check_flags(short flag, t_flags *flags);
+int 			ft_flags(char *arg, t_flags *flags);
+void			ft_init_flags(t_flags *flags);
+int				ft_set_flags(char *arg, t_flags *flags);
+void			ft_check_flags(short flag, t_flags *flags);
 void			ft_print_flags(t_flags *flags);
-int				ft_error_flags(char flag, int error);
+int				ft_error_flags(char flag);
 
 int				ft_dirs(int argc, char **argv);
+int				ft_isdir(char *path);
 int				ft_check_dirs(char *name);
 void			ft_open_dirs(char *path);
 int				ft_error_dirs(char flag, int error);
@@ -71,6 +72,8 @@ int				ft_prints(int i, char **argv);
 int				ft_defualt_prints(int i, char **argv);
 int				ft_list_prints(int i, char **argv);
 int				ft_error_prints(char flag, int error);
+
+int				ft_errors(int error);
 
 int				ft_cleans(int argc, char **argv);
 

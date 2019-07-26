@@ -6,13 +6,13 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/26 16:10:36 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/26 16:54:33 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-t_flags	*ft_set_flags(char *arg, t_flags *flags)
+int	ft_set_flags(char *arg, t_flags *flags)
 {
 	int i;
 
@@ -38,7 +38,8 @@ t_flags	*ft_set_flags(char *arg, t_flags *flags)
 		else if (arg[i] == 'd')
 			ft_check_flags(F_D, flags);
 		else
-			return(ft_error_flags(arg[i], E_FLAGS));
+			return(ft_error_flags(arg[i]));
 	}
-	return (flags);
+	ft_print_flags(flags);
+	return (1);
 }

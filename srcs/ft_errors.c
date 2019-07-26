@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_flags.c                                         :+:      :+:    :+:   */
+/*   ft_errors.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/26 16:56:08 by tcajee           ###   ########.fr       */
+/*   Created: 2019/07/15 11:36:46 by tcajee            #+#    #+#             */
+/*   Updated: 2019/07/26 17:02:33 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-int	ft_flags(char *arg, t_flags *flags)
+int	ft_errors(int error)
 {
-	FT_((arg[0] != '-'), 0);
-	FT_(!ft_strcmp(arg, "--"), 0);
-	FT_((arg[0] == '-' && arg[1] == '-') && arg[2], ft_error_flags(arg[2]));
-	FT_((arg[0] == '-' && arg[1]), ft_set_flags(arg, flags));
-	return (12);
+	ft_putendl_fd("./ft_ls: illegal option -- ", 2);
+	ft_putendl_fd("usage: ./ft_ls [-lRartufgd] [file ...]", 2);
+	perror("");
+	return (error);
 }

@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_flags.c                                         :+:      :+:    :+:   */
+/*   ft_init_flags.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
+/*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/26 16:56:08 by tcajee           ###   ########.fr       */
+/*   Created: 2019/07/26 17:05:58 by tcajee            #+#    #+#             */
+/*   Updated: 2019/07/26 17:08:37 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-int	ft_flags(char *arg, t_flags *flags)
+void 	ft_init_flags(t_flags	*flags)
 {
-	FT_((arg[0] != '-'), 0);
-	FT_(!ft_strcmp(arg, "--"), 0);
-	FT_((arg[0] == '-' && arg[1] == '-') && arg[2], ft_error_flags(arg[2]));
-	FT_((arg[0] == '-' && arg[1]), ft_set_flags(arg, flags));
-	return (12);
+	*flags |= F_1;
 }

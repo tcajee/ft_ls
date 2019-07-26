@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:27:09 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/26 15:58:31 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/26 16:32:30 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@
 # include "get_next_line.h"
 # include "ft_ls.h"
 
-# define FT__(x, y, z) if (x)  y = z;
+# define FT(x, y) if (x) (y);
+# define FT__(x, y, z) if (x) y = z;
 # define FT_(x, y) if (x) return y;
+
+
+
 # define FT_B(x) if (x) break;
-# define FT(x) return (x);
+/* # define FT(x) return (x); */
 
 typedef	struct		s_list
 {

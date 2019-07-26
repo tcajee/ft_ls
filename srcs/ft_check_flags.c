@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/26 15:58:42 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/26 16:54:48 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,5 @@
 
 void	ft_check_flags(short flag, t_flags *flags)
 {
-	if (!(*flags & flag))
-			*flags |= flag;
-	ft_print_flags(flags);
+	FT(!(*flags & flag), *flags |= flag);
 }
