@@ -6,13 +6,13 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/26 18:06:44 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/26 18:07:34 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-int	ft_dirs(char **arg)
+int	ft_dirs(char **argv)
 {
 	
 //return 2d array of dirs to print
