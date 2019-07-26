@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:27:09 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/26 16:32:30 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/26 17:33:18 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 # define FT(x, y) if (x) (y);
 # define FT__(x, y, z) if (x) y = z;
 # define FT_(x, y) if (x) return y;
-
-
 
 # define FT_B(x) if (x) break;
 /* # define FT(x) return (x); */

@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_check_dirs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/26 17:34:37 by tcajee           ###   ########.fr       */
+/*   Created: 2019/07/26 17:28:07 by tcajee            #+#    #+#             */
+/*   Updated: 2019/07/26 17:41:19 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/incs/libft.h"
+#include "../libft/incs/ft_ls.h"
 
-int	ft_ls(char *path, t_flags *flags)
+int		ft_check_dirs(char *path, struct stat *s_stat)
 {
-	ft_putendl(path);
-	ft_print_flags(flags);
-	// handle memory
-	// handle sorting
-	// handle printing
-	// handle errors
-	return (0);
+	if (lstat(path, s_stat) != -1)
+	{
+		perror("lstat: ");
+		return (0);
+	}
+	if (s_stat->st_mode & S_IFDIR)
+		return (1);
+	if (s_stat->st_mode & S_IFREG)
+		return (0);
+	else
+		return (0);
 }

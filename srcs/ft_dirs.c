@@ -6,25 +6,22 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/26 17:12:37 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/26 17:53:23 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_dirs(char *argv)
-{
-	int i;
+#include "../libft/incs/libft.h"
 
-	i = -1;
-	while (argv[++i] && i < argc)
+int	ft_dirs(char *arg)
+{
+	struct stat	s_stat;
+
+	if (ft_check_dirs(arg, &s_stat))
+		ft_def_prints(arg);
+	else
 	{
-		if (ft_isdir(argv[i]))
-			ft_ls_open(argv[i]);
-		else
-		{
-			ft_errors(99);
-			perror("DIR ERROR");
-			break ;
-		}
+		return(ft_errors(99));
+		perror("ft_dirs");
 	}
-	return (i);
+	return (0);
 }

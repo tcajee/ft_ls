@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls_open.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sminnaar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/23 11:58:09 by sminnaar          #+#    #+#             */
-/*   Updated: 2019/07/24 16:11:40 by sminnaar         ###   ########.fr       */
+/*   Created: 2019/07/26 17:28:16 by tcajee            #+#    #+#             */
+/*   Updated: 2019/07/26 17:28:19 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-
-void	ft_ls_open(char *path)
+void	ft_open_dirs(char *path)
 {
 	DIR				*dir;
 	struct dirent	*d;
