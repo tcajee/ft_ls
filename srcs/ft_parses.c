@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 14:08:12 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/26 17:37:28 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/26 18:04:55 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_parses(int argc, char **argv)
 {
 	t_flags flags;
-//	char *next;
+	char **dirs;
 	int i;
 
 	i = 0;
@@ -25,16 +25,9 @@ int	ft_parses(int argc, char **argv)
 	while(argv[i] && ft_flags(argv[i], &flags))
 		i++;
 	FT_(!flags, E_FLAGS);
-	while(argv[i] && ft_dirs(argv[i], &flags))
-	{
-		i += ft_dirs(argv[i]);
-		
-	}
-			
-	}
-//		while (argv[++i] && next)
-//			next = ft_dirs(i, argv + i);
-//		ft_ls(next, &flags);
+	dirs = ft_dirs(argv + i);
+	while (dirs[i++])
+		ft_ls(dirs[i], &flags);
 	return (0);
 }
 

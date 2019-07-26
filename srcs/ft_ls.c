@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/26 17:34:37 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/26 18:03:08 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int	ft_ls(char *path, t_flags *flags)
 {
-	ft_putendl(path);
-	ft_print_flags(flags);
+	ft_def_prints(path);
 	// handle memory
 	// handle sorting
 	// handle printing
