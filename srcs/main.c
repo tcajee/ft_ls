@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/24 15:58:17 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/07/26 15:36:31 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int	main(int argc, char **argv)
 {
-	return(ft_ls(argc, argv));
+	return(ft_parses(argc, argv));
 }

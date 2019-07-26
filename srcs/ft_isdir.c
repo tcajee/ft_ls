@@ -6,7 +6,7 @@
 /*   By: sminnaar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:56:40 by sminnaar          #+#    #+#             */
-/*   Updated: 2019/07/24 16:10:12 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/07/26 14:13:45 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int		ft_isdir(char *path)
 {
 	struct stat s_stat;
 
-	s_stat = NULL;
-	if ((lstat(path, s_stat)) != -1)
+	s_stat = lstat;
+	if (lstat(path, s_stat) != -1)
 	{
 		perror("lstat: ");
 		return (0);

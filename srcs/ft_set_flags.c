@@ -6,20 +6,18 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/24 15:54:05 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/07/26 16:10:36 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-int	ft_set_flags(char *arg, t_flags *flags)
+t_flags	*ft_set_flags(char *arg, t_flags *flags)
 {
-	size_t i = 0;
-	size_t len = ft_strlen(arg);
+	int i;
 
-	if (len > 1)
-		FT_((arg[0] == '-' && arg[1] == '-') && arg[2],);
-	while (arg[++i] && i < len)
+	i = 0;
+	while (arg[++i])
 	{
 		if (arg[i] == 'l')
 			ft_check_flags(F_L, flags);
@@ -40,6 +38,7 @@ int	ft_set_flags(char *arg, t_flags *flags)
 		else if (arg[i] == 'd')
 			ft_check_flags(F_D, flags);
 		else
-			return (ft_error_flags(arg[i], -1));
+			return(ft_error_flags(arg[i], E_FLAGS));
 	}
+	return (flags);
 }

@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/24 16:27:32 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/07/26 16:07:56 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 # include <time.h>
 # include <limits.h>
 
+# define E_FLAGS -1 // BAD FLAG
+# define E_USAGE -2 // BAD USAGE
+# define STAT(X) ( ( (X) < -1) ? X : 0 )
+
 typedef enum e_flags
 {
 	F_L = 1, // -l
@@ -40,14 +44,19 @@ typedef enum e_flags
 	F_G = 512, // -g
 } 			t_flags;
 
-int				ft_ls(int argc, char **argv);
+typedef struct stat		t_stat;
+typedef struct dirent	t_dirent;
+typedef struct passwd	t_passwd;
+typedef struct group	t_group;
 
-int				ft_parses(int argc, char **argv, t_flags *flags);
+int				ft_parses(int argc, char **argv);
 
-int				ft_flags(int argc, char **argv, t_flags *flags);
-int				ft_init_flags(t_flags *flags);
-void 			ft_set_flags(char *arg, t_flags *flags);
-int				ft_check_flags(short flag, t_flags *flags);
+int				ft_ls(char *path, t_flags *flags);
+
+t_flags			*ft_flags(char *arg, t_flags *flags);
+t_flags			*ft_init_flags(t_flags *flags);
+t_flags			*ft_set_flags(char *arg, t_flags *flags);
+void				ft_check_flags(short flag, t_flags *flags);
 void			ft_print_flags(t_flags *flags);
 int				ft_error_flags(char flag, int error);
 
@@ -154,33 +163,6 @@ int				ft_cleans(int argc, char **argv);
 //}}}
 
 /* {{{TITLE
-
-flags
-files
-dirs
-date
-format
-typedef struct	s_flags
-{
-	int		flags;
-	int		recursive;
-	int		immediate_dirs; 
-	int		sort_type_specified;
-	int		sort_reverse;
-	int		print_block_size;
-	int		print_inode;
-	int		print_with_color;
-	int		print_hyperlink;
-	int		sort_type;
-	int		format;
-	int		time_type;
-	int		ignore_mode;
-}				t_flags;
-
-typedef struct stat		t_stat;
-typedef struct dirent	t_dirent;
-typedef struct passwd	t_passwd;
-typedef struct group	t_group;
 
  -l, -r, -t, -u,
  * -R,
