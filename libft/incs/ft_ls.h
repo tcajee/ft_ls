@@ -6,24 +6,24 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/26 18:04:35 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/28 10:59:53 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 # define FT_LS_H
 # include <stdio.h>
+# include <dirent.h>
+# include <errno.h>
+# include <grp.h>
+# include <pwd.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <sys/time.h>
 # include <sys/xattr.h>
 # include <sys/ioctl.h>
 # include <sys/acl.h>
-# include <dirent.h>
-# include <pwd.h>
-# include <grp.h>
 # include <uuid/uuid.h>
-# include <errno.h>
-# include <time.h>
 # include <limits.h>
 
 # define E_FLAGS -1 // BAD FLAG
@@ -53,7 +53,7 @@ int				ft_parses(int argc, char **argv);
 
 int				ft_ls(char **argv, t_flags *flags);
 
-int 			ft_flags(char **arg, t_flags *flags);
+int 			ft_flags(char **argv, t_flags *flags);
 void			ft_init_flags(t_flags *flags);
 int				ft_set_flags(char *arg, t_flags *flags);
 void			ft_check_flags(short flag, t_flags *flags);

@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/26 18:00:59 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/28 11:07:11 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	ft_flags(char **argv, t_flags *flags)
 	{
 		FT_((argv[i][0] != '-'), 0);
 		FT_(!ft_strcmp(argv[i], "--"), 0);
-		FT_((argv[i][0] == '-' && argv[i][1] == '-') && argv[i][2],
-				(*flags = ft_error_flags(argv[i][2])));
-		FT_((argv[i][0] == '-' && argv[i][1]), ft_set_flags(argv[i], flags));
+		FT_((argv[i][0] == '-' && argv[i][1] == '-') && argv[i][2], (*flags = ft_error_flags(argv[i][2])));
+		if (argv[i][0] == '-' && argv[i][1])
+				ft_set_flags(argv[i], flags);
 	}
 	return (i);
 }

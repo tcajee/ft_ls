@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/26 18:07:34 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/28 10:38:08 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_dirs(char **argv, t_flags *flags)
 	int i;
 
 	i = 0;
-	while (argv[i])
+	while (argv[i] && *flags)
 		FT_(!ft_check_dirs(argv[i++]), 0);
 	return (1);
 }
