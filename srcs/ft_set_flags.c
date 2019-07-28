@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/26 18:00:34 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/28 16:23:41 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,32 @@ int	ft_set_flags(char *arg, t_flags *flags)
 	i = 0;
 	while (arg[++i])
 	{
-		if (arg[i] == 'l')
-			ft_check_flags(F_L, flags);
-		else if (arg[i] == 'R')
-			ft_check_flags(F_R, flags);
-		else if (arg[i] == 'a')
-			ft_check_flags(F_A, flags);
-		else if (arg[i] == 'r')
-			ft_check_flags(F_r, flags);
-		else if (arg[i] == 't')
-			ft_check_flags(F_T, flags);
-		else if (arg[i] == 'u')
-			ft_check_flags(F_U, flags);
-		else if (arg[i] == 'f')
-			ft_check_flags(F_F, flags);
-		else if (arg[i] == 'g')
-			ft_check_flags(F_G, flags);
-		else if (arg[i] == 'd')
-			ft_check_flags(F_D, flags);
+		FT(arg[i] == 'l' || arg[i] == 'g', B_01(*flags, F_1, F_l))
+		else FT(arg[i] == '1', B_01(*flags, F_l, F_1))
+		else FT(arg[i] == 'R', B_1(*flags, F_R))
+		else FT(arg[i] == 'a', B_1(*flags, F_a))
+		else FT(arg[i] == 'r', B_1(*flags, F_r))
+		else FT(arg[i] == 't', B_1(*flags, F_t))
+		else FT(arg[i] == 'u', B_1(*flags, F_u))
+		else FT(arg[i] == 'f', B_1(*flags, F_f))
+		else FT(arg[i] == 'd', B_1(*flags, F_d))
+		else FT(arg[i] == 'G', B_1(*flags, F_G))
+		else FT(arg[i] == 'g', B_1(*flags, F_g))
 		else
-		{
-			return(*flags = ft_error_flags(arg[i]));
-		}
+			return (*flags = ft_error_flags(arg[i]));
 	}
 	ft_print_flags(flags);
+	ft_putchar('\n');
 	return (1);
 }
+		
+/* if (arg[i] == 'l') */
+		/* { */
+		/* 	if (*flags & F_1) */
+		/* 	{ */
+		/* 		if ((*flags |= F_l)) */
+		/* 		{ */
+		/* 			B_0(*flags, F_1); */
+		/* 		} */
+		/* 	} */
+		/* } */

@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/28 10:59:53 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/28 17:58:27 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,57 @@
 # include <limits.h>
 
 # define E_FLAGS -1 // BAD FLAG
-# define E_USAGE -2 // BAD USAGE
-# define STAT(X) ( ( (X) < -1) ? X : 0 )
+# define E_DIRS -2 // BAD DIR
+# define E_USAGE -4 // BAD USAGE
 
-typedef enum e_flags
+# define B_IS(x , y) (x & y) ? 1 : 0
+# define B_0(x , y) (x &= ~y)
+# define B_1(x , y) (x |= y)
+# define B_01(x , y , z) FT(B_IS(x , y), FT(B_1(x , z), B_0(x, y)));
+
+typedef enum	e_flags
 {
-	F_L = 1, // -l
-	F_R = 2, // -R
-	F_A = 4, // -a
-	F_r = 8, // -r
-	F_T = 16, // -t
-	F_1 = 32, // -1
-	F_U = 64, // -u
-	F_F = 128, // f
-	F_D = 256, // d
-	F_G = 512, // -g
-} 			t_flags;
+	F_l = 1,	// -l
+	F_R = 2,	// -R
+	F_a = 4,	// -a
+	F_r = 8,	// -r
+	F_t = 16,	// -t
+	F_1 = 32,	// -1
+	F_u = 64,	// -u
+	F_f = 128,	// -f
+	F_d = 256,	// -d
+	F_G = 512,	// -G
+	F_g = 1024,	// -g
+} 				t_flags;
+
+typedef struct		s_file
+{
+	char			*name;
+	char			path[PATH_MAX];
+	mode_t			mode;
+	nlink_t			st_nlink;
+	uid_t			st_uid;
+	gid_t			st_gid;
+	dev_t			st_rdev;
+	off_t			size;
+	blkcnt_t		st_blocks;
+	time_t			time;
+	long			ntime;
+}					t_file;
+
+typedef struct		s_dirs
+{
+	char			*name;
+	t_file			*file;
+	t_file			*self;
+	int				dirno;
+	int				is_sub;
+	struct s_dirs	*sub_dirs;
+	struct s_dirs	*next;
+	int				stat;
+	int				total_blocks;
+	int				max_file_len;
+}					t_dirs;
 
 typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
@@ -60,10 +95,17 @@ void			ft_check_flags(short flag, t_flags *flags);
 void			ft_print_flags(t_flags *flags);
 int				ft_error_flags(char flag);
 
-int				ft_dirs(char **argv, t_flags *falgs);
+int				ft_dirs(char **argv, t_file **dirs);
+int				ft_count_dirs(char **argv);
 int				ft_check_dirs(char *path);
+
+
+int				ft_add_dirs(char path[PATH_MAX], char *name, t_file **lst);
+t_file			*ft_new_dir(char path[PATH_MAX], char *name, t_stat *stat);
+int				ft_path(char path[PATH_MAX], char *name, char full_path[PATH_MAX]);
+
 void			ft_open_dirs(char *path);
-int				ft_error_dirs(char flag, int error);
+int				ft_error_dirs(char *arg);
 
 int				ft_sorts(int argc, char **argv);
 

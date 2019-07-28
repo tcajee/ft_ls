@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 17:50:08 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/26 17:53:50 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/28 16:16:46 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,3 @@ void	ft_def_prints(char *path)
 	}
 	closedir(dir);
 }
-
-/* if (ft_check_dirs(s_dirent->d_name)) */
-/* { */
-/* 	if (!(file = malloc(sizeof(t_files)))) */
-/* 		perror("Malloc error: "); */
-/* 	file->dir = s_dirent->d_name; */
-/* 	ft_putendl(file->dir); */
-/* } */
-
