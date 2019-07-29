@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 17:50:08 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/29 16:01:22 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/29 16:13:56 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	ft_def_prints(char *path)
 	struct dirent	*s_dirent;
 
 	dir = opendir(path);
-	FT(!(dir), 
-			printf("BAD DIR\n"));
+	FT_(!(dir), (void)printf("BAD DIR\n"));
+
 	while ((s_dirent = readdir(dir)))
 	{
 		if ((s_dirent->d_name) != NULL && s_dirent->d_name[0] != '.')
