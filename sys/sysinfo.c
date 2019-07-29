@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 08:55:00 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/29 12:50:44 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/29 14:54:14 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		ft_print_dirent(void)
 	printf("	__uint64_t	d_seekoff;		seek offset (optional, used by servers)\n");
 	printf("	__uint16_t	d_reclen;		length of this record\n");
 	printf("	__uint16_t	d_namlen;		length of string in d_name\n");
-	printf("	__uint8_t	d_type;				file type, see below\n");
+	printf("	__uint8_t	d_type;			file type, see below\n");
 	printf("	char		d_name[1024];		name must be no longer than this\n");
 	printf("}\n");
 }

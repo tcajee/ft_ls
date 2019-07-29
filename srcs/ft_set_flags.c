@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/28 16:23:41 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/29 15:39:41 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_set_flags(char *arg, t_flags *flags)
 		else FT(arg[i] == 'G', B_1(*flags, F_G))
 		else FT(arg[i] == 'g', B_1(*flags, F_g))
 		else
-			return (*flags = ft_error_flags(arg[i]));
+			return (ft_error_flags(arg[i]));
 	}
 	ft_print_flags(flags);
 	ft_putchar('\n');
