@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:27:09 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/28 14:15:46 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/29 10:51:14 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 # include "get_next_line.h"
 # include "ft_ls.h"
+# include "sysinfo.h"
 
 typedef	struct		s_list
 {
