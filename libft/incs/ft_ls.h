@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/28 17:58:27 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/29 12:59:53 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 # include <grp.h>
 # include <pwd.h>
 # include <sys/types.h>
-# include <sys/stat.h>
+
+# include <sys/stat.h >
+
 # include <sys/time.h>
 # include <sys/xattr.h>
 # include <sys/ioctl.h>
@@ -109,7 +111,7 @@ int				ft_error_dirs(char *arg);
 
 int				ft_sorts(int argc, char **argv);
 
-int				ft_prints(int i, char **argv);
+/* int				ft_prints(int i, char **argv); */
 void			ft_def_prints(char *path);
 int				ft_list_prints(int i, char **argv);
 int				ft_error_prints(char flag, int error);

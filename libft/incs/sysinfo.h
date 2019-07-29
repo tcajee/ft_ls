@@ -6,12 +6,14 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 08:55:00 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/29 10:50:46 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/29 12:25:40 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SYSINFO_H
 # define SYSINFO_H
+
+// {{{	DEFINITIONS
 
 #ifndef S_ISREG
 #ifndef S_IFREG
@@ -119,12 +121,19 @@
 #endif
 
 
-int		ft_print_stat(char *arg, struct stat *buf);
+ //}}}
+
+
+
+void	ft_print_stat(void);
+void	ft_print_dirent(void);
+void	ft_print_passwd(void);
+void	ft_print_group(void);
 char	*filemode(int mode);
 char	*getuname(int uid);
 char	*getgname(int gid);
 char	*dirname(char *fname, char *buf);
-void	printinfo(char *fname, struct stat *buf);
+void	ft_prints(char *fname, struct stat *buf);
 
 #endif
 
