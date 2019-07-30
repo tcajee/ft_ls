@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/30 16:36:05 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/30 16:42:12 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,10 @@ typedef struct group	t_group;
 int				ft_ls(char *argv, t_flags flags);
 
 int 			ft_flags(char **argv, t_flags *flags);
-void			ft_init_flags(t_flags *flags);
 int				ft_check_flags(char flag, t_flags *flags);
-int			ft_set_flags(int mode, int on, int off, t_flags *flags);
-void			ft_print_flags(t_flags *flags);
+int				ft_set_flags(int mode, int on, int off, t_flags *flags);
 int				ft_error_flags(char flag);
+void			ft_print_flags(t_flags *flags);
 
 int				ft_dirs(char **argv, t_file **dirs);
 int				ft_count_dirs(char **argv);
