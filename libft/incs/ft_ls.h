@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/29 15:52:57 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/30 15:31:24 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,12 @@
 # define E_USAGE -4 // BAD USAGE
 
 # define B_IS(x , y) (x & y) ? 1 : 0
-# define B_0(x , y) (x &= ~y)
-# define B_1(x , y) (x |= y)
-# define B_01(x , y , z) FT(B_IS(x , y), FT(B_1(x , z), B_0(x, y)));
+# define B_0(x , y) (x = x & ~y)
+# define B_1(x , z) (x = x | z)
+# define B_01(x , y , z) B_IS(x, y) ? B_0(B_1(x, z), y) : B_1(x , z)
+/* B_0(x, y) */ 
+/* B_IS(x , y) B_1(x , z) B_0(x, y) */
+
 
 typedef enum	e_flags
 {
