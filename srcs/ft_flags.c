@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/30 16:31:17 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/30 16:35:03 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int	ft_flags(char **argv, t_flags *flags)
 {
 	int i;
 	int j;
+	int out;
 
-	int out = 0;
-
+	out = 0;
 	i = 0;
 	j = 0;
 	if (!flags)
@@ -70,7 +70,7 @@ int	ft_flags(char **argv, t_flags *flags)
 		if (argv[i][0] == '-' && argv[i][1])
 		{
 			while (argv[i][++j] && j > 0)
-				out = ft_check_flags(argv[i][j++], flags);
+				out = ft_check_flags(argv[i][j], flags);
 			printf("out = %d", out);
 		}
 	}
