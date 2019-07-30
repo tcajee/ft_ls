@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:27:09 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/30 15:59:52 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/30 16:36:50 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 
 
+# define FT(x, y) if (x) y
 # define FT_(x, y) if (x) return y
 # define _FT(x, y) else if (x) return y
 

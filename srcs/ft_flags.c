@@ -6,13 +6,13 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/30 16:35:03 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/30 16:37:50 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-int	ft_error_flags(char flag)
+static int	ft_error_flags(char flag)
 {
 	ft_putstr_fd("./ft_ls: illegal option -- ", 2);
 	ft_putchar_fd(flag, 2);
@@ -21,7 +21,7 @@ int	ft_error_flags(char flag)
 	return (E_FLAGS);
 }
 
-int	ft_set_flags(int mode, int off, int on, t_flags *flags)
+static int	ft_set_flags(int mode, int off, int on, t_flags *flags)
 {
 	FT_(mode == 0, B_0(*flags, off));
 	FT_(mode == 1, B_1(*flags, on));
@@ -34,7 +34,7 @@ int	ft_set_flags(int mode, int off, int on, t_flags *flags)
 	return (1);
 }
 
-int	ft_check_flags(char flag, t_flags *flags)
+static int	ft_check_flags(char flag, t_flags *flags)
 {
 	FT_(flag == 'l' || flag == 'g', ft_set_flags(2, F_1, F_l, flags));
 	_FT(flag == '1', ft_set_flags(2, F_l, F_1, flags));
@@ -59,8 +59,7 @@ int	ft_flags(char **argv, t_flags *flags)
 	out = 0;
 	i = 0;
 	j = 0;
-	if (!flags)
-		ft_init_flags(flags);
+	FT(!flags, *flags |= F_1);
 	while (argv[++i])
 	{
 		FT_((argv[i][0] != '-'), i);

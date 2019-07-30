@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/30 16:26:03 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/30 16:36:05 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
 typedef struct passwd	t_passwd;
 typedef struct group	t_group;
-
-int				ft_parses(int argc, char **argv);
 
 int				ft_ls(char *argv, t_flags flags);
 
