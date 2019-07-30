@@ -6,13 +6,13 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/30 16:37:50 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/30 16:59:04 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-static int	ft_error_flags(char flag)
+int	ft_error_flags(char flag)
 {
 	ft_putstr_fd("./ft_ls: illegal option -- ", 2);
 	ft_putchar_fd(flag, 2);
@@ -21,32 +21,37 @@ static int	ft_error_flags(char flag)
 	return (E_FLAGS);
 }
 
-static int	ft_set_flags(int mode, int off, int on, t_flags *flags)
+int	ft_set_flags(int mode, int off, int on, t_flags *flags)
 {
 	FT_(mode == 0, B_0(*flags, off));
 	FT_(mode == 1, B_1(*flags, on));
-	if (mode == 2)
+	if (mode == 10)
 	{
 		if (B_IS(*flags, off))
 			B_0(*flags, off);
 		return (B_1(*flags, on));
 	}
+	if (mode == 11)
+	{
+		B_1(*flags, off);
+		return (B_1(*flags, on));
+	}
 	return (1);
 }
 
-static int	ft_check_flags(char flag, t_flags *flags)
+int	ft_check_flags(char flag, t_flags *flags)
 {
-	FT_(flag == 'l' || flag == 'g', ft_set_flags(2, F_1, F_l, flags));
-	_FT(flag == '1', ft_set_flags(2, F_l, F_1, flags));
-	_FT(flag == 'R', ft_set_flags(1, F_R, F_R, flags));
-	_FT(flag == 'a', ft_set_flags(1, F_a, F_a, flags));
-	_FT(flag == 'r', ft_set_flags(1, F_r, F_r, flags));
-	_FT(flag == 't', ft_set_flags(1, F_t, F_t, flags));
-	_FT(flag == 'u', ft_set_flags(1, F_u, F_u, flags));
-	_FT(flag == 'f', ft_set_flags(1, F_f, F_f, flags));
-	_FT(flag == 'd', ft_set_flags(1, F_f, F_d, flags));
-	_FT(flag == 'G', ft_set_flags(1, F_G, F_G, flags));
-	_FT(flag == 'g', ft_set_flags(1, F_g, F_g, flags));
+	FT_(flag == 'l', ft_set_flags(10, F_1, F_l, flags));
+	_FT(flag == '1', ft_set_flags(10, F_l, F_1, flags));
+	_FT(flag == 'R', ft_set_flags(1, F_0, F_R, flags));
+	_FT(flag == 'a', ft_set_flags(1, F_0, F_a, flags));
+	_FT(flag == 'r', ft_set_flags(1, F_0, F_r, flags));
+	_FT(flag == 't', ft_set_flags(1, F_0, F_t, flags));
+	_FT(flag == 'u', ft_set_flags(1, F_0, F_u, flags));
+	_FT(flag == 'f', ft_set_flags(1, F_0, F_f, flags));
+	_FT(flag == 'd', ft_set_flags(1, F_0, F_d, flags));
+	_FT(flag == 'G', ft_set_flags(1, F_0, F_G, flags));
+	_FT(flag == 'g', ft_set_flags(11, F_g, F_l, flags));
 	return (ft_error_flags(flag));
 }
 
@@ -58,7 +63,6 @@ int	ft_flags(char **argv, t_flags *flags)
 
 	out = 0;
 	i = 0;
-	j = 0;
 	FT(!flags, *flags |= F_1);
 	while (argv[++i])
 	{
@@ -68,7 +72,8 @@ int	ft_flags(char **argv, t_flags *flags)
 			(*flags = ft_error_flags(argv[i][2])));
 		if (argv[i][0] == '-' && argv[i][1])
 		{
-			while (argv[i][++j] && j > 0)
+			j = 0;
+			while (argv[i] && argv[i][++j] && j > 0)
 				out = ft_check_flags(argv[i][j], flags);
 			printf("out = %d", out);
 		}

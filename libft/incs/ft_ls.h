@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/30 16:42:12 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/30 17:00:03 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@
 # define B_IS(x , y) (x & y) ? 1 : 0
 # define B_0(x , y) (x = x & ~y)
 # define B_1(x , z) (x = x | z)
-# define B_01(x , y , z) B_IS(x, y) ? B_0(y) : B_1(x , z)
+# define B_10(x , y , z) B_IS(x, y) ? B_0(y) : B_1(x , z)
 /* B_0(x, y) */ 
 /* B_IS(x , y) B_1(x , z) B_0(x, y) */
 
 
 typedef enum	e_flags
 {
+	F_0 = 0,	// 0
 	F_l = 1,	// -l
 	F_R = 2,	// -R
 	F_a = 4,	// -a
@@ -89,7 +90,6 @@ typedef struct dirent	t_dirent;
 typedef struct passwd	t_passwd;
 typedef struct group	t_group;
 
-int				ft_ls(char *argv, t_flags flags);
 
 int 			ft_flags(char **argv, t_flags *flags);
 int				ft_check_flags(char flag, t_flags *flags);
@@ -101,6 +101,7 @@ int				ft_dirs(char **argv, t_file **dirs);
 int				ft_count_dirs(char **argv);
 int				ft_check_dirs(char *path);
 
+int				ft_ls(char *path, t_flags flags);
 
 int				ft_add_dirs(char path[PATH_MAX], char *name, t_file **lst);
 t_file			*ft_new_dir(char path[PATH_MAX], char *name, t_stat *stat);

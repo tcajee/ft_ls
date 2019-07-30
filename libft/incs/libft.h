@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:27:09 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/30 16:36:50 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/30 16:44:36 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@
 # include <string.h>
 # include <unistd.h>
 
-
 # define FT(x, y) if (x) y
 # define FT_(x, y) if (x) return y
 # define _FT(x, y) else if (x) return y
 
-# define FT__(x, y, z) if (x) {(y = z)}
+# define FT__(x, y, z) if (x) y = z
 # define FT_B(x) if (x) break;
-# define FT___(x) return (x);
+# define FT_X(x) return (x);
 
 # include "get_next_line.h"
 # include "ft_ls.h"
