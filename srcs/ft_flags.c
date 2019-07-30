@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/30 15:39:26 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/30 16:31:17 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,62 +21,60 @@ int	ft_error_flags(char flag)
 	return (E_FLAGS);
 }
 
-int	ft_set_flags(char *arg, t_flags *flags)
+int	ft_set_flags(int mode, int off, int on, t_flags *flags)
 {
-	int i;
-
-	i = 0;
-	while (arg[++i])
+	FT_(mode == 0, B_0(*flags, off));
+	FT_(mode == 1, B_1(*flags, on));
+	if (mode == 2)
 	{
-		if (arg[i] == 'l' || arg[i] == 'g')
-		{
-			FT(B_IS(*flags, F_1), B_0(*flags, F_1));
-			B_1(*flags, F_l);
-		}
-		else if (arg[i] == '1')
-		{
-			FT(B_IS(*flags, F_l), B_0(*flags, F_l));
-			B_1(*flags, F_1);
-		}
-		else if (arg[i] == 'R')
-			B_1(*flags, F_R);
-		else if (arg[i] == 'a')
-			B_1(*flags, F_a);
-		else if (arg[i] == 'r')
-			B_1(*flags, F_r);
-		else if (arg[i] == 't')
-			B_1(*flags, F_t);
-		else if (arg[i] == 'u')
-			B_1(*flags, F_u);
-		else if (arg[i] == 'f')
-			B_1(*flags, F_f);
-		else if (arg[i] == 'd')
-			B_1(*flags, F_d);
-		else if (arg[i] == 'G')
-			B_1(*flags, F_G);
-		else if (arg[i] == 'g')
-			B_1(*flags, F_g);
-		else
-			return (ft_error_flags(arg[i]));
+		if (B_IS(*flags, off))
+			B_0(*flags, off);
+		return (B_1(*flags, on));
 	}
-	ft_print_flags(flags);
-	ft_putchar('\n');
 	return (1);
+}
+
+int	ft_check_flags(char flag, t_flags *flags)
+{
+	FT_(flag == 'l' || flag == 'g', ft_set_flags(2, F_1, F_l, flags));
+	_FT(flag == '1', ft_set_flags(2, F_l, F_1, flags));
+	_FT(flag == 'R', ft_set_flags(1, F_R, F_R, flags));
+	_FT(flag == 'a', ft_set_flags(1, F_a, F_a, flags));
+	_FT(flag == 'r', ft_set_flags(1, F_r, F_r, flags));
+	_FT(flag == 't', ft_set_flags(1, F_t, F_t, flags));
+	_FT(flag == 'u', ft_set_flags(1, F_u, F_u, flags));
+	_FT(flag == 'f', ft_set_flags(1, F_f, F_f, flags));
+	_FT(flag == 'd', ft_set_flags(1, F_f, F_d, flags));
+	_FT(flag == 'G', ft_set_flags(1, F_G, F_G, flags));
+	_FT(flag == 'g', ft_set_flags(1, F_g, F_g, flags));
+	return (ft_error_flags(flag));
 }
 
 int	ft_flags(char **argv, t_flags *flags)
 {
 	int i;
+	int j;
+
+	int out = 0;
 
 	i = 0;
-	FT(!flags, ft_init_flags(flags))
+	j = 0;
+	if (!flags)
+		ft_init_flags(flags);
 	while (argv[++i])
 	{
 		FT_((argv[i][0] != '-'), i);
 		FT_(!ft_strcmp(argv[i], "--"), i);
 		FT_((argv[i][0] == '-' && argv[i][1] == '-') && argv[i][2],
 			(*flags = ft_error_flags(argv[i][2])));
-		FT(argv[i][0] == '-' && argv[i][1], ft_set_flags(argv[i], flags));
+		if (argv[i][0] == '-' && argv[i][1])
+		{
+			while (argv[i][++j] && j > 0)
+				out = ft_check_flags(argv[i][j++], flags);
+			printf("out = %d", out);
+		}
 	}
+	ft_print_flags(flags);
+	ft_putchar('\n');
 	return (i);
 }

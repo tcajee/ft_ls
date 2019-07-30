@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/30 15:31:24 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/07/30 16:26:03 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define B_IS(x , y) (x & y) ? 1 : 0
 # define B_0(x , y) (x = x & ~y)
 # define B_1(x , z) (x = x | z)
-# define B_01(x , y , z) B_IS(x, y) ? B_0(B_1(x, z), y) : B_1(x , z)
+# define B_01(x , y , z) B_IS(x, y) ? B_0(y) : B_1(x , z)
 /* B_0(x, y) */ 
 /* B_IS(x , y) B_1(x , z) B_0(x, y) */
 
@@ -95,8 +95,8 @@ int				ft_ls(char *argv, t_flags flags);
 
 int 			ft_flags(char **argv, t_flags *flags);
 void			ft_init_flags(t_flags *flags);
-int				ft_set_flags(char *arg, t_flags *flags);
-void			ft_check_flags(short flag, t_flags *flags);
+int				ft_check_flags(char flag, t_flags *flags);
+int			ft_set_flags(int mode, int on, int off, t_flags *flags);
 void			ft_print_flags(t_flags *flags);
 int				ft_error_flags(char flag);
 
