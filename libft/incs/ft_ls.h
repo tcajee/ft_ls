@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/30 17:00:03 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/02 12:18:34 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ typedef enum	e_flags
 	F_R = 2,	// -R
 	F_a = 4,	// -a
 	F_r = 8,	// -r
-	F_t = 16,	// -t
-	F_1 = 32,	// -1
+	F_t = 32,	// -t
 	F_u = 64,	// -u
 	F_f = 128,	// -f
 	F_d = 256,	// -d
 	F_G = 512,	// -G
 	F_g = 1024,	// -g
+	F_1 = 4096,	// -1
 } 				t_flags;
 
 typedef struct		s_file
