@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/02 12:18:34 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/02 15:01:34 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef enum	e_flags
 	F_G = 512,	// -G
 	F_g = 1024,	// -g
 	F_1 = 4096,	// -1
+	F_M = 8192,	// -multiple dirs
 } 				t_flags;
 
 typedef struct		s_file
@@ -91,24 +92,24 @@ typedef struct passwd	t_passwd;
 typedef struct group	t_group;
 
 
-int 			ft_flags(char **argv, t_flags *flags);
+int				ft_flags(char **argv, t_flags *flags);
 int				ft_check_flags(char flag, t_flags *flags);
-int				ft_set_flags(int mode, int on, int off, t_flags *flags);
+int				ft_set_flags(int mode, int off, int on, t_flags *flags);
 int				ft_error_flags(char flag);
 void			ft_print_flags(t_flags *flags);
 
-int				ft_dirs(char **argv, t_file **dirs);
-int				ft_count_dirs(char **argv);
+int				ft_dirs(char **argv, t_flags *flags);
 int				ft_check_dirs(char *path);
+int				ft_error_dirs(char *arg);
 
-int				ft_ls(char *path, t_flags flags);
+
+int				ft_ls(char *path, t_flags *flags);
 
 int				ft_add_dirs(char path[PATH_MAX], char *name, t_file **lst);
 t_file			*ft_new_dir(char path[PATH_MAX], char *name, t_stat *stat);
 int				ft_path(char path[PATH_MAX], char *name, char full_path[PATH_MAX]);
 
 void			ft_open_dirs(char *path);
-int				ft_error_dirs(char *arg);
 
 int				ft_sorts(int argc, char **argv);
 

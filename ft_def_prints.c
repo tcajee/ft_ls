@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 17:50:08 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/29 16:13:56 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/02 13:30:25 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,6 @@ void	ft_def_prints(char *path)
 	}
 	closedir(dir);
 }
+
+
+// How do we handle prints? Use of opendir, readdir and closedir...

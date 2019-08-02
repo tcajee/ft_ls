@@ -6,11 +6,24 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/01 09:02:25 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/02 14:51:22 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
+
+void	ft_print_flags(t_flags *flags)
+{
+	size_t	i;
+
+	i = 16;
+	while (i--)
+	{
+		ft_putnbr(*flags >> i & 1);
+		if (i % 8 == 0 && i != 16)
+			 ft_putchar(' ');
+	 }
+}
 
 int	ft_error_flags(char flag)
 {
@@ -55,7 +68,7 @@ int	ft_check_flags(char flag, t_flags *flags)
 	return (ft_error_flags(flag));
 }
 
-int	ft_flags(char **argv, t_flags *flags)
+int			ft_flags(char **argv, t_flags *flags)
 {
 	int i;
 	int j;
@@ -63,7 +76,6 @@ int	ft_flags(char **argv, t_flags *flags)
 
 	out = 0;
 	i = 0;
-	FT(!flags, *flags |= F_1);
 	while (argv[++i])
 	{
 		FT_((argv[i][0] != '-'), i);
