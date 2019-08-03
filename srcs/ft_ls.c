@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/03 06:13:34 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/03 07:51:10 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,41 +45,34 @@ int	ft_ls(char **argv, t_flags *flags)
 
 	i = -1;
 	k = -1;
-	
-	ft_print_flags(flags);
-	ft_putchar('\n');
-	
-	
-	
 	FT_(!argv[0], ft_prints(".", flags));
 	while (argv[++i])
 		FT(lstat(argv[i], &s_stat) < 0, ft_errors(E_PRINTS, argv[i]));
 	while (argv[++k])
 		FT((s_stat.st_mode & S_IFMT) == S_IFDIR, ft_prints(argv[k], flags));
-	
-	/* printf("argv[%d]: %s	", i, argv[i]); */
 	return (i);
 }
 
 
  /* {{{TITLE */
-/* nt ft_path(char path[PATH_MAX], char *name, char full_path[PATH_MAX]) */ 
- /* { g */
- /* 	int	i; g */
- /*   i = -1; g */
- /*   while (path[++i]) g */
- /*   	full_path[i] = path[i]; g */
- /*   if (i && i < PATH_MAX) g */
- /*   	if (!(path[0] == '/' && path[1] == '\0')) g */
- /*   		full_path[i++] = '/'; g */
- /*   while (*name && i < PATH_MAX) g */
- /*   	full_path[i++] = *name++; g */
+/* int ft_path(char path[PATH_MAX], char *name, char full_path[PATH_MAX]) */ 
+ /* { */ 
+ /* 	int	i; */ 
+ /*   i = -1; */ 
+ /*   while (path[++i]) */ 
+ /*   	full_path[i] = path[i]; */ 
+ /*   if (i && i < PATH_MAX) */ 
+ /*   	if (!(path[0] == '/' && path[1] == '\0')) */ 
+ /*   		full_path[i++] = '/'; */ 
+ /*   while (*name && i < PATH_MAX) */ 
+ /*   	full_path[i++] = *name++; */ 
  /*   if (i < PATH_MAX) g */
- /*   	full_path[i] = '\0'; g */
+ /*   	full_path[i] = '\0'; */ 
  /*   else g */
- /*   	errno = ENAMETOOLONG; g */
- /*   return ((i < PATH_MAX) ? 1 : 0); g */
- /* } g */
+ /*   	errno = ENAMETOOLONG; */ 
+ /*   return ((i < PATH_MAX) ? 1 : 0); */ 
+ /* } */ 
+
  /* static t_file	*ft_new_dir(char path[PATH_MAX], char *name, t_stat *stat) g */
  /* { g */
  /* 	if (!(new = (t_file*)ft_memalloc(sizeof(t_file))) g */
@@ -123,45 +116,44 @@ int	ft_ls(char **argv, t_flags *flags)
 
 // {{{TITLE
  
- /* void	ft_recur_prints(char *path, t_flags* flags) */
+/* void	ft_recur_prints(char *path, t_flags* flags) */
 /* { */
-	/* DIR				*dp; */
-	/* struct dirent	*dir; */
-	/* t_files			*files; // Put in struct */
-	/* int 			i; */
-	/* int 			j; */
-	/* i = 0; */
-	/* while ((dir = readdir(dp)) != NULL) */
-	/* { */
-		/* FT_(lstat(path, &stat) < 0, ft_error_dirs(argv[i])); */
-		/* if (dir->d_name[0] != '.' && *flags == F_1); */ 
-		/* ft_def_print(name, dir->d_name); // call print function. What do we feed it? */
-		/* if ((-R)) */
-		/* { */
-			/* if (ft_ls_isdir(ft_strjoin(ft_strjoin(name, "/"), dir->d_name)) && dir->d_name[0] != '.') */
-			/* { */
-				/* if (name[ft_strlen(name) -1] == '/') */
-					/* files->rec[i] = ft_strjoin(name, dir->d_name); // newname struct */
-				/* else */
-					/* files->rec[i] = ft_strjoin(ft_strjoin(name, "/"), dir->d_name); // struct */
-				/* ++i; */
-	/* { 		} */
-			/* closedir(dp); */
-			/* j = 0; */
-			/* while (j < i) */
-			/* { */
-				/* printf("\n%s:\n", files->rec[j]); // struct */
-				/* list(files->rec[j]);              // struct */
-				/* ++j; */
-			/* } */
-		/* } */
-	/* } */
-	/* return (i); */
+/* 	DIR				*dp; */
+/* 	struct dirent	*dir; */
+/* 	t_files			*files; // Put in struct */
+/* 	int 			i; */
+/* 	int 			j; */
+/* 	i = 0; */
+/* 	while ((dir = readdir(dp)) != NULL) */
+/* 	{ */
+/* 		FT_(lstat(path, &stat) < 0, ft_error_dirs(argv[i])); */
+/* 		if (dir->d_name[0] != '.' && *flags == F_1); */ 
+/* 		ft_def_print(name, dir->d_name); // call print function. What do we feed it? */
+/* 		if ((-R)) */
+/* 		{ */
+/* 			if (ft_ls_isdir(ft_strjoin(ft_strjoin(name, "/"), dir->d_name)) && dir->d_name[0] != '.') */
+/* 			{ */
+/* 				if (name[ft_strlen(name) -1] == '/') */
+/* 					files->rec[i] = ft_strjoin(name, dir->d_name); // newname struct */
+/* 				else */
+/* 					files->rec[i] = ft_strjoin(ft_strjoin(name, "/"), dir->d_name); // struct */
+/* 				++i; */
+/* 			closedir(dp); */
+/* 			j = 0; */
+/* 			while (j < i) */
+/* 			{ */
+/* 				printf("\n%s:\n", files->rec[j]); // struct */
+/* 				list(files->rec[j]);              // struct */
+/* 				++j; */
+/* 			} */
+/* 			} */
+/* 		} */
+/* 	} */
+/* 	return (i); */
 /* } */
-/* }} */
- 	
+
  
- // }}}
+// }}}
 
 
 

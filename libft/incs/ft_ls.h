@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/03 03:37:51 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/03 08:01:27 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,9 @@ int				ft_flags(char **argv, t_flags *flags);
 int				ft_check_flags(char flag, t_flags *flags);
 int				ft_set_flags(int mode, int off, int on, t_flags *flags);
 void			ft_print_flags(t_flags *flags);
+
+int				ft_ls_isdir(char *name);
+char			*get_path(char *location, char *name);
 
 int				ft_prints(char *path, t_flags *flags);
 int				ft_def_prints(char *path, t_flags *flags);
