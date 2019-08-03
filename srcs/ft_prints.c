@@ -6,11 +6,18 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/03 03:55:11 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/03 06:17:01 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
+
+void	ft_name_prints(char *path)
+{
+	/* ft_putstr("\n"); */
+	ft_putstr(path);
+	ft_putstr(":\n");
+}
 
 int	ft_def_prints(char *path, t_flags *flags)
 {
@@ -18,13 +25,17 @@ int	ft_def_prints(char *path, t_flags *flags)
 	struct dirent	*s_dirent;
 
 	dir = opendir(path);
-	FT_(!dir, ft_error_prints(path));
+	FT_(!dir, E_PRINTS);
+	FT(*flags & F_M, ft_name_prints(path));
 	while ((s_dirent = readdir(dir)))
 	{
-		FT(*flags & F_M, printf("F_M\n"));
-		/* FT((s_dirent->d_name) != NULL && s_dirent->d_name[0] != '.', */
+		/* FT((s_dirent->d_name) != NULL); */
+		if (*flags & F_a)
 			ft_putendl(s_dirent->d_name);
+		else
+			FT(s_dirent->d_name[0] != '.',ft_putendl(s_dirent->d_name));
 	}
+	FT(*flags & F_M, ft_putendl(""));
 	closedir(dir);
 	return (1);
 }
@@ -49,10 +60,10 @@ int	ft_rec_prints(char *path, t_flags *flags)
 	i = 0;
 	s_dirent = NULL;
 	dir = NULL;
-	while ((s_dirent = readdir(dir)))
+	while ((s_dirent = readdir(dir)) != NULL)
 	{
 		FT(*flags & F_M, ft_putendl(path));
-		FT_(*flags & F_1, ft_def_prints(s_dirent->d_name, flags));
+		FT(*flags & F_1, ft_def_prints(s_dirent->d_name, flags));
 		if (*flags & F_R)
 		{
 			if ((ft_strjoin(ft_strjoin(path, "/"), s_dirent->d_name)))

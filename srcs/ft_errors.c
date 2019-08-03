@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 11:36:46 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/03 00:46:48 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/03 05:12:57 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ int	ft_error_prints(char *arg)
 {
 	ft_putstr_fd("./ft_ls: ", 2);
 	ft_putstr_fd(arg, 2);
-	ft_putstr_fd(":", 2);
-	ft_putendl_fd("No such file or directory", 2);
+	ft_putendl_fd(": No such file or directory", 2);
 	return (E_PRINTS);
 }
 

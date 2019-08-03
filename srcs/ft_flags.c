@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/03 03:52:49 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/03 06:09:02 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,25 +63,25 @@ int			ft_flags(char **argv, t_flags *flags)
 {
 	int i;
 	int j;
-	int out;
 
-	out = 0;
 	i = 0;
 	while (argv[++i])
 	{
+		/* printf("i = %d\n", i); */
 		FT_((argv[i][0] != '-'), i);
-		FT_(!ft_strcmp(argv[i], "--"), i + 1);
-		FT_((argv[i][0] == '-' && argv[i][1] == '-') && argv[i][2],
+		_FT(!ft_strcmp(argv[i], "--"), i + 1);
+		_FT((argv[i][0] == '-' && argv[i][1] == '-') && argv[i][2],
 			(*flags = ft_error_flags(&argv[i][2])));
 		if (argv[i][0] == '-' && argv[i][1])
 		{
 			j = 0;
 			while (argv[i][++j])
-				out = ft_check_flags(argv[i][j], flags);
-			printf("out = %d", out);
+				ft_check_flags(argv[i][j], flags);
 		}
+		else
+			return (i);
 	}
-	FT(i > 1, *flags |= F_M);
+	/* printf("i = %d\n", i); */
 	ft_print_flags(flags);
 	ft_putchar('\n');
 	return (i);

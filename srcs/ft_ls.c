@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/03 04:11:39 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/03 06:13:34 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,23 @@ int	ft_ls(char **argv, t_flags *flags)
 {
 	t_stat s_stat;
 	int i;
+	int k;
 
 	i = -1;
-	// handle sorting
-	FT(!argv, ft_prints(".", flags));
+	k = -1;
+	
+	ft_print_flags(flags);
+	ft_putchar('\n');
+	
+	
+	
+	FT_(!argv[0], ft_prints(".", flags));
 	while (argv[++i])
-	{
-		FT_(lstat(argv[i], &s_stat) < 0, ft_errors(E_DIRS, argv[i]));
-		ft_prints(argv[i], flags);
-		/* _FT((s_stat.st_mode & S_IFMT) == S_IFDIR, */ 
-				/* ft_prints(argv[i], flags)); */
-	}
-	printf("%d", *flags);
+		FT(lstat(argv[i], &s_stat) < 0, ft_errors(E_PRINTS, argv[i]));
+	while (argv[++k])
+		FT((s_stat.st_mode & S_IFMT) == S_IFDIR, ft_prints(argv[k], flags));
+	
+	/* printf("argv[%d]: %s	", i, argv[i]); */
 	return (i);
 }
 

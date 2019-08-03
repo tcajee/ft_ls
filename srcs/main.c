@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/03 04:10:29 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/03 05:41:58 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,9 @@ int	main(int argc, char **argv)
 	t_flags	flags;
 	int		i;
 
-	i = 1;
+	i = 0;
 	FT(!(flags = 0), flags |= F_1);
-	if (argc == 1)
-		FT_(i , ft_ls(NULL, &flags));
-	if (argc > 1)
-		FT_((i = ft_flags(argv, &flags)) == E_FLAGS, errno);
-	printf("i: %d\n", i);
-	FT_(i , ft_ls(argv + i, &flags));
-	return (errno);
+	FT_((i = ft_flags(argv, &flags)) == E_FLAGS, errno);
+	FT(argc - i > 1, flags |= F_M);
+	return (ft_ls(argv + i, &flags));
 }
