@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/02 14:51:22 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/03 03:52:49 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,6 @@ void	ft_print_flags(t_flags *flags)
 		if (i % 8 == 0 && i != 16)
 			 ft_putchar(' ');
 	 }
-}
-
-int	ft_error_flags(char flag)
-{
-	ft_putstr_fd("./ft_ls: illegal option -- ", 2);
-	ft_putchar_fd(flag, 2);
-	ft_putendl_fd("", 2);
-	ft_putendl_fd("usage: ./ft_ls [-lRartufgd1] [file ...]", 2);
-	return (E_FLAGS);
 }
 
 int	ft_set_flags(int mode, int off, int on, t_flags *flags)
@@ -56,7 +47,7 @@ int	ft_check_flags(char flag, t_flags *flags)
 {
 	FT_(flag == 'l', ft_set_flags(10, F_1, F_l, flags));
 	_FT(flag == '1', ft_set_flags(10, F_l, F_1, flags));
-	_FT(flag == 'R', ft_set_flags(1, F_0, F_R, flags));
+	_FT(flag == 'R', ft_set_flags(10, F_1, F_R, flags)); // check for 1 and l
 	_FT(flag == 'a', ft_set_flags(1, F_0, F_a, flags));
 	_FT(flag == 'r', ft_set_flags(1, F_0, F_r, flags));
 	_FT(flag == 't', ft_set_flags(1, F_0, F_t, flags));
@@ -65,7 +56,7 @@ int	ft_check_flags(char flag, t_flags *flags)
 	_FT(flag == 'd', ft_set_flags(1, F_0, F_d, flags));
 	_FT(flag == 'G', ft_set_flags(1, F_0, F_G, flags));
 	_FT(flag == 'g', ft_set_flags(11, F_g, F_l, flags));
-	return (ft_error_flags(flag));
+	return (ft_errors(E_FLAGS, &flag));
 }
 
 int			ft_flags(char **argv, t_flags *flags)
@@ -81,7 +72,7 @@ int			ft_flags(char **argv, t_flags *flags)
 		FT_((argv[i][0] != '-'), i);
 		FT_(!ft_strcmp(argv[i], "--"), i + 1);
 		FT_((argv[i][0] == '-' && argv[i][1] == '-') && argv[i][2],
-			(*flags = ft_error_flags(argv[i][2])));
+			(*flags = ft_error_flags(&argv[i][2])));
 		if (argv[i][0] == '-' && argv[i][1])
 		{
 			j = 0;
@@ -90,6 +81,7 @@ int			ft_flags(char **argv, t_flags *flags)
 			printf("out = %d", out);
 		}
 	}
+	FT(i > 1, *flags |= F_M);
 	ft_print_flags(flags);
 	ft_putchar('\n');
 	return (i);

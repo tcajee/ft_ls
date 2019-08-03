@@ -6,115 +6,25 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/02 14:52:07 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/02 23:54:37 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-int	ft_error_dirs(char *arg)
+int	ft_dirs(char **argv)
 {
-	ft_putstr_fd("./ft_ls: ", 2);
-	ft_putstr_fd(arg, 2);
-	ft_putstr_fd(":", 2);
-	ft_putendl_fd("No such file or directory", 2);
-	return (E_DIRS);
-}
-
-int		ft_check_dirs(char *path)
-{
-	struct stat s_stat;
-
-	FT_((lstat(path, &s_stat)) < 0, ft_error_dirs(path));
-	return ((s_stat.st_mode & S_IFMT) == S_IFDIR);
-}
-
-int	ft_dirs(char **argv, t_flags *flags)
-{
+	t_stat s_stat;
 	int i;
 
-	i = 0;
-	while (argv[i] && ft_check_dirs(argv[i]))
-		ft_ls(argv[i++], flags);
-	return (errno);
+	i = -1;
+	while (argv[++i])
+	{
+		FT_((lstat(argv[i], &s_stat)) < 0, ft_error_dirs(argv[i]));
+		_FT(!((s_stat.st_mode & S_IFMT) == S_IFDIR), ft_error_dirs(argv[i]));
+	}
+	return (i);
 }
-
-
-void	ft_recur_prints(char *path, t_flags* flags)
-{
-	DIR				*dp;
-	struct dirent	*dir;
-	t_files			*files; // Put in struct
-	int 			i;
-	int 			j;
-	i = 0;
-
-
-	while ((dir = readdir(dp)) != NULL)
-	{
-
-		//		ft_check_flags() check flags to set type of print
-		
-
-				// No -a flag. Need flag check before print call
-		if (dir->d_name[0] != '.' && *flags == F_1); 
-		ft_def_print(name, dir->d_name); // call print function. What do we feed it?
-		
-		
-		if ((-R))
-		{
-			if (ft_ls_isdir(ft_strjoin(ft_strjoin(name, "/"), dir->d_name)) && dir->d_name[0] != '.')
-			{
-				if (name[ft_strlen(name) -1] == '/')
-					files->rec[i] = ft_strjoin(name, dir->d_name); // newname struct
-				else
-					files->rec[i] = ft_strjoin(ft_strjoin(name, "/"), dir->d_name); // struct
-				++i;
-	{ 		}
-			closedir(dp);
-			j = 0;
-			while (j < i)
-			{
-				printf("\n%s:\n", files->rec[j]); // struct
-				list(files->rec[j]);              // struct
-				++j;
-			}
-		}
-	}
-}}
-
-
-
-/*
- * LeRoux dir check function
-int		ft_is_dir(char *path)
-{
-	struct stat s;
-	
-	if (lstat(name, &s) < 0)
-		perror("Stat: ");
-	if (S_ISREG(s.st_mode))
-	{
-		return (0);
-	}
-	else
-	{
-		return (S_ISDIR(s.st_mode));
-	}
-}*/
-
-
-
-/* int	ft_count_dirs(char **argv) */
-/* { */
-/* 	t_stat stat; */
-/* 	int i; */
-/* 	i = -1; */
-/* 	while (argv[++i]) */
-/* 		FT_(lstat(argv[i], &stat) < 0, ft_error_dirs(argv[i])); */
-/* 	return (i); */
-/* } */
-
 
  /* {{{TITLE */
 /* nt ft_path(char path[PATH_MAX], char *name, char full_path[PATH_MAX]) */ 

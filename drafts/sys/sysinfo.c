@@ -6,11 +6,11 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 08:55:00 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/29 14:54:14 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/03 03:29:56 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/incs/libft.h"
+#include "../../libft/incs/libft.h"
 
 void		ft_print_stat(void)
 {
@@ -127,11 +127,14 @@ char	*dirname(char *fname, char *s_stat)
 {
 	char *ptr;
 
+	printf("\ns_stat: %s\n", s_stat);
 	strcpy (s_stat, fname);
+	printf("\ns_stat: %s\n", s_stat);
 	if ((ptr = strrchr (s_stat, '/')) == NULL)
 	{
 		s_stat[0] = '.';
 		s_stat[1] = '\0';
+		printf("\ns_stat: %s\n", s_stat);
 	}
 	else if (s_stat != ptr)
 	{
@@ -142,11 +145,13 @@ char	*dirname(char *fname, char *s_stat)
 			if (ptr != NULL && s_stat != ptr)
 				*ptr = '\0';
 		}
+		printf("\ns_stat: %s\n", s_stat);
 	}
+	printf("\ns_stat_out: %s\n", s_stat);
 	return s_stat;
 }
 
-void	ft_prints(char *fname, struct stat *s_stat)
+void	ft_printsys(char *fname, struct stat *s_stat)
 {
 	static char path[PATH_MAX];
 	static struct stat dir;
@@ -180,38 +185,44 @@ void	ft_prints(char *fname, struct stat *s_stat)
 	FT((( getuid() == s_stat->st_uid) && ( s_stat->st_mode & S_IRUSR) ) ||
 	   (( getgid() == s_stat->st_gid) && ( s_stat->st_mode & S_IRGRP) ) ||
 		( s_stat->st_mode & S_IROTH)                                    ||
-		( getuid() == 0)                                                 ,
+		( getuid() == 0)                                                 ,{
 	  FT( S_ISDIR(s_stat->st_mode)                                       ,
-		  printf("LIST %c ", flag++))                                    )
+		  printf("LIST %c ", flag++))                                    );}
 	else  printf("READ %c", flag++)                                      ;
 
 	FT((( getuid() == s_stat->st_uid) && ( s_stat->st_mode & S_IWUSR) ) ||
 	   (( getgid() == s_stat->st_gid) && ( s_stat->st_mode & S_IWGRP) ) ||
 		( s_stat->st_mode & S_IWOTH)                                    ||
-		( getuid() == 0)                                                 ,
+		( getuid() == 0)                                                 ,{
 	  FT( S_ISDIR(s_stat->st_mode)                                       ,
-		  printf("CREATE FILES  DELETE FILES %c", flag++))               )
+		  printf("CREATE FILES  DELETE FILES %c", flag++))               );}
 	else  printf("WRITE %c", flag++)                                     ;
 
 	FT((( getuid() == s_stat->st_uid) && ( s_stat->st_mode & S_IXUSR))  ||
 	   (( getgid() == s_stat->st_gid) && ( s_stat->st_mode & S_IXGRP))  ||
 		( s_stat->st_mode & S_IXOTH)                                    ||
-		( getuid() == 0 && (s_stat->st_mode & (S_IXUSR|S_IXGRP|S_IXOTH))),
+		( getuid() == 0 && (s_stat->st_mode & (S_IXUSR|S_IXGRP|S_IXOTH))),{
 	  FT( S_ISDIR(s_stat->st_mode)                                       ,
-		  printf("CHANGE TO  %c", flag++))                               )
+		  printf("CHANGE TO  %c", flag++))                               );}
 	else  printf("EXECUTE %c", flag++)                                   ;
 
+	printf("\n--------------------------------\n");
+	printf("fname: %s\npath: %s\n", fname, path);
+	printf("--------------------------------\n");
 	FT(  S_ISDIR(s_stat->st_mode)                                        ,
-		 strcat(strcpy (path, fname), "/..")                             )
+		 strcat(strcpy (path, fname), "/..")                             );
 	else dirname (fname, path)                                           ;
+	printf("\n--------------------------------\n");
+	printf("fname: %s\npath: %s\n", fname, path);
+	printf("--------------------------------\n");
 
-	FT(     stat (path, &dir) != -1                                      ,
+	FT(     stat (path, &dir) != -1                                      ,{
 	 FT(((( getuid() == dir.st_uid) && (dir.st_mode & S_IWUSR) )        ||
 		 (( getgid() == dir.st_gid) && (dir.st_mode & S_IWGRP) )        ||
 		  ( dir.st_mode & S_IWOTH)                                      ||
 		  ( getuid() == 0))                                              ,
 		FT( S_ISDIR(s_stat->st_mode)                                     ,
-			printf("REMOVE %c", flag++)))                                )
+			printf("REMOVE %c", flag++)))                                );}
 	else    printf ("DELETE %c", flag++)                                 ;
 
 	printf("%s\n", (flag)?"":"(NONE)")                                   ;
@@ -228,14 +239,14 @@ void	ft_prints(char *fname, struct stat *s_stat)
 	FT(S_ISBLK( s_stat->st_mode) || S_ISCHR(s_stat->st_mode)             ,
 		printf( "\tSpecial Device : Major %02x Minor %02x\n"            ,
 		      ( ((int) s_stat->st_rdev) >> 8) & 0xff                     ,
-		      ( (int) s_stat->st_rdev) & 0xff)                           )
+		      ( (int) s_stat->st_rdev) & 0xff)                           );
 
 
 	FT(S_ISFIFO( s_stat->st_mode)                                        ,
-		 printf( "\tData in Fifo : %d\n", (int) s_stat->st_size)        )
+		 printf( "\tData in Fifo : %d\n", (int) s_stat->st_size)        );
 
 	FT(S_ISREG( s_stat->st_mode)                                         ,
-		printf( "\tFile Size : %d\n", (int) s_stat->st_size)            )
+		printf( "\tFile Size : %d\n", (int) s_stat->st_size)            );
 
 	printf( "\tLast File access : %s", ctime (&s_stat->st_atime))        ;
 	printf( "\t... modification : %s", ctime (&s_stat->st_mtime))        ;
@@ -275,7 +286,7 @@ int main (int argc, char *argv[])
 		if (stat (argv[index], &s_stat) == -1)
 			printf("\nStat failed for file %s. errno=%d\n\n", argv[index], errno);
 		else
-			ft_prints(argv[index], &s_stat);
+			ft_printsys(argv[index], &s_stat);
 		index++;
 	}
 	return 0;

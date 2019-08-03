@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/02 15:01:34 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/03 03:37:51 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,37 +30,35 @@
 
 # define E_FLAGS -1 // BAD FLAG
 # define E_DIRS -2 // BAD DIR
-# define E_USAGE -4 // BAD USAGE
+# define E_PRINTS -4 // BAD PRINT
 
 # define B_IS(x , y) (x & y) ? 1 : 0
 # define B_0(x , y) (x = x & ~y)
 # define B_1(x , z) (x = x | z)
 # define B_10(x , y , z) B_IS(x, y) ? B_0(y) : B_1(x , z)
-/* B_0(x, y) */ 
-/* B_IS(x , y) B_1(x , z) B_0(x, y) */
-
+/* B_01(x , y) B_1(x , z) B_0(x, y) */
 
 typedef enum	e_flags
 {
-	F_0 = 0,	// 0
-	F_l = 1,	// -l
-	F_R = 2,	// -R
-	F_a = 4,	// -a
-	F_r = 8,	// -r
-	F_t = 32,	// -t
-	F_u = 64,	// -u
-	F_f = 128,	// -f
-	F_d = 256,	// -d
-	F_G = 512,	// -G
-	F_g = 1024,	// -g
-	F_1 = 4096,	// -1
-	F_M = 8192,	// -multiple dirs
+	F_0 = 0,		// 0
+	F_1 = 1,		// -1
+	F_l = 2,		// -l
+	F_a = 4,		// -a
+	F_u = 8,		// -u
+	F_f = 64,		// -f
+	F_d = 128,		// -d
+	F_t = 256,		// -t
+	F_M = 1024,		// -multiple dirs
+	F_g = 2046,		// -g
+	F_G = 4096,		// -G
+	F_r = 8192,		// -r
+	F_R = 16384,	// -R
 } 				t_flags;
 
 typedef struct		s_file
 {
 	char			*name;
-	char			path[PATH_MAX];
+	/* char			path[PATH_MAX]; */
 	mode_t			mode;
 	nlink_t			st_nlink;
 	uid_t			st_uid;
@@ -91,36 +89,30 @@ typedef struct dirent	t_dirent;
 typedef struct passwd	t_passwd;
 typedef struct group	t_group;
 
+int				ft_ls(char **argv, t_flags *flags);
 
 int				ft_flags(char **argv, t_flags *flags);
 int				ft_check_flags(char flag, t_flags *flags);
 int				ft_set_flags(int mode, int off, int on, t_flags *flags);
-int				ft_error_flags(char flag);
 void			ft_print_flags(t_flags *flags);
 
-int				ft_dirs(char **argv, t_flags *flags);
-int				ft_check_dirs(char *path);
+int				ft_prints(char *path, t_flags *flags);
+int				ft_def_prints(char *path, t_flags *flags);
+int				ft_lst_prints(char *path, t_flags *flags);
+int				ft_rec_prints(char *path, t_flags *flags);
+
+int				ft_errors(int code, char *error);
+int				ft_error_flags(char *flag);
+int				ft_error_prints(char *arg);
 int				ft_error_dirs(char *arg);
 
-
-int				ft_ls(char *path, t_flags *flags);
-
-int				ft_add_dirs(char path[PATH_MAX], char *name, t_file **lst);
-t_file			*ft_new_dir(char path[PATH_MAX], char *name, t_stat *stat);
-int				ft_path(char path[PATH_MAX], char *name, char full_path[PATH_MAX]);
-
-void			ft_open_dirs(char *path);
-
 int				ft_sorts(int argc, char **argv);
-
-/* int				ft_prints(int i, char **argv); */
-void			ft_def_prints(char *path);
-int				ft_list_prints(int i, char **argv);
-int				ft_error_prints(char flag, int error);
-
-int				ft_errors(int error);
-
 int				ft_cleans(int argc, char **argv);
+
+/* int				ft_add_dirs(char path[PATH_MAX], char *name, t_file **lst); */
+/* t_file			*ft_new_dir(char path[PATH_MAX], char *name, t_stat *stat); */
+/* int				ft_path(char path[PATH_MAX], char *name, char full_path[PATH_MAX]); */
+
 
 #endif
 //---<DECODE>---------------------------------------------------------{{{

@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 08:55:00 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/29 12:25:40 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/03 03:18:21 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ char	*filemode(int mode);
 char	*getuname(int uid);
 char	*getgname(int gid);
 char	*dirname(char *fname, char *buf);
-void	ft_prints(char *fname, struct stat *buf);
+void	ft_printsys(char *fname, struct stat *buf);
 
 #endif
 
