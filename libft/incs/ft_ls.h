@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/03 08:01:27 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/05 10:35:44 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@
 # include <uuid/uuid.h>
 # include <limits.h>
 
-# define E_FLAGS -1 // BAD FLAG
-# define E_DIRS -2 // BAD DIR
-# define E_PRINTS -4 // BAD PRINT
+# define E_FLAGS -1		// BAD FLAG
+# define E_DIRS -2		// BAD DIR
+# define E_PRINTS -4	// BAD PRINT
 
 # define B_IS(x , y) (x & y) ? 1 : 0
 # define B_0(x , y) (x = x & ~y)
 # define B_1(x , z) (x = x | z)
-# define B_10(x , y , z) B_IS(x, y) ? B_0(y) : B_1(x , z)
+
+/* # define B_10(x , y , z) B_IS(x, y) ? B_0(y) : B_1(x , z) */
 /* B_01(x , y) B_1(x , z) B_0(x, y) */
 
 typedef enum	e_flags

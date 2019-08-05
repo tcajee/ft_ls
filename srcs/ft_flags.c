@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/03 06:09:02 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/05 11:38:48 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ int	ft_check_flags(char flag, t_flags *flags)
 {
 	FT_(flag == 'l', ft_set_flags(10, F_1, F_l, flags));
 	_FT(flag == '1', ft_set_flags(10, F_l, F_1, flags));
-	_FT(flag == 'R', ft_set_flags(10, F_1, F_R, flags)); // check for 1 and l
+	/*
+	 * check for 1 and l when R
+	 */
+	_FT(flag == 'R', ft_set_flags(10, F_0, F_R, flags));
 	_FT(flag == 'a', ft_set_flags(1, F_0, F_a, flags));
 	_FT(flag == 'r', ft_set_flags(1, F_0, F_r, flags));
 	_FT(flag == 't', ft_set_flags(1, F_0, F_t, flags));
