@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/05 10:35:44 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/05 15:56:24 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int				ft_prints(char *path, t_flags *flags);
 int				ft_def_prints(char *path, t_flags *flags);
 int				ft_lst_prints(char *path, t_flags *flags);
 int				ft_rec_prints(char *path, t_flags *flags);
+void			ft_name_prints(char *path);
 
 int				ft_errors(int code, char *error);
 int				ft_error_flags(char *flag);
