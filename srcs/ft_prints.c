@@ -12,17 +12,13 @@
 
 #include "../libft/incs/libft.h"
 
-int	ft_ls_isdir(char *dir)
+int	ft_ls_isdir(char *path)
 {
-	struct stat	s;
+	struct stat	s_stat;
 
-	printf("DIR:	%s	\n", dir);
-	if (lstat(dir, &s) < 0)
-	{
-		perror("LSTAT: ");
+	if (lstat(path, &s_stat) < 0)
 		return (0);
-	}
-	if ((s.st_mode & S_IFMT) == S_IFDIR)
+	if ((s_stat.st_mode & S_IFMT) == S_IFDIR)
 		return (1);
 	return (0);
 }
@@ -37,6 +33,7 @@ int	ft_lst_prints(char *path, t_flags *flags)
 {
 	DIR				*dir;
 	struct dirent	*s_dirent;
+
 	dir = opendir(path);
 	FT_(!dir, E_PRINTS);
 	FT(*flags & F_M, ft_name_prints(path));
@@ -73,37 +70,51 @@ int	ft_def_prints(char *path, t_flags *flags)
 }
 
 
-char *ft_path_ls(char *path, char *dname, char fpath[1024])
+char *ft_path_ls(char *path, char *d_name)
 {
-	char temp[ft_strlen(path) + ft_strlen(dname) + 1];
+	int		i;
+	int		j;
+	char	temp[ft_strlen(path) + ft_strlen(d_name) + 1];
+	size_t	len;
 
-	if (ft_ls_isdir(ft_strjoin(ft_strjoin(name, "/"), dir->d_name)) && dir->d_name[0] != '.')
-
-
-	ft_strjoin(ft_strjoin(path, "/"), s_dirent->d_name))
-		{
-			if (path[ft_strlen(path) -1] == '/')
-				fpath[i] = ft_strjoin(path, s_dirent->d_name);
-			else
-				fpath[i] = ft_strjoin(ft_strjoin(path, "/"), s_dirent->d_name);
-			i++;
-		}
-	return (ft_strdup(fpath, temp));
+	i = -1;
+	j = 0;
+	len = ft_strlen(path) + ft_strlen(d_name) + 1;
+	while (j < len)
+	{
+		while (path[++i])
+			temp[i] = path[i];
+		temp[i] = '/';
+		j += i;
+		i = -1;
+		while (d_name[++i])
+			temp[j++] = d_name[i];
+	}
+	if (temp[j])
+		temp[j] = '\0';
+	if (ft_ls_isdir(temp))
+		return (ft_strdup(temp));
+	else
+		return (NULL);
 }
 
-
-
-
-
-
+	/* ft_strjoin(ft_strjoin(path, "/"), s_dirent->d_name)) */
+	/* 	{ */
+	/* 		if (path[ft_strlen(path) -1] == '/') */
+	/* 			fpath[i] = ft_strjoin(path, s_dirent->d_name); */
+	/* 		else */
+	/* 			fpath[i] = ft_strjoin(ft_strjoin(path, "/"), s_dirent->d_name); */
+	/* 		i++; */
+	/* 	} */
+	/* return (ft_strdup(fpath, temp)); */
+/* } */
 
 
 int	ft_rec_prints(char *path, t_flags *flags)
 {
-	printf("INITAL PATH CALL:	%s	\n", path);
 	DIR				*dir;
 	struct dirent	*s_dirent;
-	char			*fpath[1024];
+	char			*fpath[PATH_MAX];
 	int 			i;
 	int 			j;
 
@@ -127,22 +138,14 @@ int	ft_rec_prints(char *path, t_flags *flags)
 	}
 	closedir(dir);
 
-	/* j = 0; */
-	/* while (j < i) */
-	/* { */
-	/* 	printf("REC PARAM:	%s	\n", fpath[j]); */
-	/* 	++j; */
-	/* } */
-
 	j = 0;
 	while (j < i)
 	{
 		ft_putchar('\n');
 		ft_name_prints(fpath[j]);
 		ft_rec_prints(fpath[j], flags);
-		++j;
+		free(fpath[j++]);
 	}
-	free(fpath);
 	return (1);
 }
 
