@@ -93,29 +93,36 @@ typedef struct group	t_group;
 int				ft_ls(char **argv, t_flags *flags);
 
 int				ft_flags(char **argv, t_flags *flags);
-int				ft_check_flags(char flag, t_flags *flags);
-int				ft_set_flags(int mode, int off, int on, t_flags *flags);
-void			ft_print_flags(t_flags *flags);
+int				ft_flag_check(char flag, t_flags *flags);
+int				ft_flag_flag(int mode, int off, int on, t_flags *flags);
+void			ft_flag_print(t_flags *flags);
 
-int				ft_ls_isdir(char *name);
-char			*get_path(char *location, char *name);
+int				ft_dirs(char **argv, t_flags *flags);
+int				ft_dir_check(char *name);
+int				ft_dir_add(char path[PATH_MAX], char *name, t_file **lst);
+t_dirs			*ft_new_dir(char path[PATH_MAX], char *name, t_stat *stat);
 
 int				ft_prints(char *path, t_flags *flags);
-int				ft_def_prints(char *path, t_flags *flags);
-int				ft_lst_prints(char *path, t_flags *flags);
-int				ft_rec_prints(char *path, t_flags *flags);
-void			ft_name_prints(char *path);
+int				ft_print_def(char *path, t_flags *flags);
+int				ft_print_lst(char *path, t_flags *flags);
+int				ft_print_rec(char *path, t_flags *flags);
+void			ft_print_name(char *path);
 
 int				ft_errors(int code, char *error);
-int				ft_error_flags(char *flag);
-int				ft_error_prints(char *arg);
-int				ft_error_dirs(char *arg);
+int				ft_flag_error(char *flag);
+int				ft_print_error(char *arg);
+int				ft_dir_error(char *arg);
 
 int				ft_sorts(int argc, char **argv);
-int				ft_cleans(int argc, char **argv);
+int				ft_alpha_sort(int argc, char **argv);
+int				ft_time_sort(int argc, char **argv);
+int				ft_reverse_sort(int argc, char **argv);
 
-/* int				ft_add_dirs(char path[PATH_MAX], char *name, t_file **lst); */
-/* t_file			*ft_new_dir(char path[PATH_MAX], char *name, t_stat *stat); */
+int				ft_cleans(int argc, char **argv);
+int				ft_lst_clean(int argc, char **argv);
+
+
+/* char			*get_path(char *location, char *name); */
 /* int				ft_path(char path[PATH_MAX], char *name, char full_path[PATH_MAX]); */
 
 
