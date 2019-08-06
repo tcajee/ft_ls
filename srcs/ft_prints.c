@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/06 14:17:24 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/06 14:25:06 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	ft_print_rec(char *path, t_flags *flags)
 			continue ;
 		if (ft_dir_path(path, s_dirent->d_name, fpath, i))
 		{
-			printf("FPATH: %s", fpath[i]);
+			printf("FPATH: %s\n", fpath[i]);
 			ft_putchar('\n');
 			ft_print_name(fpath[i]);
 			ft_print_rec(fpath[i], flags);
