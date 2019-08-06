@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/05 15:07:50 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/06 13:21:47 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ int	ft_ls(char **argv, t_flags *flags)
 	while (argv[++i])
 		FT(lstat(argv[i], &s_stat) < 0, ft_errors(E_PRINTS, argv[i]));
 	while (argv[++k])
-		FT(ft_ls_isdir(argv[k]), ft_prints(argv[k], flags));
+		FT(ft_dir_check(argv[k]), ft_prints(argv[k], flags));
 	return (i);
 }
