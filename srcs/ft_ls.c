@@ -22,8 +22,8 @@ int	ft_ls(char **argv, t_flags *flags)
 	k = -1;
 	FT_(!argv[0], ft_prints(".", flags));
 	while (argv[++i])
-		FT(lstat(argv[i], &s_stat) < 0, ft_errors(E_PRINTS, argv[i]));
+		F_(lstat(argv[i], &s_stat) < 0, ft_errors(E_PRINTS, argv[i]));
 	while (argv[++k])
-		FT(ft_dir_check(argv[k]), ft_prints(argv[k], flags));
+		F_(ft_dir_check(argv[k]), ft_prints(argv[k], flags));
 	return (i);
 }

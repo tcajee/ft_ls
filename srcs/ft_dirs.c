@@ -56,32 +56,6 @@ int	ft_dirs(char **argv, t_flags *flags)
 	return (i);
 }
 
-/* int	ft_print_rec(char *path, t_flags *flags) */
-/* { */
-/* 	t_dirent	*s_dir; */
-/* 	DIR			*dir; */
-/* 	char		*fpath[PATH_MAX]; */
-/* 	int 		i; */
-/* 	i = 0; */
-/* 	dir = opendir(path); */
-/* 	FT_(!dir, E_PRINTS); */
-/* 	F_(*flags & F_1, ft_print_def(path, flags)); */
-/* 	_F(*flags & F_l, ft_print_lst(path, flags)); */
-/* 	while ((s_dir = readdir(dir)) != NULL) */
-/* 	{ */
-/* 		F_(IS_DOT(s_dir->d_name) || IS_DDOT(s_dir->d_name), continue); */
-/* 		if (ft_dir_path(path, s_dir->d_name, fpath, i)) */
-/* 		{ */
-/* 			ft_putchar('\n'); */
-/* 			ft_print_name(fpath[i]); */
-/* 			ft_print_rec(fpath[i], flags); */
-/* 			free(fpath[i++]); */
-/* 		 } */
-/* 	} */
-/* 	closedir(dir); */
-/* 	return (1); */
-/* } */
-
 /* {{{TITLE
  
   	
@@ -177,7 +151,6 @@ int	ft_rec_prints(char *path, t_flags *flags)
 }
 
 }}} */
-
 
  /* {{{TITLE */
 /* nt ft_path(char path[PATH_MAX], char *name, char full_path[PATH_MAX]) */ 

@@ -58,7 +58,7 @@ typedef enum			e_flags
 typedef struct			s_file
 {
 	char				*name;
-	char				path[PATH_MAX];
+	char				path[1024];
 	mode_t				mode;
 	nlink_t				st_nlink;
 	uid_t				st_uid;
