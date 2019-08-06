@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/06 13:55:54 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/06 17:16:29 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,20 @@
 
 typedef enum	e_flags
 {
-	F_0 = 0,	//		Dummy flag
 	F_1 = 1,	// -1:	Force output to be one entry per line. This is the default when output is not to a terminal.
 	F_l = 2,	// -l:	List in long format. A total sum for all the file sizes is output on a line before the long listing.
 	F_g = 4,	// -g:	Implies -l. Display the group name in the long format output (the owner name is suppressed).
 
-	F_G = 8,	// -G:	Enable colorized output. This option is equivalent to defining CLICOLOR in the environment.
-	F_a = 16,	// -a:	Include directory entries whose names begin with a dot (.).
+	F_t = 8,	// -t:	Sort by time modified (most recently modified first) before sorting the operands by lexicographical order.
+	F_u = 16,	// -u:	Use time of last access, instead of last modification of the file for sorting (-t) or long printing (-l).
+	F_r = 32,	// -r:	Reverse the order of the sort: -a descending lexicographical, -t oldest entries first, -none largest files last.
+	F_f = 64,	// -f:	Output is not sorted.  This option turns on the -a option.
+	F_a = 128,	// -a:	Include directory entries whose names begin with a dot (.).
 
-	F_f = 32,	// -f:	Output is not sorted.  This option turns on the -a option.
-	F_D = 64,	// 		Default lex sort
-	F_r = 128,	// -r:	Reverse the order of the sort: -a descending lexicographical, -t oldest entries first, -none largest files last.
-	F_t = 256,	// -t:	Sort by time modified (most recently modified first) before sorting the operands by lexicographical order.
-	F_u = 512,	// -u:	Use time of last access, instead of last modification of the file for sorting (-t) or long printing (-l).
-
-	F_M = 1024,	//		Multiple arguments
-	F_d = 2048,	// -d:	Directories are listed as plain files (not searched recursively)
-	F_R = 4096,	// -R:	Recursively list subdirectories encountered.
+	F_M = 4096,	//		Multiple arguments
+	F_G = 8192,	// -G:	Enable colorized output. This option is equivalent to defining CLICOLOR in the environment.
+	F_d = 16384,	// -d:	Directories are listed as plain files (not searched recursively)
+	F_R = 32768,	// -R:	Recursively list subdirectories encountered.
 } 				t_flags;
 
 typedef struct		s_file
