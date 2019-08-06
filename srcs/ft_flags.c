@@ -54,7 +54,7 @@ int		ft_flag_check(char flag, t_flags *flags)
 	_FT(flag == 'u', ft_flag_set(flags, 3, "10", F_u, F_t));
 	_FT(flag == 'r', ft_flag_set(flags, 2, "1", F_r));
 	_FT(flag == 'd', ft_flag_set(flags, 3, "10", F_d, F_R));
-	_FT(flag == 'R', ft_flag_set(flags, 3, "10", F_R, F_d));
+	_FT(flag == 'R', ft_flag_set(flags, 3, "110", F_R, F_d));
 	return (ft_errors(E_FLAGS, &flag));
 }
 

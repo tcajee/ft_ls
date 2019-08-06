@@ -12,44 +12,42 @@
 
 #include "../libft/incs/libft.h"
 
-void	ft_print_name(char *path)
+void	ft_print_f(int format, char *path, char *d_name)
 {
-	ft_putstr(path);
-	ft_putstr(":\n");
-}
+	char *fpath;
 
-int	ft_print_lst(char *path, t_flags *flags)
-{
-	DIR				*dir;
-	struct dirent	*s_dirent;
-
-	dir = opendir(path);
-	FT_(!dir, E_PRINTS);
-	F_(*flags & F_M && !(*flags & F_R), ft_print_name(path));
-	while ((s_dirent = readdir(dir)))
+	if (format == F_M)
 	{
-		F_(*flags & F_a, ft_putendl(s_dirent->d_name));
-		_F(s_dirent->d_name[0] != '.', ft_putendl(s_dirent->d_name));
+		ft_putstr(path);
+		ft_putendl(":");
 	}
-	F_(*flags & F_M && !(*flags & F_R), ft_putendl(""));
-	closedir(dir);
-	return (1);
+	else if (format == F_1)
+	{
+		if (ft_dir_path(path, d_name, &fpath))
+		{
+			ft_putstr(d_name);
+			ft_putendl("/");
+			free(fpath);
+		}
+		else
+			ft_putendl(d_name);
+	}
 }
 
 int	ft_print_def(char *path, t_flags *flags)
 {
 	DIR				*dir;
-	struct dirent	*s_dirent;
+	struct dirent	*s_dir;
 
 	dir = opendir(path);
 	FT_(!dir, E_PRINTS);
-	F_(*flags & F_M && !(*flags & F_R), ft_print_name(path));
-	while ((s_dirent = readdir(dir)))
+	F_(*flags & F_M || *flags & F_R, ft_print_f(F_M, path, NULL));
+	while ((s_dir = readdir(dir)))
 	{
-		F_(*flags & F_a, ft_putendl(s_dirent->d_name));
-		_F(s_dirent->d_name[0] != '.', ft_putendl(s_dirent->d_name));
+		F_(*flags & F_a, ft_print_f(F_1, path, s_dir->d_name));
+		_F(s_dir->d_name[0] != '.', ft_print_f(F_1, path, s_dir->d_name));
 	}
-	F_(*flags & F_M && !(*flags & F_R), ft_putendl(""));
+	F_(*flags & F_M || *flags & F_R, ft_putendl(""));
 	closedir(dir);
 	return (1);
 }
@@ -69,14 +67,32 @@ int	ft_print_rec(char *path, t_flags *flags)
 	while ((s_dir = readdir(dir)) != NULL)
 	{
 		F_(IS_DOT(s_dir->d_name) || IS_DDOT(s_dir->d_name), continue);
-		if (ft_dir_path(path, s_dir->d_name, fpath, i))
+		if (ft_dir_path(path, s_dir->d_name, &fpath[i]))
 		{
-			ft_putchar('\n');
-			ft_print_name(fpath[i]);
+			/* ft_putchar('\n'); */
+			/* ft_print_f(F_M, fpath[i]); */
 			ft_print_rec(fpath[i], flags);
 			free(fpath[i++]);
 		 }
 	}
+	closedir(dir);
+	return (1);
+}
+
+int	ft_print_lst(char *path, t_flags *flags)
+{
+	DIR				*dir;
+	struct dirent	*s_dir;
+
+	dir = opendir(path);
+	FT_(!dir, E_PRINTS);
+	F_(*flags & F_M || *flags & F_R, ft_print_f(F_M, path, NULL));
+	while ((s_dir = readdir(dir)))
+	{
+		F_(*flags & F_a, ft_print_f(F_1, path, s_dir->d_name));
+		_F(s_dir->d_name[0] != '.', ft_print_f(F_1, path, s_dir->d_name));
+	}
+	F_(*flags & F_M || *flags & F_R, ft_putendl(""));
 	closedir(dir);
 	return (1);
 }

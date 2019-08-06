@@ -97,8 +97,7 @@ void					ft_flag_print(t_flags *flags);
 int						ft_ls(char **argv, t_flags *flags);
 
 int						ft_dirs(char **argv, t_flags *flags);
-int						ft_dir_path(char *path, char *d_name, char **fpath,
-		int index);
+int						ft_dir_path(char *path, char *d_name, char **fpath);
 int						ft_dir_check(char *name);
 
 int						ft_sorts(int argc, char **argv);
@@ -111,7 +110,7 @@ int						ft_prints(char *path, t_flags *flags);
 int						ft_print_def(char *path, t_flags *flags);
 int						ft_print_lst(char *path, t_flags *flags);
 int						ft_print_rec(char *path, t_flags *flags);
-void					ft_print_name(char *path);
+void					ft_print_f(int format, char *path, char *d_name);
 
 int						ft_cleans(int argc, char **argv);
 

@@ -16,12 +16,12 @@ int	ft_dir_check(char *path)
 {
 	struct stat	s_stat;
 
-	F_(lstat(path, &s_stat) < 0, ft_errors(E_DIRS, path));
+	FT_(lstat(path, &s_stat) < 0, 0);
 	FT_((s_stat.st_mode & S_IFMT) == S_IFDIR, 1);
 	return (0);
 }
 
-int	ft_dir_path(char *path, char *d_name, char **fpath, int index)
+int	ft_dir_path(char *path, char *d_name, char **fpath)
 {
 	int		i;
 	int		len;
@@ -36,13 +36,12 @@ int	ft_dir_path(char *path, char *d_name, char **fpath, int index)
 	while (*d_name)
 		temp[++i] = *d_name++;
 	temp[++i] = '\0';
-	FT_(ft_dir_check(temp), !!(fpath[index] = temp));
+	FT_(ft_dir_check(temp), !!(*fpath = temp));
 	return (0);
 }
 
 int	ft_dirs(char **argv, t_flags *flags)
 {
-	t_stat s_stat;
 	int i;
 	int k;
 
@@ -50,7 +49,7 @@ int	ft_dirs(char **argv, t_flags *flags)
 	k = -1;
 	FT_(!argv[0], ft_prints(".", flags));
 	while (argv[++i])
-		F_(lstat(argv[i], &s_stat) < 0, ft_errors(E_PRINTS, argv[i]));
+		F_(!(ft_dir_check(argv[i])), ft_errors(E_PRINTS, argv[i]));
 	while (argv[++k])
 		F_(ft_dir_check(argv[k]), ft_prints(argv[k], flags));
 	return (i);
