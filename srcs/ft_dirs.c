@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prints.c                                        :+:      :+:    :+:   */
+/*   ft_dirs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
+/*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/06 12:59:31 by tcajee           ###   ########.fr       */
+/*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
+/*   Updated: 2019/08/06 12:17:59 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,22 @@
 
 int	ft_ls_isdir(char *path)
 {
-	struct stat	s_stat;
+	t_stat	s_stat;
 
-	if (lstat(path, &s_stat) < 0)
-		return (0);
-	if ((s_stat.st_mode & S_IFMT) == S_IFDIR)
-		return (1);
-	return (0);
+	FT_(lstat(path, &s_stat) < 0, ft_errors(E_DIRS, path));
+	FT_((s_stat.st_mode & S_IFMT) == S_IFDIR, 1);
 }
+
+int	ft_dirs(char **argv)
+{
+	t_stat s_stat;
+	int i;
+
+	i = -1;
+	while (argv[++i])
+		FT(ft_ls_isdir(argv[i]) FT(lstat(argv[i], &s_stat) < 0,
+
+
 
 void	ft_name_prints(char *path)
 {
@@ -33,7 +41,6 @@ int	ft_lst_prints(char *path, t_flags *flags)
 {
 	DIR				*dir;
 	struct dirent	*s_dirent;
-
 	dir = opendir(path);
 	FT_(!dir, E_PRINTS);
 	FT(*flags & F_M, ft_name_prints(path));
@@ -70,51 +77,37 @@ int	ft_def_prints(char *path, t_flags *flags)
 }
 
 
-char *ft_path_ls(char *path, char *d_name)
+char *ft_path_ls(char *path, char *dname, char fpath[1024])
 {
-	int		i;
-	int		j;
-	char	temp[ft_strlen(path) + ft_strlen(d_name) + 1];
-	size_t	len;
+	char temp[ft_strlen(path) + ft_strlen(dname) + 1];
 
-	i = -1;
-	j = 0;
-	len = ft_strlen(path) + ft_strlen(d_name) + 1;
-	while (j < len)
-	{
-		while (path[++i])
-			temp[i] = path[i];
-		temp[i] = '/';
-		j += i;
-		i = -1;
-		while (d_name[++i])
-			temp[j++] = d_name[i];
-	}
-	if (temp[j])
-		temp[j] = '\0';
-	if (ft_ls_isdir(temp))
-		return (ft_strdup(temp));
-	else
-		return (NULL);
+	if (ft_ls_isdir(ft_strjoin(ft_strjoin(name, "/"), dir->d_name)) && dir->d_name[0] != '.')
+
+
+	ft_strjoin(ft_strjoin(path, "/"), s_dirent->d_name))
+		{
+			if (path[ft_strlen(path) -1] == '/')
+				fpath[i] = ft_strjoin(path, s_dirent->d_name);
+			else
+				fpath[i] = ft_strjoin(ft_strjoin(path, "/"), s_dirent->d_name);
+			i++;
+		}
+	return (ft_strdup(fpath, temp));
 }
 
-	/* ft_strjoin(ft_strjoin(path, "/"), s_dirent->d_name)) */
-	/* 	{ */
-	/* 		if (path[ft_strlen(path) -1] == '/') */
-	/* 			fpath[i] = ft_strjoin(path, s_dirent->d_name); */
-	/* 		else */
-	/* 			fpath[i] = ft_strjoin(ft_strjoin(path, "/"), s_dirent->d_name); */
-	/* 		i++; */
-	/* 	} */
-	/* return (ft_strdup(fpath, temp)); */
-/* } */
+
+
+
+
+
 
 
 int	ft_rec_prints(char *path, t_flags *flags)
 {
+	printf("INITAL PATH CALL:	%s	\n", path);
 	DIR				*dir;
 	struct dirent	*s_dirent;
-	char			*fpath[PATH_MAX];
+	char			*fpath[1024];
 	int 			i;
 	int 			j;
 
@@ -138,14 +131,22 @@ int	ft_rec_prints(char *path, t_flags *flags)
 	}
 	closedir(dir);
 
+	/* j = 0; */
+	/* while (j < i) */
+	/* { */
+	/* 	printf("REC PARAM:	%s	\n", fpath[j]); */
+	/* 	++j; */
+	/* } */
+
 	j = 0;
 	while (j < i)
 	{
 		ft_putchar('\n');
 		ft_name_prints(fpath[j]);
 		ft_rec_prints(fpath[j], flags);
-		free(fpath[j++]);
+		++j;
 	}
+	free(fpath);
 	return (1);
 }
 
@@ -252,3 +253,83 @@ int	ft_rec_prints(char *path, t_flags *flags)
 }
 
 }}} */
+	return (i);
+}
+
+/* while (argv[++i]) */
+/* { */
+/* 	FT_((lstat(argv[i], &s_stat)) < 0, ft_error_dirs(argv[i])); */
+/* 	_FT(!((s_stat.st_mode & S_IFMT) == S_IFDIR), ft_error_dirs(argv[i])); */
+/* } */
+
+
+
+ /* {{{TITLE */
+/* nt ft_path(char path[PATH_MAX], char *name, char full_path[PATH_MAX]) */ 
+ /* { g */
+ /* 	int	i; g */
+ /*   i = -1; g */
+ /*   while (path[++i]) g */
+ /*   	full_path[i] = path[i]; g */
+ /*   if (i && i < PATH_MAX) g */
+ /*   	if (!(path[0] == '/' && path[1] == '\0')) g */
+ /*   		full_path[i++] = '/'; g */
+ /*   while (*name && i < PATH_MAX) g */
+ /*   	full_path[i++] = *name++; g */
+ /*   if (i < PATH_MAX) g */
+ /*   	full_path[i] = '\0'; g */
+ /*   else g */
+ /*   	errno = ENAMETOOLONG; g */
+ /*   return ((i < PATH_MAX) ? 1 : 0); g */
+ /* } g */
+ /* static t_file	*ft_new_dir(char path[PATH_MAX], char *name, t_stat *stat) g */
+ /* { g */
+ /* 	if (!(new = (t_file*)ft_memalloc(sizeof(t_file))) g */
+ /* 	|| (!(new->name = ft_strdup(name)))) g */
+ /* 		ls_error(NULL, 2); g */
+ /* 	new->mode = stat->st_mode; g */
+ /* 	new->st_nlink = stat->st_nlink; g */
+ /* 	new->st_uid = stat->st_uid; g */
+ /* 	new->st_gid = stat->st_gid; g */
+ /* 	new->size = stat->st_size; g */
+ /* 	new->st_rdev = stat->st_rdev; g */
+ /* 	new->time = stat->st_mtimespec.tv_sec; g */
+ /* 	new->ntime = stat->st_mtimespec.tv_nsec; g */
+ /* 	new->st_blocks = stat->st_blocks; g */
+ /* 	get_full_path(path, name, new->full_path); g */
+ /* 	return (new); g */
+ /* } g */
+ /* int				ft_add_dir(char path[PATH_MAX], char *name, t_file **lst) g */
+ /* { g */
+ /* 	char		fpath[PATH_MAX]; g */
+ /* 	t_stat		stat; g */
+ /* 	if (!(ft_path(path, name, fpath))) g */
+ /* 	{ g */
+ /* 		ft_error_dirs(*name, 1); g */
+ /* 		return (-1); g */
+ /* 	} g */
+ /* 	if (lstat(fpath, &stat) == -1) g */
+ /* 		return (-1); g */
+ /* 	if (!*lst) g */
+ /* 		*lst = ft_new_dir(path, name, &stat); g */
+ /* 	else g */
+ /* 	{ g */
+ /* 		while ((*lst)) g */
+ /* 			lst = &((*lst)); g */
+ /* 		(*lst) = ft_new_dir(path, name, &stat); g */
+ /* 	} g */
+ /* 	return (1); g */
+ /* } g */
+/* g */
+/* }}} */ 
+
+
+
+
+
+
+
+
+
+
+

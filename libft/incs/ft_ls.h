@@ -6,21 +6,20 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/05 15:56:24 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/06 12:58:27 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 # define FT_LS_H
 # include <stdio.h>
+# include <stdarg.h>
 # include <dirent.h>
 # include <errno.h>
 # include <grp.h>
 # include <pwd.h>
 # include <sys/types.h>
-
 # include <sys/stat.h>
-
 # include <sys/time.h>
 # include <sys/xattr.h>
 # include <sys/ioctl.h>
@@ -28,32 +27,34 @@
 # include <uuid/uuid.h>
 # include <limits.h>
 
-# define E_FLAGS -1		// BAD FLAG
-# define E_DIRS -2		// BAD DIR
-# define E_PRINTS -4	// BAD PRINT
+# define E_FLAGS  -1		// BAD FLAG
+# define E_DIRS   -2		// BAD DIR
+# define E_PRINTS -4		// BAD PRINT
+# define E_FILES  -8		// BAD FILE
 
 # define B_IS(x , y) (x & y) ? 1 : 0
 # define B_0(x , y) (x = x & ~y)
 # define B_1(x , z) (x = x | z)
 
-/* # define B_10(x , y , z) B_IS(x, y) ? B_0(y) : B_1(x , z) */
-/* B_01(x , y) B_1(x , z) B_0(x, y) */
-
 typedef enum	e_flags
 {
-	F_0 = 0,		// 0
-	F_1 = 1,		// -1
-	F_l = 2,		// -l
-	F_a = 4,		// -a
-	F_u = 8,		// -u
-	F_f = 64,		// -f
-	F_d = 128,		// -d
-	F_t = 256,		// -t
-	F_M = 1024,		// -multiple dirs
-	F_g = 2046,		// -g
-	F_G = 4096,		// -G
-	F_r = 8192,		// -r
-	F_R = 16384,	// -R
+	F_0 = 0,	//		Dummy flag
+	F_1 = 1,	// -1:	Force output to be one entry per line. This is the default when output is not to a terminal.
+	F_l = 2,	// -l:	List in long format. A total sum for all the file sizes is output on a line before the long listing.
+	F_g = 4,	// -g:	Implies -l. Display the group name in the long format output (the owner name is suppressed).
+
+	F_G = 8,	// -G:	Enable colorized output. This option is equivalent to defining CLICOLOR in the environment.
+	F_a = 16,	// -a:	Include directory entries whose names begin with a dot (.).
+
+	F_f = 32,	// -f:	Output is not sorted.  This option turns on the -a option.
+	F_D = 64,	// 		Default lex sort
+	F_r = 128,	// -r:	Reverse the order of the sort: -a descending lexicographical, -t oldest entries first, -none largest files last.
+	F_t = 256,	// -t:	Sort by time modified (most recently modified first) before sorting the operands by lexicographical order.
+	F_u = 512,	// -u:	Use time of last access, instead of last modification of the file for sorting (-t) or long printing (-l).
+
+	F_M = 1024,	//		Multiple arguments
+	F_d = 2048,	// -d:	Directories are listed as plain files (not searched recursively)
+	F_R = 4096,	// -R:	Recursively list subdirectories encountered.
 } 				t_flags;
 
 typedef struct		s_file
@@ -90,33 +91,44 @@ typedef struct dirent	t_dirent;
 typedef struct passwd	t_passwd;
 typedef struct group	t_group;
 
+
 int				ft_ls(char **argv, t_flags *flags);
 
 int				ft_flags(char **argv, t_flags *flags);
-int				ft_check_flags(char flag, t_flags *flags);
-int				ft_set_flags(int mode, int off, int on, t_flags *flags);
-void			ft_print_flags(t_flags *flags);
+int				ft_flag_check(char flag, t_flags *flags);
+int				ft_flag_set(t_flags *flags, int flagc, ...);
+void			ft_flag_print(t_flags *flags);
 
-int				ft_ls_isdir(char *name);
-char			*get_path(char *location, char *name);
-
-int				ft_prints(char *path, t_flags *flags);
-int				ft_def_prints(char *path, t_flags *flags);
-int				ft_lst_prints(char *path, t_flags *flags);
-int				ft_rec_prints(char *path, t_flags *flags);
-void			ft_name_prints(char *path);
-
-int				ft_errors(int code, char *error);
-int				ft_error_flags(char *flag);
-int				ft_error_prints(char *arg);
-int				ft_error_dirs(char *arg);
+int				ft_dirs(char *name);
+int				ft_dir_path(char path[PATH_MAX], char *name, char full_path[PATH_MAX]);
+int				ft_dir_check(char *name);
 
 int				ft_sorts(int argc, char **argv);
+int				ft_sort_rev(int argc, char **argv);
+int				ft_sort_mtime(int argc, char **argv);
+int				ft_sort_atime(int argc, char **argv);
+
+
+
+
+/* t_file			*ft_dir_new(char path[PATH_MAX], char *name, t_stat *stat); */
+/* int				ft_dir_add(char path[PATH_MAX], char *name, t_file **lst); */
+
+int				ft_prints(char *path, t_flags *flags);
+int				ft_print_def(char *path, t_flags *flags);
+int				ft_print_lst(char *path, t_flags *flags);
+int				ft_print_rec(char *path, t_flags *flags);
+void			ft_print_name(char *path);
+
 int				ft_cleans(int argc, char **argv);
 
-/* int				ft_add_dirs(char path[PATH_MAX], char *name, t_file **lst); */
-/* t_file			*ft_new_dir(char path[PATH_MAX], char *name, t_stat *stat); */
-/* int				ft_path(char path[PATH_MAX], char *name, char full_path[PATH_MAX]); */
+int				ft_errors(int code, char *error);
+int				ft_error_flag(char *flag);
+int				ft_error_print(char *arg);
+int				ft_error_dir(char *arg);
+int				ft_error_file(char *arg);
+
+
 
 
 #endif
