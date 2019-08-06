@@ -20,8 +20,7 @@ void	ft_flag_print(t_flags *flags)
 	while (i--)
 	{
 		ft_putnbr(*flags >> i & 1);
-		if (i % 8 == 0 && i != 16)
-			ft_putchar(' ');
+		F_(i % 8 == 0 && i != 16, ft_putchar(' '));
 	}
 }
 
@@ -58,6 +57,22 @@ int		ft_flag_check(char flag, t_flags *flags)
 	return (ft_errors(E_FLAGS, &flag));
 }
 
+int		ft_flag_long(char *opt, t_flags *flags)
+{
+	FT_(!ft_strcmp(opt, "long"), ft_flag_set(flags, 4, "110", F_l, F_t, F_1));
+	_FT(!ft_strcmp(opt, "list"), ft_flag_set(flags, 5, "10", F_1, F_l, F_t, F_g));
+	_FT(!ft_strcmp(opt, "no-owner"), ft_flag_set(flags, 5, "1110", F_g, F_l, F_t, F_1));
+	_FT(!ft_strcmp(opt, "colour?"), ft_flag_set(flags, 2, "1", F_G));
+	_FT(!ft_strcmp(opt, "all"), ft_flag_set(flags, 2, "1", F_a));
+	_FT(!ft_strcmp(opt, "no-sort"), ft_flag_set(flags, 3, "11", F_f, F_a));
+	_FT(!ft_strcmp(opt, "mod-time"), ft_flag_set(flags, 2, "1", *flags));
+	_FT(!ft_strcmp(opt, "acc-time"), ft_flag_set(flags, 3, "10", F_u, F_t));
+	_FT(!ft_strcmp(opt, "reverse"), ft_flag_set(flags, 2, "1", F_r));
+	_FT(!ft_strcmp(opt, "directory"), ft_flag_set(flags, 3, "10", F_d, F_R));
+	_FT(!ft_strcmp(opt, "recursive"), ft_flag_set(flags, 3, "110", F_R, F_d));
+	return (ft_errors(E_PRINTS, opt));
+}
+
 int		ft_flags(char **argv, t_flags *flags)
 {
 	int i;
@@ -66,19 +81,23 @@ int		ft_flags(char **argv, t_flags *flags)
 	i = 0;
 	while (argv[++i])
 	{
-		FT_((argv[i][0] != '-'), i);
+		j = -1;
+		FT_((!argv[i][0] || argv[i][0] != '-'), i);
 		_FT(!ft_strcmp(argv[i], "--"), i + 1);
-		_FT((argv[i][0] == '-' && argv[i][1] == '-') && argv[i][2],
-			(*flags = ft_errors(E_FLAGS, &argv[i][2])));
-		if (argv[i][0] == '-' && argv[i][1])
+		if ((argv[i][0] == '-' && argv[i][1] == '-') && argv[i][2]) 
 		{
-			j = 0;
+			printf("%s\n", &argv[i][2]);
+			ft_flag_long(&argv[i][2], flags);
+		}
+		else if (argv[i][0] == '-' && argv[i][1])
+		{
 			while (argv[i][++j])
 				ft_flag_check(argv[i][j], flags);
 		}
 		else
 			return (i);
 	}
+	/* (*flags = ft_errors(E_FLAGS, &argv[i][2]))); */
 	ft_flag_print(flags);
 	ft_putchar('\n');
 	return (i);

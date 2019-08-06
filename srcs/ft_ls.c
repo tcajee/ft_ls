@@ -12,16 +12,44 @@
 
 #include "../libft/incs/libft.h"
 
-int	main(int argc, char **argv)
+typedef int (*t_print_ls) (t_flags *flags, char *format, ...);
+
+int	ft_print_ls(t_flags *flags, char *ft, ...)
 {
-	t_flags	flags;
+	va_list	v_list;
 	int		i;
 
+	i = -1;
+	va_start (v_list, ft);
+	while (ft[++i])
+	{
+		F_(ft[i] == '%', ft_putstr(va_arg(v_list, char *)));
+		_F(ft[i] == 'n', ft_putendl(""));
+		_F(ft[i] == 't', ft_putstr("	"));
+		_F(ft[i] == ':', ft_putchar(':'));
+		_F(ft[i] == '/' && *flags & F_1, ft_putchar('/'));
+		/* _F(*ft, ft_putchar(ft[i])); */
+	}
+	va_end (v_list);
+	return (1);
+}
+
+int	main(int argc, char **argv)
+{
+	t_flags		flags;
+	t_print_ls	t_print_ls;
+	int			i;
+
+	t_print_ls = ft_print_ls;
+	i = -1;
+	while (++i < argc)
+		(*t_print_ls) (&flags, "%/t:n", argv[i]);
 	i = 0;
 	F_(!(flags = 0), B_1(flags, F_1));
-	/* ft_flag_print(&flags); */
-	/* ft_putchar('\n'); */
+	ft_flag_print(&flags);
+	ft_putchar('\n');
 	FT_((i = ft_flags(argv, &flags)) == E_FLAGS, errno);
 	F_(argc - i > 1, flags |= F_M);
+	return (i);
 	return (ft_dirs(argv + i, &flags));
 }

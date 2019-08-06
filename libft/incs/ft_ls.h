@@ -94,8 +94,6 @@ int						ft_flag_check(char flag, t_flags *flags);
 int						ft_flag_set(t_flags *flags, int flagc, ...);
 void					ft_flag_print(t_flags *flags);
 
-int						ft_ls(char **argv, t_flags *flags);
-
 int						ft_dirs(char **argv, t_flags *flags);
 int						ft_dir_path(char *path, char *d_name, char **fpath);
 int						ft_dir_check(char *name);

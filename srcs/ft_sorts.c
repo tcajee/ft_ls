@@ -19,13 +19,6 @@ int	ft_sort_lex(int argc, char **argv)
 	return (1);
 }
 
-int	ft_sort_rev(int argc, char **argv)
-{
-	if (argc && argv)
-		return (1);
-	return (1);
-}
-
 int	ft_sort_mtime(int argc, char **argv)
 {
 	if (argc && argv)
@@ -41,6 +34,13 @@ int	ft_sort_atime(int argc, char **argv)
 }
 
 int	ft_sorts(int argc, char **argv)
+{
+	if (argc && argv)
+		return (1);
+	return (1);
+}
+
+int	ft_sort_rev(int argc, char **argv)
 {
 	if (argc && argv)
 		return (1);
