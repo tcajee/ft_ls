@@ -28,7 +28,7 @@ int	ft_print_ls(t_flags *flags, char *ft, ...)
 		_F(ft[i] == 't', ft_putstr("	"));
 		_F(ft[i] == ':', ft_putchar(':'));
 		_F(ft[i] == '/' && *flags & F_1, ft_putchar('/'));
-		/* _F(*ft, ft_putchar(ft[i])); */
+		_F(*ft, ft_putchar(ft[i]));
 	}
 	va_end (v_list);
 	return (1);
@@ -41,15 +41,15 @@ int	main(int argc, char **argv)
 	int			i;
 
 	t_print_ls = ft_print_ls;
-	i = -1;
-	while (++i < argc)
-		(*t_print_ls) (&flags, "%/t:n", argv[i]);
+	i = 0;
+	/* while (++i < argc) */
+		(*t_print_ls) (&flags, "% % % % % %", argv[0], argv[1], argv[2], argv[3], argv[4], argv[5]);
 	i = 0;
 	F_(!(flags = 0), B_1(flags, F_1));
-	ft_flag_print(&flags);
-	ft_putchar('\n');
-	FT_((i = ft_flags(argv, &flags)) == E_FLAGS, errno);
+	/* ft_flag_print(&flags); */
+	/* ft_putchar('\n'); */
+	/* FT_((i = ft_flags(argv, &flags)) == E_FLAGS, errno); */
 	F_(argc - i > 1, flags |= F_M);
 	return (i);
-	return (ft_dirs(argv + i, &flags));
+	/* return (ft_dirs(argv + i, &flags)); */
 }
