@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/06 17:16:46 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/06 17:22:19 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,14 @@ void	ft_flag_print(t_flags *flags)
 	{
 		ft_putnbr(*flags >> i & 1);
 		if (i % 8 == 0 && i != 16)
-			 ft_putchar(' ');
-	 }
+			ft_putchar(' ');
+	}
 }
 
-int	ft_flag_set(t_flags *flags, int flagc, ...)
+int		ft_flag_set(t_flags *flags, int flagc, ...)
 {
 	va_list	v_list;
 	char	*mode;
-	/* int		flag; */
 	int		i;
 
 	va_start(v_list, flagc);
@@ -43,7 +42,7 @@ int	ft_flag_set(t_flags *flags, int flagc, ...)
 	return (1);
 }
 
-int	ft_flag_check(char flag, t_flags *flags)
+int		ft_flag_check(char flag, t_flags *flags)
 {
 	FT_(flag == 'l', ft_flag_set(flags, 4, "110", F_l, F_t, F_1));
 	_FT(flag == '1', ft_flag_set(flags, 5, "10", F_1, F_l, F_t, F_g));
@@ -59,7 +58,7 @@ int	ft_flag_check(char flag, t_flags *flags)
 	return (ft_errors(E_FLAGS, &flag));
 }
 
-int			ft_flags(char **argv, t_flags *flags)
+int		ft_flags(char **argv, t_flags *flags)
 {
 	int i;
 	int j;
