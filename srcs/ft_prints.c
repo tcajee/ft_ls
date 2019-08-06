@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/06 12:59:31 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/06 13:23:01 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char *ft_path_ls(char *path, char *d_name)
 	int		i;
 	int		j;
 	char	temp[ft_strlen(path) + ft_strlen(d_name) + 1];
-	size_t	len;
+	int	len;
 
 	i = -1;
 	j = 0;
@@ -98,18 +98,6 @@ char *ft_path_ls(char *path, char *d_name)
 		return (NULL);
 }
 
-	/* ft_strjoin(ft_strjoin(path, "/"), s_dirent->d_name)) */
-	/* 	{ */
-	/* 		if (path[ft_strlen(path) -1] == '/') */
-	/* 			fpath[i] = ft_strjoin(path, s_dirent->d_name); */
-	/* 		else */
-	/* 			fpath[i] = ft_strjoin(ft_strjoin(path, "/"), s_dirent->d_name); */
-	/* 		i++; */
-	/* 	} */
-	/* return (ft_strdup(fpath, temp)); */
-/* } */
-
-
 int	ft_rec_prints(char *path, t_flags *flags)
 {
 	DIR				*dir;
@@ -131,7 +119,7 @@ int	ft_rec_prints(char *path, t_flags *flags)
 			continue ;
 		if (s_dirent->d_name[0] == '.' && s_dirent->d_name[1] == '.' && s_dirent->d_name[2] == '\0')
 			continue ;
-		if (fpath[i] = ft_path_ls(path, s_dirent->d_name))
+		if (fpath[i] == ft_path_ls(path, s_dirent->d_name))
 				i++;
 		else
 			continue ;

@@ -6,13 +6,13 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 11:36:46 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/06 12:14:18 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/06 13:27:38 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-int	ft_error_dirs(char *path)
+int	ft_error_dir(char *path)
 {
 	ft_putstr_fd("./ft_ls: ", 2);
 	ft_putstr_fd(path, 2);
@@ -20,7 +20,7 @@ int	ft_error_dirs(char *path)
 	return (0);
 }
 
-int	ft_error_prints(char *path)
+int	ft_error_print(char *path)
 {
 	ft_putstr_fd("./ft_ls: ", 2);
 	ft_putstr_fd(path, 2);
@@ -28,12 +28,20 @@ int	ft_error_prints(char *path)
 	return (0);
 }
 
-int	ft_error_flags(char *flag)
+int	ft_error_flag(char *flag)
 {
 	ft_putstr_fd("./ft_ls: illegal option -- ", 2);
 	ft_putchar_fd(*flag, 2);
 	ft_putendl_fd("", 2);
 	ft_putendl_fd("usage: ./ft_ls [-lRartGufgd1] [file ...]", 2);
+	return (0);
+}
+
+int	ft_error_file(char *path)
+{
+	ft_putstr_fd("./ft_ls: ", 2);
+	ft_putstr_fd(path, 2);
+	ft_putendl_fd(": No such file or directory", 2);
 	return (0);
 }
 

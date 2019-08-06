@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/06 13:08:18 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/06 13:32:13 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int	ft_flag_check(char flag, t_flags *flags)
 	_FT(flag == 'G', ft_flag_set(flags, 2, "1", F_G));
 	_FT(flag == 'a', ft_flag_set(flags, 2, "1", F_a));
 	_FT(flag == 'f', ft_flag_set(flags, 6, "11000", F_a, F_f, F_t, F_u, F_r));
-	_FT(flag == 'r', ft_flag_set(flags, 3, "10", F_r));
-	_FT(flag == 't', ft_flag_set(flags, 3, "10", F_t));
-	_FT(flag == 'u', ft_flag_set(flags, 3, "10", F_u));
+	_FT(flag == 'r', ft_flag_set(flags, 3, "100", F_r, F_f, F_D));
+	_FT(flag == 't', ft_flag_set(flags, 3, "100", F_t, F_f, F_D));
+	_FT(flag == 'u', ft_flag_set(flags, 3, "100", F_u, F_f, F_D));
 	_FT(flag == 'd', ft_flag_set(flags, 3, "10", F_d, F_R));
 	_FT(flag == 'R', ft_flag_set(flags, 3, "10", F_R, F_d));
 	return (ft_errors(E_FLAGS, &flag));

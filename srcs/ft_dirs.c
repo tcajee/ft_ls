@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/06 13:20:31 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/06 13:29:32 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char *ft_dir_path(char *path, char *d_name)
 	int		i;
 	int		j;
 	char	temp[ft_strlen(path) + ft_strlen(d_name) + 1];
-	size_t	len;
+	int	len;
 
 	i = -1;
 	j = 0;
@@ -49,45 +49,6 @@ char *ft_dir_path(char *path, char *d_name)
 		return (NULL);
 }
 
-int	ft_rec_prints(char *path, t_flags *flags)
-{
-	DIR				*dir;
-	struct dirent	*s_dirent;
-	char			*fpath[PATH_MAX];
-	int 			i;
-	int 			j;
-
-	i = 0;
-	dir = opendir(path);
-	FT_(!dir, E_PRINTS);
-	if (*flags & F_1)
-		ft_print_def(path, flags);
-	else if (*flags & F_l)
-		ft_print_lst(path, flags);
-	while ((s_dirent = readdir(dir)) != NULL)
-	{
-		if (s_dirent->d_name[0] == '.' && s_dirent->d_name[1] == '\0')
-			continue ;
-		if (s_dirent->d_name[0] == '.' && s_dirent->d_name[1] == '.' && s_dirent->d_name[2] == '\0')
-			continue ;
-		if (fpath[i] = ft_dir_path(path, s_dirent->d_name))
-				i++;
-		else
-			continue ;
-	}
-	closedir(dir);
-
-	j = 0;
-	while (j < i)
-	{
-		ft_putchar('\n');
-		ft_print_name(fpath[j]);
-		ft_print_rec(fpath[j], flags);
-		free(fpath[j++]);
-	}
-	return (1);
-}
-
 int	ft_dirs(char **argv, t_flags *flags)
 {
 	t_stat s_stat;
@@ -100,7 +61,7 @@ int	ft_dirs(char **argv, t_flags *flags)
 	while (argv[++i])
 		FT(lstat(argv[i], &s_stat) < 0, ft_errors(E_PRINTS, argv[i]));
 	while (argv[++k])
-		FT(ft_ls_isdir(argv[k]), ft_prints(argv[k], flags));
+		FT(ft_dir_check(argv[k]), ft_prints(argv[k], flags));
 	return (i);
 }
 
