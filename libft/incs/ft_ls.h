@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/06 17:32:14 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/06 18:21:18 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@
 # define B_IS(x , y) (x & y) ? 1 : 0
 # define B_0(x , y) (x = x & ~y)
 # define B_1(x , z) (x = x | z)
+
+# define IS_DOT(x) (x[0] == '.' && x[1] == '\0') ? 1 : 0
+# define IS_DDOT(x) (x[0] == '.' && x[1] == '.' && x[2] == '\0') ? 1 : 0
 
 typedef enum			e_flags
 {
@@ -86,12 +89,13 @@ typedef struct dirent	t_dirent;
 typedef struct passwd	t_passwd;
 typedef struct group	t_group;
 
-int						ft_ls(char **argv, t_flags *flags);
 
 int						ft_flags(char **argv, t_flags *flags);
 int						ft_flag_check(char flag, t_flags *flags);
 int						ft_flag_set(t_flags *flags, int flagc, ...);
 void					ft_flag_print(t_flags *flags);
+
+int						ft_ls(char **argv, t_flags *flags);
 
 int						ft_dirs(char **argv, t_flags *flags);
 int						ft_dir_path(char *path, char *d_name, char **fpath,
@@ -99,6 +103,7 @@ int						ft_dir_path(char *path, char *d_name, char **fpath,
 int						ft_dir_check(char *name);
 
 int						ft_sorts(int argc, char **argv);
+int						ft_sort_lex(int argc, char **argv);
 int						ft_sort_rev(int argc, char **argv);
 int						ft_sort_mtime(int argc, char **argv);
 int						ft_sort_atime(int argc, char **argv);
