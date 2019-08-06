@@ -25,15 +25,13 @@ int	ft_print_lst(char *path, t_flags *flags)
 
 	dir = opendir(path);
 	FT_(!dir, E_PRINTS);
-	F_(*flags & F_M, ft_print_name(path));
+	F_(*flags & F_M && !(*flags & F_R), ft_print_name(path));
 	while ((s_dirent = readdir(dir)))
 	{
-		if (*flags & F_a)
-			ft_putendl(s_dirent->d_name);
-		else
-			F_(s_dirent->d_name[0] != '.',ft_putendl(s_dirent->d_name));
+		F_(*flags & F_a, ft_putendl(s_dirent->d_name));
+		_F(s_dirent->d_name[0] != '.', ft_putendl(s_dirent->d_name));
 	}
-	F_(*flags & F_M, ft_putendl(""));
+	F_(*flags & F_M && !(*flags & F_R), ft_putendl(""));
 	closedir(dir);
 	return (1);
 }
@@ -45,15 +43,13 @@ int	ft_print_def(char *path, t_flags *flags)
 
 	dir = opendir(path);
 	FT_(!dir, E_PRINTS);
-	F_(*flags & F_M, ft_print_name(path));
+	F_(*flags & F_M && !(*flags & F_R), ft_print_name(path));
 	while ((s_dirent = readdir(dir)))
 	{
-		if (*flags & F_a)
-			ft_putendl(s_dirent->d_name);
-		else
-			F_(s_dirent->d_name[0] != '.',ft_putendl(s_dirent->d_name));
+		F_(*flags & F_a, ft_putendl(s_dirent->d_name));
+		_F(s_dirent->d_name[0] != '.', ft_putendl(s_dirent->d_name));
 	}
-	F_(*flags & F_M, ft_putendl(""));
+	F_(*flags & F_M && !(*flags & F_R), ft_putendl(""));
 	closedir(dir);
 	return (1);
 }
@@ -62,7 +58,7 @@ int	ft_print_rec(char *path, t_flags *flags)
 {
 	t_dirent	*s_dir;
 	DIR			*dir;
-	char		*fpath[PATH_MAX];
+	char		*fpath[1024];
 	int 		i;
 
 	i = 0;

@@ -19,8 +19,8 @@ int	main(int argc, char **argv)
 
 	i = 0;
 	F_(!(flags = 0), B_1(flags, F_1));
-	ft_flag_print(&flags);
-	ft_putchar('\n');
+	/* ft_flag_print(&flags); */
+	/* ft_putchar('\n'); */
 	FT_((i = ft_flags(argv, &flags)) == E_FLAGS, errno);
 	F_(argc - i > 1, flags |= F_M);
 	return (ft_dirs(argv + i, &flags));
