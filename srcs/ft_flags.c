@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/06 12:47:05 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/06 13:08:18 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,18 @@ void	ft_flag_print(t_flags *flags)
 int	ft_flag_set(t_flags *flags, int flagc, ...)
 {
 	va_list	v_list;
-	char *mode;
-	int i;
+	char	*mode;
+	int		flag;
+	int		i;
 
 	va_start(v_list, flagc);
-
 	mode = va_arg(v_list, char *);
 	i = -1;
 	while (mode[++i])
 	{
-		FT_(mode == 0, B_0(*flags, off));
-		FT_(mode == 1, B_1(*flags, on));
-		if (mode == 10)
-		{
-			if (B_IS(*flags, off))
-				B_0(*flags, off);
-			return (B_1(*flags, on));
-		}
-		if (mode == 11)
-		{
-			B_1(*flags, off);
-			return (B_1(*flags, on));
-		}
+		flag = va_arg(v_list, int);
+		FT(mode[i] == 0, B_0(*flags, flag));
+		FT(mode[i] == 1, B_1(*flags, flag));
 	}
 	va_end(v_list);
 	return (1);
