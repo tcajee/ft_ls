@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/06 13:29:32 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/06 14:16:25 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,36 @@ int	ft_dir_check(char *path)
 	return (0);
 }
 
-char *ft_dir_path(char *path, char *d_name)
-{
-	int		i;
-	int		j;
-	char	temp[ft_strlen(path) + ft_strlen(d_name) + 1];
-	int	len;
 
+//NEW DIR_PATH
+int    ft_dir_path(char *path, char *d_name, char **fpath, int index)
+{
+	int        i;
+	size_t    len;
+	char     *temp;
+	
 	i = -1;
-	j = 0;
 	len = ft_strlen(path) + ft_strlen(d_name) + 1;
-	while (j < len)
+	temp = (char *)malloc(sizeof(char) * (len + 2));
+	while (*path != '\0')
 	{
-		while (path[++i])
-			temp[i] = path[i];
-		temp[i] = '/';
-		j += i;
-		i = -1;
-		while (d_name[++i])
-			temp[j++] = d_name[i];
+		temp[++i] = *path;
+		++path;
 	}
-	if (temp[j])
-		temp[j] = '\0';
+	temp[++i] = '/';
+	while (*d_name != '\0')
+	{
+		temp[++i] = *d_name;
+		++d_name;
+	}
+	temp[++i] = '\0';
 	if (ft_dir_check(temp))
-		return (ft_strdup(temp));
+	{
+		fpath[index] = temp;
+		return (1);
+	}
 	else
-		return (NULL);
+		return (0);
 }
 
 int	ft_dirs(char **argv, t_flags *flags)

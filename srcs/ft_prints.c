@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/06 13:23:01 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/06 14:17:24 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_ls_isdir(char *path)
 	return (0);
 }
 
-void	ft_name_prints(char *path)
+void	ft_print_name(char *path)
 {
 	ft_putstr(path);
 	ft_putstr(":\n");
@@ -36,7 +36,7 @@ int	ft_lst_prints(char *path, t_flags *flags)
 
 	dir = opendir(path);
 	FT_(!dir, E_PRINTS);
-	FT(*flags & F_M, ft_name_prints(path));
+	FT(*flags & F_M, ft_print_name(path));
 	while ((s_dirent = readdir(dir)))
 	{
 		if (*flags & F_a)
@@ -56,7 +56,7 @@ int	ft_def_prints(char *path, t_flags *flags)
 
 	dir = opendir(path);
 	FT_(!dir, E_PRINTS);
-	FT(*flags & F_M, ft_name_prints(path));
+	FT(*flags & F_M, ft_print_name(path));
 	while ((s_dirent = readdir(dir)))
 	{
 		if (*flags & F_a)
@@ -70,41 +70,12 @@ int	ft_def_prints(char *path, t_flags *flags)
 }
 
 
-char *ft_path_ls(char *path, char *d_name)
-{
-	int		i;
-	int		j;
-	char	temp[ft_strlen(path) + ft_strlen(d_name) + 1];
-	int	len;
-
-	i = -1;
-	j = 0;
-	len = ft_strlen(path) + ft_strlen(d_name) + 1;
-	while (j < len)
-	{
-		while (path[++i])
-			temp[i] = path[i];
-		temp[i] = '/';
-		j += i;
-		i = -1;
-		while (d_name[++i])
-			temp[j++] = d_name[i];
-	}
-	if (temp[j])
-		temp[j] = '\0';
-	if (ft_ls_isdir(temp))
-		return (ft_strdup(temp));
-	else
-		return (NULL);
-}
-
-int	ft_rec_prints(char *path, t_flags *flags)
+int	ft_print_rec(char *path, t_flags *flags)
 {
 	DIR				*dir;
 	struct dirent	*s_dirent;
 	char			*fpath[PATH_MAX];
 	int 			i;
-	int 			j;
 
 	i = 0;
 	dir = opendir(path);
@@ -119,21 +90,18 @@ int	ft_rec_prints(char *path, t_flags *flags)
 			continue ;
 		if (s_dirent->d_name[0] == '.' && s_dirent->d_name[1] == '.' && s_dirent->d_name[2] == '\0')
 			continue ;
-		if (fpath[i] == ft_path_ls(path, s_dirent->d_name))
-				i++;
+		if (ft_dir_path(path, s_dirent->d_name, fpath, i))
+		{
+			printf("FPATH: %s", fpath[i]);
+			ft_putchar('\n');
+			ft_print_name(fpath[i]);
+			ft_print_rec(fpath[i], flags);
+			free(fpath[i++]);
+		}
 		else
 			continue ;
 	}
 	closedir(dir);
-
-	j = 0;
-	while (j < i)
-	{
-		ft_putchar('\n');
-		ft_name_prints(fpath[j]);
-		ft_rec_prints(fpath[j], flags);
-		free(fpath[j++]);
-	}
 	return (1);
 }
 
@@ -141,7 +109,7 @@ int	ft_prints(char *path, t_flags *flags)
 {
 	FT_(*flags & F_1 && !(*flags & F_R), ft_def_prints(path, flags));
 	_FT(*flags & F_l && !(*flags & F_R), ft_lst_prints(path, flags));
-	_FT(*flags & F_R, ft_rec_prints(path, flags));
+	_FT(*flags & F_R, ft_print_rec(path, flags));
 	return (1);
 }
 
