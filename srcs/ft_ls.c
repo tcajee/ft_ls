@@ -21,14 +21,13 @@ int	ft_print_ls(t_flags *flags, char *ft, ...)
 
 	i = -1;
 	va_start (v_list, ft);
-	while (ft[++i])
+	while (ft[++i] && flags)
 	{
-		F_(ft[i] == '%', ft_putstr(va_arg(v_list, char *)));
-		_F(ft[i] == 'n', ft_putendl(""));
+		F_(ft[i] == 'n', ft_putendl(""));
 		_F(ft[i] == 't', ft_putstr("	"));
-		_F(ft[i] == ':', ft_putchar(':'));
-		_F(ft[i] == '/' && *flags & F_1, ft_putchar('/'));
-		_F(*ft, ft_putchar(ft[i]));
+		_F(ft[i] == '.', ft_putendl(""));
+		_F(ft[i], ft_putchar(ft[i]));
+		_F(ft[i] == '%', ft_putstr(va_arg(v_list, char *)));
 	}
 	va_end (v_list);
 	return (1);
