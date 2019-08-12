@@ -85,18 +85,14 @@ int		ft_flags(char **argv, t_flags *flags)
 		FT_((!argv[i][0] || argv[i][0] != '-'), i);
 		_FT(!ft_strcmp(argv[i], "--"), i + 1);
 		if ((argv[i][0] == '-' && argv[i][1] == '-') && argv[i][2]) 
-		{
-			printf("%s\n", &argv[i][2]);
 			ft_flag_long(&argv[i][2], flags);
-		}
 		else if (argv[i][0] == '-' && argv[i][1])
-		{
 			while (argv[i][++j])
 				ft_flag_check(argv[i][j], flags);
-		}
 		else
 			return (i);
 	}
+	/* printf("%s\n", &argv[i][2]); */
 	/* (*flags = ft_errors(E_FLAGS, &argv[i][2]))); */
 	ft_flag_print(flags);
 	ft_putchar('\n');

@@ -67,13 +67,9 @@ int	ft_print_rec(char *path, t_flags *flags)
 	while ((s_dir = readdir(dir)) != NULL)
 	{
 		F_(IS_DOT(s_dir->d_name) || IS_DDOT(s_dir->d_name), continue);
-		if (ft_dir_path(path, s_dir->d_name, &fpath[i]))
-		{
-			/* ft_putchar('\n'); */
-			/* ft_print_f(F_M, fpath[i]); */
-			ft_print_rec(fpath[i], flags);
-			free(fpath[i++]);
-		 }
+		F_(ft_dir_path(path, s_dir->d_name, &fpath[i]),
+				ft_print_rec(fpath[i], flags));
+		free(fpath[i++]);
 	}
 	closedir(dir);
 	return (1);

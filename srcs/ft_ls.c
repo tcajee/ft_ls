@@ -12,9 +12,9 @@
 
 #include "../libft/incs/libft.h"
 
-typedef int (*t_print_ls) (t_flags *flags, char *format, ...);
+typedef int (*t_ls) (t_flags *flags, char *format, ...);
 
-int	ft_print_ls(t_flags *flags, char *ft, ...)
+int	ft_ls(t_flags *flags, char *ft, ...)
 {
 	va_list	v_list;
 	int		i;
@@ -36,19 +36,20 @@ int	ft_print_ls(t_flags *flags, char *ft, ...)
 int	main(int argc, char **argv)
 {
 	t_flags		flags;
-	t_print_ls	t_print_ls;
+	t_ls		t_ls;
 	int			i;
 
-	t_print_ls = ft_print_ls;
+	t_ls = ft_ls;
 	i = 0;
-	/* while (++i < argc) */
-		(*t_print_ls) (&flags, "% % % % % %", argv[0], argv[1], argv[2], argv[3], argv[4], argv[5]);
+	while (++i < argc)
+		(*t_ls) (&flags, "%", argv[i]);
+
 	i = 0;
 	F_(!(flags = 0), B_1(flags, F_1));
-	/* ft_flag_print(&flags); */
-	/* ft_putchar('\n'); */
 	/* FT_((i = ft_flags(argv, &flags)) == E_FLAGS, errno); */
 	F_(argc - i > 1, flags |= F_M);
+	ft_flag_print(&flags);
+	ft_putchar('\n');
 	return (i);
 	/* return (ft_dirs(argv + i, &flags)); */
 }

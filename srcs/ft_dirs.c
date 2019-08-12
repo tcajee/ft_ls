@@ -43,15 +43,17 @@ int	ft_dir_path(char *path, char *d_name, char **fpath)
 int	ft_dirs(char **argv, t_flags *flags)
 {
 	int i;
-	int k;
+	int j;
 
 	i = -1;
-	k = -1;
+	j = -1;
 	FT_(!argv[0], ft_prints(".", flags));
 	while (argv[++i])
-		F_(!(ft_dir_check(argv[i])), ft_errors(E_PRINTS, argv[i]));
-	while (argv[++k])
-		F_(ft_dir_check(argv[k]), ft_prints(argv[k], flags));
+	{
+		while (argv[++j])
+			F_(!(ft_dir_check(argv[j])), ft_errors(E_PRINTS, argv[j]));
+		F_(ft_dir_check(argv[i]), ft_prints(argv[i], flags));
+	}
 	return (i);
 }
 
