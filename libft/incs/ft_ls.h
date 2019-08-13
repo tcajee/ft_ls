@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/13 11:03:34 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/13 12:57:54 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,16 @@ typedef struct			s_info
 	char				*name;
 	char				*path;
 	t_stat				*s_stat;
-	t_dirent			*s_dir;
 	t_passwd			*s_pwd;
 	t_group				*s_grp;
 }						t_info;
 
 typedef struct			s_dirs
 {
-	t_info				dirs[1024];
+	char				*path;
+	t_info				darr[1024];
+	t_dirent			*s_dir;
+	int					dirc;
 }						t_dirs;
 
 typedef enum			e_flags
@@ -108,8 +110,9 @@ int						ft_flag_set(t_flags *flags, int flagc, ...);
 void					ft_flag_print(t_flags *flags);
 
 int						ft_dirs(char **argv, t_flags *flags);
-int						ft_dir_path(char *path, char *d_name, char **fpath);
-int						ft_dir_check(char *name);
+char					*ft_dir_path(char *path, char *d_name);
+int						ft_dir_check(char *path);
+t_dirs					*ft_dir_info(char *path);
 
 int						ft_sorts(int argc, char **argv);
 int						ft_sort_lex(int argc, char **argv);
@@ -117,10 +120,10 @@ int						ft_sort_rev(int argc, char **argv);
 int						ft_sort_mtime(int argc, char **argv);
 int						ft_sort_atime(int argc, char **argv);
 
-int						ft_prints(char *path, t_flags *flags);
-int						ft_print_def(char *path, t_flags *flags);
-int						ft_print_lst(char *path, t_flags *flags);
-int						ft_print_rec(char *path, t_flags *flags);
+int						ft_prints(t_flags *flags, t_dirs *dirs);
+int						ft_print_def(t_flags *flags, t_dirs *dirs);
+int						ft_print_lst(t_flags *flags, t_dirs *dirs);
+int						ft_print_rec(t_flags *flags, t_dirs *dirs);
 void					ft_print_f(int format, char *path, char *d_name);
 
 int						ft_errors(int code, char *error);

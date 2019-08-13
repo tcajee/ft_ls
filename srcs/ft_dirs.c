@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/13 11:16:03 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/13 13:25:43 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,31 @@ int	ft_dir_check(char *path)
 	return (0);
 }
 
-t_info	*ft_dir_info(char *path, char *name)
+t_dirs	*ft_dir_info(char *path)
 {
+	t_dirs		*dirs;
 	DIR			*dir;
-	t_info		*s_info;
+	int i;
 
-	dir = opendir(name);
-	FT_(!dir, NULL);
-	FT_(!(s_info = malloc(sizeof(t_info))), NULL);
-	FT_(!(s_info->name = ft_strcpy(s_info->name, name)), NULL);
-	FT_(!(s_info->path = ft_strcpy(ft_strcpy(s_info->path, "/"), name)), NULL);
-	FT_(!(stat(s_info->path, s_info->s_stat)), NULL);
-	FT_(!(s_info->s_pwd = getpwuid(s_info->s_stat->st_uid)), NULL);
-	FT_(!(s_info->s_grp = getgrgid(s_info->s_stat->st_gid)), NULL);
-	return (s_info);
+	i = 0;
+	FT_(!(dirs = (t_dirs *)malloc(sizeof(t_dirs))), NULL);
+	FT_(!(dir = opendir(path)), NULL);
+	while ((dirs->s_dir = readdir(dir)))
+	{
+		FT_(!(dirs->darr[i].name = ft_strdup(dirs->s_dir->d_name)), NULL);
+		FT_(!(dirs->darr[i].path = ft_dir_path(path, dirs->s_dir->d_name)), NULL);
+		FT_((stat(dirs->darr[i].path, dirs->darr[i].s_stat)) < 0, NULL);
+		FT_(!(dirs->darr[i].s_pwd = getpwuid(dirs->darr[i].s_stat->st_uid)), NULL);
+		FT_(!(dirs->darr[i].s_grp = getgrgid(dirs->darr[i].s_stat->st_gid)), NULL);
+		i++;
+	}
+	dirs->path = ft_strdup(path);
+	dirs->dirc = i;
+	closedir(dir);
+	return (dirs);
 }
 
-int	ft_dir_path(char *path, char *d_name, char **fpath)
+char	*ft_dir_path(char *path, char *d_name)
 {
 	int		i;
 	int		len;
@@ -45,32 +53,28 @@ int	ft_dir_path(char *path, char *d_name, char **fpath)
 
 	i = -1;
 	len = ft_strlen(path) + ft_strlen(d_name) + 1;
-	FT_(!(temp = (char *)malloc(sizeof(char) * (len + 2))), 0);
+	FT_(!(temp = (char *)malloc(sizeof(char) * (len + 2))), NULL);
 	while (*path)
 		temp[++i] = *path++;
 	temp[++i] = '/';
 	while (*d_name)
 		temp[++i] = *d_name++;
 	temp[++i] = '\0';
-	FT_(ft_dir_check(temp), !!(*fpath = temp));
-	return (0);
+	/* FT_(ft_dir_check(temp), !!(*fpath = temp)); */
+	return (temp);
 }
 
-t_dirs	*ft_dirs(char **argv, t_flags *flags)
+int ft_dirs(char **argv, t_flags *flags)
 {
-	t_dirs	*dirs;
 	int i;
-	int j;
 
 	i = -1;
-	j = -1;
-	FT_(!argv[0], ft_prints(".", flags));
+	FT_(!argv[0], ft_prints(flags, ft_dir_info(".")));
 	while (argv[++i])
-	{
-		while (argv[++j])
-			F_(!(ft_dir_check(argv[j])), ft_errors(E_PRINTS, argv[j]));
-		F_(ft_dir_check(argv[i]), ft_prints(argv[i], flags));
-	}
+			F_(!(ft_dir_check(argv[i])), ft_errors(E_PRINTS, argv[i]));
+	i = -1;
+	while (argv[++i])
+		F_(ft_dir_check(argv[i]), ft_prints(flags, ft_dir_info(argv[i])));
 	return (i);
 }
 
