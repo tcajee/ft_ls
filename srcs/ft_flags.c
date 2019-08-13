@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/13 12:41:08 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/13 13:35:37 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		ft_flag_check(char flag, t_flags *flags)
 	return (ft_errors(E_FLAGS, &flag));
 }
 
-int		ft_flag_long(char *opt, t_flags *flags)
+int		ft_lflag_check(char *opt, t_flags *flags)
 {
 	FT_(!ft_strcmp(opt, "long"), ft_flag_set(flags, 4, "110", F_l, F_t, F_1));
 	_FT(!ft_strcmp(opt, "list"), ft_flag_set(flags, 5, "10", F_1, F_l, F_t, F_g));
@@ -81,11 +81,11 @@ int		ft_flags(char **argv, t_flags *flags)
 	i = 0;
 	while (argv[++i])
 	{
-		j = -1;
+		j = 0;
 		FT_((!argv[i][0] || argv[i][0] != '-'), i);
 		_FT(!ft_strcmp(argv[i], "--"), i + 1);
-		if ((argv[i][0] == '-' && argv[i][1] == '-') && argv[i][2]) 
-			ft_flag_long(&argv[i][2], flags);
+		if ((argv[i][0] == '-' && argv[i][1] == '-') && argv[i][2])
+			ft_lflag_check(&argv[i][2], flags);
 		else if (argv[i][0] == '-' && argv[i][1])
 			while (argv[i][++j])
 				ft_flag_check(argv[i][j], flags);

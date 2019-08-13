@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/13 12:41:05 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/13 13:31:39 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	main(int argc, char **argv)
 	ft_flag_print(&flags);
 	ft_putchar('\n');
 
-	return (ft_dirs(argv + i, &flags));
+	return (0);
+	/* return (ft_dirs(argv + i, &flags)); */
 
 }

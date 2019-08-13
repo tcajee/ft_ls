@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/13 12:57:54 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/13 13:35:36 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int						ft_ls_print(char *format, ...);
 
 int						ft_flags(char **argv, t_flags *flags);
 int						ft_flag_check(char flag, t_flags *flags);
+int						ft_lflag_check(char *option, t_flags *flags);
 int						ft_flag_set(t_flags *flags, int flagc, ...);
 void					ft_flag_print(t_flags *flags);
 
