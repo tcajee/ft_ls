@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/13 14:26:26 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/08/13 14:54:22 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	ft_print_perm(t_stat *s_stat)
 
 int	ft_print_def(t_flags *flags, t_dirs *dirs)
 {
+	ft_putendl("def_prints:");
 	/* DIR			*dir; */
 	/* t_dirent	*s_dir; */
 	int i;
@@ -64,15 +65,16 @@ int	ft_print_def(t_flags *flags, t_dirs *dirs)
 	i = 0;
 	/* dir = opendir(path); */
 	/* FT_(!dir, E_PRINTS); */
+	*flags |= F_M;
 	F_(*flags & F_M || *flags & F_R, ft_print_f(F_M, dirs->path, NULL));
 	/* while ((s_dir = readdir(dir))) */
 	/* { */
-	while (i < dirs->dirc)
-	{
-		F_(*flags & F_a, ft_print_f(F_1, dirs->path, dirs->darr[i]->path));
-		_F(dirs->darr[i]->path[0] != '.', ft_print_f(F_1, dirs->path, dirs->darr[i]->path));
-		i++;
-	}
+//	while (i < dirs->dirc)
+//	{
+//		F_(*flags & F_a, ft_print_f(F_1, dirs->path, dirs->darr[i]->path));
+//		_F(dirs->darr[i]->path[0] != '.', ft_print_f(F_1, dirs->path, dirs->darr[i]->path));
+//		i++;
+//	}
 	/* } */
 	F_(*flags & F_M || *flags & F_R, ft_putendl(""));
 	/* closedir(dir); */

@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/13 14:22:59 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/08/13 14:59:14 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	ft_dir_check(char *path)
 
 t_dirs	*ft_dir_info(char *path)
 {
+	ft_putendl("dir_prints:");
 	t_dirs		*dirs;
 	DIR			*dir;
 	int i;
@@ -32,6 +33,7 @@ t_dirs	*ft_dir_info(char *path)
 	FT_(!(dir = opendir(path)), NULL);
 	while ((dirs->s_dir = readdir(dir)))
 	{
+		F_(!dirs->darr[i], dirs->darr[i] = (t_info *)malloc(sizeof(t_info)));
 		FT_(!(dirs->darr[i]->name = ft_strdup(dirs->s_dir->d_name)), NULL);
 		FT_(!(dirs->darr[i]->path = ft_dir_path(path, dirs->s_dir->d_name)), NULL);
 		FT_((stat(dirs->darr[i]->path, dirs->darr[i]->s_stat)) < 0, NULL);
@@ -67,14 +69,18 @@ char	*ft_dir_path(char *path, char *d_name)
 int ft_dirs(char **argv, t_flags *flags)
 {
 	int i;
+	t_dirs	*tmp = NULL;
 
 	i = -1;
-	FT_(!argv[0], ft_prints(flags, ft_dir_info(".")));
-	while (argv[++i])
+//	FT_(!argv[0], ft_prints(flags, ft_dir_info(".")));
+	if (!(tmp = ft_dir_info(".")))
+		ft_putendl("dir_info failed");
+
+	while (argv[++i] && flags)
 			F_(!(ft_dir_check(argv[i])), ft_errors(E_PRINTS, argv[i]));
 	i = -1;
-	while (argv[++i])
-		F_(ft_dir_check(argv[i]), ft_prints(flags, ft_dir_info(argv[i])));
+//	while (argv[++i])
+//		F_(ft_dir_check(argv[i]), ft_prints(flags, ft_dir_info(argv[i])));
 	return (i);
 }
 
