@@ -23,7 +23,6 @@ int	ft_dir_check(char *path)
 
 t_dirs	*ft_dir_info(char *path)
 {
-	ft_putendl("dir_prints:");
 	t_dirs		*dirs;
 	DIR			*dir;
 	int i;
@@ -31,9 +30,10 @@ t_dirs	*ft_dir_info(char *path)
 	i = 0;
 	FT_(!(dirs = (t_dirs *)malloc(sizeof(t_dirs))), NULL);
 	FT_(!(dir = opendir(path)), NULL);
-	while ((dirs->s_dir = readdir(dir)))
+	while ((dirs->s_dir = readdir(dir)) != NULL)
 	{
 		F_(!dirs->darr[i], dirs->darr[i] = (t_info *)malloc(sizeof(t_info)));
+		FT_(!dirs->darr[i], NULL); 
 		FT_(!(dirs->darr[i]->name = ft_strdup(dirs->s_dir->d_name)), NULL);
 		FT_(!(dirs->darr[i]->path = ft_dir_path(path, dirs->s_dir->d_name)), NULL);
 		FT_((stat(dirs->darr[i]->path, dirs->darr[i]->s_stat)) < 0, NULL);
@@ -68,20 +68,38 @@ char	*ft_dir_path(char *path, char *d_name)
 
 int ft_dirs(char **argv, t_flags *flags)
 {
-	int i;
-	t_dirs	*tmp = NULL;
+	/* int i; */
 
-	i = -1;
-//	FT_(!argv[0], ft_prints(flags, ft_dir_info(".")));
-	if (!(tmp = ft_dir_info(".")))
-		ft_putendl("dir_info failed");
+	t_dirs	*dirs = NULL;
+	F_(ft_dir_check("."), dirs = ft_dir_info("."));
+	F_(!dirs, printf("dir info failed\n"));
+	else if (dirs)
+	{
+		printf(""dirs->s_dir->d_name);
+		printf(""dirs->darr[i]->name);
+		printf(""ft_dir_path(".", dirs->s_dir->d_name));
+		printf(""dirs->darr[i]->path);
+		printf(""s_stat);
+		printf(""dirs->darr[i]->s_pwd = getpwuid(dirs->darr[i]->s_stat->st_uid)), NULL);
+		printf(""dirs->darr[i]->s_grp = getgrgid(dirs->darr[i]->s_stat->st_gid)), NULL);
+		i++;
+	}
+	dirs->path = ft_strdup(path);
+	dirs->dirc = i;
+	}
+	
+	/* ft_print_lst(flags, tmp); */
 
-	while (argv[++i] && flags)
-			F_(!(ft_dir_check(argv[i])), ft_errors(E_PRINTS, argv[i]));
-	i = -1;
-//	while (argv[++i])
-//		F_(ft_dir_check(argv[i]), ft_prints(flags, ft_dir_info(argv[i])));
-	return (i);
+	/* i = -1; */
+	/* FT_(!argv[0], ft_prints(flags, ft_dir_info("."))); */
+	/* while (argv[++i] && flags) */
+	/* 		F_(!(ft_dir_check(argv[i])), ft_errors(E_PRINTS, argv[i])); */
+	/* i = -1; */
+	/* while (argv[++i]) */
+	/* 	F_(ft_dir_check(argv[i]), ft_prints(flags, ft_dir_info(argv[i]))); */
+	/* return (i); */
+
+	return (0);
 }
 
 /* {{{TITLE

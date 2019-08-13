@@ -127,23 +127,28 @@ int	ft_print_lst(t_flags *flags, t_dirs *dirs)
 {
 	/* DIR			*dir; */
 	/* t_dirent	*s_dir; */
-	int i;
+	/* int i; */
 
-	i = 0;
+	/* i = 0; */
 	/* dir = opendir(path); */
 	/* FT_(!dir, E_PRINTS); */
-	F_(*flags & F_M || *flags & F_R, ft_print_f(F_M, dirs->path, NULL));
+
+
+
+	/* F_(*flags & F_M || *flags & F_R, ft_print_f(F_M, dirs->path, NULL)); */
 	/* while ((s_dir = readdir(dir))) */
 	/* { */
-	while (i < dirs->dirc)
-	{
-		F_(*flags & F_a, ft_print_f(F_1, dirs->path, dirs->darr[i]->path));
-		_F(dirs->darr[i]->path[0] != '.', ft_print_f(F_1, dirs->path, dirs->darr[i]->path));
-		i++;
-	}
+	/* while (i < dirs->dirc) */
+	/* { */
+	/* 	F_(*flags & F_a, ft_print_f(F_1, dirs->path, dirs->darr[i]->path)); */
+	/* 	_F(dirs->darr[i]->path[0] != '.', ft_print_f(F_1, dirs->path, dirs->darr[i]->path)); */
+	/* 	i++; */
 	/* } */
-	F_(*flags & F_M || *flags & F_R, ft_putendl(""));
+	/* } */
+	/* F_(*flags & F_M || *flags & F_R, ft_putendl("")); */
 	/* closedir(dir); */
+	if (dirs && flags)
+		return (1);
 	return (1);
 }
 
