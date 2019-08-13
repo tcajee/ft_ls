@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/06 18:01:36 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/13 11:16:03 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,22 @@ int	ft_dir_check(char *path)
 	FT_(lstat(path, &s_stat) < 0, 0);
 	FT_((s_stat.st_mode & S_IFMT) == S_IFDIR, 1);
 	return (0);
+}
+
+t_info	*ft_dir_info(char *path, char *name)
+{
+	DIR			*dir;
+	t_info		*s_info;
+
+	dir = opendir(name);
+	FT_(!dir, NULL);
+	FT_(!(s_info = malloc(sizeof(t_info))), NULL);
+	FT_(!(s_info->name = ft_strcpy(s_info->name, name)), NULL);
+	FT_(!(s_info->path = ft_strcpy(ft_strcpy(s_info->path, "/"), name)), NULL);
+	FT_(!(stat(s_info->path, s_info->s_stat)), NULL);
+	FT_(!(s_info->s_pwd = getpwuid(s_info->s_stat->st_uid)), NULL);
+	FT_(!(s_info->s_grp = getgrgid(s_info->s_stat->st_gid)), NULL);
+	return (s_info);
 }
 
 int	ft_dir_path(char *path, char *d_name, char **fpath)
@@ -40,8 +56,9 @@ int	ft_dir_path(char *path, char *d_name, char **fpath)
 	return (0);
 }
 
-int	ft_dirs(char **argv, t_flags *flags)
+t_dirs	*ft_dirs(char **argv, t_flags *flags)
 {
+	t_dirs	*dirs;
 	int i;
 	int j;
 

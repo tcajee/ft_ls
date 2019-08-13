@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/06 18:16:46 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/13 08:05:29 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ int	ft_sort_atime(int argc, char **argv)
 	return (1);
 }
 
-int	ft_sorts(int argc, char **argv)
+int	ft_sort_rev(int argc, char **argv)
 {
 	if (argc && argv)
 		return (1);
 	return (1);
 }
 
-int	ft_sort_rev(int argc, char **argv)
+int	ft_sorts(int argc, char **argv)
 {
 	if (argc && argv)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/06 18:21:18 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/13 11:03:34 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,26 @@
 # define IS_DOT(x) (x[0] == '.' && x[1] == '\0') ? 1 : 0
 # define IS_DDOT(x) (x[0] == '.' && x[1] == '.' && x[2] == '\0') ? 1 : 0
 
+typedef struct stat		t_stat;
+typedef struct dirent	t_dirent;
+typedef struct passwd	t_passwd;
+typedef struct group	t_group;
+
+typedef struct			s_info
+{
+	char				*name;
+	char				*path;
+	t_stat				*s_stat;
+	t_dirent			*s_dir;
+	t_passwd			*s_pwd;
+	t_group				*s_grp;
+}						t_info;
+
+typedef struct			s_dirs
+{
+	t_info				dirs[1024];
+}						t_dirs;
+
 typedef enum			e_flags
 {
 	F_1 = 1,
@@ -55,39 +75,32 @@ typedef enum			e_flags
 	F_R = 32768,
 }						t_flags;
 
-typedef struct			s_file
-{
-	char				*name;
-	char				path[1024];
-	mode_t				mode;
-	nlink_t				st_nlink;
-	uid_t				st_uid;
-	gid_t				st_gid;
-	dev_t				st_rdev;
-	off_t				size;
-	blkcnt_t			st_blocks;
-	time_t				time;
-	long				ntime;
-}						t_file;
+/* typedef struct	s_info1 */
+/* { */
+/* 	char				*name; */
+/* 	char				perm[11]; */
+/* 	short				hlinks; */
+/* 	char				*owner; */
+/* 	char				*group; */
+/* 	long				bytes; */
+/* 	char				*mod_time; */
+/* }						t_info1; */
 
-typedef struct			s_dirs
-{
-	char				*name;
-	t_file				*file;
-	t_file				*self;
-	int					dirno;
-	int					is_sub;
-	struct s_dirs		*sub_dirs;
-	struct s_dirs		*next;
-	int					stat;
-	int					total_blocks;
-	int					max_file_len;
-}						t_dirs;
+/* typedef struct			s_dirs */
+/* { */
+/* 	char				*name; */
+/* 	t_file				*file; */
+/* 	t_file				*self; */
+/* 	int					dirno; */
+/* 	int					is_sub; */
+/* 	struct s_dirs		*sub_dirs; */
+/* 	struct s_dirs		*next; */
+/* 	int					stat; */
+/* 	int					total_blocks; */
+/* }						t_dirs; */
 
-typedef struct stat		t_stat;
-typedef struct dirent	t_dirent;
-typedef struct passwd	t_passwd;
-typedef struct group	t_group;
+/* typedef int				(*t_ls) (char *format, ...); */
+int						ft_ls_print(char *format, ...);
 
 int						ft_flags(char **argv, t_flags *flags);
 int						ft_flag_check(char flag, t_flags *flags);
@@ -110,18 +123,16 @@ int						ft_print_lst(char *path, t_flags *flags);
 int						ft_print_rec(char *path, t_flags *flags);
 void					ft_print_f(int format, char *path, char *d_name);
 
-int						ft_cleans(int argc, char **argv);
-
 int						ft_errors(int code, char *error);
-int						ft_error_flag(char *flag);
+int						ft_error_flag(char *arg);
 int						ft_error_print(char *arg);
 int						ft_error_dir(char *arg);
 int						ft_error_file(char *arg);
 
+int						ft_cleans(int argc, char **argv);
+
 #endif
 
-/* t_file			*ft_dir_new(char path[PATH_MAX], char *name, t_stat *stat); */
-/* int				ft_dir_add(char path[PATH_MAX], char *name, t_file **lst); */
 /*---<DECODE>---------------------------------------------------------{{{
 
 In all cases, ls:

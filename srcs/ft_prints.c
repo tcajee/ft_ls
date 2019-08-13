@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/06 18:16:46 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/13 11:07:17 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,27 @@ void	ft_print_f(int format, char *path, char *d_name)
 	}
 }
 
+void	ft_print_perm(t_stat *s_stat)
+{
+	char	permissions[11];
+
+	F_((s_stat->st_mode & S_IFMT) == S_IFDIR, permissions[0] = 'd');
+	F_((s_stat->st_mode & S_IFMT) == S_IFREG, permissions[0] = '-');
+	F_((s_stat->st_mode & S_IFMT) == S_IFCHR, permissions[0] = 'c');
+	F_((s_stat->st_mode & S_IFMT) == S_IFBLK, permissions[0] = 'b');
+	F_(s_stat->st_mode == 16749, permissions[0] = 'l');
+	F_(s_stat->st_mode & S_IRUSR, permissions[1] = 'r');
+	F_(s_stat->st_mode & S_IWUSR, permissions[2] = 'w');
+	F_(s_stat->st_mode & S_IXUSR, permissions[3] = 'x');
+	F_(s_stat->st_mode & S_IRGRP, permissions[4] = 'r');
+	F_(s_stat->st_mode & S_IWGRP, permissions[5] = 'w');
+	F_(s_stat->st_mode & S_IXGRP, permissions[6] = 'x');
+	F_(s_stat->st_mode & S_IROTH, permissions[7] = 'r');
+	F_(s_stat->st_mode & S_IWOTH, permissions[8] = 'w');
+	F_(s_stat->st_mode & S_IXOTH, permissions[9] = 'x');
+	ft_ls_print("% ", permissions);
+}
+
 int	ft_print_def(char *path, t_flags *flags)
 {
 	DIR				*dir;
@@ -56,7 +77,7 @@ int	ft_print_rec(char *path, t_flags *flags)
 {
 	t_dirent	*s_dir;
 	DIR			*dir;
-	char		*fpath[1024];
+	char		*fpath[4096];
 	int 		i;
 
 	i = 0;
@@ -69,7 +90,7 @@ int	ft_print_rec(char *path, t_flags *flags)
 		F_(IS_DOT(s_dir->d_name) || IS_DDOT(s_dir->d_name), continue);
 		F_(ft_dir_path(path, s_dir->d_name, &fpath[i]),
 				ft_print_rec(fpath[i], flags));
-		free(fpath[i++]);
+		F_(fpath[i], free(fpath[i++]));
 	}
 	closedir(dir);
 	return (1);
@@ -77,8 +98,8 @@ int	ft_print_rec(char *path, t_flags *flags)
 
 int	ft_print_lst(char *path, t_flags *flags)
 {
-	DIR				*dir;
-	struct dirent	*s_dir;
+	DIR			*dir;
+	t_dirent	*s_dir;
 
 	dir = opendir(path);
 	FT_(!dir, E_PRINTS);

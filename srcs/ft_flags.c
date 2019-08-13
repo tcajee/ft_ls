@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/06 17:22:19 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/13 10:58:24 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		ft_flag_long(char *opt, t_flags *flags)
 	FT_(!ft_strcmp(opt, "long"), ft_flag_set(flags, 4, "110", F_l, F_t, F_1));
 	_FT(!ft_strcmp(opt, "list"), ft_flag_set(flags, 5, "10", F_1, F_l, F_t, F_g));
 	_FT(!ft_strcmp(opt, "no-owner"), ft_flag_set(flags, 5, "1110", F_g, F_l, F_t, F_1));
-	_FT(!ft_strcmp(opt, "colour?"), ft_flag_set(flags, 2, "1", F_G));
+	_FT(!ft_strcmp(opt, "colour"), ft_flag_set(flags, 2, "1", F_G));
 	_FT(!ft_strcmp(opt, "all"), ft_flag_set(flags, 2, "1", F_a));
 	_FT(!ft_strcmp(opt, "no-sort"), ft_flag_set(flags, 3, "11", F_f, F_a));
 	_FT(!ft_strcmp(opt, "mod-time"), ft_flag_set(flags, 2, "1", *flags));
