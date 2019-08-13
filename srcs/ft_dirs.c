@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/13 13:25:43 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/13 14:22:59 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ t_dirs	*ft_dir_info(char *path)
 	FT_(!(dir = opendir(path)), NULL);
 	while ((dirs->s_dir = readdir(dir)))
 	{
-		FT_(!(dirs->darr[i].name = ft_strdup(dirs->s_dir->d_name)), NULL);
-		FT_(!(dirs->darr[i].path = ft_dir_path(path, dirs->s_dir->d_name)), NULL);
-		FT_((stat(dirs->darr[i].path, dirs->darr[i].s_stat)) < 0, NULL);
-		FT_(!(dirs->darr[i].s_pwd = getpwuid(dirs->darr[i].s_stat->st_uid)), NULL);
-		FT_(!(dirs->darr[i].s_grp = getgrgid(dirs->darr[i].s_stat->st_gid)), NULL);
+		FT_(!(dirs->darr[i]->name = ft_strdup(dirs->s_dir->d_name)), NULL);
+		FT_(!(dirs->darr[i]->path = ft_dir_path(path, dirs->s_dir->d_name)), NULL);
+		FT_((stat(dirs->darr[i]->path, dirs->darr[i]->s_stat)) < 0, NULL);
+		FT_(!(dirs->darr[i]->s_pwd = getpwuid(dirs->darr[i]->s_stat->st_uid)), NULL);
+		FT_(!(dirs->darr[i]->s_grp = getgrgid(dirs->darr[i]->s_stat->st_gid)), NULL);
 		i++;
 	}
 	dirs->path = ft_strdup(path);

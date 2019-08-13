@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/13 13:35:37 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/13 14:29:18 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		ft_flag_check(char flag, t_flags *flags)
 	_FT(flag == 'u', ft_flag_set(flags, 3, "10", F_u, F_t));
 	_FT(flag == 'r', ft_flag_set(flags, 2, "1", F_r));
 	_FT(flag == 'd', ft_flag_set(flags, 3, "10", F_d, F_R));
-	_FT(flag == 'R', ft_flag_set(flags, 3, "110", F_R, F_d));
+	_FT(flag == 'R', ft_flag_set(flags, 3, "10", F_R, F_d));
 	return (ft_errors(E_FLAGS, &flag));
 }
 
@@ -69,7 +69,7 @@ int		ft_lflag_check(char *opt, t_flags *flags)
 	_FT(!ft_strcmp(opt, "acc-time"), ft_flag_set(flags, 3, "10", F_u, F_t));
 	_FT(!ft_strcmp(opt, "reverse"), ft_flag_set(flags, 2, "1", F_r));
 	_FT(!ft_strcmp(opt, "directory"), ft_flag_set(flags, 3, "10", F_d, F_R));
-	_FT(!ft_strcmp(opt, "recursive"), ft_flag_set(flags, 3, "110", F_R, F_d));
+	_FT(!ft_strcmp(opt, "recursive"), ft_flag_set(flags, 3, "10", F_R, F_d));
 	return (ft_errors(E_PRINTS, opt));
 }
 

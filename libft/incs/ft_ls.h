@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/13 13:35:36 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/13 14:20:32 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct			s_info
 typedef struct			s_dirs
 {
 	char				*path;
-	t_info				darr[1024];
+	t_info				*darr[1024];
 	t_dirent			*s_dir;
 	int					dirc;
 }						t_dirs;

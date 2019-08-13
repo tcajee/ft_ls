@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/13 13:26:51 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/13 14:26:26 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int	ft_print_def(t_flags *flags, t_dirs *dirs)
 	/* { */
 	while (i < dirs->dirc)
 	{
-		F_(*flags & F_a, ft_print_f(F_1, dirs->path, dirs->darr[i].path));
-		_F(dirs->darr[i].path[0] != '.', ft_print_f(F_1, dirs->path, dirs->darr[i].path));
+		F_(*flags & F_a, ft_print_f(F_1, dirs->path, dirs->darr[i]->path));
+		_F(dirs->darr[i]->path[0] != '.', ft_print_f(F_1, dirs->path, dirs->darr[i]->path));
 		i++;
 	}
 	/* } */
@@ -112,8 +112,8 @@ int	ft_print_rec(t_flags *flags, t_dirs *dirs)
 	/* { */
 	while (i < dirs->dirc)
 	{
-		F_(IS_DOT(dirs->darr[i].name) || IS_DDOT(dirs->darr[i].name), continue);
-		F_(ft_dir_check(dirs->darr[i].path), ft_print_rec(flags, ft_dir_info(dirs->darr[i].path)));
+		F_(IS_DOT(dirs->darr[i]->name) || IS_DDOT(dirs->darr[i]->name), continue);
+		F_(ft_dir_check(dirs->darr[i]->path), ft_print_rec(flags, ft_dir_info(dirs->darr[i]->path)));
 		/* F_(dirs->darr[i], free((void *)dirs->darr[i++])); */
 	}
 	/* } */
@@ -135,8 +135,8 @@ int	ft_print_lst(t_flags *flags, t_dirs *dirs)
 	/* { */
 	while (i < dirs->dirc)
 	{
-		F_(*flags & F_a, ft_print_f(F_1, dirs->path, dirs->darr[i].path));
-		_F(dirs->darr[i].path[0] != '.', ft_print_f(F_1, dirs->path, dirs->darr[i].path));
+		F_(*flags & F_a, ft_print_f(F_1, dirs->path, dirs->darr[i]->path));
+		_F(dirs->darr[i]->path[0] != '.', ft_print_f(F_1, dirs->path, dirs->darr[i]->path));
 		i++;
 	}
 	/* } */
