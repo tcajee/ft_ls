@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/14 17:11:27 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/14 17:42:56 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,40 @@ char	*ft_dir_path(char *path, char *d_name)
 	return (temp);
 }
 
-int ft_dirs(char *arg, t_flags *flags)
+int ft_dirs(t_flags *flags, char *path)
 {
 	int i = 0;
+	t_dirent	*s_dir;
+	DIR			*dir;
+	char		*fpath;
+
 	t_info	**dirs;
 	dirs = NULL;
 
-	F_(!arg, i = ft_dir_info(".", dirs));
-	_F(ft_dir_check(arg), i = ft_dir_info(arg, dirs));
+	F_(!path, i = ft_dir_info(".", dirs));
+	_F(ft_dir_check(path), ft_dir_info(path, dirs));
 
-	//ft_sorts
-	//ft_prints
-	//recurse if
+	//ft_sorts(flags);
+	//ft_prints(flags);
+
+	//recurse
+	if (*flags & F_R)
+	{
+ 		FT_(!(dir = opendir(path)), E_DIRS);
+	 	while ((s_dir = readdir(dir)) != NULL)
+		{
+			F_(IS_DOT(s_dir->d_name) || IS_DDOT(s_dir->d_name), continue);
+			F_(ft_dir_check(fpath = ft_dir_path(path, s_dir->d_name)),
+			ft_dirs(fpath, flags));
+			free(fpath);
+		}
+ 		closedir(dir);
+	}
+	return (0);
+}
+
+
+
 
 	/* F_(i == 0, printf("			[%d]	dir info failed\n", i)); */
 	/* printf("dirs.info[i]->name:		%s\n", dirs.info[0]->name); */
@@ -113,8 +135,6 @@ int ft_dirs(char *arg, t_flags *flags)
 	/* 	printf("%d\n", dirs.info[i]->s_stat.st_gen); */
 	/* 	i++; */
 	/* } */
-	return (0);
-}
 
 /* {{{TITLE
 

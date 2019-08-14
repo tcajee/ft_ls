@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/14 17:00:05 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/14 17:43:09 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct			s_info
 typedef struct			s_dirs
 {
 	t_info				info[1024];
-	/* t_info				*info[1024]; */
 }						t_dirs;
 
 typedef struct			s_format
@@ -112,16 +111,16 @@ typedef enum			e_flags
 /* typedef int				(*t_ls) (char *format, ...); */
 int						ft_ls_print(char *format, ...);
 
-int						ft_flags(char **argv, t_flags *flags);
-int						ft_flag_check(char flag, t_flags *flags);
-int						ft_lflag_check(char *option, t_flags *flags);
+int						ft_flags(t_flags *flags, char **argv);
+int						ft_flag_check(t_flags *flags, char flag);
+int						ft_lflag_check(t_flags *flags, char *option);
 int						ft_flag_set(t_flags *flags, int flagc, ...);
 void					ft_flag_print(t_flags *flags);
 
-int						ft_dirs(char *argv, t_flags *flags);
+int						ft_dirs(t_flags *flags, char *argv);
+int						ft_dir_info(char *path, t_info **dirs);
 char					*ft_dir_path(char *path, char *d_name);
 int						ft_dir_check(char *path);
-int						ft_dir_info(char *path, t_info **dirs);
 
 int						ft_sorts(int argc, char **argv);
 int						ft_sort_lex(int argc, char **argv);
