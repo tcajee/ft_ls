@@ -65,6 +65,11 @@ void		print_time(t_stat s_stat, t_flags *flags)
 void	ft_print_perm(t_stat *s_stat)
 {
 	char	permissions[11];
+	int i;
+
+	i = -1;
+	while (permissions[++i])
+		permissions[i] = '-';
 
 	F_((s_stat->st_mode & S_IFMT) == S_IFDIR, permissions[0] = 'd');
 	_F((s_stat->st_mode & S_IFMT) == S_IFREG, permissions[0] = '-');
