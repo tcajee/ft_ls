@@ -103,17 +103,23 @@ int ft_dirs(t_flags *flags, char *path)
 	int i = -1;
 	while (dirs[++i].name)
 	{
+ft_print_perm(&dirs[i].s_stat);
+printf("%lu ", dirs[i].s_stat.st_nlink);
 
-		ft_print_perm(&dirs[i].s_stat);
-		printf("%lu	", dirs[i].s_stat.st_nlink);
-		s_pwd = getpwuid(dirs[i].s_stat.st_uid);
-		printf("%s	", s_pwd->pw_name);
-		s_grp = getgrgid(dirs[i].s_stat.st_gid);
-		printf("%s 	", s_grp->gr_name);
-		printf("%lu	", dirs[i].s_stat.st_size);
-		print_time(dirs[i].s_stat, flags);
-		printf(" ");
-		printf("%s\n", dirs[i].name);
+s_pwd = getpwuid(dirs[i].s_stat.st_uid));
+printf("%s ", 
+printf("%s  ", dirs[i].s_stat.st_gid);
+
+
+
+printf("%lu ", dirs[i].s_stat.st_dev);
+printf("%u ", dirs[i].s_stat.st_mode);
+printf("%lu ", dirs[i].s_stat.st_ino);
+printf("%lu ", dirs[i].s_stat.st_rdev);
+printf("%lu ", dirs[i].s_stat.st_size);
+printf("%lu ", dirs[i].s_stat.st_blocks);
+printf("%lu ", dirs[i].s_stat.st_blksize);
+printf("dirs[i]->name:		%s\n", dirs[i].name);
 	}
 
 /* printf("dirs[i]->path:		%s ", dirs[i].path); */
@@ -301,7 +307,7 @@ int	ft_rec_prints(char *path, t_flags *flags)
 
 /* {{{TITLE
 
-
+ 	
 	printf("struct stat // when _DARWIN_FEATURE_64_BIT_INODE is defined\n");
 	printf("{\n");
 	printf("	dev_t		st_dev			ID of device containing file\n");
@@ -362,8 +368,8 @@ int	ft_rec_prints(char *path, t_flags *flags)
  * }}} */
 
 /* {{{TITLE
-
-
+ 
+  	
 		printf("%s\n", dirs->darr[i]->s_pwd);
 		printf("%s\n", dirs->darr[i]->s_grp);
 
@@ -380,8 +386,8 @@ int	ft_rec_prints(char *path, t_flags *flags)
 		FT_(!(dirs->darr[i]->path = ft_dir_path(path, dirs->s_dir->d_name)), NULL));
 	printf("dirs->darr[i]->path:		%s\n", dirs->darr[i]->path);
 		FT_((stat(dirs->darr[i]->path, dirs->darr[i]->s_stat)) < 0, NULL);
-
-
+	
+		
 	printf("%d\n", dirs->darr[i]->s_stat->st_dev);
 	printf("%d\n", dirs->darr[i]->s_stat->st_mode);
 	printf("%d\n", dirs->darr[i]->s_stat->st_nlink);
@@ -393,9 +399,9 @@ int	ft_rec_prints(char *path, t_flags *flags)
 	printf("%\n", dirs->darr[i]->s_stat->st_blocks);
 	printf("%d\n", dirs->darr[i]->s_stat->st_blksize);
 	printf("%d\n", dirs->darr[i]->s_stat->st_gen);
-
-
-
+	
+	
+	
 	FT_(!(dirs->darr[i]->s_pwd = getpwuid(dirs->darr[i]->s_stat->st_uid)), NULL);
 		FT_(!(dirs->darr[i]->s_grp = getgrgid(dirs->darr[i]->s_stat->st_gid)), NULL);
 		i++;
@@ -406,14 +412,14 @@ int	ft_rec_prints(char *path, t_flags *flags)
 		printf("%d\n", dirs->dirc);
 	closedir(dir);
 	return (dirs);
-
-
+ 
+ 
  * }}} */
 
 /* {{{TITLE
-
-
-
+ 
+  	
+ 
 int	ft_dir_info(char *path, t_info *dirs)
 {
 	t_info		info[4096];
@@ -469,7 +475,7 @@ printf("%d\n", dirs->info[i]->s_stat.st_size);
 printf("%\n", dirs->info[i]->s_stat.st_blocks);
 printf("%d\n", dirs->info[i]->s_stat.st_blksize);
 printf("%d\n", dirs->info[i]->s_stat.st_gen);
-
+		
 
 }
 

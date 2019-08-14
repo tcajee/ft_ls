@@ -34,15 +34,43 @@ void	ft_print_f(int format, char *path, char *d_name)
 	}
 }
 
+
+void	print_time_str(time_t secs)
+{
+	const char	*str = ctime(&secs);
+
+	printf("%.2s", str + 8);
+	printf(" %.3s", str + 4);
+	if (time(NULL) - (time_t)(60 * 60 * 24 * 30.42 * 6) > secs)
+		printf("  %.4s", str + 20);
+	else if (time(NULL) < secs)
+	{
+		if (str[20] == ' ')
+			printf("  %.5s", str + 24);
+		else
+			printf("  %.4s", str + 20);
+	}
+	else
+		printf(" %.5s", str + 11);
+}
+
+void		print_time(t_stat s_stat, t_flags *flags)
+{
+	if (*flags & F_u)
+		print_time_str(s_stat.st_atime);
+	else
+		print_time_str(s_stat.st_mtime);
+}
+
 void	ft_print_perm(t_stat *s_stat)
 {
 	char	permissions[11];
 
 	F_((s_stat->st_mode & S_IFMT) == S_IFDIR, permissions[0] = 'd');
-	F_((s_stat->st_mode & S_IFMT) == S_IFREG, permissions[0] = '-');
-	F_((s_stat->st_mode & S_IFMT) == S_IFCHR, permissions[0] = 'c');
-	F_((s_stat->st_mode & S_IFMT) == S_IFBLK, permissions[0] = 'b');
-	F_(s_stat->st_mode == 16749, permissions[0] = 'l');
+	_F((s_stat->st_mode & S_IFMT) == S_IFREG, permissions[0] = '-');
+	_F((s_stat->st_mode & S_IFMT) == S_IFCHR, permissions[0] = 'c');
+	_F((s_stat->st_mode & S_IFMT) == S_IFBLK, permissions[0] = 'b');
+	_F(s_stat->st_mode == 16749, permissions[0] = 'l');
 	F_(s_stat->st_mode & S_IRUSR, permissions[1] = 'r');
 	F_(s_stat->st_mode & S_IWUSR, permissions[2] = 'w');
 	F_(s_stat->st_mode & S_IXUSR, permissions[3] = 'x');
@@ -52,7 +80,8 @@ void	ft_print_perm(t_stat *s_stat)
 	F_(s_stat->st_mode & S_IROTH, permissions[7] = 'r');
 	F_(s_stat->st_mode & S_IWOTH, permissions[8] = 'w');
 	F_(s_stat->st_mode & S_IXOTH, permissions[9] = 'x');
-	ft_ls_print("% ", permissions);
+	/* ft_ls_print("% ", permissions); */
+	printf("%s	", permissions);
 }
 
 int	ft_print_def(t_flags *flags, t_dirs *dirs)
