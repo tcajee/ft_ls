@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/14 18:01:51 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/14 18:05:28 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ char	*ft_dir_path(char *path, char *d_name)
 int ft_dirs(t_flags *flags, char *path)
 {
 	t_info		*dirs[1024];
-	t_dirent	*s_dir;
-	DIR			*dir;
-	char		*fpath;
+	/* t_dirent	*s_dir; */
+	/* DIR			*dir; */
+	/* char		*fpath; */
 
 	// build
 	F_(!path, ft_dir_info(".", dirs));
@@ -94,18 +94,20 @@ int ft_dirs(t_flags *flags, char *path)
 	// sort
 	// print
 	// recurse
-	if (*flags & F_R)
-	{
-		FT_(!(dir = opendir(path)), E_DIRS);
-		while ((s_dir = readdir(dir)) != NULL)
-		{
-			F_(IS_DOT(s_dir->d_name) || IS_DDOT(s_dir->d_name), continue);
-			F_(ft_dir_check(fpath = ft_dir_path(path, s_dir->d_name)),
-			ft_dirs(flags, fpath));
-			free(fpath);
-		}
-		closedir(dir);
-	}
+	
+	/* if (*flags & F_R) */
+	/* { */
+	/* 	FT_(!(dir = opendir(path)), E_DIRS); */
+	/* 	while ((s_dir = readdir(dir)) != NULL) */
+	/* 	{ */
+	/* 		F_(IS_DOT(s_dir->d_name) || IS_DDOT(s_dir->d_name), continue); */
+	/* 		F_(ft_dir_check(fpath = ft_dir_path(path, s_dir->d_name)), */
+	/* 		ft_dirs(flags, fpath)); */
+	/* 		free(fpath); */
+	/* 	} */
+	/* 	closedir(dir); */
+	/* } */
+
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/13 14:29:18 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/08/14 18:03:27 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		ft_flag_set(t_flags *flags, int flagc, ...)
 	return (1);
 }
 
-int		ft_flag_check(char flag, t_flags *flags)
+int		ft_flag_check(t_flags *flags, char flag)
 {
 	FT_(flag == 'l', ft_flag_set(flags, 4, "110", F_l, F_t, F_1));
 	_FT(flag == '1', ft_flag_set(flags, 5, "10", F_1, F_l, F_t, F_g));
@@ -57,7 +57,7 @@ int		ft_flag_check(char flag, t_flags *flags)
 	return (ft_errors(E_FLAGS, &flag));
 }
 
-int		ft_lflag_check(char *opt, t_flags *flags)
+int		ft_lflag_check(t_flags *flags, char *opt)
 {
 	FT_(!ft_strcmp(opt, "long"), ft_flag_set(flags, 4, "110", F_l, F_t, F_1));
 	_FT(!ft_strcmp(opt, "list"), ft_flag_set(flags, 5, "10", F_1, F_l, F_t, F_g));
@@ -73,7 +73,7 @@ int		ft_lflag_check(char *opt, t_flags *flags)
 	return (ft_errors(E_PRINTS, opt));
 }
 
-int		ft_flags(char **argv, t_flags *flags)
+int		ft_flags(t_flags *flags, char **argv)
 {
 	int i;
 	int j;
@@ -85,10 +85,10 @@ int		ft_flags(char **argv, t_flags *flags)
 		FT_((!argv[i][0] || argv[i][0] != '-'), i);
 		_FT(!ft_strcmp(argv[i], "--"), i + 1);
 		if ((argv[i][0] == '-' && argv[i][1] == '-') && argv[i][2])
-			ft_lflag_check(&argv[i][2], flags);
+			ft_lflag_check(flags, &argv[i][2]);
 		else if (argv[i][0] == '-' && argv[i][1])
 			while (argv[i][++j])
-				ft_flag_check(argv[i][j], flags);
+				ft_flag_check(flags, argv[i][j]);
 		else
 			return (i);
 	}

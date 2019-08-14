@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/14 17:06:03 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/14 18:04:32 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char **argv)
 
 	i = 0;
 	F_(!(flags = 0), B_1(flags, F_1));
-	FT_((i = ft_flags(argv, &flags)) == E_FLAGS, errno);
+	FT_((i = ft_flags(&flags, argv)) == E_FLAGS, errno);
 	F_(argc - i > 1, flags |= F_M);
 
 	ft_flag_print(&flags);
@@ -50,7 +50,7 @@ int	main(int argc, char **argv)
 		F_(!(ft_dir_check(argv[--j])), ft_errors(E_PRINTS, argv[i]));
 	j = i;
 	while (argv[j++])
-		F_(ft_dir_check(argv[--j]), ft_dirs(argv[j], &flags));
+		F_(ft_dir_check(argv[--j]), ft_dirs(&flags, argv[j]));
 
 	/* ft_dirs(argv + i, &flags) */
 	/* FT_(!argv[0], ft_prints(flags, ft_dir_info("."))); */
@@ -387,9 +387,3 @@ printf("%d\n", dirs->info[i]->s_stat.st_gen);
 }
 
  }}} */
-
-
-		;
-	//return (0);
-
-}
