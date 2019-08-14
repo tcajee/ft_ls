@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/14 11:42:03 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/14 14:22:37 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,16 @@ void	ft_print_perm(t_stat *s_stat)
 	ft_ls_print("% ", permissions);
 }
 
-int	ft_print_def(t_flags *flags, t_dirs *info)
+int	ft_print_def(t_flags *flags, t_dirs *dirs)
 {
-	ft_putendl("def_prints:");
-	/* DIR			*dir; */
-	/* t_dirent	*s_dir; */
 	int i;
 
 	i = 0;
+	(void)dirs;
 	/* dir = opendir(path); */
 	/* FT_(!dir, E_PRINTS); */
 	*flags |= F_M;
-	F_(*flags & F_M || *flags & F_R, ft_print_f(F_M, dirs->path, NULL));
+	/* F_(*flags & F_M || *flags & F_R, ft_print_f(F_M, dirs->path, NULL)); */
 	/* while ((s_dir = readdir(dir))) */
 	/* { */
 //	while (i < dirs->dirc)

@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/14 11:38:56 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/14 14:36:27 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,36 +23,25 @@ int	ft_dir_check(char *path)
 
 int	ft_dir_info(char *path, t_dirs *dirs)
 {
-	DIR			*dir;
-	/* t_dirs		*dirt; */
 	t_dirent	*s_dir;
+	DIR			*dir;
 	int i;
 
-	i = 0;
+	i = -1;
 	FT_(!(dirs = (t_dirs *)malloc(sizeof(t_dirs))), 0);
 	FT_(!(dir = opendir(path)), 0);
 	while ((s_dir = readdir(dir)) != NULL)
 	{
-		F_(!dirs->info[i], dirs->info[i] = (t_info *)malloc(sizeof(t_info)));
+		F_(!dirs->info[++i], dirs->info[i] = (t_info *)malloc(sizeof(t_info)));
 		FT_(!dirs->info[i], 0);
-
-printf("s_dir->d_name:			%s\n", s_dir->d_name);
 		FT_(!(dirs->info[i]->name = ft_strdup(s_dir->d_name)), 0);
+		FT_(!(dirs->info[i]->path = ft_dir_path(path, s_dir->d_name)), 0);
+		FT_((lstat(dirs->info[i]->path, &dirs->info[i]->s_stat)) < 0, 0);
+		
+		printf("s_dir->d_name:			%s\n", s_dir->d_name);
 printf("dirs->info[i]->name:		%s\n", dirs->info[i]->name);
 printf("dir_path:			%s , %s\n", path, s_dir->d_name);
-	/* F_(!IS_DOT(dirs->info[i]->name) && !IS_DDOT(dirs->info[i]->name), */
-		FT_(!(dirs->info[i]->path = ft_dir_path(path, s_dir->d_name)), 0); //);
-	/* F_(IS_DOT(dirs->info[i]->name) && IS_DDOT(dirs->info[i]->name), */
-		FT_(!(dirs->info[i]->path = ft_dir_path(path, s_dir->d_name)), 0); //);
 printf("dirs->info[i]->path:		%s\n", dirs->info[i]->path);
-
-
-		if ((lstat(dirs->info[i]->path, &dirs->info[i]->s_stat)) < 0)
-		{
-			perror("LSTAT ");
-			return (0);
-		}
-
 printf("%d\n", dirs->info[i]->s_stat.st_dev);
 printf("%d\n", dirs->info[i]->s_stat.st_mode);
 printf("%d\n", dirs->info[i]->s_stat.st_nlink);
@@ -64,7 +53,7 @@ printf("%d\n", dirs->info[i]->s_stat.st_rdev);
 /* printf("%\n", dirs->info[i]->s_stat.st_blocks); */
 printf("%d\n", dirs->info[i]->s_stat.st_blksize);
 printf("%d\n", dirs->info[i]->s_stat.st_gen);
-		i++;
+		
 	}
 	closedir(dir);
 	return (1);
@@ -75,22 +64,17 @@ char	*ft_dir_path(char *path, char *d_name)
 	int		i;
 	int		len;
 	char	*temp;
-	/* char	*out; */
 
-	/* out = NULL; */
 	temp = NULL;
-	i = -1;
-	len = ft_strlen(path) + ft_strlen(d_name) + 1;
+	i = 0;
+	len = ft_strlen(path) + ft_strlen(d_name);
 	FT_(!(temp = (char *)malloc(sizeof(char) * (len + 2))), NULL);
 	while (*path)
-		temp[++i] = *path++;
-	temp[++i] = '/';
+		temp[i++] = *path++;
+	temp[i++] = '/';
 	while (*d_name)
-		temp[++i] = *d_name++;
-	temp[++i] = '\0';
-	/* F_(ft_dir_check(temp), out = ft_strjoin(temp, "/..")); */
-	/* _F(!ft_dir_check(temp), out = temp); */
-	/* F_(temp, free(temp)); */
+		temp[i++] = *d_name++;
+	temp[i] = '\0';
 	return (temp);
 }
 
@@ -388,7 +372,6 @@ int	ft_rec_prints(char *path, t_flags *flags)
  
  
  * }}} */
-
 
 
 

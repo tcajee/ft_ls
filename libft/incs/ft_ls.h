@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/14 11:36:05 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/14 14:17:07 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,18 @@ typedef struct			s_dirs
 {
 	t_info				*info[1024];
 }						t_dirs;
+
+typedef struct			s_format
+{
+	size_t				f_perm;
+	size_t				f_link;
+	size_t				f_user;
+	size_t				f_group;
+	size_t				f_size;
+	size_t				f_time;
+	size_t				f_name;
+	char				*line[7];
+}						t_format;
 
 typedef enum			e_flags
 {
