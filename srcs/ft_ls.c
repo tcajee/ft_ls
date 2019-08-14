@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/14 18:04:32 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/14 18:19:47 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ int	main(int argc, char **argv)
 	ft_flag_print(&flags);
 	ft_putchar('\n');
 
-	j = i;
-	while (argv[j++])
-		F_(!(ft_dir_check(argv[--j])), ft_errors(E_PRINTS, argv[i]));
-	j = i;
-	while (argv[j++])
-		F_(ft_dir_check(argv[--j]), ft_dirs(&flags, argv[j]));
+	j = i - 1;
+	while (argv[++j])
+		F_(!(ft_dir_check(argv[j])), ft_errors(E_PRINTS, argv[j]));
+	j = i - 1;
+	while (argv[++j])
+		F_(ft_dir_check(argv[j]), ft_dirs(&flags, argv[j]));
 
 	/* ft_dirs(argv + i, &flags) */
 	/* FT_(!argv[0], ft_prints(flags, ft_dir_info("."))); */

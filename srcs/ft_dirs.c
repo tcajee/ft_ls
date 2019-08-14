@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/14 18:05:28 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/14 18:29:08 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,27 @@ int	ft_dir_check(char *path)
 	return (0);
 }
 
-int	ft_dir_info(char *path, t_info *dirs[1024])
+int	ft_dir_info(char *path, t_info **in)
 {
+	t_info		dirs[1024];
 	t_dirent	*s_dir;
 	DIR			*dir;
 	int i;
 
 	/* i = 1025; */
 	/* while (--i >= 0) */
-	/* 	FT_(!(dirs[i] = (t_info *)malloc(sizeof(t_info))), 0); */
+	/* FT_(!(dirs = (t_info **)malloc(sizeof(t_info*))), 0); */
 
-	i = -1;
+	i = 0;
 	FT_(!(dir = opendir(path)), 0);
 	while ((s_dir = readdir(dir)) != NULL)
 	{
-		F_(!dirs[++i], dirs[i] = (t_info *)malloc(sizeof(t_info)));
+		F_(!dirs[i], dirs[i] = (t_info *)malloc(sizeof(t_info)));
 		FT_(!dirs[i], 0);
-printf("s_dir->d_name:			%s\n", s_dir->d_name);
+printf("s_dir->d_name:		%s\n", s_dir->d_name);
 		FT_(!(dirs[i]->name = ft_strdup(s_dir->d_name)), 0);
 printf("dirs[i]->name:		%s\n", dirs[i]->name);
-printf("dir_path:			%s , %s\n", path, s_dir->d_name);
+printf("dir_path:		%s , %s\n", path, s_dir->d_name);
 		FT_(!(dirs[i]->path = ft_dir_path(path, s_dir->d_name)), 0);
 printf("dirs[i]->path:		%s\n", dirs[i]->path);
 		FT_((lstat(dirs[i]->path, &dirs[i]->s_stat)) < 0, 0);
@@ -56,8 +57,10 @@ printf("%d\n", dirs[i]->s_stat.st_rdev);
 /* printf("%\n", dirs[i]->s_stat.st_blocks); */
 printf("%d\n", dirs[i]->s_stat.st_blksize);
 printf("%d\n\n\n", dirs[i]->s_stat.st_gen);
+		i++;
 	}
 	closedir(dir);
+	in = &dirs;
 	return (1);
 }
 
@@ -82,12 +85,16 @@ char	*ft_dir_path(char *path, char *d_name)
 
 int ft_dirs(t_flags *flags, char *path)
 {
-	t_info		*dirs[1024];
+	t_info		**dirs;
 	/* t_dirent	*s_dir; */
 	/* DIR			*dir; */
 	/* char		*fpath; */
 
+	(void)flags;
+
+	printf("%s\n", path);
 	// build
+	dirs = NULL;
 	F_(!path, ft_dir_info(".", dirs));
 	_FT(!ft_dir_info(path, dirs), ft_errors(E_DIRS, path));
 
