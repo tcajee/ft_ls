@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/13 14:20:32 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/08/14 11:23:04 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,14 @@ typedef struct group	t_group;
 
 typedef struct			s_info
 {
-	char				*name;
 	char				*path;
-	t_stat				*s_stat;
-	t_passwd			*s_pwd;
-	t_group				*s_grp;
+	char				*name;
+	t_stat				s_stat;
 }						t_info;
 
 typedef struct			s_dirs
 {
-	char				*path;
-	t_info				*darr[1024];
-	t_dirent			*s_dir;
-	int					dirc;
+	t_info				*info[1024];
 }						t_dirs;
 
 typedef enum			e_flags
@@ -113,7 +108,7 @@ void					ft_flag_print(t_flags *flags);
 int						ft_dirs(char **argv, t_flags *flags);
 char					*ft_dir_path(char *path, char *d_name);
 int						ft_dir_check(char *path);
-t_dirs					*ft_dir_info(char *path);
+t_dirs					*ft_dir_info(char *path, t_dirs *dirs);
 
 int						ft_sorts(int argc, char **argv);
 int						ft_sort_lex(int argc, char **argv);
