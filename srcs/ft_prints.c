@@ -64,12 +64,10 @@ void		print_time(t_stat s_stat, t_flags *flags)
 
 void	ft_print_perm(t_stat *s_stat)
 {
-	char	permissions[11];
-	int i;
+	char	*permissions;
 
-	i = -1;
-	while (permissions[++i])
-		permissions[i] = '-';
+	permissions = (char *)malloc(sizeof(char) * 11 + 1);
+	ft_memset(permissions, '-', 11);
 
 	F_((s_stat->st_mode & S_IFMT) == S_IFDIR, permissions[0] = 'd');
 	_F((s_stat->st_mode & S_IFMT) == S_IFREG, permissions[0] = '-');
@@ -85,6 +83,9 @@ void	ft_print_perm(t_stat *s_stat)
 	F_(s_stat->st_mode & S_IROTH, permissions[7] = 'r');
 	F_(s_stat->st_mode & S_IWOTH, permissions[8] = 'w');
 	F_(s_stat->st_mode & S_IXOTH, permissions[9] = 'x');
+	permissions[10] = ' ';
+	permissions[11] = '\0';
+
 	/* ft_ls_print("% ", permissions); */
 	printf("%s	", permissions);
 }
