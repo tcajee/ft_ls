@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:27:09 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/06 17:48:47 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/15 08:10:45 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # define F_(x, y) if (x) y
 # define _F(x, y) else if (x) y
+# define _(x) else (x)
 # define FT_(x, y) if (x) return y
 # define _FT(x, y) else if (x) return y
 

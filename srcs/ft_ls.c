@@ -6,13 +6,13 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/14 18:19:47 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/15 08:02:14 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-int	ft_ls_print(char *ft, ...)
+int	ft_print_f(char *ft, ...)
 {
 	va_list	v_list;
 	int		i;

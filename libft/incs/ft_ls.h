@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/14 18:19:44 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/15 08:34:06 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,12 @@ typedef struct group	t_group;
 
 typedef struct			s_info
 {
+	int					total;
+	char				*root;
 	char				*path;
 	char				*name;
 	t_stat				s_stat;
 }						t_info;
-
-typedef struct			s_dirs
-{
-	t_info				info[1024];
-}						t_dirs;
 
 typedef struct			s_format
 {
@@ -109,7 +106,7 @@ typedef enum			e_flags
 /* }						t_dirs; */
 
 /* typedef int				(*t_ls) (char *format, ...); */
-int						ft_ls_print(char *format, ...);
+int						ft_print_f(char *format, ...);
 
 int						ft_flags(t_flags *flags, char **argv);
 int						ft_flag_check(t_flags *flags, char flag);
@@ -128,13 +125,12 @@ int						ft_sort_rev(int argc, char **argv);
 int						ft_sort_mtime(int argc, char **argv);
 int						ft_sort_atime(int argc, char **argv);
 
-int						ft_prints(t_flags *flags, t_dirs *dirs);
-int						ft_print_def(t_flags *flags, t_dirs *dirs);
-int						ft_print_lst(t_flags *flags, t_dirs *dirs);
+int						ft_prints(t_flags *flags, t_info dirs[]);
+int						ft_print_def(t_flags *flags, t_info dir);
+int						ft_print_lst(t_flags *flags, t_info dir);
 void					ft_print_perm(t_stat *s_stat);
-void					ft_print_f(int format, char *path, char *d_name);
 
-void					print_time(t_stat s_stat, t_flags *flags);
+void					ft_print_time(t_stat s_stat, t_flags *flags);
 void					print_time_str(time_t secs);
 
 int						ft_errors(int code, char *error);

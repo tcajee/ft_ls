@@ -6,34 +6,11 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/14 14:22:37 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/15 08:41:03 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
-
-void	ft_print_f(int format, char *path, char *d_name)
-{
-	char *fpath;
-
-	if (format == F_M)
-	{
-		ft_putstr(path);
-		ft_putendl(":");
-	}
-	else if (format == F_1)
-	{
-		if ((fpath = ft_dir_path(path, d_name)))
-		{
-			ft_putstr(fpath);
-			ft_putendl("/");
-			free(fpath);
-		}
-		else
-			ft_putendl(path);
-	}
-}
-
 
 void	print_time_str(time_t secs)
 {
@@ -54,12 +31,10 @@ void	print_time_str(time_t secs)
 		printf(" %.5s", str + 11);
 }
 
-void		print_time(t_stat s_stat, t_flags *flags)
+void		ft_print_time(t_stat s_stat, t_flags *flags)
 {
-	if (*flags & F_u)
-		print_time_str(s_stat.st_atime);
-	else
-		print_time_str(s_stat.st_mtime);
+	F_(*flags & F_u, print_time_str(s_stat.st_atime));
+	_F(*flags & F_t, print_time_str(s_stat.st_mtime));
 }
 
 void	ft_print_perm(t_stat *s_stat)
@@ -68,7 +43,6 @@ void	ft_print_perm(t_stat *s_stat)
 
 	permissions = (char *)malloc(sizeof(char) * 11 + 1);
 	ft_memset(permissions, '-', 11);
-
 	F_((s_stat->st_mode & S_IFMT) == S_IFDIR, permissions[0] = 'd');
 	_F((s_stat->st_mode & S_IFMT) == S_IFREG, permissions[0] = '-');
 	_F((s_stat->st_mode & S_IFMT) == S_IFCHR, permissions[0] = 'c');
@@ -85,102 +59,57 @@ void	ft_print_perm(t_stat *s_stat)
 	F_(s_stat->st_mode & S_IXOTH, permissions[9] = 'x');
 	permissions[10] = ' ';
 	permissions[11] = '\0';
-
-	/* ft_ls_print("% ", permissions); */
-	printf("%s	", permissions);
+	ft_print_f("%t", permissions);
 }
 
-int	ft_print_def(t_flags *flags, t_dirs *dirs)
+int	ft_print_def(t_flags *flags, t_info dir)
+{
+	F_(*flags & F_a, ft_print_f("%", dir.name));
+	_F(dir.name[0] != '.', ft_print_f("%", dir.name));
+	F_(ft_dir_check(dir.path), ft_print_f("/n"));
+	_(ft_print_f("n"));
+	return (1);
+}
+
+int	ft_print_lst(t_flags *flags, t_info dir)
+{
+	t_passwd	*s_pwd;
+	t_group		*s_grp;
+
+	ft_print_perm(&dir.s_stat);
+
+	ft_print_f("%t", "XX"); // dir.s_stat.st_nlink);
+
+	s_pwd = getpwuid(dir.s_stat.st_uid);
+	ft_print_f("%t", s_pwd->pw_name);
+	s_grp = getgrgid(dir.s_stat.st_gid);
+	ft_print_f("%t", s_grp->gr_name);
+
+	ft_print_f("%t", "XX"); // dir.s_stat.st_size);
+
+	ft_print_f("%t", "XXX XX XX:XX"); // ft_print_time(dir.s_stat, flags);
+
+	ft_print_f(" ");
+	F_(*flags & F_a, ft_print_f("%", dir.name));
+	_F(dir.name[0] != '.', ft_print_f("%", dir.name));
+	F_(ft_dir_check(dir.path), ft_print_f("/n"));
+	_(ft_print_f("n"));
+	return (1);
+}
+
+int	ft_prints(t_flags *flags, t_info dirs[])
 {
 	int i;
 
-	i = 0;
-	(void)dirs;
-	/* dir = opendir(path); */
-	/* FT_(!dir, E_PRINTS); */
-	*flags |= F_M;
-	/* F_(*flags & F_M || *flags & F_R, ft_print_f(F_M, dirs->path, NULL)); */
-	/* while ((s_dir = readdir(dir))) */
-	/* { */
-//	while (i < dirs->dirc)
-//	{
-//		F_(*flags & F_a, ft_print_f(F_1, dirs->path, dirs->darr[i]->path));
-//		_F(dirs->darr[i]->path[0] != '.', ft_print_f(F_1, dirs->path, dirs->darr[i]->path));
-//		i++;
-//	}
-	/* } */
-	F_(*flags & F_M || *flags & F_R, ft_putendl(""));
-	/* closedir(dir); */
-	return (1);
-}
-
-/* int	ft_print_def(t_flags *flags, t_dirs *dirs) */
-/* { */
-/* 	DIR				*dir; */
-/* 	struct dirent	*s_dir; */
-/* 	dir = opendir(path); */
-/* 	FT_(!dir, E_PRINTS); */
-/* 	F_(*flags & F_M || *flags & F_R, ft_print_f(F_M, path, NULL)); */
-/* 	while ((s_dir = readdir(dir))) */
-/* 	{ */
-/* 		F_(*flags & F_a, ft_print_f(F_1, , s_dir->d_name)); */
-/* 		_F(s_dir->d_name[0] != '.', ft_print_f(F_1, path, s_dir->d_name)); */
-/* 	} */
-/* 	F_(*flags & F_M || *flags & F_R, ft_putendl("")); */
-/* 	closedir(dir); */
-/* 	return (1); */
-/* } */
-
-int	ft_print_rec(t_flags *flags, t_dirs *dirs)
-{
-	/* t_dirent	*s_dir; */
-	/* DIR			*dir; */
-	/* char		*fpath[4096]; */
-	int 		i;
-
-	i = 0;
-	/* dir = opendir(path); */
-	/* FT_(!dir, E_PRINTS); */
-	F_(*flags & F_1, ft_print_def(flags, dirs));
-	_F(*flags & F_l, ft_print_lst(flags, dirs));
-	/* while ((s_dir = readdir(dir)) != NULL) */
-	/* { */
-
-	/* while (i < dirs->dirc) */
-	/* { */
-		/* F_(IS_DOT(dirs->darr[i]->name) || IS_DDOT(dirs->darr[i]->name), continue); */
-		/* F_(ft_dir_check(dirs->darr[i]->path), ft_print_rec(flags, ft_dir_info(dirs->darr[i]->path))); */
-		/* F_(dirs->darr[i], free((void *)dirs->darr[i++])); */
-	/* } */
-	/* } */
-	/* closedir(dir); */
-	return (1);
-}
-
-int	ft_print_lst(t_flags *flags, t_dirs *dirs)
-{
-	/* F_(*flags & F_M || *flags & F_R, ft_print_f(F_M, dirs->path, NULL)); */
-	/* while ((s_dir = readdir(dir))) */
-	/* { */
-	/* while (i < dirs->dirc) */
-	/* { */
-	/* 	F_(*flags & F_a, ft_print_f(F_1, dirs->path, dirs->darr[i]->path)); */
-	/* 	_F(dirs->darr[i]->path[0] != '.', ft_print_f(F_1, dirs->path, dirs->darr[i]->path)); */
-	/* 	i++; */
-	/* } */
-	/* } */
-	/* F_(*flags & F_M || *flags & F_R, ft_putendl("")); */
-	/* closedir(dir); */
-	if (dirs && flags)
-		return (1);
-	return (1);
-}
-
-int	ft_prints(t_flags *flags, t_dirs *dirs)
-{
-	FT_(*flags & F_1 && !(*flags & F_R), ft_print_def(flags, dirs));
-	_FT(*flags & F_l && !(*flags & F_R), ft_print_lst(flags, dirs));
-	_FT(*flags & F_R, ft_print_rec(flags, dirs));
+	i = -1;
+	F_(*flags & F_M || *flags & F_R, ft_print_f("%:n", dirs[0].root));
+	F_(*flags & F_l, ft_print_f("%n", ft_itoa(dirs[0].total)));
+	while (dirs[++i].name)
+	{
+		F_(*flags & F_1, ft_print_def(flags, dirs[i]));
+		_F(*flags & F_l, ft_print_lst(flags, dirs[i]));
+	}
+	F_(*flags & F_M || *flags & F_R, ft_print_f("n"));
 	return (1);
 }
 
@@ -321,3 +250,25 @@ int	ft_print_rec(char *path, t_flags *flags)
 
  }}} */
 
+/* {{{TITLE
+ 
+ 	
+int	ft_print_def(t_flags *flags, t_dirs *dirs)
+{
+	DIR				*dir;
+	struct dirent	*s_dir;
+	dir = opendir(path);
+	FT_(!dir, E_PRINTS);
+	F_(*flags & F_M || *flags & F_R, ft_print_f(F_M, path, NULL));
+	while ((s_dir = readdir(dir)))
+	{
+		F_(*flags & F_a, ft_print_f(F_1, , s_dir->d_name));
+		_F(s_dir->d_name[0] != '.', ft_print_f(F_1, path, s_dir->d_name));
+	}
+	F_(*flags & F_M || *flags & F_R, ft_putendl(""));
+	closedir(dir);
+	return (1);
+}
+
+ 
+ * }}} */
