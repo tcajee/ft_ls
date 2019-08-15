@@ -6,11 +6,12 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/15 08:55:50 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/15 14:56:41 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
+/* #include <libft.h> */
 
 void	print_time_str(time_t secs)
 {
@@ -41,20 +42,15 @@ void	ft_print_perm(t_stat *s_stat)
 {
 	char	*permissions;
 
-	
-	else if (S_ISSOCK(mode))
-		return ('s');
-	else if (S_ISFIFO(mode))
-		return ('p');
-
-
 	permissions = (char *)malloc(sizeof(char) * 11 + 1);
 	ft_memset(permissions, '-', 11);
 	F_((s_stat->st_mode & S_IFMT) == S_IFDIR, permissions[0] = 'd');
 	_F((s_stat->st_mode & S_IFMT) == S_IFREG, permissions[0] = '-');
 	_F((s_stat->st_mode & S_IFMT) == S_IFCHR, permissions[0] = 'c');
 	_F((s_stat->st_mode & S_IFMT) == S_IFBLK, permissions[0] = 'b');
-	_F(s_stat->st_mode & S_IFMT) == S_IFLNK, permissions[0] = 'l'); // 16749
+	_F((s_stat->st_mode & S_IFMT) == S_IFLNK, permissions[0] = 'l');
+	_F((s_stat->st_mode & S_IFMT) == S_IFSOCK, permissions[0] = 's');
+	_F((s_stat->st_mode & S_IFMT) == S_IFIFO, permissions[0] = 'p');
 	F_(s_stat->st_mode & S_IRUSR, permissions[1] = 'r');
 	F_(s_stat->st_mode & S_IWUSR, permissions[2] = 'w');
 	F_(s_stat->st_mode & S_IXUSR, permissions[3] = 'x');
