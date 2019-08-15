@@ -43,6 +43,7 @@ typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
 typedef struct passwd	t_passwd;
 typedef struct group	t_group;
+typedef struct winsize	t_wins;
 
 typedef struct			s_info
 {
@@ -52,6 +53,13 @@ typedef struct			s_info
 	char				*name;
 	t_stat				s_stat;
 }						t_info;
+
+typedef struct			s_terms
+{
+	size_t				w_row;
+	size_t				w_col;
+}						t_terms;
+
 
 typedef struct			s_format
 {

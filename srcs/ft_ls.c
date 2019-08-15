@@ -12,30 +12,27 @@
 
 #include "../libft/incs/libft.h"
 
-int	ft_print_f(char *ft, ...)
+int	ft_terms(t_terms *terms)
 {
-	va_list	v_list;
-	int		i;
+	t_wins		wins;
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &wins);
 
-	i = -1;
-	va_start (v_list, ft);
-	while (ft[++i])
-	{
-		F_(ft[i] == '%', ft_putstr(va_arg(v_list, char *)));
-		_F(ft[i] == 'n', ft_putendl(""));
-		_F(ft[i] == 't', ft_putstr("	"));
-		_F(ft[i] == '.', ft_putendl(""));
-		_F(ft[i], ft_putchar(ft[i]));
-	}
-	va_end (v_list);
-	return (1);
+	terms->w_row = wins.ws_row;
+	terms->w_col = wins.ws_col;
+
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_flags		flags;
+	t_terms		terms;
 	int			i;
 	int			j;
+
+	ft_terms(&terms);
+	printf("rows:		%ld\n", terms.w_row);
+	printf("columns:	%ld\n", terms.w_col);
 
 	i = 0;
 	F_(!(flags = 0), B_1(flags, F_1));
@@ -54,7 +51,6 @@ int	main(int argc, char **argv)
 
 	/* ft_dirs(argv + i, &flags) */
 	/* FT_(!argv[0], ft_prints(flags, ft_dir_info("."))); */
-	sleep(30);
 	return (0);
 }
 

@@ -13,6 +13,25 @@
 #include "../libft/incs/libft.h"
 /* #include <libft.h> */
 
+int	ft_print_f(char *ft, ...)
+{
+	va_list	v_list;
+	int		i;
+
+	i = -1;
+	va_start (v_list, ft);
+	while (ft[++i])
+	{
+		F_(ft[i] == '%', ft_putstr(va_arg(v_list, char *)));
+		_F(ft[i] == 'n', ft_putendl(""));
+		_F(ft[i] == 't', ft_putstr("	"));
+		_F(ft[i] == '.', ft_putendl(""));
+		_F(ft[i], ft_putchar(ft[i]));
+	}
+	va_end (v_list);
+	return (1);
+}
+
 void	print_time_str(time_t secs)
 {
 	const char	*str = ctime(&secs);
@@ -67,9 +86,9 @@ void	ft_print_perm(t_stat *s_stat)
 
 int	ft_print_def(t_flags *flags, t_info dir)
 {
-	F_(*flags & F_a, ft_print_f("%", dir.name));
-	_F(dir.name[0] != '.', ft_print_f("%", dir.name));
+	F_(*flags, ft_print_f("%", dir.name));
 	F_(ft_dir_check(dir.path), ft_print_f("/n"));
+	_F(dir.s_stat.st_mode & S_IXUSR, ft_print_f("*n"));
 	_(ft_print_f("n"));
 	return (1);
 }
@@ -93,9 +112,10 @@ int	ft_print_lst(t_flags *flags, t_info dir)
 	ft_print_f("%t", "XXX XX XX:XX"); // ft_print_time(dir.s_stat, flags);
 
 	ft_print_f(" ");
-	F_(*flags & F_a, ft_print_f("%", dir.name));
-	_F(dir.name[0] != '.', ft_print_f("%", dir.name));
+
+	F_(*flags, ft_print_f("%", dir.name));
 	F_(ft_dir_check(dir.path), ft_print_f("/n"));
+	_F(dir.s_stat.st_mode & S_IXUSR, ft_print_f("*n"));
 	_(ft_print_f("n"));
 	return (1);
 }
@@ -106,9 +126,10 @@ int	ft_prints(t_flags *flags, t_info dirs[])
 
 	i = -1;
 	F_(*flags & F_M || *flags & F_R, ft_print_f("%:n", dirs[0].root));
-	F_(*flags & F_l, ft_print_f("%n", ft_itoa(dirs[0].total)));
+	F_(*flags & F_l, ft_print_f("%%n", "total: ", ft_itoa(dirs[0].total)));
 	while (dirs[++i].name)
 	{
+		F_(!(*flags & F_a) && dirs[i].name[0] == '.', continue);
 		F_(*flags & F_1, ft_print_def(flags, dirs[i]));
 		_F(*flags & F_l, ft_print_lst(flags, dirs[i]));
 	}
