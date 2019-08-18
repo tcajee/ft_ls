@@ -47,7 +47,7 @@ typedef struct winsize	t_wins;
 
 typedef struct			s_info
 {
-	int					total;
+	char				*total;
 	char				*root;
 	char				*path;
 	char				*name;
