@@ -126,7 +126,7 @@ int	ft_prints(t_flags *flags, t_info dirs[])
 
 	i = -1;
 	F_(*flags & F_M || *flags & F_R, ft_print_f("%:n", dirs[0].root));
-	F_(*flags & F_l, ft_print_f("%%n", "total: ", ft_itoa(dirs[0].total)));
+	F(*flags & F_l, ft_print_f("%%n", "total: ", dirs[0].t));
 	while (dirs[++i].name)
 	{
 		F_(!(*flags & F_a) && dirs[i].name[0] == '.', continue);
@@ -134,6 +134,7 @@ int	ft_prints(t_flags *flags, t_info dirs[])
 		_F(*flags & F_l, ft_print_lst(flags, dirs[i]));
 	}
 	F_(*flags & F_M || *flags & F_R, ft_print_f("n"));
+	// ft_cleans(dirs);
 	return (1);
 }
 
