@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/15 08:45:48 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/19 11:22:21 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_dir_info(char *path, t_info dirs[])
 		total += dirs[i].s_stat.st_blocks;
 	}
 	closedir(dir);
-	dirs[0].total = total;
+	dirs[0].total = ft_itoa(total);
 	return (1);
 }
 
