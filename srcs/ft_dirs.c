@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/20 17:04:17 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/08/20 18:18:58 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,12 @@ int ft_dirs(t_flags *flags, t_info dirs[], char *path)
 
 	F(!path, ft_dir_info(".", dirs));
 	_F_(!ft_dir_info(path, dirs), ft_errors(E_DIRS, path));
+	F((*flags & F_M || *flags & F_R), ft_print_f("n"));
+	F(*flags & F_M || *flags & F_R, ft_print_f("%:n", dirs[0].root));
+	F(*flags & F_l, ft_print_f("%%n", "total: ", dirs[0].total));
 	ft_prints(flags, dirs);
 	ft_dir_clean(dirs);
+//	ft_putchar((char)ft_getchar);
 	if (*flags & F_R)
 	{
 		F_(!(dir = opendir(path)), E_DIRS);

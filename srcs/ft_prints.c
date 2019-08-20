@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/20 14:41:01 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 17:49:52 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,15 +124,13 @@ int	ft_print_lst(t_flags *flags, t_info dir)
 int	ft_prints(t_flags *flags, t_info dirs[])
 {
 	int i;
+	
 	i = dirs[0].dirc;
-	F(*flags & F_M || *flags & F_R, ft_print_f("%:n", dirs[0].root));
-	F(*flags & F_l, ft_print_f("%%n", "total: ", dirs[0].total));
 	while (i--)
 	{
 		F(!(*flags & F_a) && dirs[i].name[0] == '.', continue);
 		F(*flags & F_1, ft_print_def(flags, dirs[i]));
 		_F(*flags & F_l, ft_print_lst(flags, dirs[i]));
 	}
-	F(*flags & F_M || *flags & F_R, ft_print_f("n"));
 	return (1);
 }
