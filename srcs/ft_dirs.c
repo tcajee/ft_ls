@@ -6,11 +6,25 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/20 11:04:22 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 11:46:55 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
+
+void	ft_dir_clean(t_info dirs[])
+{
+	int i;
+
+	i = -1;
+	while (dirs[++i].name)
+	{
+		F(dirs[0].total, free(dirs[i].total));
+		F(dirs[i].root, free(dirs[i].root));
+		F(dirs[i].path, free(dirs[i].path));
+		F(dirs[i].name, free(dirs[i].name));
+	}
+}
 
 int	ft_dir_check(char *path)
 {
@@ -67,10 +81,6 @@ int ft_dirs(t_flags *flags, char *path)
 	DIR			*dir;
 	char		*fpath;
 
-	ft_putstr("path:	");
-	ft_putendl(path);
-	ft_putendl("");
-
 	F(!path, ft_dir_info(".", dirs));
 	_F_(!ft_dir_info(path, dirs), ft_errors(E_DIRS, path));
 	ft_prints(flags, dirs);
@@ -87,7 +97,7 @@ int ft_dirs(t_flags *flags, char *path)
 		}
 		closedir(dir);
 	}
-	//free yo shit
+	/* ft_dir_clean(dirs); */
 	return (0);
 }
 
