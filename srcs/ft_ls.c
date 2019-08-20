@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/20 14:52:45 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 15:18:38 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ int	main(int argc, char **argv)
 	int			i;
 	int			j;
 
-	/* t_terms		terms; */
-	/* ft_terms(&terms); */
-	/* ft_putstr("rows:		"); */
-	/* ft_putnbr(terms.w_row); */
-	/* ft_putchar('\n'); */
-	/* ft_putstr("cols:		"); */
-	/* ft_putnbr(terms.w_col); */
-	/* ft_putchar('\n'); */
+	 t_terms		terms;
+	 ft_terms(&terms);
+	 ft_putstr("rows:		");
+	 ft_putnbr(terms.w_row);
+	 ft_putchar('\n');
+	 ft_putstr("cols:		");
+	 ft_putnbr(terms.w_col);
+	 ft_putchar('\n');
 
 	i = 0;
 	F(!(flags = 0), B_1(flags, F_1));

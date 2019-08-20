@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/20 14:38:56 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 17:04:17 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ char	*ft_dir_path(char *path, char *d_name)
 	len = ft_strlen(path) + ft_strlen(d_name);
 	F_(!(temp = (char *)malloc(sizeof(char) * (len + 2))), NULL);
 	___(*path, temp[i++] = *path++);
-	temp[i++] = '/';
+	F(temp[i - 1] == '/', i = i);
+	_(temp[i++] = '/');
 	___(*d_name, temp[i++] = *d_name++);
 	temp[i] = '\0';
 	return (temp);
