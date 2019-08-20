@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/20 11:31:43 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 14:36:24 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	ft_print_perm(t_stat *s_stat)
 {
 	char	permissions[12];
 
-	/* permissions = (char *)malloc(sizeof(char) * 11 + 1); */
 	ft_memset(permissions, '-', 11);
 	F((s_stat->st_mode & S_IFMT) == S_IFDIR, permissions[0] = 'd');
 	_F((s_stat->st_mode & S_IFMT) == S_IFREG, permissions[0] = '-');
@@ -90,7 +89,6 @@ int	ft_print_def(t_flags *flags, t_info dir)
 	F(ft_dir_check(dir.path), ft_print_f("/n"));
 	_F(dir.s_stat.st_mode & S_IXUSR, ft_print_f("*n"));
 	_(ft_print_f("n"));
-	free()
 	return (1);
 }
 
@@ -105,6 +103,7 @@ int	ft_print_lst(t_flags *flags, t_info dir)
 
 	s_pwd = getpwuid(dir.s_stat.st_uid);
 	ft_print_f("%t", s_pwd->pw_name);
+	
 	s_grp = getgrgid(dir.s_stat.st_gid);
 	ft_print_f("%t", s_grp->gr_name);
 
@@ -124,18 +123,19 @@ int	ft_print_lst(t_flags *flags, t_info dir)
 int	ft_prints(t_flags *flags, t_info dirs[])
 {
 	int i;
-
-	i = -1;
+	ft_putendl("________________________");
+	ft_putendl("PRINTING");
+	ft_putendl("________________________");
+	i = dirs[0].dirc;
 	F(*flags & F_M || *flags & F_R, ft_print_f("%:n", dirs[0].root));
 	F(*flags & F_l, ft_print_f("%%n", "total: ", dirs[0].total));
-	while (dirs[++i].name)
+	while (i--)
 	{
 		F(!(*flags & F_a) && dirs[i].name[0] == '.', continue);
 		F(*flags & F_1, ft_print_def(flags, dirs[i]));
 		_F(*flags & F_l, ft_print_lst(flags, dirs[i]));
 	}
 	F(*flags & F_M || *flags & F_R, ft_print_f("n"));
-	// ft_cleans(dirs);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/20 11:20:00 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 14:35:57 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,17 @@ typedef struct winsize	t_wins;
 typedef struct			s_info
 {
 	char				*total;
+	size_t				dirc;
 	char				*root;
 	char				*path;
 	char				*name;
 	t_stat				s_stat;
 }						t_info;
+
+typedef struct			s_dirs
+{
+	t_info				dirs[1024];
+}						t_dirs;
 
 typedef struct			s_terms
 {
@@ -96,7 +102,7 @@ int						ft_lflag_check(t_flags *flags, char *option);
 int						ft_flag_set(t_flags *flags, int flagc, ...);
 void					ft_flag_print(t_flags *flags);
 
-int						ft_dirs(t_flags *flags, char *argv);
+int						ft_dirs(t_flags *flags, t_info dirs[], char *arg);
 int						ft_dir_info(char *path, t_info dirs[]);
 char					*ft_dir_path(char *path, char *d_name);
 void					ft_dir_clean(t_info dirs[]);

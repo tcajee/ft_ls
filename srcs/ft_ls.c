@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/20 11:20:16 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 14:26:55 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	ft_terms(t_terms *terms)
 int	main(int argc, char **argv)
 {
 	t_flags		flags;
+	t_info		dirs[1024];
 	int			i;
 	int			j;
 
@@ -47,10 +48,20 @@ int	main(int argc, char **argv)
 	ft_putchar('\n');
 
 	j = i;
-	F_(!argv[j], ft_dirs(&flags, "."));
+	F_(!argv[j], ft_dirs(&flags, dirs, "."));
 	___(argv[++j], F(!(ft_dir_check(argv[j])), ft_errors(E_PRINTS, argv[j])));
 	j = i - 1;
-	___(argv[++j], F(ft_dir_check(argv[j]), ft_dirs(&flags, argv[j])));
+
+	___(argv[++j], F(ft_dir_check(argv[j]), ft_dirs(&flags, dirs, argv[j])));
+
+	/* while (argv[++j]) */
+	/* { */
+	/* 	if (ft_dir_check(argv[j])) */
+	/* 		ft_dirs(&flags, dirs, argv[j]); */
+	/* 	ft_dir_clean(dirs); */
+	/* } */
+	
+	sleep(20);
 
 	return (0);
 }

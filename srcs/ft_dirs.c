@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/20 11:46:55 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 14:36:44 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@ void	ft_dir_clean(t_info dirs[])
 {
 	int i;
 
-	i = -1;
-	while (dirs[++i].name)
+	ft_putendl("________________________");
+	ft_putendl("CLEANING");
+	ft_putendl("________________________");
+	i = dirs[0].dirc;
+	F(dirs[0].total, free(dirs[0].total));
+	while (i--)
 	{
-		F(dirs[0].total, free(dirs[i].total));
 		F(dirs[i].root, free(dirs[i].root));
 		F(dirs[i].path, free(dirs[i].path));
 		F(dirs[i].name, free(dirs[i].name));
@@ -58,33 +61,41 @@ int	ft_dir_info(char *path, t_info dirs[])
 	int i;
 	int total;
 
-	i = -1;
+	ft_putendl("________________________");
+	ft_putendl("CREATING");
+	ft_putendl("________________________");
+	i = 0;
 	total = 0;
 	F_(!(dir = opendir(path)), 0);
 	while ((s_dir = readdir(dir)) != NULL && i < 1024)
 	{
-		F_(!(dirs[++i].root = ft_strdup(path)), 0);
+		F_(!(dirs[i].root = ft_strdup(path)), 0);
 		F_(!(dirs[i].name = ft_strdup(s_dir->d_name)), 0);
 		F_(!(dirs[i].path = ft_dir_path(path, s_dir->d_name)), 0);
 		F_((lstat(dirs[i].path, &dirs[i].s_stat)) < 0, 0);
-		total += dirs[i].s_stat.st_blocks;
+		total += dirs[i++].s_stat.st_blocks;
 	}
 	closedir(dir);
 	dirs[0].total = ft_itoa(total);
+	dirs[0].dirc = i;
 	return (1);
 }
 
-int ft_dirs(t_flags *flags, char *path)
+int ft_dirs(t_flags *flags, t_info dirs[], char *path)
 {
-	t_info		dirs[1024];
 	t_dirent	*s_dir;
 	DIR			*dir;
 	char		*fpath;
 
+
+	ft_putendl("________________________");
+	ft_putendl("INIT");
+	ft_putendl("________________________");
+
 	F(!path, ft_dir_info(".", dirs));
 	_F_(!ft_dir_info(path, dirs), ft_errors(E_DIRS, path));
 	ft_prints(flags, dirs);
-
+	ft_dir_clean(dirs);
 	if (*flags & F_R)
 	{
 		F_(!(dir = opendir(path)), E_DIRS);
@@ -92,12 +103,11 @@ int ft_dirs(t_flags *flags, char *path)
 		{
 			F(IS_DOT(s_dir->d_name) || IS_DDOT(s_dir->d_name), continue);
 			F(ft_dir_check(fpath = ft_dir_path(path, s_dir->d_name)),
-			ft_dirs(flags, fpath));
+			ft_dirs(flags, dirs, fpath));
 			free(fpath);
 		}
 		closedir(dir);
 	}
-	/* ft_dir_clean(dirs); */
 	return (0);
 }
 
