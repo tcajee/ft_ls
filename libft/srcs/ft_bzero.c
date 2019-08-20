@@ -6,13 +6,13 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 11:47:09 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 15:03:01 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 09:43:34 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/libft.h"
 
-void	ft_bzero(void *s, size_t n)
+void	ft_bzero(void *dst, size_t n)
 {
-	ft_memset(s, 0, n);
+	ft_memset(dst, 0, n);
 }

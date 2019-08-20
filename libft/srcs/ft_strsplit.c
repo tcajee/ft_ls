@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 12:28:11 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 15:05:19 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 09:43:36 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ char	**ft_strsplit(char const *s, char c)
 	if (s)
 	{
 		words = ft_strwcount(s, c);
-		FT_(!(array = (char **)malloc(words * sizeof(char *) + 1)), NULL);
+		F_(!(array = (char **)malloc(words * sizeof(char *) + 1)), NULL);
 		insert = array;
 		while (words--)
 		{
 			start = ft_strwnext(s, c);
 			len = ft_strwlen(start, c);
-			FT_(!(*insert++ = ft_strsub(start, 0, len)), NULL);
+			F_(!(*insert++ = ft_strsub(start, 0, len)), NULL);
 			s = (start + len);
 		}
 		*insert = NULL;

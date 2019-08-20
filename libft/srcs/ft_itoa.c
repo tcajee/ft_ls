@@ -6,36 +6,28 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 15:38:25 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 15:05:17 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 10:19:22 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/libft.h"
+#include "./libft.h"
 
 char	*ft_itoa(int n)
 {
-	char	*string;
+	char	out[12];
+	char	*new;
 	int		x;
 	size_t	i;
 
+	F_(n == -2147483648, ft_strdup("-2147483648"));
+	_F_(n == 0, ft_strdup("0"));
+	_F(n < 0, x = n * -1);
+	_(x = n);
 	i = 0;
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
-	else if (n == 0)
-		return (ft_strdup("0"));
-	else if (n < 0)
-		x = n * -1;
-	else
-		x = n;
-	string = ft_strnew(12);
-	FT_(!string, NULL);
-	while (x > 0)
-	{
-		string[i++] = (x % 10) + 48;
-		x /= 10;
-	}
-	if (n < 0)
-		string[i] = '-';
-	string = ft_strcpy(ft_strnew(ft_strlen(string)), ft_strrev(string));
-	return (string);
+	___(x > 0, F(!!(out[i++] = (x % 10) + 48), x /= 10));
+	F(n < 0, out[i++] = '-');
+	F(i <= 12, out[i] = '\0');
+	F_(!(new = ft_strnew(ft_strlen(out))), NULL);
+	new = ft_strcpy(new, ft_strrev(out));
+	return (new);
 }

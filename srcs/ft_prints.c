@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/19 12:22:19 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/08/20 10:54:51 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_print_f(char *ft, ...)
 	va_start (v_list, ft);
 	while (ft[++i])
 	{
-		F_(ft[i] == '%', ft_putstr(va_arg(v_list, char *)));
+		F(ft[i] == '%', ft_putstr(va_arg(v_list, char *)));
 		_F(ft[i] == 'n', ft_putendl(""));
 		_F(ft[i] == 't', ft_putstr("	"));
 		_F(ft[i] == '.', ft_putendl(""));
@@ -53,7 +53,7 @@ void	print_time_str(time_t secs)
 
 void		ft_print_time(t_stat s_stat, t_flags *flags)
 {
-	F_(*flags & F_u, print_time_str(s_stat.st_atime));
+	F(*flags & F_u, print_time_str(s_stat.st_atime));
 	_F(*flags & F_t, print_time_str(s_stat.st_mtime));
 }
 
@@ -63,22 +63,22 @@ void	ft_print_perm(t_stat *s_stat)
 
 	permissions = (char *)malloc(sizeof(char) * 11 + 1);
 	ft_memset(permissions, '-', 11);
-	F_((s_stat->st_mode & S_IFMT) == S_IFDIR, permissions[0] = 'd');
+	F((s_stat->st_mode & S_IFMT) == S_IFDIR, permissions[0] = 'd');
 	_F((s_stat->st_mode & S_IFMT) == S_IFREG, permissions[0] = '-');
 	_F((s_stat->st_mode & S_IFMT) == S_IFCHR, permissions[0] = 'c');
 	_F((s_stat->st_mode & S_IFMT) == S_IFBLK, permissions[0] = 'b');
 	_F((s_stat->st_mode & S_IFMT) == S_IFLNK, permissions[0] = 'l');
 	_F((s_stat->st_mode & S_IFMT) == S_IFSOCK, permissions[0] = 's');
 	_F((s_stat->st_mode & S_IFMT) == S_IFIFO, permissions[0] = 'p');
-	F_(s_stat->st_mode & S_IRUSR, permissions[1] = 'r');
-	F_(s_stat->st_mode & S_IWUSR, permissions[2] = 'w');
-	F_(s_stat->st_mode & S_IXUSR, permissions[3] = 'x');
-	F_(s_stat->st_mode & S_IRGRP, permissions[4] = 'r');
-	F_(s_stat->st_mode & S_IWGRP, permissions[5] = 'w');
-	F_(s_stat->st_mode & S_IXGRP, permissions[6] = 'x');
-	F_(s_stat->st_mode & S_IROTH, permissions[7] = 'r');
-	F_(s_stat->st_mode & S_IWOTH, permissions[8] = 'w');
-	F_(s_stat->st_mode & S_IXOTH, permissions[9] = 'x');
+	F(s_stat->st_mode & S_IRUSR, permissions[1] = 'r');
+	F(s_stat->st_mode & S_IWUSR, permissions[2] = 'w');
+	F(s_stat->st_mode & S_IXUSR, permissions[3] = 'x');
+	F(s_stat->st_mode & S_IRGRP, permissions[4] = 'r');
+	F(s_stat->st_mode & S_IWGRP, permissions[5] = 'w');
+	F(s_stat->st_mode & S_IXGRP, permissions[6] = 'x');
+	F(s_stat->st_mode & S_IROTH, permissions[7] = 'r');
+	F(s_stat->st_mode & S_IWOTH, permissions[8] = 'w');
+	F(s_stat->st_mode & S_IXOTH, permissions[9] = 'x');
 	permissions[10] = ' ';
 	permissions[11] = '\0';
 	ft_print_f("%t", permissions);
@@ -86,8 +86,8 @@ void	ft_print_perm(t_stat *s_stat)
 
 int	ft_print_def(t_flags *flags, t_info dir)
 {
-	F_(*flags, ft_print_f("%", dir.name));
-	F_(ft_dir_check(dir.path), ft_print_f("/n"));
+	F(*flags, ft_print_f("%", dir.name));
+	F(ft_dir_check(dir.path), ft_print_f("/n"));
 	_F(dir.s_stat.st_mode & S_IXUSR, ft_print_f("*n"));
 	_(ft_print_f("n"));
 	return (1);
@@ -113,8 +113,8 @@ int	ft_print_lst(t_flags *flags, t_info dir)
 
 	ft_print_f(" ");
 
-	F_(*flags, ft_print_f("%", dir.name));
-	F_(ft_dir_check(dir.path), ft_print_f("/n"));
+	F(*flags, ft_print_f("%", dir.name));
+	F(ft_dir_check(dir.path), ft_print_f("/n"));
 	_F(dir.s_stat.st_mode & S_IXUSR, ft_print_f("*n"));
 	_(ft_print_f("n"));
 	return (1);
@@ -125,15 +125,15 @@ int	ft_prints(t_flags *flags, t_info dirs[])
 	int i;
 
 	i = -1;
-	F_(*flags & F_M || *flags & F_R, ft_print_f("%:n", dirs[0].root));
+	F(*flags & F_M || *flags & F_R, ft_print_f("%:n", dirs[0].root));
 	_F(*flags & F_l, ft_print_f("%%n", "total: ", dirs[0].total));
 	while (dirs[++i].name)
 	{
-		F_(!(*flags & F_a) && dirs[i].name[0] == '.', continue);
-		F_(*flags & F_1, ft_print_def(flags, dirs[i]));
+		F(!(*flags & F_a) && dirs[i].name[0] == '.', continue);
+		F(*flags & F_1, ft_print_def(flags, dirs[i]));
 		_F(*flags & F_l, ft_print_lst(flags, dirs[i]));
 	}
-	F_(*flags & F_M || *flags & F_R, ft_print_f("n"));
+	F(*flags & F_M || *flags & F_R, ft_print_f("n"));
 	// ft_cleans(dirs);
 	return (1);
 }

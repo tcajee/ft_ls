@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/15 08:46:15 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 10:57:09 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,41 +16,37 @@ int	ft_terms(t_terms *terms)
 {
 	t_wins		wins;
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &wins);
-
 	terms->w_row = wins.ws_row;
 	terms->w_col = wins.ws_col;
-
 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_flags		flags;
-	t_terms		terms;
 	int			i;
 	int			j;
 
+	t_terms		terms;
 	ft_terms(&terms);
 	printf("rows:		%ld\n", terms.w_row);
 	printf("columns:	%ld\n", terms.w_col);
 
 	i = 0;
-	F_(!(flags = 0), B_1(flags, F_1));
-	FT_((i = ft_flags(&flags, argv)) == E_FLAGS, errno);
-	F_(argc - i > 1, flags |= F_M);
+	F(!(flags = 0), B_1(flags, F_1));
+	F_((i = ft_flags(&flags, argv)) == E_FLAGS, errno);
+	F(argc - i > 1, flags |= F_M);
 
+	ft_putstr("flags:		");
 	ft_flag_print(&flags);
+	ft_putchar('\n');
 	ft_putchar('\n');
 
 	j = i - 1;
-	while (argv[++j])
-		F_(!(ft_dir_check(argv[j])), ft_errors(E_PRINTS, argv[j]));
+	___(argv[++j], F(!(ft_dir_check(argv[j])), ft_errors(E_PRINTS, argv[j])));
 	j = i - 1;
-	while (argv[++j])
-		F_(ft_dir_check(argv[j]), ft_dirs(&flags, argv[j]));
+	___(argv[++j], F(ft_dir_check(argv[j]), ft_dirs(&flags, argv[j])));
 
-	/* ft_dirs(argv + i, &flags) */
-	/* FT_(!argv[0], ft_prints(flags, ft_dir_info("."))); */
 	return (0);
 }
 

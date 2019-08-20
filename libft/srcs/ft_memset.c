@@ -6,19 +6,17 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 14:35:24 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 15:05:18 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 09:43:35 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+void	*ft_memset(void *dst, int c, size_t n)
 {
-	unsigned char	*dst;
+	unsigned char	*cp;
 
-	FT_(!b, b);
-	dst = (unsigned char *)b;
-	while (len--)
-		*dst++ = (unsigned char)c;
-	return (b);
+	cp = (unsigned char *)dst;
+	___(n--, cp[n] = (unsigned char)c);
+	return (dst);
 }

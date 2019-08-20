@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 11:37:13 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 15:05:20 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 09:43:36 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,6 @@ size_t	ft_strwlen(const char *s, int c)
 	size_t len;
 
 	len = 0;
-	if (s)
-	{
-		while (*s && *s++ != c)
-			len++;
-	}
+	F(s, ___(*s && *s++ != c, len++));
 	return (len);
 }

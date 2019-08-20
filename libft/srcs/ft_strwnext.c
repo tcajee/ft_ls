@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 11:35:35 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 15:05:20 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 09:43:36 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 
 const char	*ft_strwnext(const char *s, int c)
 {
-	if (s)
-	{
-		while (*s && *s == c)
-			s++;
-	}
+	F(s, ___(*s && *s == c, s++));
 	return (s);
 }

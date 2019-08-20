@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:34:08 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 15:07:13 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 09:48:18 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,6 @@
 # elif defined(__unix__)
 #  define FT_OPEN_MAX 1024
 # endif
-
-typedef struct		s_files
-{
-	char			*file[FT_OPEN_MAX + 1];
-	char			*line;
-	int				fd;
-}					t_files;
 
 int					get_next_line(const int fd, char **line);
 

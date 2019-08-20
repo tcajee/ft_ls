@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/19 11:22:21 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 10:53:34 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	ft_dir_check(char *path)
 {
 	t_stat	s_stat;
 
-	FT_(lstat(path, &s_stat) < 0, 0);
-	FT_((s_stat.st_mode & S_IFMT) == S_IFDIR, 1);
+	F_(lstat(path, &s_stat) < 0, 0);
+	F_((s_stat.st_mode & S_IFMT) == S_IFDIR, 1);
 	return (0);
 }
 
@@ -29,12 +29,10 @@ char	*ft_dir_path(char *path, char *d_name)
 
 	i = 0;
 	len = ft_strlen(path) + ft_strlen(d_name);
-	FT_(!(temp = (char *)malloc(sizeof(char) * (len + 2))), NULL);
-	while (*path)
-		temp[i++] = *path++;
+	F_(!(temp = (char *)malloc(sizeof(char) * (len + 2))), NULL);
+	___(*path, temp[i++] = *path++);
 	temp[i++] = '/';
-	while (*d_name)
-		temp[i++] = *d_name++;
+	___(*d_name, temp[i++] = *d_name++);
 	temp[i] = '\0';
 	return (temp);
 }
@@ -48,13 +46,13 @@ int	ft_dir_info(char *path, t_info dirs[])
 
 	i = -1;
 	total = 0;
-	FT_(!(dir = opendir(path)), 0);
+	F_(!(dir = opendir(path)), 0);
 	while ((s_dir = readdir(dir)) != NULL && i < 1024)
 	{
-		FT_(!(dirs[++i].root = ft_strdup(path)), 0);
-		FT_(!(dirs[i].name = ft_strdup(s_dir->d_name)), 0);
-		FT_(!(dirs[i].path = ft_dir_path(path, s_dir->d_name)), 0);
-		FT_((lstat(dirs[i].path, &dirs[i].s_stat)) < 0, 0);
+		F_(!(dirs[++i].root = ft_strdup(path)), 0);
+		F_(!(dirs[i].name = ft_strdup(s_dir->d_name)), 0);
+		F_(!(dirs[i].path = ft_dir_path(path, s_dir->d_name)), 0);
+		F_((lstat(dirs[i].path, &dirs[i].s_stat)) < 0, 0);
 		total += dirs[i].s_stat.st_blocks;
 	}
 	closedir(dir);
@@ -65,31 +63,27 @@ int	ft_dir_info(char *path, t_info dirs[])
 int ft_dirs(t_flags *flags, char *path)
 {
 	t_info		dirs[1024];
-
-	F_(!path, ft_dir_info(".", dirs));
-	_FT(!ft_dir_info(path, dirs), ft_errors(E_DIRS, path));
-
-	ft_prints(flags, dirs);
-
-// -------------------------_TEST
-
 	t_dirent	*s_dir;
 	DIR			*dir;
 	char		*fpath;
+
+	F(!path, ft_dir_info(".", dirs));
+	_F_(!ft_dir_info(path, dirs), ft_errors(E_DIRS, path));
+
+	ft_prints(flags, dirs);
 	if (*flags & F_R)
 	{
-		FT_(!(dir = opendir(path)), E_DIRS);
+		F_(!(dir = opendir(path)), E_DIRS);
 		while ((s_dir = readdir(dir)) != NULL)
 		{
-			F_(IS_DOT(s_dir->d_name) || IS_DDOT(s_dir->d_name), continue);
-			F_(ft_dir_check(fpath = ft_dir_path(path, s_dir->d_name)),
+			F(IS_DOT(s_dir->d_name) || IS_DDOT(s_dir->d_name), continue);
+			F(ft_dir_check(fpath = ft_dir_path(path, s_dir->d_name)),
 			ft_dirs(flags, fpath));
 			free(fpath);
 		}
 		closedir(dir);
 	}
 //free yo shit
-// -------------------------_TEST
 	return (0);
 }
 

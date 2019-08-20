@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 09:55:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 15:05:19 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 09:43:36 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,10 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	{
 		i = 0;
 		len = ft_strlen(s) + 1;
-		FT_(!(new = (char *)malloc(sizeof(char) * len)), NULL);
-		ft_memset((new + len), '\0', 1);
+		F_(!(new = (char *)malloc(sizeof(char) * len)), NULL);
 		cursor = new;
-		while (*s)
-			*cursor++ = f(i++, *s++);
+		___(*s, *cursor++ = f(i++, *s++));
+		*cursor = '\0';
 	}
 	return (new);
 }

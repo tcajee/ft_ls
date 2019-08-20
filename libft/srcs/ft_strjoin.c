@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 11:34:12 by tcajee            #+#    #+#             */
-/*   Updated: 2019/07/15 15:05:19 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 09:43:36 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (s1 && s2)
 	{
 		len = ft_strlen(s1) + ft_strlen(s2) + 1;
-		FT_(!(new = (char *)malloc(sizeof(char) * len)), NULL);
-		ft_memset((new + len), '\0', 1);
-		new = ft_strcat(ft_strcat(new, s1), s2);
+		F_(!(new = (char *)malloc(sizeof(char) * len)), NULL);
+		new = ft_strcat(ft_strcpy(new, s1), s2);
+		new[len] = '\0';
 	}
 	return (new);
 }
