@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/20 10:45:55 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 10:59:52 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,5 @@ int		ft_flags(t_flags *flags, char **argv)
 				ft_flag_check(flags, argv[i][j])));
 		__(i);
 	}
-	/* printf("%s\n", &argv[i][2]); */
-	/* (*flags = ft_errors(E_FLAGS, &argv[i][2]))); */
-	ft_flag_print(flags);
-	ft_putchar('\n');
 	return (i);
 }

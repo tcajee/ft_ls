@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/20 10:57:09 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 11:09:51 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,12 @@ int	main(int argc, char **argv)
 
 	t_terms		terms;
 	ft_terms(&terms);
-	printf("rows:		%ld\n", terms.w_row);
-	printf("columns:	%ld\n", terms.w_col);
+	ft_putstr("rows:		");
+	ft_putnbr(terms.w_row);
+	ft_putchar('\n');
+	ft_putstr("cols:		");
+	ft_putnbr(terms.w_col);
+	ft_putchar('\n');
 
 	i = 0;
 	F(!(flags = 0), B_1(flags, F_1));
@@ -42,7 +46,8 @@ int	main(int argc, char **argv)
 	ft_putchar('\n');
 	ft_putchar('\n');
 
-	j = i - 1;
+	j = i;
+	F_(!argv[j], ft_dirs(&flags, "."));
 	___(argv[++j], F(!(ft_dir_check(argv[j])), ft_errors(E_PRINTS, argv[j])));
 	j = i - 1;
 	___(argv[++j], F(ft_dir_check(argv[j]), ft_dirs(&flags, argv[j])));
