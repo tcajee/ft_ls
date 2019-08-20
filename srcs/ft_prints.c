@@ -6,12 +6,11 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/20 14:36:24 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/20 14:41:01 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
-/* #include <libft.h> */
 
 int	ft_print_f(char *ft, ...)
 {
@@ -98,21 +97,23 @@ int	ft_print_lst(t_flags *flags, t_info dir)
 	t_group		*s_grp;
 
 	ft_print_perm(&dir.s_stat);
-
-	ft_print_f("%t", "XX"); // dir.s_stat.st_nlink);
-
+	ft_print_f("%t", "XX");
+	/*
+	 * dir.s_stat.st_nlink);
+	 */
 	s_pwd = getpwuid(dir.s_stat.st_uid);
 	ft_print_f("%t", s_pwd->pw_name);
-	
 	s_grp = getgrgid(dir.s_stat.st_gid);
 	ft_print_f("%t", s_grp->gr_name);
-
-	ft_print_f("%t", "XX"); // dir.s_stat.st_size);
-
-	ft_print_f("%t", "XXX XX XX:XX"); // ft_print_time(dir.s_stat, flags);
-
+	ft_print_f("%t", "XX");
+	/*
+	 * dir.s_stat.st_size);
+	 */
+	ft_print_f("%t", "XXX XX XX:XX");
+	/*
+	 * ft_print_time(dir.s_stat, flags);
+	 */
 	ft_print_f(" ");
-
 	F(*flags, ft_print_f("%", dir.name));
 	F(ft_dir_check(dir.path), ft_print_f("/n"));
 	_F(dir.s_stat.st_mode & S_IXUSR, ft_print_f("*n"));
@@ -123,9 +124,6 @@ int	ft_print_lst(t_flags *flags, t_info dir)
 int	ft_prints(t_flags *flags, t_info dirs[])
 {
 	int i;
-	ft_putendl("________________________");
-	ft_putendl("PRINTING");
-	ft_putendl("________________________");
 	i = dirs[0].dirc;
 	F(*flags & F_M || *flags & F_R, ft_print_f("%:n", dirs[0].root));
 	F(*flags & F_l, ft_print_f("%%n", "total: ", dirs[0].total));
@@ -138,163 +136,3 @@ int	ft_prints(t_flags *flags, t_info dirs[])
 	F(*flags & F_M || *flags & F_R, ft_print_f("n"));
 	return (1);
 }
-
-/* {{{TITLE
- 
-  	
-char	*dirname(char *fname, char *s_stat)
-{
-	 char *ptr;
-	 strcpy (s_stat, fname);
-	 if ((ptr = strrchr (s_stat, '/')) == NULL)
-	 {
-		 s_stat[0] = '.';
-		 s_stat[1] = '\0';
-	 }
-	 else if (s_stat != ptr)
-	 {
-		 *ptr++ = '\0';
-		 if(*ptr == '\0')
-		 {
-			 ptr = strrchr (s_stat, '/');
-			 if (ptr != NULL && s_stat != ptr)
-				 *ptr = '\0';
-		 }
-	 }
-	 printf("s_stat: %s\n", s_stat);
-	 return s_stat;
- }
-char *get_path(char *path, char *name)
-{
-	char	*ret;
-	const size_t	size = ft_strlen(path) + ft_strlen(name) + 2;
-	ret = ft_strnew(size);
-	ret = ft_strcpy(ret, name);
-	ft_strlcat(ret, "/", size);
-	ft_strlcat(ret, name, size);
-	return (ret);
- }
-int ft_path(char path[PATH_MAX], char *name, char full_path[PATH_MAX])
-{
-	int i;
-	i = -1;
-	while (path[++i])
-		full_path[i] = path[i];
-	if (i && i < PATH_MAX)
-		if (!(path[0] == '/' && path[1] == '\0'))
-			full_path[i++] = '/';
-	while (*name && i < PATH_MAX)
-		full_path[i++] = *name++;
-	if (i < PATH_MAX)
-		full_path[i] = '\0';
-	else
-		errno = ENAMETOOLONG;
-	return ((i < PATH_MAX) ? 1 : 0);
-}
-
- 
-}}} */
-
-/* {{{TITLE
- 
- 	
-
-int	ft_rec_prints(char *path, t_flags *flags)
-{
-	DIR				*dir;
-	struct dirent	*s_dirent;
-	char			*fpath[1024];
-	int 			i;
-	int 			j;
-	i = 0;
-	dir = opendir(path);
-	FT_(!dir, E_PRINTS);
-	while ((s_dirent = readdir(dir)))
-	{
-
-		printf("path: %s\n", path);
-		printf("s_dir: %s\n", s_dirent->d_name);
-		printf("fpath: %s\n", fpath[i] =get_path(path, s_dirent->d_name));
-
-		if (ft_ls_isdir(fpath[i] = get_path(path, s_dirent->d_name)))
-		{
-			if (path[ft_strlen(path) - 1] == '/')
-				fpath[i] = ft_strjoin(path, s_dirent->d_name);
-			else
-				fpath[i] = ft_strjoin(ft_strjoin(path, "/"), s_dirent->d_name);
-			printf("fpath: %s\n", fpath[i]);
-			++i;
-			closedir(dir);
-			j = -1;
-			while (++j < i)
-				ft_rec_prints(fpath[j], flags);
-		}
-	}
-	return (1);
-}
-
-}}} */
-
-/* {{{TITLE
-
- 
-int	ft_print_rec(char *path, t_flags *flags)
-{
-	DIR				*dir;
-	struct dirent	*s_dirent;
-	char			*fpath[PATH_MAX];
-	int 			i;
-	i = 0;
-	dir = opendir(path);
-	FT_(!dir, E_PRINTS);
-	if (*flags & F_1)
-		ft_def_prints(path, flags);
-	else if (*flags & F_l)
-		ft_lst_prints(path, flags);
-	while ((s_dirent = readdir(dir)) != NULL)
-	{
-		if (s_dirent->d_name[0] == '.' && s_dirent->d_name[1] == '\0')
-			continue ;
-		if (s_dirent->d_name[0] == '.' && s_dirent->d_name[1] == '.' && s_dirent->d_name[2] == '\0')
-			continue ;
-		if (ft_dir_path(path, s_dirent->d_name, fpath, i))
-		{
-			printf("FPATH: %s\n", fpath[i]);
-			ft_putchar('\n');
-			ft_print_name(fpath[i]);
-			ft_print_rec(fpath[i], flags);
-			free(fpath[i++]);
-		}
-		else
-			continue ;
-	}
-	closedir(dir);
-	return (1);
-}
-
-
-
- }}} */
-
-/* {{{TITLE
- 
- 	
-int	ft_print_def(t_flags *flags, t_dirs *dirs)
-{
-	DIR				*dir;
-	struct dirent	*s_dir;
-	dir = opendir(path);
-	FT_(!dir, E_PRINTS);
-	F_(*flags & F_M || *flags & F_R, ft_print_f(F_M, path, NULL));
-	while ((s_dir = readdir(dir)))
-	{
-		F_(*flags & F_a, ft_print_f(F_1, , s_dir->d_name));
-		_F(s_dir->d_name[0] != '.', ft_print_f(F_1, path, s_dir->d_name));
-	}
-	F_(*flags & F_M || *flags & F_R, ft_putendl(""));
-	closedir(dir);
-	return (1);
-}
-
- 
- * }}} */
