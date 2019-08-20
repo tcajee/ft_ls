@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/20 18:23:26 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/08/20 18:37:50 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int	main(int argc, char **argv)
 	F_((i = ft_flags(&flags, argv)) == E_FLAGS, errno);
 	F(argc - i > 1, flags |= F_M);
 
- ft_flag_print(&flags); 
- ft_putendl(""); 
- ft_putendl("v"); 
+// ft_flag_print(&flags); 
+// ft_putendl(""); 
+// ft_putendl("v"); 
 
 	j = i - 1;
 	F_(!argv[i], ft_dirs(&flags, dirs, "."));
