@@ -82,9 +82,9 @@ void	ft_print_perm(t_stat *s_stat)
 	ft_print_f("%t", permissions);
 }
 
-int	ft_print_def(t_flags *flags, t_info dir)
+int	ft_print_def(t_info dir)
 {
-	F(*flags, ft_print_f("%", dir.name));
+	ft_print_f("%", dir.name);
 	F(ft_dir_check(dir.path), ft_print_f("/n"));
 	_F(dir.s_stat.st_mode & S_IXUSR, ft_print_f("*n"));
 	_(ft_print_f("n"));
@@ -104,7 +104,7 @@ int	ft_print_lst(t_flags *flags, t_info dir)
 	s_pwd = getpwuid(dir.s_stat.st_uid);
 	ft_print_f("%t", s_pwd->pw_name);
 	s_grp = getgrgid(dir.s_stat.st_gid);
-	ft_print_f("%t", s_grp->gr_name);
+	F(!(*flags & F_g), ft_print_f("%t", s_grp->gr_name));
 	ft_print_f("%t", "XX");
 	/*
 	 * dir.s_stat.st_size);
@@ -114,22 +114,19 @@ int	ft_print_lst(t_flags *flags, t_info dir)
 	 * ft_print_time(dir.s_stat, flags);
 	 */
 	ft_print_f(" ");
-	F(*flags, ft_print_f("%", dir.name));
-	F(ft_dir_check(dir.path), ft_print_f("/n"));
-	_F(dir.s_stat.st_mode & S_IXUSR, ft_print_f("*n"));
-	_(ft_print_f("n"));
+	ft_print_def(dir);
 	return (1);
 }
 
 int	ft_prints(t_flags *flags, t_info dirs[])
 {
 	int i;
-	
-	i = dirs[0].dirc;
-	while (i--)
+
+	F__(*flags & F_r, i = dirs[0].dirc, i = -1);
+	while (*flags & F_r ? i-- : ++i)
 	{
 		F(!(*flags & F_a) && dirs[i].name[0] == '.', continue);
-		F(*flags & F_1, ft_print_def(flags, dirs[i]));
+		F(*flags & F_1, ft_print_def(dirs[i]));
 		_F(*flags & F_l, ft_print_lst(flags, dirs[i]));
 	}
 	return (1);

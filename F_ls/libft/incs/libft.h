@@ -16,25 +16,27 @@
 # include <string.h>
 # include <unistd.h>
 
-# define _(x) else (x)
 # define F(x, y) if (x) y
-# define FF(x, y, z) if (x && y) z
+# define _(x) else (x)
+
+# define F_(x, y) if (x) return y
 # define _F(x, y) else if (x) y
 # define __(x) else return x
-# define F_(x, y) if (x) return y
+/* # define FF(x, y, z) if (x && y) z */
 
+# define F__(x, y, z) (x) ? (y) : (z)
 # define _F_(x, y) else if (x) return y
-# define F__(x, y) F_(x, y)__(x)
-# define FF_(x, y, z) if (x && y) return z
-# define _FF(x, y, z) else if (x && y) z
-# define F_F(x, y, z) F(x, y)_F(x, z)
 
-# define FFF(x, y, z) (x) ? y : z
-# define __F(x, y) else F(x, y) return _F(x, y)
+
+# define ___(x, y) while (x) y
+/* # define FF_(x, y, z) if (x && y) return z */
+/* # define _FF(x, y, z) else if (x && y) z */
+/* # define F_F(x, y, z) F(x, y)_F(x, z) */
+/* # define F__(x, y) F_(x, y)__(x) */
+/* # define __F(x, y) else F(x, y) return _F(x, y) */
 
 # define T_(x) (x = x->next)
 # define _T(x) (x = x->prev)
-# define ___(x, y) while (x) y
 
 # include "get_next_line.h"
 # include "ft_ls.h"

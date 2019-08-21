@@ -13,30 +13,25 @@
 
 #include "../libft/incs/libft.h"
 
-/* int	ft_sort_lex(int argc, char **argv) */
-/* { */
-/* 	if (argc && argv) */
-/* 		return (1); */
-/* 	return (1); */
-/* } */
-/* int	ft_sort_mtime(int argc, char **argv) */
-/* { */
-/* 	if (argc && argv) */
-/* 		return (1); */
-/* 	return (1); */
-/* } */
-/* int	ft_sort_atime(int argc, char **argv) */
-/* { */
-/* 	if (argc && argv) */
-/* 		return (1); */
-/* 	return (1); */
-/* } */
-/* int	ft_sort_rev(int argc, char **argv) */
-/* { */
-/* 	if (argc && argv) */
-/* 		return (1); */
-/* 	return (1); */
-/* } */
+/* template */
+/* constexpr const T& min (const T& a, const T& b, Compare comp); */
+/* Here, a and b are the numbers to be compared. */
+/* comp: Binary function that accepts two values of type T as arguments, */
+/* and returns a value convertible to bool. The value returned indicates whether the */ 
+/* element passed as first argument is considered less than the second. */
+/* The function shall not modify any of its arguments. */
+/* This can either be a function pointer or a function object. */
+/* Returns: Smaller of the two values. */
+
+int	ft_sort_min(t_flags *flags, t_info dir_a, t_info dir_b)
+{
+
+	F(*flags & F_1, ft_print_def(flags, dirs[i]));
+	_F(*flags & F_t, ft_print_lst(flags, dirs[i]));
+	_F(*flags & F_u, ft_print_lst(flags, dirs[i]));
+	
+	return (1);
+}
 
 // this function sorts array from left index to
 // to right index which is of size atmost F_r
@@ -134,11 +129,12 @@ void ft_sort_merge(t_info dirs[], int l, int m, int r)
 void ft_sort_tim(t_info dirs[], int n)
 {
 	int i;
-	int left;
-	int mid;
-	int right;
+	t_info left;
+	t_info mid;
+	t_info right;
 	int size;
-    // Sort individual subarrays of size F_r
+
+	// Sort individual subarrays of size F_r
 	i = 0;
     while (i < n) // here n is actuall y the number of directories, used to find min)
 	{
@@ -172,18 +168,9 @@ void ft_sort_tim(t_info dirs[], int n)
     }
 }
 
-int	ft_sorts(dirs)
+int	ft_sorts(t_flags *flags, t_info dirs[])
 {
-	
-//	type max;
-//	type min:
-
-	int size; // this is the largest value of the sort time
-
-	size = sizeof(dirs)/sizeof(dirs[0]);
-//	max = find the value maximum of type
-// left and right are acutaly t_info structs and not ints, as in the relvent struct that matcjes the values concerned at the time
-	ft_sort_tim(dirs, max);
+	ft_sort_tim(dirs, dirs[0].dirc);
 	return (1);
 }
 
@@ -314,3 +301,35 @@ int main()
   	
  
  * }}} */
+
+/* {{{TITLE
+
+int	ft_sort_lex(int argc, char **argv)
+{
+	if (argc && argv)
+		return (1);
+	return (1);
+}
+int	ft_sort_mtime(int argc, char **argv)
+{
+	if (argc && argv)
+		return (1);
+	return (1);
+}
+int	ft_sort_atime(int argc, char **argv)
+{
+	if (argc && argv)
+		return (1);
+	return (1);
+}
+int	ft_sort_rev(int argc, char **argv)
+{
+	if (argc && argv)
+		return (1);
+	return (1);
+}
+
+
+ * }}} */
+
+

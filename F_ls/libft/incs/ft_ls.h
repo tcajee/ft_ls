@@ -113,9 +113,10 @@ int						ft_sorts(t_info dirs[]);
 void					ft_sort_tim(t_info dirs[], int size);
 void					ft_sort_merge(t_info dirs[], int left, int mid, int right);
 void					ft_sort_ins(t_info dirs[], int left, int right);
+void					ft_sort_min(t_flags *flags, t_info dir_a, t_info dir_b);
 
 int						ft_prints(t_flags *flags, t_info dirs[]);
-int						ft_print_def(t_flags *flags, t_info dir);
+int						ft_print_def(t_info dir);
 int						ft_print_lst(t_flags *flags, t_info dir);
 void					ft_print_perm(t_stat *s_stat);
 
