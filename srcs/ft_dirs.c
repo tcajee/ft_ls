@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/21 11:31:04 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/21 16:16:10 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ int ft_dirs(t_flags *flags, t_info dirs[], char *path)
 	F((*flags & F_M || *flags & F_R) && *flags & F_P,
 	F(!!(ft_print_f("n")), ft_print_f("%:n", dirs[0].root)));
 	F(*flags & F_l, ft_print_f("%%n", "total: ", dirs[0].total));
+
+	ft_prints(flags, dirs);
+	ft_sorts(dirs);
 	ft_prints(flags, dirs);
 	ft_dir_clean(dirs);
 	B_1(*flags, F_P);

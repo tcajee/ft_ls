@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/20 18:38:05 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/08/21 16:18:59 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,10 @@ char					*ft_dir_path(char *path, char *d_name);
 void					ft_dir_clean(t_info dirs[]);
 int						ft_dir_check(char *path);
 
-int						ft_sorts(int argc, char **argv);
-int						ft_sort_lex(int argc, char **argv);
-int						ft_sort_rev(int argc, char **argv);
-int						ft_sort_mtime(int argc, char **argv);
-int						ft_sort_atime(int argc, char **argv);
+int						ft_sorts(t_info dirs[]);
+void					ft_sort_tim(t_info dirs[], int size);
+void					ft_sort_merge(t_info dirs[], int left, int mid, int right);
+void					ft_sort_ins(t_info dirs[], int left, int right);
 
 int						ft_prints(t_flags *flags, t_info dirs[]);
 int						ft_print_def(t_flags *flags, t_info dir);
