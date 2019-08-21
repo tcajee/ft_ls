@@ -16,6 +16,9 @@ int		ft_check_dirs(char *path)
 {
 	struct stat s_stat;
 
+
+
+
 	FT_(lstat(path, &s_stat), -1);
 	FT_((s_stat.st_mode & S_IFMT) == S_IFDIR, 1);
 	return (1);
