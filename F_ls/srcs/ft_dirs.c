@@ -85,9 +85,6 @@ int ft_dirs(t_flags *flags, t_info dirs[], char *path)
 
 	F(!path, ft_dir_info(".", dirs));
 	_F_(!ft_dir_info(path, dirs), ft_errors(E_DIRS, path));
-	F((*flags & F_M || *flags & F_R) && *flags & F_P,
-	F(!!(ft_print_f("n")), ft_print_f("%:n", dirs[0].root)));
-	F(*flags & F_l, ft_print_f("%%n", "total: ", dirs[0].total));
 
 	ft_prints(flags, dirs);
 	ft_sorts(dirs);
