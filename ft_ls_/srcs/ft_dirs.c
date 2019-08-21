@@ -54,9 +54,9 @@ char	*ft_dir_path(char *path, char *d_name)
 	while (*path)
 		temp[i++] = *path++;
 	if (temp[i - 1] == '/')
+		temp[i] = '/';
+	else 
 		temp[i++] = '/';
-	else
-		i++;
 	while (*d_name)
 		temp[i++] = *d_name++;
 	temp[i] = '\0';
@@ -111,7 +111,7 @@ int ft_dirs(t_flags *flags, t_info dirs[], char *path)
 		{
 			if ((s_dir->d_name[0] == '.' && s_dir->d_name[1] == '\0') ||
 			   ((s_dir->d_name[0] == '.' && s_dir->d_name[2] == '\0') &&
-				s_dir->d_name[1] == '\0'))
+				s_dir->d_name[1] == '.'))
 				continue;
 			if (ft_dir_check(fpath = ft_dir_path(path, s_dir->d_name)))
 				ft_dirs(flags, dirs, fpath);

@@ -82,12 +82,11 @@ int ft_dirs(t_flags *flags, t_info dirs[], char *path)
 	DIR			*dir;
 	char		*fpath;
 
-
 	F(!path, ft_dir_info(".", dirs));
 	_F_(!ft_dir_info(path, dirs), ft_errors(E_DIRS, path));
 
-	ft_prints(flags, dirs);
-	ft_sorts(dirs);
+	/* ft_prints(flags, dirs); */
+	/* ft_sorts(dirs); */
 	ft_prints(flags, dirs);
 	ft_dir_clean(dirs);
 	B_1(*flags, F_P);

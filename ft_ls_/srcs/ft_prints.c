@@ -133,10 +133,24 @@ int	ft_print_lst(t_flags *flags, t_info dir)
 	ft_print_f("%t", temp = ft_itoa(dir.s_stat.st_nlink));
 	free(temp);
 	s_pwd = getpwuid(dir.s_stat.st_uid);
-	ft_print_f("%t", s_pwd->pw_name);
+	if (s_pwd)
+		ft_print_f("%t", s_pwd->pw_name);
+	else
+	{
+		ft_print_f("%t", temp = ft_itoa(dir.s_stat.st_uid));
+		free(temp);
+	}
 	s_grp = getgrgid(dir.s_stat.st_gid);
 	if (!(*flags & F_g))
-		ft_print_f("%t", s_grp->gr_name);
+	{
+		if (s_grp)
+			ft_print_f("%t", s_grp->gr_name);
+		else
+		{
+			ft_print_f("%t", temp = ft_itoa(dir.s_stat.st_gid));
+			free(temp);
+		}
+	}
 	ft_print_f("%t", temp = ft_itoa(dir.s_stat.st_size));
 	free(temp);
 	ft_print_time(dir.s_stat, flags);
@@ -148,6 +162,7 @@ int	ft_print_lst(t_flags *flags, t_info dir)
 int	ft_prints(t_flags *flags, t_info dirs[])
 {
 	int i;
+	int j;
 
 	if ((*flags & F_M || *flags & F_R) && *flags & F_P)
 	{
@@ -157,9 +172,11 @@ int	ft_prints(t_flags *flags, t_info dirs[])
 	if (*flags & F_l)
 		ft_print_f("%%n", "total: ", dirs[0].total);
 	*flags |= F_P;
-	*flags & F_r ? (i = dirs[0].dirc) : (i = -1);
-	while (*flags & F_r ? i-- : ++i)
+	j = dirs[0].dirc;
+	i = *flags & F_r ? dirs[0].dirc: -1;
+	while (j--)
 	{
+		i = *flags & F_r ? i - 1: i + 1;
 		if (!(*flags & F_a) && dirs[i].name[0] == '.')
 			continue;
 		if (*flags & F_1)
