@@ -15,7 +15,7 @@
 int	main(int argc, char **argv)
 {
 
-	t_flags		flags;
+	int		flags;
 	t_info		dirs[1024];
 	int			i;
 	int			j;
@@ -25,9 +25,9 @@ int	main(int argc, char **argv)
 	F_((i = ft_flags(&flags, argv)) == E_FLAGS, errno);
 	F(argc - i > 1, flags |= F_M);
 	
-	/* ft_flag_print(&flags); */
-	/* ft_putendl(""); */
-	/* ft_putendl("v"); */
+	ft_flag_print(&flags);
+	ft_putendl("");
+	ft_putendl("v");
 	
 	j = i - 1;
 	F_(!argv[i], ft_dirs(&flags, dirs, "."));

@@ -76,7 +76,7 @@ int	ft_dir_info(char *path, t_info dirs[])
 	return (1);
 }
 
-int ft_dirs(t_flags *flags, t_info dirs[], char *path)
+int ft_dirs(int *flags, t_info dirs[], char *path)
 {
 	t_dirent	*s_dir;
 	DIR			*dir;

@@ -39,6 +39,24 @@
 # define IS_DOT(x) (x[0] == '.' && x[1] == '\0') ? 1 : 0
 # define IS_DDOT(x) (x[0] == '.' && x[1] == '.' && x[2] == '\0') ? 1 : 0
 
+# define F_0 0
+# define F_1 1
+# define F_l 2
+# define F_g 4
+# define F_t 8
+# define F_u 1
+# define F_r 32
+# define F_f 64
+# define F_a 128
+# define F_G 256
+# define F_d 512
+# define F_R 1024
+# define F_P 16384
+# define F_M 32768
+/* # define F_0 32768 */
+/* # define F_0 32768 */
+/* # define F_0 32768 */
+
 typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
 typedef struct passwd	t_passwd;
@@ -78,32 +96,15 @@ typedef struct			s_format
 	char				*line[7];
 }						t_format;
 
-typedef enum			e_flags
-{
-	F_1 = 1,
-	F_l = 2,
-	F_g = 4,
-	F_t = 8,
-	F_u = 16,
-	F_r = 32,
-	F_f = 64,
-	F_a = 128,
-	F_P = 2048,
-	F_M = 4096,
-	F_G = 8192,
-	F_d = 16384,
-	F_R = 32768,
-}						t_flags;
-
 int						ft_print_f(char *format, ...);
 
-int						ft_flags(t_flags *flags, char **argv);
-int						ft_flag_check(t_flags *flags, char flag);
-int						ft_lflag_check(t_flags *flags, char *option);
-int						ft_flag_set(t_flags *flags, int flagc, ...);
-void					ft_flag_print(t_flags *flags);
+int						ft_flags(int *flags, char **argv);
+int						ft_flag_check(int *flags, char flag);
+int						ft_lflag_check(int *flags, char *option);
+int						ft_flag_set(int *flags, int flagc, ...);
+void					ft_flag_print(int *flags);
 
-int						ft_dirs(t_flags *flags, t_info dirs[], char *arg);
+int						ft_dirs(int *flags, t_info dirs[], char *arg);
 int						ft_dir_info(char *path, t_info dirs[]);
 char					*ft_dir_path(char *path, char *d_name);
 void					ft_dir_clean(t_info dirs[]);
@@ -113,14 +114,14 @@ int						ft_sorts(t_info dirs[]);
 void					ft_sort_tim(t_info dirs[], int size);
 void					ft_sort_merge(t_info dirs[], int left, int mid, int right);
 void					ft_sort_ins(t_info dirs[], int left, int right);
-void					ft_sort_min(t_flags *flags, t_info dir_a, t_info dir_b);
+void					ft_sort_min(int *flags, t_info dir_a, t_info dir_b);
 
-int						ft_prints(t_flags *flags, t_info dirs[]);
+int						ft_prints(int *flags, t_info dirs[]);
 int						ft_print_def(t_info dir);
-int						ft_print_lst(t_flags *flags, t_info dir);
+int						ft_print_lst(int *flags, t_info dir);
 void					ft_print_perm(t_stat *s_stat);
 
-void					ft_print_time(t_stat s_stat, t_flags *flags);
+void					ft_print_time(t_stat s_stat, int *flags);
 void					print_time_str(time_t secs);
 
 int						ft_errors(int code, char *error);

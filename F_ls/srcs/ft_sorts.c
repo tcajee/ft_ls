@@ -23,7 +23,7 @@
 /* This can either be a function pointer or a function object. */
 /* Returns: Smaller of the two values. */
 
-/* int	ft_sort_min(t_flags *flags, t_info dir_a, t_info dir_b) */
+/* int	ft_sort_min(int *flags, t_info dir_a, t_info dir_b) */
 /* { */
 /* 	F(*flags & F_1, ft_print_def(flags, dirs[i])); */
 /* 	_F(*flags & F_t, ft_print_lst(flags, dirs[i])); */
@@ -156,7 +156,7 @@
 /*     } */
 /* } */
 
-/* int	ft_sorts(t_flags *flags, t_info dirs[]) */
+/* int	ft_sorts(int *flags, t_info dirs[]) */
 /* { */
 /* 	ft_sort_tim(dirs, dirs[0].dirc); */
 /* 	return (1); */

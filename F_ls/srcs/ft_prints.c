@@ -50,7 +50,7 @@ void	print_time_str(time_t secs)
 		printf(" %.5s", str + 11);
 }
 
-void		ft_print_time(t_stat s_stat, t_flags *flags)
+void		ft_print_time(t_stat s_stat, int *flags)
 {
 	F(*flags & F_u, print_time_str(s_stat.st_atime));
 	_F(*flags & F_t, print_time_str(s_stat.st_mtime));
@@ -91,7 +91,7 @@ int	ft_print_def(t_info dir)
 	return (1);
 }
 
-int	ft_print_lst(t_flags *flags, t_info dir)
+int	ft_print_lst(int *flags, t_info dir)
 {
 	t_passwd	*s_pwd;
 	t_group		*s_grp;
@@ -118,7 +118,7 @@ int	ft_print_lst(t_flags *flags, t_info dir)
 	return (1);
 }
 
-int	ft_prints(t_flags *flags, t_info dirs[])
+int	ft_prints(int *flags, t_info dirs[])
 {
 	int i;
 
