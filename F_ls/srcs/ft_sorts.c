@@ -12,12 +12,15 @@
 
 #include "../libft/incs/libft.h"
 
-int	ft_sort_min(int *flags, t_info dir_a, t_info dir_b)
+void	ft_sort_min(int *flags, t_info dir_a, t_info dir_b)
 {
-	F(*flags & F_1, ft_print_def(flags, dirs[i]));
-	_F(*flags & F_t, ft_print_lst(flags, dirs[i]));
-	_F(*flags & F_u, ft_print_lst(flags, dirs[i]));
-	return (1);
+	(void)flags;
+	(void)dir_a;
+	(void)dir_b;
+	/* F(*flags & F_1, ft_print_def(flags, dirs[i])); */
+	/* _F(*flags & F_t, ft_print_lst(flags, dirs[i])); */
+	/*_F(*flags & F_u, ft_print_lst(flags, dirs[i])); */
+	/* return (1); */
 }
 
 int	ft_sort_lex(int argc, char **argv)
@@ -46,12 +49,12 @@ int	ft_sort_rev(int argc, char **argv)
 }
 
 
-int	ft_sorts(t_flags *flags, t_info dirs[])
+void	ft_sorts(int *flags, t_info dirs[])
 {
 	(void)flags;
 	(void)dirs;
 //	ft_sort_tim(dirs, dirs[0].dirc);
-	return (1);
+	/* return (1); */
 }
 
 
@@ -194,21 +197,20 @@ void ft_sort_tim(t_info dirs[], int n)
             right = min((left + 2*size - 1), (n-1)); // min is the smallest value of the sort type
             // merge sub array arr[left.....mid] &
             // arr[mid+1....right]
-            ft_sort_merge(dirs, left, mid, right);
+           ft_sort_merge(dirs, left, mid, right);
         	left += 2*size;
         }
     	size = 2 * size;
     }
 }
 
-<<<<<<< HEAD
+}}}*/
+
 /* int	ft_sorts(int *flags, t_info dirs[]) */
 /* { */
 /* 	ft_sort_tim(dirs, dirs[0].dirc); */
 /* 	return (1); */
 /* } */
-=======
-}}}*/
 
 /* {{{TITLE
  

@@ -98,7 +98,7 @@ char					*ft_dir_path(char *path, char *d_name);
 void					ft_dir_clean(t_info dirs[]);
 int						ft_dir_check(char *path);
 
-int						ft_sorts(t_flags *flags, t_info dirs[]);
+void						ft_sorts(int *flags, t_info dirs[]);
 void					ft_sort_tim(t_info dirs[], int size);
 void					ft_sort_merge(t_info dirs[], int left, int mid, int right);
 void					ft_sort_ins(t_info dirs[], int left, int right);
