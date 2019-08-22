@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*   F_ls.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/21 16:18:59 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/22 08:51:06 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
 typedef struct passwd	t_passwd;
 typedef struct group	t_group;
-typedef struct winsize	t_wins;
 
 typedef struct			s_info
 {
@@ -72,17 +71,6 @@ typedef struct			s_info
 	char				*name;
 	t_stat				s_stat;
 }						t_info;
-
-typedef struct			s_dirs
-{
-	t_info				dirs[1024];
-}						t_dirs;
-
-typedef struct			s_terms
-{
-	size_t				w_row;
-	size_t				w_col;
-}						t_terms;
 
 typedef struct			s_format
 {
@@ -110,7 +98,7 @@ char					*ft_dir_path(char *path, char *d_name);
 void					ft_dir_clean(t_info dirs[]);
 int						ft_dir_check(char *path);
 
-int						ft_sorts(t_info dirs[]);
+int						ft_sorts(t_flags *flags, t_info dirs[]);
 void					ft_sort_tim(t_info dirs[], int size);
 void					ft_sort_merge(t_info dirs[], int left, int mid, int right);
 void					ft_sort_ins(t_info dirs[], int left, int right);
@@ -130,5 +118,4 @@ int						ft_error_print(char *arg);
 int						ft_error_dir(char *arg);
 int						ft_error_file(char *arg);
 
-void					ft_dir_cleans(t_info dirs[]);
 #endif

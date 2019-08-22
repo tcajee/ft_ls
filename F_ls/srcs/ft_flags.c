@@ -95,8 +95,11 @@ int		ft_flag_check(int *flags, char flag)
 	/* _F_(flag == 'R', ft_flag_set(flags, 3, "10", F_R, F_d)); */
 	/* return (ft_errors(E_FLAGS, &flag)); */
 
+	/* F(flag == '1', *flags = (*flags & ~(F_l + F_g)) | F_1); */
 	F(flag == '1', *flags = (*flags & ~(F_l + F_g)) | F_1);
+	/* _F(flag == 'l', *flags = (*flags & ~F_1) | F_l); */
 	_F(flag == 'l', *flags = (*flags & ~F_1) | F_l);
+	/* _F(flag == 'g', *flags = (*flags & ~F_1) | (F_g + F_l)); */
 	_F(flag == 'g', *flags = (*flags & ~F_1) | (F_g + F_l));
 	_F(flag == 't', *flags = (*flags & ~F_0) | F_t);
 
