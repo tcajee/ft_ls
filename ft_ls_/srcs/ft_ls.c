@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/23 14:28:13 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/23 14:51:47 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
 	t_flags		flags;
 	t_info		dirs[32768];
 	int			i;
-	/* int			j; */
+	int			j;
 
 	i = 0;
 	if (!(flags = 0))
@@ -31,22 +31,24 @@ int	main(int argc, char **argv)
 	/* ft_putendl(""); */
 	/* printf("%s\n", argv[i]); */
 
-	/* j = i - 1; */
-	/* if (!argv[i]) */
-	/* 	return (ft_dirs(&flags, dirs, ".")); */
-	/* while (argv[++j]) */
-	/* { */
-	/* 	if (!(ft_dir_check(argv[j]))) */
-	/* 		ft_errors(E_PRINTS, argv[j]); */
-	/* } */
-	/* j = i - 1; */
-	/* while (argv[++j]) */
-	/* { */
-	/* 	if (ft_dir_check(argv[j])) */
-	/* 		ft_dirs(&flags, dirs, argv[j]); */
-	/* } */
+	j = i - 1; 
+	if (!argv[i]) 
+		return (ft_dirs(&flags, dirs, ".")); 
+
+//	while (argv[++j]) 
+//	{ 
+//		if (!(ft_dir_check(argv[j]))) 
+//			ft_errors(E_PRINTS, argv[j]); 
+//	} 
+
+	j = i - 1; 
+	while (argv[++j]) 
+			ft_dirs(&flags, dirs, argv[j]); 
 	
-	ft_dirs(&flags, dirs, argv[1]);
+//	if (flags & F_l)
+//		ft_dirs(&flags, dirs, argv[argc - 1]);
+//	else
+//		ft_dirs(&flags, dirs, argv[1]);
 
 	return (0);
 }

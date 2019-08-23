@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/23 14:31:41 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/23 14:32:28 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	ft_print_def(t_info dir)
 	ft_print_f("%", dir.name);
 	/* if (ft_dir_check(dir.path)) */
 		/* ft_print_f("/n"); */
-	else if(dir.s_stat.st_mode & S_IXUSR)
+	if(dir.s_stat.st_mode & S_IXUSR)
 		ft_print_f("*n");
 	else
 		ft_print_f("n");

@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/23 14:25:56 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/23 14:58:41 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,41 +95,53 @@ int	ft_dir_info(char *path, t_info dirs[])
 int ft_dirs(t_flags *flags, t_info dirs[], char *path)
 {
 
-	/* t_dirent	*s_dir; */
-	/* DIR			*dir; */
-	/* char		*fpath; */
+	 t_dirent	*s_dir; 
+	 DIR			*dir; 
+	 char		*fpath; 
 
-	dirs[0].path = ft_strdup(path);
-	dirs[0].name = ft_strdup(path);
-	lstat(dirs[0].path, &dirs[0].s_stat);
-	dirs[0].dirc = 1;
-	ft_prints(flags, dirs);
+	//
+	//
+	//	dirs[0].path = ft_strdup(path);
 
-	/* if (!ft_dir_info(path, dirs)) */
-	/* 	return (ft_errors(E_DIRS, path)); */
-	/* /1* ft_sorts(dirs); *1/ */
-
-
+	if (lstat(path, &dirs[0].s_stat) < 0)
+		return (0);
+	else if ((dirs[0].s_stat.st_mode & S_IFMT) == S_IFREG)
+	{
+		//put name pritns an toals and off
+		dirs[0].name = ft_strdup(path);
+		lstat(dirs[0].path, &dirs[0].s_stat);
+		dirs[0].dirc = 1;
+		ft_prints(flags, dirs);
+		dirs[0].name = ft_strdup(path);
+		//put name pritns an toals and on
+	}
+	else if (ft_dir_check(path))
+	{
+	
+		if (!ft_dir_info(path, dirs)) 
+			return (ft_errors(E_DIRS, path)); 
+		ft_prints(flags, dirs);
+		ft_dir_clean(dirs); 
+	}
 
 	
-	/* ft_dir_clean(dirs); */
 
-	/* if (*flags & F_R) */
-	/* { */
-	/* 	if (!(dir = opendir(path))) */
-	/* 		exit(-1); */
-	/* 	while ((s_dir = readdir(dir)) != NULL) */
-	/* 	{ */
-	/* 		if ((s_dir->d_name[0] == '.' && s_dir->d_name[1] == '\0') || */
-	/* 		   ((s_dir->d_name[0] == '.' && s_dir->d_name[2] == '\0') && */
-	/* 			s_dir->d_name[1] == '.')) */
-	/* 			continue; */
-	/* 		if (ft_dir_check(fpath = ft_dir_path(path, s_dir->d_name))) */
-	/* 			ft_dirs(flags, dirs, fpath); */
-	/* 		free(fpath); */
-	/* 	} */
-	/* 	closedir(dir); */
-	/* } */
+if (*flags & F_R) 
+{ 
+	if (!(dir = opendir(path))) 
+		exit(-1); 
+	while ((s_dir = readdir(dir)) != NULL) 
+	{ 
+		if ((s_dir->d_name[0] == '.' && s_dir->d_name[1] == '\0') || 
+		   ((s_dir->d_name[0] == '.' && s_dir->d_name[2] == '\0') && 
+			s_dir->d_name[1] == '.')) 
+			continue; 
+		if (ft_dir_check(fpath = ft_dir_path(path, s_dir->d_name))) 
+			ft_dirs(flags, dirs, fpath); 
+		free(fpath); 
+	} 
+	closedir(dir); 
+} 
 
 	return (0);
 }
