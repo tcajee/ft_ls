@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/22 08:53:48 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/23 14:11:58 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,15 @@ int ft_dirs(int *flags, t_info dirs[], char *path)
 	char		*fpath;
 
 	F(!path, ft_dir_info(".", dirs));
-	_F_(!ft_dir_info(path, dirs), ft_errors(E_DIRS, path));
+	_F_(!ft_dir_info(path, dirs), ft_errors(-1, path));
 
-	/* ft_prints(flags, dirs); */
 	/* ft_sorts(dirs); */
 	ft_prints(flags, dirs);
 	ft_dir_clean(dirs);
-	B_1(*flags, F_P);
+	F_SET(*flags, F_0, F_I);
 	if (*flags & F_R)
 	{
-		F_(!(dir = opendir(path)), E_DIRS);
+		F_(!(dir = opendir(path)), -1);
 		while ((s_dir = readdir(dir)) != NULL)
 		{
 			F(IS_DOT(s_dir->d_name) || IS_DDOT(s_dir->d_name), continue);

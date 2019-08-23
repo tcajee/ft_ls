@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/20 10:59:52 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/23 14:18:20 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ int		ft_flag_check(int *flags, char flag)
 	 */
 	
 
-		/* x = x & ~y ; y == off*/ 
-		/* x = x | z ; z == on */
-		/* x & ~y | z; */
-		/* flags |= (off & ~off); */
+	/* x = x & ~y ; y == off*/ 
+	/* x = x | z ; z == on */
+	/* x & ~y | z; */
+	/* flags |= (off & ~off); */
 	/* *flags = *flags & ~F_1 | F_l; */
 	
 	/* *flags = *flags | (F_1 & ~F_l); */
@@ -95,11 +95,8 @@ int		ft_flag_check(int *flags, char flag)
 	/* _F_(flag == 'R', ft_flag_set(flags, 3, "10", F_R, F_d)); */
 	/* return (ft_errors(E_FLAGS, &flag)); */
 
-	/* F(flag == '1', *flags = (*flags & ~(F_l + F_g)) | F_1); */
 	F(flag == '1', *flags = (*flags & ~(F_l + F_g)) | F_1);
-	/* _F(flag == 'l', *flags = (*flags & ~F_1) | F_l); */
 	_F(flag == 'l', *flags = (*flags & ~F_1) | F_l);
-	/* _F(flag == 'g', *flags = (*flags & ~F_1) | (F_g + F_l)); */
 	_F(flag == 'g', *flags = (*flags & ~F_1) | (F_g + F_l));
 	_F(flag == 't', *flags = (*flags & ~F_0) | F_t);
 
@@ -111,7 +108,7 @@ int		ft_flag_check(int *flags, char flag)
 	/* _F_(flag == 'd', ft_flag_set(flags, 3, "10", F_d, F_R)); */
 	/* _F_(flag == 'R', ft_flag_set(flags, 3, "10", F_R, F_d)); */
 
-	return (ft_errors(E_FLAGS, &flag));
+	return (ft_errors(-1, &flag));
 }
 
 /* int		ft_lflag_check(int *flags, char *opt) */
