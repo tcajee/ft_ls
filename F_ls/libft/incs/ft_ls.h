@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/23 14:21:20 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/23 16:28:26 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,15 @@
 # define F_7 2097152
 # define F_8 4194304
 # define F_9 8388608
+
+/* # define F_I 65536 */
+/* # define F_M 131072 */
+/* # define F_4 262144 */
+/* # define F_5 524288 */
+/* # define F_6 1048576 */
+/* # define F_7 2097152 */
+/* # define F_8 4194304 */
+/* # define F_9 8388608 */
 
 typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
