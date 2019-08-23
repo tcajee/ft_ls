@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/23 13:52:36 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/23 14:31:41 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ void	ft_print_perm(t_stat *s_stat)
 int	ft_print_def(t_info dir)
 {
 	ft_print_f("%", dir.name);
-	if (ft_dir_check(dir.path))
-		ft_print_f("/n");
+	/* if (ft_dir_check(dir.path)) */
+		/* ft_print_f("/n"); */
 	else if(dir.s_stat.st_mode & S_IXUSR)
 		ft_print_f("*n");
 	else
@@ -169,8 +169,8 @@ int	ft_prints(t_flags *flags, t_info dirs[])
 		ft_print_f("n");
 		ft_print_f("%:n", dirs[0].root);
 	}
-	if (*flags & F_l)
-		ft_print_f("%%n", "total: ", dirs[0].total);
+	/* if (*flags & F_l) */
+		/* ft_print_f("%%n", "total: ", dirs[0].total); */
 	*flags |= F_P;
 	j = dirs[0].dirc;
 	i = *flags & F_r ? dirs[0].dirc: -1;
