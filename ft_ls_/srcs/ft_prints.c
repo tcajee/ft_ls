@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/26 17:02:33 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/26 17:48:58 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_print_f(char *ft, ...)
 	int		i;
 
 	i = -1;
-	va_start (v_list, ft);
+	va_start(v_list, ft);
 	while (ft[++i])
 	{
 		if (ft[i] == '%')
@@ -32,7 +32,7 @@ int	ft_print_f(char *ft, ...)
 		else if (ft[i])
 			ft_putchar(ft[i]);
 	}
-	va_end (v_list);
+	va_end(v_list);
 	return (1);
 }
 
@@ -88,6 +88,8 @@ void	ft_print_perm(t_stat *s_stat)
 		permissions[0] = 's';
 	else if ((s_stat->st_mode & S_IFMT) == S_IFIFO)
 		permissions[0] = 'p';
+	else if ((s_stat->st_mode & S_IFMT) == S_IFWHT)
+		permissions[0] = 'w';
 	if (s_stat->st_mode & S_IRUSR)
 		permissions[1] = 'r';
 	if (s_stat->st_mode & S_IWUSR)
@@ -116,16 +118,16 @@ int	ft_print_def(int *flags, t_info dir)
 	ft_print_f("%", dir.name);
 	if (*flags & F_F)
 	{
-	/* an at sign (`@') after each symbolic link */
-	/* an equals sign (`=') after symlinks */
-	/* a percent sign (`%') after each whiteout */
-	/* a percent sign (`|') after each FIFO */
 		if (ft_dir_check(dir.path) == 2)
 			ft_print_f("/");
 		else if ((dir.s_stat.st_mode & S_IFMT) == S_IFLNK)
 			ft_print_f("@");
 		else if ((dir.s_stat.st_mode & S_IFMT) == S_IFIFO)
 			ft_print_f("|");
+		else if ((dir.s_stat.st_mode & S_IFMT) == S_IFSOCK)
+			ft_print_f("=");
+		else if ((dir.s_stat.st_mode & S_IFMT) == S_IFWHT)
+			ft_print_f("%");
 		else if (dir.s_stat.st_mode & S_IXUSR)
 			ft_print_f("*");
 	}
