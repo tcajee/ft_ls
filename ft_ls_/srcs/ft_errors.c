@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 11:36:46 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/26 17:27:56 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/26 18:09:56 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,13 @@ int	ft_error_dir(char *path)
 	return (0);
 }
 
-int	ft_error_print(char *path)
+int	ft_error_print(int *flags, char *path)
 {
-	ft_putstr_fd(path, 2);
-	ft_putendl_fd(":", 2);
+	if (*flags & F_R)
+	{
+		ft_putstr_fd(path, 2);
+		ft_putendl_fd(":", 2);
+	}
 	ft_putstr_fd("./ft_ls: ", 2);
 	ft_putstr_fd(ft_strrchr(path, '/') + 1, 2);
 	ft_putstr_fd(": ", 2);
@@ -50,14 +53,14 @@ int	ft_error_file(char *path)
 	return (0);
 }
 
-int	ft_errors(int code, char *error)
+int	ft_errors(int *flags, int code, char *error)
 {
 	if (code == E_FLAGS)
 		return (ft_error_flag(error));
 	else if (code == E_DIRS)
 		return (ft_error_dir(error));
 	else if (code == E_PRINTS)
-		return (ft_error_print(error));
+		return (ft_error_print(flags, error));
 	else if (code == E_FILES)
 		return (ft_error_file(error));
 	return (code);
