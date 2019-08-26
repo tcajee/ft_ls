@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/23 14:32:28 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/08/26 16:38:40 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ void	print_time_str(time_t secs)
 {
 	/* const char	*str = ctime(&secs); */
 
-
-
-
 	(void)secs;
 	ft_print_f("XXX XX  XX:XX ");
 	/* ft_print_f("%", str + 8); */
@@ -61,12 +58,15 @@ void	print_time_str(time_t secs)
 
 }
 
-void		ft_print_time(t_stat s_stat, t_flags *flags)
+void		ft_print_time(t_stat s_stat, int *flags)
 {
-	if (*flags & F_u)
-		print_time_str(s_stat.st_atime);
-	else if (*flags & F_t)
-		print_time_str(s_stat.st_mtime);
+	if (*flags & F_l)
+	{
+		if (*flags & F_u)
+			print_time_str(s_stat.st_atime);
+		else
+			print_time_str(s_stat.st_mtime);
+	}
 }
 
 void	ft_print_perm(t_stat *s_stat)
@@ -111,19 +111,21 @@ void	ft_print_perm(t_stat *s_stat)
 	ft_print_f("%t", permissions);
 }
 
-int	ft_print_def(t_info dir)
+int	ft_print_def(int *flags, t_info dir)
 {
 	ft_print_f("%", dir.name);
-	/* if (ft_dir_check(dir.path)) */
-		/* ft_print_f("/n"); */
-	if(dir.s_stat.st_mode & S_IXUSR)
-		ft_print_f("*n");
-	else
-		ft_print_f("n");
+	if (*flags & F_F)
+	{
+		if (ft_dir_check(dir.path) == 2)
+			ft_print_f("/");
+		else if (dir.s_stat.st_mode & S_IXUSR)
+			ft_print_f("*");
+	}
+	ft_print_f("n");
 	return (1);
 }
 
-int	ft_print_lst(t_flags *flags, t_info dir)
+int	ft_print_lst(int *flags, t_info dir)
 {
 	char		*temp;
 	t_passwd	*s_pwd;
@@ -155,22 +157,22 @@ int	ft_print_lst(t_flags *flags, t_info dir)
 	free(temp);
 	ft_print_time(dir.s_stat, flags);
 	ft_print_f(" ");
-	ft_print_def(dir);
+	ft_print_def(flags, dir);
 	return (1);
 }
 
-int	ft_prints(t_flags *flags, t_info dirs[])
+int	ft_prints(int *flags, t_info dirs[])
 {
 	int i;
 	int j;
 
-	if ((*flags & F_M || *flags & F_R) && *flags & F_P)
+	if ((*flags & F_M || *flags & F_R) && *flags & F_P && !(*flags & F_REG))
 	{
 		ft_print_f("n");
 		ft_print_f("%:n", dirs[0].root);
 	}
-	/* if (*flags & F_l) */
-		/* ft_print_f("%%n", "total: ", dirs[0].total); */
+	if (*flags & F_l && !(*flags & F_REG))
+		ft_print_f("%%n", "total: ", dirs[0].total);
 	*flags |= F_P;
 	j = dirs[0].dirc;
 	i = *flags & F_r ? dirs[0].dirc: -1;
@@ -180,7 +182,7 @@ int	ft_prints(t_flags *flags, t_info dirs[])
 		if (!(*flags & F_a) && dirs[i].name[0] == '.')
 			continue;
 		if (*flags & F_1)
-			ft_print_def(dirs[i]);
+			ft_print_def(flags, dirs[i]);
 		else if (*flags & F_l)
 			ft_print_lst(flags, dirs[i]);
 	}

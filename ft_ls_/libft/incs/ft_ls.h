@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/23 13:51:56 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/26 16:36:07 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,55 @@
 # include <uuid/uuid.h>
 # include <limits.h>
 
-# define E_FLAGS	-1
-# define E_DIRS		-2
-# define E_PRINTS	-4
-# define E_FILES	-8
+# define E_FLAGS -1
+# define E_DIRS -2
+# define E_PRINTS -4
+# define E_FILES -8
+
+# define F_SET(FLAGS, F_OFF, F_ON) FLAGS = (FLAGS & ~(F_OFF)) | (F_ON);
+
+# define F_0 0
+
+# define F_1 1
+# define F_l 2
+# define F_g 4
+# define F_t 8
+# define F_u 16
+# define F_r 32
+# define F_f 64
+# define F_a 128
+
+# define F_R 256
+# define F_d 512
+# define F_F 1024
+# define F_G 2048
+# define F_L 4096
+# define F_P 8192
+# define F_00 16384
+# define F_X 32768
+
+# define F_I 65536
+# define F_M 131072
+# define F_REG 262144
+# define F_5 524288
+# define F_6 1048576
+# define F_7 2097152
+# define F_8 4194304
+# define F_9 8388608
+
+/* # define F_I 65536 */
+/* # define F_M 131072 */
+/* # define F_4 262144 */
+/* # define F_5 524288 */
+/* # define F_6 1048576 */
+/* # define F_7 2097152 */
+/* # define F_8 4194304 */
+/* # define F_9 8388608 */
 
 typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
 typedef struct passwd	t_passwd;
 typedef struct group	t_group;
-typedef struct winsize	t_wins;
 
 typedef struct			s_info
 {
@@ -50,60 +89,31 @@ typedef struct			s_info
 	t_stat				s_stat;
 }						t_info;
 
-typedef struct			s_format
-{
-	size_t				f_perm;
-	size_t				f_link;
-	size_t				f_user;
-	size_t				f_group;
-	size_t				f_size;
-	size_t				f_time;
-	size_t				f_name;
-	char				*line[7];
-}						t_format;
-
-typedef enum			e_flags
-{
-	F_1 = 1,
-	F_l = 2,
-	F_g = 4,
-	F_t = 8,
-	F_u = 16,
-	F_r = 32,
-	F_f = 64,
-	F_a = 128,
-	F_P = 2048,
-	F_M = 4096,
-	F_G = 8192,
-	F_d = 16384,
-	F_R = 32768,
-}						t_flags;
-
 int						ft_print_f(char *format, ...);
 
-int						ft_flags(t_flags *flags, char **argv);
-int						ft_flag_check(t_flags *flags, char flag);
-int						ft_lflag_check(t_flags *flags, char *option);
-int						ft_flag_set(t_flags *flags, int flagc, ...);
-void					ft_flag_print(t_flags *flags);
+int						ft_flags(int *flags, char **argv);
+int						ft_flag_check(int *flags, char flag);
+int						ft_lflag_check(int *flags, char *option);
+int						ft_flag_set(int *flags, int flagc, ...);
+void					ft_flag_print(int *flags);
 
-int						ft_dirs(t_flags *flags, t_info dirs[], char *arg);
+int						ft_dirs(int *flags, t_info dirs[], char *arg);
 int						ft_dir_info(char *path, t_info dirs[]);
 char					*ft_dir_path(char *path, char *d_name);
 void					ft_dir_clean(t_info dirs[]);
 int						ft_dir_check(char *path);
 
-int						ft_sorts(t_info dirs[]);
+void					ft_sorts(int *flags, t_info dirs[]);
 void					ft_sort_tim(t_info dirs[], int size);
 void					ft_sort_merge(t_info dirs[], int left, int mid, int right);
 void					ft_sort_ins(t_info dirs[], int left, int right);
-void					ft_sort_min(t_flags *flags, t_info dir_a, t_info dir_b);
+void					ft_sort_min(int *flags, t_info dir_a, t_info dir_b);
 
-int						ft_prints(t_flags *flags, t_info dirs[]);
-int						ft_print_def(t_info dir);
-int						ft_print_lst(t_flags *flags, t_info dir);
+int						ft_prints(int *flags, t_info dirs[]);
+int						ft_print_def(int *flags, t_info dir);
+int						ft_print_lst(int *flags, t_info dir);
 void					ft_print_perm(t_stat *s_stat);
-void					ft_print_time(t_stat s_stat, t_flags *flags);
+void					ft_print_time(t_stat s_stat, int *flags);
 
 int						ft_errors(int code, char *error);
 int						ft_error_flag(char *arg);

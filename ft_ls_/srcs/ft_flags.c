@@ -6,13 +6,13 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/20 10:59:52 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/26 16:30:11 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-void	ft_flag_print(t_flags *flags)
+void	ft_flag_print(int *flags)
 {
 	size_t	i;
 
@@ -25,78 +25,65 @@ void	ft_flag_print(t_flags *flags)
 	}
 }
 
-int		ft_flag_set(t_flags *flags, int flagc, ...)
+int		ft_flag_check(int *flags, char flag)
 {
-	va_list	v_list;
-	char	*mode;
-	int		i;
-
-	va_start(v_list, flagc);
-	mode = va_arg(v_list, char *);
-	i = -1;
-	while (mode[++i] == '1')
-		*flags |= va_arg(v_list, int);
-	while (i++ < flagc - 1)
-		*flags &= ~(va_arg(v_list, int));
-	va_end(v_list);
-	return (1);
-}
-
-int		ft_flag_check(t_flags *flags, char flag)
-{
-	if (flag == 'l')
-		return (ft_flag_set(flags, 4, "110", F_l, F_t, F_1));
-	else if (flag == '1')
-		return (ft_flag_set(flags, 5, "10", F_1, F_l, F_t, F_g));
+	if (flag == '1')
+		return (*flags = (*flags & ~F_l) | F_1);
+	else if (flag == 'l')
+		return (*flags = (*flags & ~F_1) | F_l);
 	else if (flag == 'g')
-		return (ft_flag_set(flags, 5, "1110", F_g, F_l, F_t, F_1));
-	else if (flag == 'G')
-		return (ft_flag_set(flags, 2, "1", F_G));
-	else if (flag == 'a')
-		return (ft_flag_set(flags, 2, "1", F_a));
-	else if (flag == 'f')
-		return (ft_flag_set(flags, 3, "11", F_f, F_a));
+		return (*flags = (*flags & ~F_1) | (F_l + F_g));
 	else if (flag == 't')
-		return (ft_flag_set(flags, 2, "1", *flags));
+		return ((*flags & F_u) ? *flags : (*flags = (*flags & ~F_0) | F_t));
 	else if (flag == 'u')
-		return (ft_flag_set(flags, 3, "10", F_u, F_t));
+		return (*flags = (*flags & ~(F_t)) | F_u);
 	else if (flag == 'r')
-		return (ft_flag_set(flags, 2, "1", F_r));
-	else if (flag == 'd')
-		return (ft_flag_set(flags, 3, "10", F_d, F_R));
+		return (*flags = (*flags & ~F_0) | F_r);
+	else if (flag == 'f')
+		return (*flags = (*flags & ~(F_u + F_t)) | (F_f + F_a));
+	else if (flag == 'a')
+		return (*flags = (*flags & ~F_0) | F_a);
 	else if (flag == 'R')
-		return (ft_flag_set(flags, 3, "10", F_R, F_d));
-	return (ft_errors(E_FLAGS, &flag));
+		return (*flags = (*flags & ~F_d) | F_R);
+	else if (flag == 'd')
+		return (*flags = (*flags & ~F_R) | F_d);
+	else if (flag == 'G')
+		return (*flags = (*flags & ~F_0) | F_G);
+	else if (flag == 'F')
+		return (*flags = (*flags & ~F_0) | F_F);
+	exit (ft_errors(E_FLAGS, &flag));
 }
 
-int		ft_lflag_check(t_flags *flags, char *opt)
+int		ft_lflag_check(int *flags, char *opt)
 {
 	if (!ft_strcmp(opt, "long"))
-		return (ft_flag_set(flags, 4, "110", F_l, F_t, F_1));
+		return (*flags = (*flags & ~F_l) | F_1);
 	else if (!ft_strcmp(opt, "list"))
-		return (ft_flag_set(flags, 5, "10", F_1, F_l, F_t, F_g));
+		return (*flags = (*flags & ~F_1) | F_l);
 	else if (!ft_strcmp(opt, "no-owner"))
-		return (ft_flag_set(flags, 5, "1110", F_g, F_l, F_t, F_1));
+		return (*flags = (*flags & ~F_1) | (F_l + F_g));
 	else if (!ft_strcmp(opt, "colour"))
-		return (ft_flag_set(flags, 2, "1", F_G));
+		return (*flags = (*flags & ~F_0) | F_G);
 	else if (!ft_strcmp(opt, "all"))
-		return (ft_flag_set(flags, 2, "1", F_a));
+		return (*flags = (*flags & ~F_0) | F_a);
 	else if (!ft_strcmp(opt, "no-sort"))
-		return (ft_flag_set(flags, 3, "11", F_f, F_a));
+		return (*flags = (*flags & ~(F_u + F_t)) | (F_f + F_a));
 	else if (!ft_strcmp(opt, "mod-time"))
-		return (ft_flag_set(flags, 2, "1", *flags));
+		return ((*flags & F_u) ? *flags : (*flags = (*flags & ~F_0) | F_t));
 	else if (!ft_strcmp(opt, "acc-time"))
-		return (ft_flag_set(flags, 3, "10", F_u, F_t));
+		return (*flags = (*flags & ~(F_t)) | F_u);
 	else if (!ft_strcmp(opt, "reverse"))
-		return (ft_flag_set(flags, 2, "1", F_r));
+		return (*flags = (*flags & ~F_0) | F_r);
 	else if (!ft_strcmp(opt, "directory"))
-		return (ft_flag_set(flags, 3, "10", F_d, F_R));
+		return (*flags = (*flags & ~F_R) | F_d);
 	else if (!ft_strcmp(opt, "recursive"))
-		return (ft_flag_set(flags, 3, "10", F_R, F_d));
-	return (ft_errors(E_PRINTS, opt));
+		return (*flags = (*flags & ~F_d) | F_R);
+	else if (!ft_strcmp(opt, "verbose"))
+		return (*flags = (*flags & ~F_0) | F_F);
+	exit (ft_errors(E_FLAGS, opt));
 }
 
-int		ft_flags(t_flags *flags, char **argv)
+int		ft_flags(int *flags, char **argv)
 {
 	int i;
 	int j;
@@ -114,7 +101,8 @@ int		ft_flags(t_flags *flags, char **argv)
 		else if (argv[i][0] == '-' && argv[i][1])
 		{
 			while (argv[i][++j])
-				ft_flag_check(flags, argv[i][j]);
+				if (ft_flag_check(flags, argv[i][j]) < 0)
+					return (-1);
 		}
 		else
 			return (i);

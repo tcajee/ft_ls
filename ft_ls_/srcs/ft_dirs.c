@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/23 14:58:41 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/08/26 16:30:52 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ int	ft_dir_check(char *path)
 
 	if (lstat(path, &s_stat) < 0)
 		return (0);
-	if ((s_stat.st_mode & S_IFMT) == S_IFDIR)
+	if ((s_stat.st_mode & S_IFMT) == S_IFREG)
 		return (1);
+	if ((s_stat.st_mode & S_IFMT) == S_IFDIR)
+		return (2);
 	return (0);
 }
 
@@ -55,7 +57,7 @@ char	*ft_dir_path(char *path, char *d_name)
 		temp[i++] = *path++;
 	if (temp[i - 1] == '/')
 		temp[i] = '/';
-	else 
+	else
 		temp[i++] = '/';
 	while (*d_name)
 		temp[i++] = *d_name++;
@@ -92,56 +94,31 @@ int	ft_dir_info(char *path, t_info dirs[])
 	return (1);
 }
 
-int ft_dirs(t_flags *flags, t_info dirs[], char *path)
+int ft_dirs(int *flags, t_info dirs[], char *path)
 {
+	t_dirent	*s_dir;
+	DIR			*dir;
+	char		*fpath;
 
-	 t_dirent	*s_dir; 
-	 DIR			*dir; 
-	 char		*fpath; 
-
-	//
-	//
-	//	dirs[0].path = ft_strdup(path);
-
-	if (lstat(path, &dirs[0].s_stat) < 0)
-		return (0);
-	else if ((dirs[0].s_stat.st_mode & S_IFMT) == S_IFREG)
+	if (!ft_dir_info(path, dirs))
+		exit (-1);
+	ft_prints(flags, dirs);
+	ft_dir_clean(dirs);
+	if (*flags & F_R)
 	{
-		//put name pritns an toals and off
-		dirs[0].name = ft_strdup(path);
-		lstat(dirs[0].path, &dirs[0].s_stat);
-		dirs[0].dirc = 1;
-		ft_prints(flags, dirs);
-		dirs[0].name = ft_strdup(path);
-		//put name pritns an toals and on
+		if (!(dir = opendir(path)))
+			exit(-1);
+		while ((s_dir = readdir(dir)) != NULL)
+		{
+			if ((s_dir->d_name[0] == '.' && s_dir->d_name[1] == '\0') ||
+			   ((s_dir->d_name[0] == '.' && s_dir->d_name[2] == '\0') &&
+				s_dir->d_name[1] == '.'))
+				continue;
+			if (ft_dir_check(fpath = ft_dir_path(path, s_dir->d_name)) == 2)
+				ft_dirs(flags, dirs, fpath);
+			free(fpath);
+		}
+		closedir(dir);
 	}
-	else if (ft_dir_check(path))
-	{
-	
-		if (!ft_dir_info(path, dirs)) 
-			return (ft_errors(E_DIRS, path)); 
-		ft_prints(flags, dirs);
-		ft_dir_clean(dirs); 
-	}
-
-	
-
-if (*flags & F_R) 
-{ 
-	if (!(dir = opendir(path))) 
-		exit(-1); 
-	while ((s_dir = readdir(dir)) != NULL) 
-	{ 
-		if ((s_dir->d_name[0] == '.' && s_dir->d_name[1] == '\0') || 
-		   ((s_dir->d_name[0] == '.' && s_dir->d_name[2] == '\0') && 
-			s_dir->d_name[1] == '.')) 
-			continue; 
-		if (ft_dir_check(fpath = ft_dir_path(path, s_dir->d_name))) 
-			ft_dirs(flags, dirs, fpath); 
-		free(fpath); 
-	} 
-	closedir(dir); 
-} 
-
 	return (0);
 }
