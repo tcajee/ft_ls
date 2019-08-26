@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/26 16:38:40 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/26 16:54:48 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,16 @@ int	ft_print_def(int *flags, t_info dir)
 	ft_print_f("%", dir.name);
 	if (*flags & F_F)
 	{
+	/* an at sign (`@') after each symbolic link */
+	/* an equals sign (`=') after symlinks */
+	/* a percent sign (`%') after each whiteout */
+	/* a percent sign (`|') after each FIFO */
 		if (ft_dir_check(dir.path) == 2)
 			ft_print_f("/");
+		else if ((dir.s_stat.st_mode & S_IFMT) == S_IFLNK)
+			ft_print_f("@");
+		else if ((dir.s_stat.st_mode & S_IFMT) == S_IFIFO)
+			ft_print_f("|");
 		else if (dir.s_stat.st_mode & S_IXUSR)
 			ft_print_f("*");
 	}
