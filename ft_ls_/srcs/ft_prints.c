@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/26 16:54:48 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/26 17:02:33 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	ft_print_perm(t_stat *s_stat)
 		permissions[9] = 'x';
 	permissions[10] = ' ';
 	permissions[11] = '\0';
-	ft_print_f("%t", permissions);
+	ft_print_f("%  ", permissions);
 }
 
 int	ft_print_def(int *flags, t_info dir)
@@ -164,7 +164,6 @@ int	ft_print_lst(int *flags, t_info dir)
 	ft_print_f("%t", temp = ft_itoa(dir.s_stat.st_size));
 	free(temp);
 	ft_print_time(dir.s_stat, flags);
-	ft_print_f(" ");
 	ft_print_def(flags, dir);
 	return (1);
 }
@@ -180,7 +179,7 @@ int	ft_prints(int *flags, t_info dirs[])
 		ft_print_f("%:n", dirs[0].root);
 	}
 	if (*flags & F_l && !(*flags & F_REG))
-		ft_print_f("%%n", "total: ", dirs[0].total);
+		ft_print_f("%%n", "total ", dirs[0].total);
 	*flags |= F_P;
 	j = dirs[0].dirc;
 	i = *flags & F_r ? dirs[0].dirc: -1;

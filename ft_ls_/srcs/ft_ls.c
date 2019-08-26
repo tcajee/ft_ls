@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/26 16:34:13 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/26 17:00:54 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void ft_files(int *flags, t_info dirs[], char *path)
 		F_SET(*flags, F_0, F_REG);
 		if (!(dirs[0].name = ft_strdup(path)))
 			return ;
-		lstat(dirs[0].path, &dirs[0].s_stat);
+		lstat(dirs[0].name, &dirs[0].s_stat);
 		dirs[0].dirc = 1;
 		ft_prints(flags, dirs);
 		F_SET(*flags, F_REG, F_0);
@@ -42,9 +42,10 @@ int	main(int argc, char **argv)
 	if ((argc - i) > 1)
 		flags |= F_M;
 
-	ft_flag_print(&flags);
-	ft_putendl("");
-	ft_putendl("");
+	/* ft_flag_print(&flags); */
+	/* ft_putendl(""); */
+	/* ft_putendl(""); */
+
 	/* printf("%s\n", argv[i]); */
 
 	j = i - 1;
