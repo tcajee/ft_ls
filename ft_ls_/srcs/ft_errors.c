@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 11:36:46 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/26 16:31:53 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/26 17:27:56 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,14 @@ int	ft_error_dir(char *path)
 
 int	ft_error_print(char *path)
 {
-	ft_putstr_fd("./ft_ls: ", 2);
 	ft_putstr_fd(path, 2);
-	ft_putendl_fd(": permision denied", 2);
+	ft_putendl_fd(":", 2);
+	ft_putstr_fd("./ft_ls: ", 2);
+	ft_putstr_fd(ft_strrchr(path, '/') + 1, 2);
+	ft_putstr_fd(": ", 2);
+	/* ft_putstr_fd(path, 2); */
+	perror("");
+	/* ft_putendl_fd(": permision denied", 2); */
 	return (0);
 }
 

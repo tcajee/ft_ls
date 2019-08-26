@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/26 16:30:52 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/26 17:29:00 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,24 @@ int	ft_dir_info(char *path, t_info dirs[])
 	i = 0;
 	total = 0;
 	if (!(dir = opendir(path)))
-		return (0);
+	{
+		/* perror(path); */
+		return (ft_errors(E_PRINTS, path));
+	}
 	while ((s_dir = readdir(dir)) != NULL)
 	{
 		if (!(dirs[i].root = ft_strdup(path)))
-			return (0);
+			return (ft_errors(E_DIRS, "DUP"));
+			/* return (0); */
 		if (!(dirs[i].name = ft_strdup(s_dir->d_name)))
-			return (0);
+			return (ft_errors(E_DIRS, "DUP2"));
+			/* return (0); */
 		if (!(dirs[i].path = ft_dir_path(path, s_dir->d_name)))
-			return (0);
+			return (ft_errors(E_DIRS, "PATH"));
+			/* return (0); */
 		if ((lstat(dirs[i].path, &dirs[i].s_stat)) < 0)
-			return (0);
+			return (ft_errors(E_DIRS, "LSTATA"));
+			/* return (0); */
 		total += dirs[i++].s_stat.st_blocks;
 	}
 	closedir(dir);
@@ -101,7 +108,7 @@ int ft_dirs(int *flags, t_info dirs[], char *path)
 	char		*fpath;
 
 	if (!ft_dir_info(path, dirs))
-		exit (-1);
+		return (-1);
 	ft_prints(flags, dirs);
 	ft_dir_clean(dirs);
 	if (*flags & F_R)
