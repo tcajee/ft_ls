@@ -88,8 +88,8 @@ void	ft_print_perm(t_stat *s_stat)
 		permissions[0] = 's';
 	else if ((s_stat->st_mode & S_IFMT) == S_IFIFO)
 		permissions[0] = 'p';
-	else if ((s_stat->st_mode & S_IFMT) == S_IFWHT)
-		permissions[0] = 'w';
+	/* else if ((s_stat->st_mode & S_IFMT) == S_IFWHT) */
+	/* 	permissions[0] = 'w'; */
 	if (s_stat->st_mode & S_IRUSR)
 		permissions[1] = 'r';
 	if (s_stat->st_mode & S_IWUSR)
@@ -126,8 +126,8 @@ int	ft_print_def(int *flags, t_info dir)
 			ft_print_f("|");
 		else if ((dir.s_stat.st_mode & S_IFMT) == S_IFSOCK)
 			ft_print_f("=");
-		else if ((dir.s_stat.st_mode & S_IFMT) == S_IFWHT)
-			ft_print_f("%");
+		/* else if ((dir.s_stat.st_mode & S_IFMT) == S_IFWHT) */
+		/* 	ft_print_f("%"); */
 		else if (dir.s_stat.st_mode & S_IXUSR)
 			ft_print_f("*");
 	}
@@ -188,7 +188,7 @@ int	ft_prints(int *flags, t_info dirs[])
 	while (j--)
 	{
 		i = *flags & F_r ? i - 1: i + 1;
-		if (!(*flags & F_a) && dirs[i].name[0] == '.')
+		if (!(*flags & F_F) && !(*flags & F_r) && dirs[i].name[0] == '.')
 			continue;
 		if (*flags & F_1)
 			ft_print_def(flags, dirs[i]);
