@@ -65,7 +65,7 @@ char	*ft_dir_path(char *path, char *d_name)
 	return (temp);
 }
 
-int	ft_dir_info(int *flags, char *path, t_info dirs[])
+int	ft_dir_info(int *flags, char *path)
 {
 	t_dirent	*s_dir;
 	DIR			*dir;
@@ -98,13 +98,15 @@ int	ft_dir_info(int *flags, char *path, t_info dirs[])
 	return (1);
 }
 
-int ft_dirs(int *flags, t_info dirs[], char *path)
+int ft_dirs(int *flags, char *path)
 {
 	t_dirent	*s_dir;
 	DIR			*dir;
 	char		*fpath;
-
-	if (!ft_dir_info(flags, path, dirs))
+	int			n;
+	
+	
+	if (!ft_dir_info(flags, path))
 		return (-1);
 	
 

@@ -91,14 +91,17 @@ typedef struct			s_info
 
 int						ft_print_f(char *format, ...);
 
+void					ft_files(int *flags, char *path);
+
 int						ft_flags(int *flags, char **argv);
 int						ft_flag_check(int *flags, char flag);
 int						ft_lflag_check(int *flags, char *option);
 int						ft_flag_set(int *flags, int flagc, ...);
 void					ft_flag_print(int *flags);
 
-int						ft_dirs(int *flags, t_info dirs[], char *arg);
-int						ft_dir_info(int *flags, char *path, t_info dirs[]);
+int						ft_dirs(int *flags, char *arg);
+int						ft_dir_info(int *flags, char *path);
+
 char					*ft_dir_path(char *path, char *d_name);
 void					ft_dir_clean(t_info dirs[]);
 int						ft_dir_check(char *path);

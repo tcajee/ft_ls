@@ -12,8 +12,9 @@
 
 #include "../libft/incs/libft.h"
 
-void ft_files(int *flags, t_info dirs[], char *path)
+void ft_files(int *flags,  char *path)
 {
+	t_info dirs[2];
 	F_SET(*flags, F_0, F_REG);
 	if (!(dirs[1].name = ft_strdup(path)))
 		return ;
@@ -27,7 +28,7 @@ void ft_files(int *flags, t_info dirs[], char *path)
 int	main(int argc, char **argv)
 {
 	int			flags;
-	t_info		dirs[32768];
+	/* t_info		dirs[16382]; */
 	int			i;
 	int			j;
 
@@ -45,17 +46,17 @@ int	main(int argc, char **argv)
 
 	j = i - 1;
 	if (!argv[i])
-		return (ft_dirs(&flags, dirs, "."));
+		return (ft_dirs(&flags,  "."));
 	while (argv[++j])
 		if (ft_dir_check(argv[j]) == 0)
 			ft_errors(&flags, E_DIRS, argv[j]);
 	j = i - 1;
 	while (argv[++j])
 		if (ft_dir_check(argv[j]) == 1)
-			ft_files(&flags, dirs, argv[j]);
+			ft_files(&flags,  argv[j]);
 	j = i - 1;
 	while (argv[++j])
 		if (ft_dir_check(argv[j]) == 2)
-			ft_dirs(&flags, dirs, argv[j]);
+			ft_dirs(&flags, argv[j]);
 	return (0);
 }
