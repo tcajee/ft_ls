@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/26 18:12:48 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/27 18:47:43 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,11 @@ int	ft_dir_info(int *flags, char *path, t_info dirs[])
 	int i;
 	int total;
 
-	i = 0;
+	/* ft_putstr("info"); */
+	/* ft_putendl(""); */
+
+	
+	i = 1;
 	total = 0;
 	if (!(dir = opendir(path)))
 		return (ft_errors(flags, E_PRINTS, path));
@@ -102,7 +106,16 @@ int ft_dirs(int *flags, t_info dirs[], char *path)
 
 	if (!ft_dir_info(flags, path, dirs))
 		return (-1);
+	
+
 	ft_prints(flags, dirs);
+	
+	if (dirs[0].dirc > 2)
+		ft_sorts(flags, dirs);
+	ft_prints(flags, dirs);
+	
+	
+	
 	ft_dir_clean(dirs);
 	if (*flags & F_R)
 	{
