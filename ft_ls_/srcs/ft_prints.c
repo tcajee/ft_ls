@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/26 18:09:59 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/27 12:17:08 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,8 +188,11 @@ int	ft_prints(int *flags, t_info dirs[])
 	while (j--)
 	{
 		i = *flags & F_r ? i - 1: i + 1;
-		if (!(*flags & F_F) && !(*flags & F_r) && dirs[i].name[0] == '.')
-			continue;
+//		if (*flags & F_F && dirs[i].name[0] == '.')
+//			continue;
+		if (!(*flags & F_a) && dirs[i].name[0] == '.')
+			if (!(*flags & F_REG))
+				continue;
 		if (*flags & F_1)
 			ft_print_def(flags, dirs[i]);
 		else if (*flags & F_l)
