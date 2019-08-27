@@ -182,12 +182,14 @@ int	ft_prints(int *flags, t_info dirs[])
 	}
 	if (*flags & F_l && !(*flags & F_REG))
 		ft_print_f("%%n", "total ", dirs[0].total);
+
 	*flags |= F_P;
 	j = dirs[0].dirc;
-	i = *flags & F_r ? dirs[0].dirc: 0;
+	i = (*flags & F_r && !(*flags & F_REG)) ? dirs[0].dirc: 0;
 	while (j-- > 1)
 	{
-		i = *flags & F_r ? i - 1: i + 1;
+		i = (*flags & F_r && !(*flags & F_REG)) ? i - 1: i + 1;
+
 		if (!(*flags & F_a) && dirs[i].name[0] == '.')
 			if (!(*flags & F_REG))
 				continue;

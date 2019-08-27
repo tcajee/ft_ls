@@ -108,10 +108,14 @@ int ft_dirs(int *flags, t_info dirs[], char *path)
 		return (-1);
 	
 
-	ft_prints(flags, dirs);
+	/* ft_prints(flags, dirs); */
 	
-	if (dirs[0].dirc > 2)
+	//if (dirs[0].dirc > 2)
+
+	if (dirs[0].dirc > 1 && !(*flags & F_REG) && !(*flags & F_f))
+	{
 		ft_sorts(flags, dirs);
+	}
 	ft_prints(flags, dirs);
 	
 	

@@ -15,13 +15,13 @@
 void ft_files(int *flags, t_info dirs[], char *path)
 {
 	F_SET(*flags, F_0, F_REG);
-	if (!(dirs[0].name = ft_strdup(path)))
+	if (!(dirs[1].name = ft_strdup(path)))
 		return ;
-	lstat(dirs[0].name, &dirs[0].s_stat);
-	dirs[0].dirc = 1;
+	lstat(dirs[1].name, &dirs[1].s_stat);
+	dirs[0].dirc = 2;
 	ft_prints(flags, dirs);
 	F_SET(*flags, F_REG, F_0);
-	free(dirs[0].name);
+	free(dirs[1].name);
 }
 
 int	main(int argc, char **argv)
