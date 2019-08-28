@@ -35,7 +35,7 @@
 /* } */
 
 // merge function merges the sorted runs
-void ft_sort_merge(int *flags, t_info dirs[], int l, int m, int r)
+void ft_sort_merge(int *flags, t_info *list, int l, int m, int r)
 {
     // original array is broken in two parts
     // left and riight array
@@ -56,14 +56,14 @@ void ft_sort_merge(int *flags, t_info dirs[], int l, int m, int r)
 	ft_putendl("left");
     while (i < len1)
 	{
-		left[i] = dirs[l + i];
+		left[i] = list[l + i];
 		i++;
 	}
 	i = 0;
 	ft_putendl("right");
     while (i < len2)
 	{
-		right[i] = dirs[m + 1 + i];
+		right[i] = list[m + 1 + i];
 		i++;
 	}
     i = 0;
@@ -74,14 +74,14 @@ void ft_sort_merge(int *flags, t_info dirs[], int l, int m, int r)
 	ft_putendl("merge:left right");
     while (i < len1 && j < len2)
     {
-        if (ft_sort_comp(flags, dirs, i, j) <= 0)
+        if (ft_sort_comp(flags, list, i, j) <= 0)
         {
-            dirs[k] = left[i];
+            list[k] = left[i];
             i++;
         }
         else // if (ft_sort_comp(flags, dirs, i, j) < 0)
         {
-            dirs[k] = right[j];
+            list[k] = right[j];
             j++;
         }
         k++;
@@ -90,7 +90,7 @@ void ft_sort_merge(int *flags, t_info dirs[], int l, int m, int r)
 	ft_putendl("copy: left");
     while (i < len1)
     {
-        dirs[k] = left[i];
+        list[k] = left[i];
         k++;
         i++;
     }
@@ -98,7 +98,7 @@ void ft_sort_merge(int *flags, t_info dirs[], int l, int m, int r)
 	ft_putendl("copy: right");
     while (j < len2)
     {
-        dirs[k] = right[j];
+        list[k] = right[j];
         k++;
         j++;
     }
@@ -127,7 +127,7 @@ void ft_sort_ins(int *flags, t_info dirs[], int left, int right)
 	}
 }
 
-int	ft_sort_comp(int *flags, t_info dirs[], int i, int j)
+int	ft_sort_comp(int *flags, t_info *list, int i, int j)
 {
 	(void)flags;
 
@@ -153,7 +153,7 @@ int	ft_sort_comp(int *flags, t_info dirs[], int i, int j)
 
 	int cmp = 0;
 	
-	if ((cmp = ft_strcmp(dirs[i].name, dirs[j].name)) > 0)
+	if ((cmp = ft_strcmp(list->name, list->name)) > 0)
 	{
 
 		/* ft_putstr("["); */
@@ -167,7 +167,7 @@ int	ft_sort_comp(int *flags, t_info dirs[], int i, int j)
 		
 		return (j);
 	}
-	else if ((cmp = ft_strcmp(dirs[i].name, dirs[j].name)) < 0)
+	else if ((cmp = ft_strcmp(list->name, list->name)) < 0)
 	{
 
 		/* ft_putstr("["); */
@@ -205,7 +205,7 @@ int	ft_pow2(int n)
 
 // iterative Timsort function to sort the
 // array[0...n-1] (similar to merge sort)
-void ft_sort_tim(int *flags, t_info dirs[], int n)
+void ft_sort_tim(int *flags, t_info *list, int n)
 {
 	int i;
 	int size;
@@ -225,7 +225,7 @@ void ft_sort_tim(int *flags, t_info dirs[], int n)
 	i = 1;
     while (i + size < n) // here n is actuall y the number of directories, used to find min)
 	{
-        ft_sort_ins(flags, dirs, i, ft_sort_comp(flags, dirs, i + size - 1, n - 1));
+        ft_sort_ins(flags, list, i, ft_sort_comp(flags, list, i + size - 1, n - 1));
 		i += size;
 	}
     
@@ -270,7 +270,7 @@ void ft_sort_tim(int *flags, t_info dirs[], int n)
 }
 
 
-void	ft_sorts(int *flags, t_info dirs[])
+void	ft_sorts(int *flags, t_dirs *dirs)
 {
 
 	/* ft_putstr("sorts	"); */
@@ -280,7 +280,7 @@ void	ft_sorts(int *flags, t_info dirs[])
 	/* ft_putendl(""); */
 
 
-	ft_sort_tim(flags, dirs, dirs[0].dirc);
+	ft_sort_tim(flags, dirs->list, dirs->size);
 
 }
 

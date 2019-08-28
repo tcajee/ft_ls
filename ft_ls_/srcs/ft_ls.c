@@ -6,57 +6,72 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/27 12:05:37 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/28 12:16:09 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-void ft_files(int *flags,  char *path)
+int	ft_ls_rec(int *flags, char *path)
 {
-	t_info dirs[2];
-	F_SET(*flags, F_0, F_REG);
-	if (!(dirs[1].name = ft_strdup(path)))
-		return ;
-	lstat(dirs[1].name, &dirs[1].s_stat);
-	dirs[0].dirc = 2;
-	ft_prints(flags, dirs);
-	F_SET(*flags, F_REG, F_0);
-	free(dirs[1].name);
+	t_dirent	*s_dir;
+	DIR			*dir;
+	char		*fpath;
+
+	if (!(dir = opendir(path)))
+		return (0);
+	while ((s_dir = readdir(dir)) != NULL)
+	{
+		if ((s_dir->d_name[0] == '.' && s_dir->d_name[1] == '\0') ||
+		   ((s_dir->d_name[0] == '.' && s_dir->d_name[2] == '\0') &&
+			s_dir->d_name[1] == '.'))
+			continue;
+		if (ft_dir_check(fpath = ft_dir_path(path, s_dir->d_name)) == 2)
+			ft_dirs(flags, fpath);
+		free(fpath);
+	}
+	closedir(dir);
+	return (1);
 }
 
 int	main(int argc, char **argv)
 {
 	int			flags;
-	/* t_info		dirs[16382]; */
 	int			i;
 	int			j;
 
-	i = 0;
-	flags = 0;
-	F_SET(flags, F_0, F_1);
 	if ((i = ft_flags(&flags, argv)) < 0)
-		return (-1);
+		return (0);
 	if ((argc - i) > 1)
 		flags |= F_M;
-
-	/* ft_flag_print(&flags); */
-	/* ft_putendl(""); */
-	/* ft_putendl(""); */
-
-	j = i - 1;
 	if (!argv[i])
 		return (ft_dirs(&flags,  "."));
+	j = i - 1;
 	while (argv[++j])
 		if (ft_dir_check(argv[j]) == 0)
 			ft_errors(&flags, E_DIRS, argv[j]);
-	j = i - 1;
-	while (argv[++j])
-		if (ft_dir_check(argv[j]) == 1)
-			ft_files(&flags,  argv[j]);
-	j = i - 1;
-	while (argv[++j])
-		if (ft_dir_check(argv[j]) == 2)
-			ft_dirs(&flags, argv[j]);
-	return (0);
+			j = i - 1;
+			while (argv[++j])
+				if (ft_dir_check(argv[j]) == 1)
+					ft_dirs(&flags, argv[j]);
+			j = i - 1;
+			while (argv[++j])
+				if (ft_dir_check(argv[j]) == 2)
+					ft_dirs(&flags, argv[j]);
+	return (1);
 }
+
+
+	/* while (argv[++j]) */
+	/* 	if (ft_dir_check(argv[j]) == 0) */
+	/* 		ft_errors(&flags, E_DIRS, argv[j]); */
+	/* j = i - 1; */
+	/* while (argv[++j]) */
+	/* 	if (ft_dir_check(argv[j]) == 1) */
+	/* 		ft_dirs(&flags,  argv[j]); */
+	/* j = i - 1; */
+	/* while (argv[++j]) */
+	/* 	if (ft_dir_check(argv[j]) == 2) */
+	/* 		ft_dirs(&flags, argv[j]); */
+
+

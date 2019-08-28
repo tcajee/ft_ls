@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/26 18:10:29 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/28 11:57:12 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int		ft_flags(int *flags, char **argv)
 	int j;
 
 	i = 0;
+	*flags = 0;
+	F_SET(*flags, F_0, F_1);
 	while (argv[++i])
 	{
 		j = 0;
