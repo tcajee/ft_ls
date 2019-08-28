@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/28 15:47:27 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/28 16:39:45 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	ft_print_perm(t_stat *s_stat)
 
 int	ft_print_def(int *flags, t_info *list)
 {
+ ft_putendl("end print def");
 	ft_print_f("%", list->name);
 	if (*flags & F_F)
 	{
@@ -130,6 +131,7 @@ int	ft_print_def(int *flags, t_info *list)
 			ft_print_f("*");
 	}
 	ft_print_f("n");
+ ft_putendl("end print def");
 	return (1);
 }
 
@@ -139,6 +141,7 @@ int	ft_print_lst(int *flags, t_info *list)
 	t_passwd	*s_pwd;
 	t_group		*s_grp;
 
+ ft_putendl("beg print ls");
 	ft_print_perm(&list->s_stat);
 	ft_print_f("%t", temp = ft_itoa(list->s_stat.st_nlink));
 	free(temp);
@@ -165,38 +168,50 @@ int	ft_print_lst(int *flags, t_info *list)
 	free(temp);
 	ft_print_time(list->s_stat, flags);
 	ft_print_def(flags, list);
+ ft_putendl("end print ls");
 	return (1);
 }
 
 int	ft_prints(int *flags, t_dirs *dirs)
 {
+ ft_putendl("begin print");
 	t_info	*list;
 	int j;
 
 	list = dirs->list;
 	if ((*flags & F_M || *flags & F_R) && *flags & F_P && !(*flags & F_REG))
 	{
+ 		ft_putendl("print name");
 		ft_print_f("n");
-		ft_print_f("%:n", dirs->list->root);
+		ft_print_f("%:n", list->root);
 	}
 	if (*flags & F_l && !(*flags & F_REG))
+	{
+ 		ft_putendl("print tottal");
 		ft_print_f("%%n", "total ", dirs->total);
-
+	}
 	*flags |= F_P;
+ 	ft_putnbr(dirs->size);
+ 	ft_putendl("");
 	j = dirs->size;
+ 	ft_putendl("set list");
 	list = (*flags & F_r && !(*flags & F_REG)) ? dirs->last: dirs->list;
 	while (j--)
 	{
+ 		ft_putendl("increment list");
 		list = (*flags & F_r && !(*flags & F_REG)) ? list->prev: list->next;
-
+ 		ft_putendl("check . print");
+ 		ft_putendl(list->name);
 		if (!(*flags & F_a) && list->name[0] == '.')
 			if (!(*flags & F_REG))
 				continue;
+ 		ft_putendl("choose print");
 		if (*flags & F_1)
 			ft_print_def(flags, list);
 		else if (*flags & F_l)
 			ft_print_lst(flags, list);
 	}
 	ft_list_clean(dirs);
+ ft_putendl("end print");
 	return (1);
 }

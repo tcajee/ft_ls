@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 11:16:28 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/28 15:48:41 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/28 16:22:50 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,19 @@ int	ft_list_ins(t_info *list)
 
 t_info	*ft_list_add(t_info *list)
 {
-	t_info *new;
+ft_putendl("begin list add");
+	t_info	*new;
 
-	if (!list)
-		if (!(list= ft_list_new()))
-			return (NULL);
 	if (!(new = ft_list_new()))
 		return (NULL);
-	list->next = new;
+	new->prev = list;
+ft_putendl("end list add");
 	return (new);
 }
 
 t_info *ft_list_new(void)
 {
+ft_putendl("begin list new");
 	t_info	*new;
 	
 	if (!(new = (t_info *)malloc(sizeof(t_info))))
@@ -62,6 +62,8 @@ t_info *ft_list_new(void)
 	new->name = NULL;
 	new->path = NULL;
 	new->next = NULL;
+	new->prev = NULL;
+ft_putendl("end list new");
 	return (new);
 }
 
