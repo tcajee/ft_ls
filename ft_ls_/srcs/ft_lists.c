@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 11:16:28 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/29 12:23:46 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/29 15:15:14 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,14 @@ void	ft_list_print(t_dirs *dirs)
 	list = dirs->list;
 	printf("---------------------------------------\n");
 	printf("dirs		[%p]\n", dirs);
+	printf("&dirs->list	[%p]\n", &dirs->list);
 	printf("dirs->list	[%p]\n", dirs->list);
 	printf("dirs->size	[%d]\n", dirs->size);
 	printf("dirs->total	[%s]\n", dirs->total);
 	if (dirs->name)
 		printf("dirs->name	[%s]\n", dirs->name);
-	printf("dirs->last	[%p]\n", &dirs->last);
+	printf("&dirs->last	[%p]\n", &dirs->last);
+	printf("dirs->last	[%p]\n", dirs->last);
 	printf("---------------------------------------\n");
 	while (list)
 	{
@@ -77,6 +79,7 @@ t_info	*ft_list_add(t_info *list)
 
 	if (!(new = ft_list_new()))
 		return (NULL);
+	list->next = new;
 	new->prev = list;
 /* ft_putendl("end list add"); */
 	return (new);
