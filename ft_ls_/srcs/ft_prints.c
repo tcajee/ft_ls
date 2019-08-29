@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/28 16:39:45 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/29 12:07:16 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	ft_print_perm(t_stat *s_stat)
 
 int	ft_print_def(int *flags, t_info *list)
 {
- ft_putendl("end print def");
+ /* ft_putendl("end print def"); */
 	ft_print_f("%", list->name);
 	if (*flags & F_F)
 	{
@@ -131,7 +131,7 @@ int	ft_print_def(int *flags, t_info *list)
 			ft_print_f("*");
 	}
 	ft_print_f("n");
- ft_putendl("end print def");
+ /* ft_putendl("end print def"); */
 	return (1);
 }
 
@@ -141,7 +141,7 @@ int	ft_print_lst(int *flags, t_info *list)
 	t_passwd	*s_pwd;
 	t_group		*s_grp;
 
- ft_putendl("beg print ls");
+ /* ft_putendl("beg print ls"); */
 	ft_print_perm(&list->s_stat);
 	ft_print_f("%t", temp = ft_itoa(list->s_stat.st_nlink));
 	free(temp);
@@ -168,13 +168,13 @@ int	ft_print_lst(int *flags, t_info *list)
 	free(temp);
 	ft_print_time(list->s_stat, flags);
 	ft_print_def(flags, list);
- ft_putendl("end print ls");
+ /* ft_putendl("end print ls"); */
 	return (1);
 }
 
 int	ft_prints(int *flags, t_dirs *dirs)
 {
- ft_putendl("begin print");
+ /* ft_putendl("begin print"); */
 	t_info	*list;
 	int j;
 
@@ -201,17 +201,17 @@ int	ft_prints(int *flags, t_dirs *dirs)
  		ft_putendl("increment list");
 		list = (*flags & F_r && !(*flags & F_REG)) ? list->prev: list->next;
  		ft_putendl("check . print");
- 		ft_putendl(list->name);
+ 		/* ft_putendl(list->name); */
 		if (!(*flags & F_a) && list->name[0] == '.')
 			if (!(*flags & F_REG))
 				continue;
- 		ft_putendl("choose print");
+ 		/* ft_putendl("choose print"); */
 		if (*flags & F_1)
 			ft_print_def(flags, list);
 		else if (*flags & F_l)
 			ft_print_lst(flags, list);
 	}
 	ft_list_clean(dirs);
- ft_putendl("end print");
+ /* ft_putendl("end print"); */
 	return (1);
 }

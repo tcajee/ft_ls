@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/28 15:50:52 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/29 12:16:06 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ typedef struct group	t_group;
 typedef struct			s_info
 {
 	char				*root;
-	char				*path;
 	char				*name;
+	char				*path;
 	t_stat				s_stat;
 	struct s_info		*next;
 	struct s_info		*prev;
@@ -118,6 +118,7 @@ t_info					*ft_list_add(t_info *list);
 int						ft_list_ins(t_info *list);
 int						ft_list_merge(t_info *list);
 void					ft_list_clean(t_dirs *dirs);
+void					ft_list_print(t_dirs *dirs);
 
 void					ft_sorts(int *flags, t_dirs *dirs);
 void					ft_sort_tim(int *flags, t_info *list, int size);

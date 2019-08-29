@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/28 16:15:32 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/29 12:07:27 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_ls_rec(int *flags, char *path)
 	DIR			*dir;
 	char		*fpath;
 
-ft_putendl("begin ls rec");
+/* ft_putendl("begin ls rec"); */
 	if (!(dir = opendir(path)))
 		return (0);
 	while ((s_dir = readdir(dir)) != NULL)
@@ -32,7 +32,7 @@ ft_putendl("begin ls rec");
 		free(fpath);
 	}
 	closedir(dir);
-ft_putendl("end ls rec");
+/* ft_putendl("end ls rec"); */
 	return (1);
 }
 
@@ -45,7 +45,7 @@ int	main(int argc, char **argv)
 	if ((i = ft_flags(&flags, argv)) < 0)
 		return (0);
 
-ft_putendl("begin ls");
+/* ft_putendl("begin ls"); */
 	if ((argc - i) > 1)
 		flags |= F_M;
 	if (!argv[i])
@@ -62,7 +62,7 @@ ft_putendl("begin ls");
 			while (argv[++j])
 				if (ft_dir_check(argv[j]) == 2)
 					ft_dirs(&flags, argv[j]);
-ft_putendl("end ls");
+/* ft_putendl("end ls"); */
 	return (1);
 }
 
