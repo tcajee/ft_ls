@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/29 16:37:24 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/29 16:48:02 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	print_time_str(time_t secs)
 	/* const char	*str = ctime(&secs); */
 
 	(void)secs;
-	ft_print_f("XXX XX  XX:XX ");
+	ft_printf_("%s ", ft_strsub(ctime(&secs), 1, 8));
 	/* ft_print_f("%", str + 8); */
 	/* ft_print_f(" %", str + 4); */
 	/* if (time(NULL) - (time_t)(60 * 60 * 24 * 30.42 * 6) > secs) */
@@ -110,28 +110,28 @@ void	ft_print_perm(t_stat *s_stat)
 		permissions[9] = 'x';
 	permissions[10] = ' ';
 	permissions[11] = '\0';
-	ft_print_f("%  ", permissions);
+	ft_printf_("%s ", permissions);
 }
 
 int	ft_print_def(int *flags, t_info *list)
 {
- /* ft_putendl("end print def"); */
-	ft_print_f("%", list->name);
+ ft_putendl("end print def");
+	ft_printf_("%s", list->name);
 	if (*flags & F_F)
 	{
-		if (ft_ls_check(list->path) == 2)
-			ft_print_f("/");
+		if (ft_dir_check(list->path) == 2)
+			ft_printf_("/");
 		else if ((list->s_stat.st_mode & S_IFMT) == S_IFLNK)
-			ft_print_f("@");
+			ft_printf_("@");
 		else if ((list->s_stat.st_mode & S_IFMT) == S_IFIFO)
-			ft_print_f("|");
+			ft_printf_("|");
 		else if ((list->s_stat.st_mode & S_IFMT) == S_IFSOCK)
-			ft_print_f("=");
+			ft_printf_("=");
 		else if (list->s_stat.st_mode & S_IXUSR)
-			ft_print_f("*");
+			ft_printf_("*");
 	}
-	ft_print_f("n");
- /* ft_putendl("end print def"); */
+	ft_printf_("\n");
+ ft_putendl("end print def");
 	return (1);
 }
 
@@ -143,28 +143,28 @@ int	ft_print_lst(int *flags, t_info *list)
 
  /* ft_putendl("beg print ls"); */
 	ft_print_perm(&list->s_stat);
-	ft_print_f("%t", temp = ft_itoa(list->s_stat.st_nlink));
+	ft_printf_("%5x ", temp = ft_itoa(list->s_stat.st_nlink));
 	free(temp);
 	s_pwd = getpwuid(list->s_stat.st_uid);
 	if (s_pwd)
-		ft_print_f("%t", s_pwd->pw_name);
+		ft_printf_("%10s", s_pwd->pw_name);
 	else
 	{
-		ft_print_f("%t", temp = ft_itoa(list->s_stat.st_uid));
+		ft_printf_("%10s", temp = ft_itoa(list->s_stat.st_uid));
 		free(temp);
 	}
 	s_grp = getgrgid(list->s_stat.st_gid);
 	if (!(*flags & F_g))
 	{
 		if (s_grp)
-			ft_print_f("%t", s_grp->gr_name);
+			ft_printf_("%10s", s_grp->gr_name);
 		else
 		{
-			ft_print_f("%t", temp = ft_itoa(list->s_stat.st_gid));
+			ft_print_f("%10s", temp = ft_itoa(list->s_stat.st_gid));
 			free(temp);
 		}
 	}
-	ft_print_f("%t", temp = ft_itoa(list->s_stat.st_size));
+	ft_print_f("%10s", temp = ft_itoa(list->s_stat.st_size));
 	free(temp);
 	ft_print_time(list->s_stat, flags);
 	ft_print_def(flags, list);
@@ -181,14 +181,16 @@ int	ft_prints(int *flags, t_dirs *dirs)
  /* ft_putendl("begin print"); */
 	if ((*flags & F_M || *flags & F_R) && *flags & F_P && !(*flags & F_REG))
 	{
-		ft_print_f("n");
-		ft_print_f("%:n", dirs->name);
+ 		ft_putendl("print name");
+		ft_printf_("\n");
+		ft_printf_("%s:\n", list->root);
 	}
  /* ft_putendl("begin print"); */
 	list = dirs->list;
 	if (*flags & F_l && !(*flags & F_REG))
 	{
-		ft_print_f("%%n", "total ", dirs->total);
+ 		ft_putendl("print tottal");
+		ft_print_f("%d%d\n", "total ", dirs->total);
 	}
  /* ft_putendl("begin print"); */
 	*flags |= F_P;

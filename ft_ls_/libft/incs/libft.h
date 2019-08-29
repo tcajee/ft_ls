@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:27:09 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/20 18:45:38 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/29 14:43:50 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # include "get_next_line.h"
 # include "ft_ls.h"
+# include "ft_printf_.h"
 
 typedef	struct		s_list
 {
@@ -70,6 +71,7 @@ char				*ft_strrev(char *s);
 
 int					ft_atoi(const char *str);
 char				*ft_itoa(int n);
+char				*ft_lltoa(long long int n);
 
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
