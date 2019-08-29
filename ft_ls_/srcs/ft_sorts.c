@@ -45,7 +45,7 @@ void ft_sort_merge(int *flags, t_info *list, int l, int m, int r)
 	int len1;
 	int len2;
 
-	ft_putendl("merge");
+	/* ft_putendl("merge"); */
 	len1 = m - l + 2;
 	len2 = r - m;
 
@@ -53,14 +53,14 @@ void ft_sort_merge(int *flags, t_info *list, int l, int m, int r)
 	t_info right[len2];
 	
 	i = 0;
-	ft_putendl("left");
+	/* ft_putendl("left"); */
     while (i < len1)
 	{
 		left[i] = list[l + i];
 		i++;
 	}
 	i = 0;
-	ft_putendl("right");
+	/* ft_putendl("right"); */
     while (i < len2)
 	{
 		right[i] = list[m + 1 + i];
@@ -71,7 +71,7 @@ void ft_sort_merge(int *flags, t_info *list, int l, int m, int r)
     k = l;
     // after comparing, we merge those two array
     // in larger sub array
-	ft_putendl("merge:left right");
+	/* ft_putendl("merge:left right"); */
     while (i < len1 && j < len2)
     {
         if (ft_sort_comp(flags, list, i, j) <= 0)
@@ -87,7 +87,7 @@ void ft_sort_merge(int *flags, t_info *list, int l, int m, int r)
         k++;
     }
     // copy remaining elements of left, if any
-	ft_putendl("copy: left");
+	/* ft_putendl("copy: left"); */
     while (i < len1)
     {
         list[k] = left[i];
@@ -95,7 +95,7 @@ void ft_sort_merge(int *flags, t_info *list, int l, int m, int r)
         i++;
     }
     // copy remaining element of right, if any
-	ft_putendl("copy: right");
+	/* ft_putendl("copy: right"); */
     while (j < len2)
     {
         list[k] = right[j];
@@ -111,7 +111,7 @@ void ft_sort_ins(int *flags, t_info dirs[], int left, int right)
 	int j;
 	t_info temp;
 
-	ft_putendl("ins");
+	/* ft_putendl("ins"); */
 	i = left + 1;
 	while (i <= right)
 	{

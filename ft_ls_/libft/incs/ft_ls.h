@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/28 15:50:52 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/29 16:35:34 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,19 @@ typedef struct dirent	t_dirent;
 typedef struct passwd	t_passwd;
 typedef struct group	t_group;
 
+typedef struct			s_form
+{
+	int					grp_len;
+	int					usr_len;
+	int					link_len;
+	int					size_len;
+}						t_form;
+
 typedef struct			s_info
 {
 	char				*root;
-	char				*path;
 	char				*name;
+	char				*path;
 	t_stat				s_stat;
 	struct s_info		*next;
 	struct s_info		*prev;
@@ -95,11 +103,14 @@ typedef struct			s_dirs
 	char				*total;
 	char				*name;
 	t_stat				s_stat;
+	t_form				s_form;
 	struct s_info		*list;
 	struct s_info		*last;
 }						t_dirs;
 
 int						ft_ls_rec(int *flags, char *path);
+char					*ft_ls_path(char *path, char *d_name);
+int						ft_ls_check(char *path);
 
 int						ft_flags(int *flags, char **argv);
 int						ft_flag_check(int *flags, char flag);
@@ -107,10 +118,9 @@ int						ft_lflag_check(int *flags, char *option);
 void					ft_flag_print(int *flags);
 
 int						ft_dirs(int *flags, char *path);
+t_dirs					*ft_dir_new(char *path);
 int						ft_dir_dinfo(int *flags, t_dirs *dirs, char *path);
 int						ft_dir_finfo(int *flags, t_dirs *dirs, char *path);
-char					*ft_dir_path(char *path, char *d_name);
-int						ft_dir_check(char *path);
 
 int						ft_lists(int *flags, t_info *list);
 t_info					*ft_list_new(void);
@@ -118,6 +128,7 @@ t_info					*ft_list_add(t_info *list);
 int						ft_list_ins(t_info *list);
 int						ft_list_merge(t_info *list);
 void					ft_list_clean(t_dirs *dirs);
+void					ft_list_print(t_dirs *dirs);
 
 void					ft_sorts(int *flags, t_dirs *dirs);
 void					ft_sort_tim(int *flags, t_info *list, int size);
