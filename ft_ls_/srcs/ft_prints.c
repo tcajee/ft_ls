@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/29 15:47:44 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/29 16:37:24 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	ft_print_def(int *flags, t_info *list)
 	ft_print_f("%", list->name);
 	if (*flags & F_F)
 	{
-		if (ft_dir_check(list->path) == 2)
+		if (ft_ls_check(list->path) == 2)
 			ft_print_f("/");
 		else if ((list->s_stat.st_mode & S_IFMT) == S_IFLNK)
 			ft_print_f("@");
@@ -174,14 +174,13 @@ int	ft_print_lst(int *flags, t_info *list)
 
 int	ft_prints(int *flags, t_dirs *dirs)
 {
- ft_putendl("begin print");
+/* ft_putendl("begin print"); */
 	t_info	*list;
 	int j;
 
  /* ft_putendl("begin print"); */
 	if ((*flags & F_M || *flags & F_R) && *flags & F_P && !(*flags & F_REG))
 	{
- 		ft_putendl("print name");
 		ft_print_f("n");
 		ft_print_f("%:n", dirs->name);
 	}
@@ -189,7 +188,6 @@ int	ft_prints(int *flags, t_dirs *dirs)
 	list = dirs->list;
 	if (*flags & F_l && !(*flags & F_REG))
 	{
- 		ft_putendl("print tottal");
 		ft_print_f("%%n", "total ", dirs->total);
 	}
  /* ft_putendl("begin print"); */
