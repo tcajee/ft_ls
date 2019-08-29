@@ -6,66 +6,20 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/29 16:48:02 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/08/29 17:11:29 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
-
-int	ft_print_f(char *ft, ...)
-{
-	va_list	v_list;
-	int		i;
-
-	i = -1;
-	va_start(v_list, ft);
-	while (ft[++i])
-	{
-		if (ft[i] == '%')
-			ft_putstr(va_arg(v_list, char *));
-		else if (ft[i] == 'n')
-			ft_putendl("");
-		else if (ft[i] == 't')
-			ft_putstr("	");
-		else if (ft[i] == '.')
-			ft_putendl("");
-		else if (ft[i])
-			ft_putchar(ft[i]);
-	}
-	va_end(v_list);
-	return (1);
-}
-
-void	print_time_str(time_t secs)
-{
-	/* const char	*str = ctime(&secs); */
-
-	(void)secs;
-	ft_printf_("%s ", ft_strsub(ctime(&secs), 1, 8));
-	/* ft_print_f("%", str + 8); */
-	/* ft_print_f(" %", str + 4); */
-	/* if (time(NULL) - (time_t)(60 * 60 * 24 * 30.42 * 6) > secs) */
-	/* 	ft_print_f("  %", str + 20); */
-	/* else if (time(NULL) < secs) */
-	/* { */
-	/* 	if (str[20] == ' ') */
-	/* 		ft_print_f("  %", str + 24); */
-	/* 	else */
-	/* 		ft_print_f("  %", str + 20); */
-	/* } */
-	/* else */
-	/* 	ft_print_f(" %", str + 11); */
-
-}
 
 void		ft_print_time(t_stat s_stat, int *flags)
 {
 	if (*flags & F_l)
 	{
 		if (*flags & F_u)
-			print_time_str(s_stat.st_atime);
+			ft_printf_("%s ", ft_strsub(ctime(&s_stat.st_atime), 3, 13));
 		else
-			print_time_str(s_stat.st_mtime);
+			ft_printf_("%s ", ft_strsub(ctime(&s_stat.st_mtime), 3, 13));
 	}
 }
 
@@ -115,11 +69,10 @@ void	ft_print_perm(t_stat *s_stat)
 
 int	ft_print_def(int *flags, t_info *list)
 {
- ft_putendl("end print def");
 	ft_printf_("%s", list->name);
 	if (*flags & F_F)
 	{
-		if (ft_dir_check(list->path) == 2)
+		if (ft_ls_check(list->path) == 2)
 			ft_printf_("/");
 		else if ((list->s_stat.st_mode & S_IFMT) == S_IFLNK)
 			ft_printf_("@");
@@ -131,44 +84,33 @@ int	ft_print_def(int *flags, t_info *list)
 			ft_printf_("*");
 	}
 	ft_printf_("\n");
- ft_putendl("end print def");
 	return (1);
 }
 
 int	ft_print_lst(int *flags, t_info *list)
 {
-	char		*temp;
 	t_passwd	*s_pwd;
 	t_group		*s_grp;
 
  /* ft_putendl("beg print ls"); */
 	ft_print_perm(&list->s_stat);
-	ft_printf_("%5x ", temp = ft_itoa(list->s_stat.st_nlink));
-	free(temp);
+	ft_printf_("%5x ", list->s_stat.st_nlink);
 	s_pwd = getpwuid(list->s_stat.st_uid);
 	if (s_pwd)
 		ft_printf_("%10s", s_pwd->pw_name);
 	else
-	{
-		ft_printf_("%10s", temp = ft_itoa(list->s_stat.st_uid));
-		free(temp);
-	}
+		ft_printf_("%10d", list->s_stat.st_uid);
 	s_grp = getgrgid(list->s_stat.st_gid);
 	if (!(*flags & F_g))
 	{
 		if (s_grp)
 			ft_printf_("%10s", s_grp->gr_name);
 		else
-		{
-			ft_print_f("%10s", temp = ft_itoa(list->s_stat.st_gid));
-			free(temp);
-		}
+			ft_printf_("%10d", list->s_stat.st_gid);
 	}
-	ft_print_f("%10s", temp = ft_itoa(list->s_stat.st_size));
-	free(temp);
+	ft_printf_("%10d", list->s_stat.st_size);
 	ft_print_time(list->s_stat, flags);
 	ft_print_def(flags, list);
- /* ft_putendl("end print ls"); */
 	return (1);
 }
 
@@ -181,16 +123,14 @@ int	ft_prints(int *flags, t_dirs *dirs)
  /* ft_putendl("begin print"); */
 	if ((*flags & F_M || *flags & F_R) && *flags & F_P && !(*flags & F_REG))
 	{
- 		ft_putendl("print name");
 		ft_printf_("\n");
-		ft_printf_("%s:\n", list->root);
+		ft_printf_("%s:\n", dirs->list->root);
 	}
  /* ft_putendl("begin print"); */
 	list = dirs->list;
 	if (*flags & F_l && !(*flags & F_REG))
 	{
- 		ft_putendl("print tottal");
-		ft_print_f("%d%d\n", "total ", dirs->total);
+		ft_printf_("%d%d\n", "total ", dirs->total);
 	}
  /* ft_putendl("begin print"); */
 	*flags |= F_P;
@@ -215,7 +155,7 @@ int	ft_prints(int *flags, t_dirs *dirs)
 			ft_print_lst(flags, list);
 		list = (*flags & F_r && !(*flags & F_REG)) ? list->prev: list->next;
 	}
-	ft_list_clean(dirs);
+//	ft_list_clean(dirs);
  /* ft_putendl("end print"); */
 	return (1);
 }
