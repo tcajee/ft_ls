@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 11:36:46 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/20 10:43:14 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/29 14:58:53 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,14 @@ int	ft_error_file(char *path)
 	return (0);
 }
 
+
 int	ft_errors(int code, char *error)
 {
-	F_(code == E_FLAGS, ft_error_flag(error));
-	_F_(code == E_DIRS, ft_error_dir(error));
-	_F_(code == E_PRINTS, ft_error_print(error));
-	_F_(code == E_FILES, ft_error_file(error));
+	(void)error;
+//	F_(code == E_FLAGS, ft_error_flag(error));
+//	_F_(code == E_DIRS, ft_error_dir(error));
+//	_F_(code == E_PRINTS, ft_error_print(error));
+//	_F_(code == E_FILES, ft_error_file(error));
 	return (code);
 }
 
