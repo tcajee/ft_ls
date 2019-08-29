@@ -6,7 +6,7 @@
 /*   By: sminnaar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 14:34:00 by sminnaar          #+#    #+#             */
-/*   Updated: 2019/08/29 14:24:05 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/08/29 16:40:20 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	ft_printf_(char *format, ...)
 			++i;
 			ft_slash(format[i]);
 		}
+		if (format[i] == '\0')
+			break ;
 		ft_putchar(format[i]);
 		i++;
 	}
