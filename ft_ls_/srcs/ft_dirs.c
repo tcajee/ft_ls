@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/29 16:35:32 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/29 16:50:13 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,7 @@ int	ft_dir_dinfo(int *flags, t_dirs *dirs, char *path)
 	dirs->total = ft_itoa(total);
 	dirs->size = size;
 
-	/* if (dirs->size > 1 && !(*flags & F_REG) && !(*flags & F_f)) */
-	/* 	ft_sorts(flags, dirs); */
-
-	/* ft_list_print(dirs); */
 	ft_prints(flags, dirs);
-
 /* ft_putendl("end dinfo"); */
 	return (1);
 }
@@ -101,14 +96,20 @@ int ft_dir_finfo(int *flags, t_dirs *dirs, char *path)
 
 int ft_dirs(int *flags, char *path)
 {
+	t_dirs	dirs;
  /* ft_putendl("begin dirs"); */
-	t_dirs		dirs;
 	if (ft_ls_check(path) == 1 && (!(ft_dir_finfo(flags, &dirs, path))))
 		return (0);
 	else if (ft_ls_check(path) == 2 && (!(ft_dir_dinfo(flags, &dirs, path))))
 		return (0);
 	if (*flags & F_R)
 		ft_ls_rec(flags, path);
+	
+	/* if (dirs->size > 1 && !(*flags & F_REG) && !(*flags & F_f)) */
+	/* 	ft_sorts(flags, dirs); */
+
+	/* ft_list_print(&dirs); */
+
 	/* ft_putendl("end dirs"); */
 	return (1);
 }
