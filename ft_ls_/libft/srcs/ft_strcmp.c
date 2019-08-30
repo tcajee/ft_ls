@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 13:27:32 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/27 16:45:45 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/30 12:14:36 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,5 @@ int	ft_strcmp(const char *s1, const char *s2)
 		return (1);
 	while (str1[i] && (str1[i] == str2[i]))
 		i++;
-	/* if ((str1[i] - str2[i]) > 0) */
-	/* 	return (1); */
-	/* if ((str1[i] - str2[i]) < 0) */
-	/* 	return (-1); */
 	return (str1[i] - str2[i]);
 }
