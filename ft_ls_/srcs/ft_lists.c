@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 11:16:28 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/30 12:24:26 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/30 14:19:51 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,33 +40,37 @@ void	ft_list_print(t_dirs *dirs)
 
 	i = 0;
 	list = dirs->list;
-	printf("---------------------------------------\n");
-	printf("dirs		[%p]\n", dirs);
-	printf("&dirs->list	[%p]\n", &dirs->list);
-	printf("dirs->list	[%p]\n", dirs->list);
-	printf("dirs->size	[%d]\n", dirs->size);
-	printf("dirs->total	[%d]\n", dirs->total);
+	printf("------------------------------------------\n");
+	printf("dirs			[%p]\n", dirs);
+	printf("&dirs->list		[%p]\n", &dirs->list);
+	printf("dirs->list		[%p]\n", dirs->list);
+	printf("dirs->size		[%d]\n", dirs->size);
+	printf("dirs->total		[%d]\n", dirs->total);
 	if (dirs->name)
-		printf("dirs->name	[%s]\n", dirs->name);
-	printf("&dirs->last	[%p]\n", &dirs->last);
-	printf("dirs->last	[%p]\n", dirs->last);
-	printf("---------------------------------------\n");
+		printf("dirs->name		[%s]\n", dirs->name);
+	printf("dirs->s_form.grp_len	[%d]\n", dirs->s_form.grp_len);
+	printf("dirs->s_form.usr_len	[%d]\n", dirs->s_form.usr_len);
+	printf("dirs->s_form-.link_len	[%d]\n", dirs->s_form.link_len);
+	printf("dirs->s_form.size_len	[%d]\n", dirs->s_form.size_len);
+	printf("&dirs->last		[%p]\n", &dirs->last);
+	printf("dirs->last		[%p]\n", dirs->last);
+	printf("------------------------------------------\n");
 	while (list)
 	{
-		printf("---------------------------------------\n");
-		printf("[%d]		[%p]\n", i, list);
-		printf("list->root	[%s]\n", list->root);
-		printf("list->name	[%s]\n", list->name);
-		printf("list->path	[%s]\n", list->path);
-		printf("list->next	[%p]\n", list->next);
-		printf("list->prev	[%p]\n", list->prev);
+		printf("-------------------------------------------\n");
+		printf("[%d]			[%p]\n", i, list);
+		printf("list->root		[%s]\n", list->root);
+		printf("list->name		[%s]\n", list->name);
+		printf("list->path		[%s]\n", list->path);
+		printf("list->next		[%p]\n", list->next);
+		printf("list->prev		[%p]\n", list->prev);
 		i++;
 		list = list->next;
 	}
-	printf("---------------------------------------\n");
-	printf("&dirs->list	[%p]\n", &dirs->list);
-	printf("dirs->list	[%p]\n", dirs->list);
-	printf("---------------------------------------\n");
+	printf("------------------------------------------\n");
+	/* printf("&dirs->list	[%p]\n", &dirs->list); */
+	/* printf("dirs->list	[%p]\n", dirs->list); */
+	/* printf("------------------------------------------\n"); */
 }
 
 int	ft_list_ins(t_info *list)
