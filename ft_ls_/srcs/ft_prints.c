@@ -6,11 +6,33 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/30 13:53:12 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/30 17:55:52 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
+
+void	ft_perm(char *permissions, t_stat *s_stat)
+{
+	if (s_stat->st_mode & S_IRUSR)
+		permissions[1] = 'r';
+	if (s_stat->st_mode & S_IWUSR)
+		permissions[2] = 'w';
+	if (s_stat->st_mode & S_IXUSR)
+		permissions[3] = 'x';
+	if (s_stat->st_mode & S_IRGRP)
+		permissions[4] = 'r';
+	if (s_stat->st_mode & S_IWGRP)
+		permissions[5] = 'w';
+	if (s_stat->st_mode & S_IXGRP)
+		permissions[6] = 'x';
+	if (s_stat->st_mode & S_IROTH)
+		permissions[7] = 'r';
+	if (s_stat->st_mode & S_IWOTH)
+		permissions[8] = 'w';
+	if (s_stat->st_mode & S_IXOTH)
+		permissions[9] = 'x';
+}
 
 void	ft_print_perm(t_stat *s_stat)
 {
@@ -31,24 +53,7 @@ void	ft_print_perm(t_stat *s_stat)
 		permissions[0] = 's';
 	else if ((s_stat->st_mode & S_IFMT) == S_IFIFO)
 		permissions[0] = 'p';
-	if (s_stat->st_mode & S_IRUSR)
-		permissions[1] = 'r';
-	if (s_stat->st_mode & S_IWUSR)
-		permissions[2] = 'w';
-	if (s_stat->st_mode & S_IXUSR)
-		permissions[3] = 'x';
-	if (s_stat->st_mode & S_IRGRP)
-		permissions[4] = 'r';
-	if (s_stat->st_mode & S_IWGRP)
-		permissions[5] = 'w';
-	if (s_stat->st_mode & S_IXGRP)
-		permissions[6] = 'x';
-	if (s_stat->st_mode & S_IROTH)
-		permissions[7] = 'r';
-	if (s_stat->st_mode & S_IWOTH)
-		permissions[8] = 'w';
-	if (s_stat->st_mode & S_IXOTH)
-		permissions[9] = 'x';
+	ft_perm(permissions, s_stat);
 	permissions[10] = ' ';
 	permissions[11] = '\0';
 	ft_printf_("%s ", permissions);
@@ -73,28 +78,33 @@ int	ft_print_def(int *flags, t_info *list)
 	ft_printf_("\n");
 	return (1);
 }
-
+/*
+ *
+ * Waitng for max values
+ * The format is %.i where i = variable for max width
+ * 
+ * */
 int	ft_print_lst(int *flags, t_info *list)
 {
 	t_passwd	*s_pwd;
 	t_group		*s_grp;
 
 	ft_print_perm(&list->s_stat);
-	ft_printf_("%5x ", list->s_stat.st_nlink);
+	ft_printf_("%x ", list->s_stat.st_nlink);
 	s_pwd = getpwuid(list->s_stat.st_uid);
 	if (s_pwd)
-		ft_printf_("%10s", s_pwd->pw_name);
+		ft_printf_("%s", s_pwd->pw_name);
 	else
-		ft_printf_("%10d", list->s_stat.st_uid);
+		ft_printf_("%d", list->s_stat.st_uid);
 	s_grp = getgrgid(list->s_stat.st_gid);
 	if (!(*flags & F_g))
 	{
 		if (s_grp)
-			ft_printf_("%10s", s_grp->gr_name);
+			ft_printf_("%s", s_grp->gr_name);
 		else
-			ft_printf_("%10d", list->s_stat.st_gid);
+			ft_printf_("%d", list->s_stat.st_gid);
 	}
-	ft_printf_("%5d", list->s_stat.st_size);
+	ft_printf_("%d", list->s_stat.st_size);
 	if (*flags & F_u)
 		ft_printf_("%s ", ft_strsub(ctime(&list->s_stat.st_atime), 3, 13));
 	else
@@ -131,6 +141,24 @@ int	ft_prints(int *flags, t_dirs *dirs)
 	return (1);
 }
 
+/*	if (s_stat->st_mode & S_IRUSR)
+		permissions[1] = 'r';
+	if (s_stat->st_mode & S_IWUSR)
+		permissions[2] = 'w';
+	if (s_stat->st_mode & S_IXUSR)
+		permissions[3] = 'x';
+	if (s_stat->st_mode & S_IRGRP)
+		permissions[4] = 'r';
+	if (s_stat->st_mode & S_IWGRP)
+		permissions[5] = 'w';
+	if (s_stat->st_mode & S_IXGRP)
+		permissions[6] = 'x';
+	if (s_stat->st_mode & S_IROTH)
+		permissions[7] = 'r';
+	if (s_stat->st_mode & S_IWOTH)
+		permissions[8] = 'w';
+	if (s_stat->st_mode & S_IXOTH)
+		permissions[9] = 'x';*/
 
 
 

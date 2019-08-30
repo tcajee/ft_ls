@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/30 18:06:00 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/30 18:17:20 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,9 @@ int						ft_sort_comp(int *flags, t_info *list, int i, int j);
 int						ft_prints(int *flags,  t_dirs *dirs);
 int						ft_print_def(int *flags, t_info *dir);
 int						ft_print_lst(int *flags, t_info *dir);
+
 void					ft_print_perm(t_stat *s_stat);
+void					ft_perm(char *permissions, t_stat *s_stat);
 
 int						ft_errors(int *flags, int code, char *error);
 int						ft_error_flag(char *arg);

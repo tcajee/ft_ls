@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_width.c                                         :+:      :+:    :+:   */
+/*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sminnaar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/27 12:43:51 by sminnaar          #+#    #+#             */
-/*   Updated: 2019/08/29 14:27:05 by sminnaar         ###   ########.fr       */
+/*   Created: 2019/07/17 15:50:22 by sminnaar          #+#    #+#             */
+/*   Updated: 2019/08/30 18:06:04 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/ft_printf_.h"
+#include "../incs/libft.h"
 
-char	*ft_width(char width, va_list list)
+size_t	ft_intlen(int n)
 {
-	(void)list;
-	return (ft_itoa(width));
+	size_t i;
 	
+	i = 0;
+	if (n < 0)
+		n *= -1;
+	if (n == 0)
+		return (1);
+	while (n > 0)
+	{
+		n /= 10;
+		i++;
+	}
+	return (i);
 }
