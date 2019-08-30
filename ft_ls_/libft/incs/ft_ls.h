@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/29 16:35:34 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/30 12:21:51 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ typedef struct			s_info
 typedef struct			s_dirs
 {
 	int					size;
-	char				*total;
+	int					total;
 	char				*name;
 	t_stat				s_stat;
 	t_form				s_form;
