@@ -6,22 +6,11 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/30 13:48:44 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/30 13:53:12 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
-
-void		ft_print_time(t_stat s_stat, int *flags)
-{
-	if (*flags & F_l)
-	{
-		if (*flags & F_u)
-			ft_printf_("%s ", ft_strsub(ctime(&s_stat.st_atime), 3, 13));
-		else
-			ft_printf_("%s ", ft_strsub(ctime(&s_stat.st_mtime), 3, 13));
-	}
-}
 
 void	ft_print_perm(t_stat *s_stat)
 {
@@ -42,8 +31,6 @@ void	ft_print_perm(t_stat *s_stat)
 		permissions[0] = 's';
 	else if ((s_stat->st_mode & S_IFMT) == S_IFIFO)
 		permissions[0] = 'p';
-	/* else if ((s_stat->st_mode & S_IFMT) == S_IFWHT) */
-	/* 	permissions[0] = 'w'; */
 	if (s_stat->st_mode & S_IRUSR)
 		permissions[1] = 'r';
 	if (s_stat->st_mode & S_IWUSR)
@@ -92,7 +79,6 @@ int	ft_print_lst(int *flags, t_info *list)
 	t_passwd	*s_pwd;
 	t_group		*s_grp;
 
- /* ft_putendl("beg print ls"); */
 	ft_print_perm(&list->s_stat);
 	ft_printf_("%5x ", list->s_stat.st_nlink);
 	s_pwd = getpwuid(list->s_stat.st_uid);
@@ -109,7 +95,10 @@ int	ft_print_lst(int *flags, t_info *list)
 			ft_printf_("%10d", list->s_stat.st_gid);
 	}
 	ft_printf_("%5d", list->s_stat.st_size);
-	ft_print_time(list->s_stat, flags);
+	if (*flags & F_u)
+		ft_printf_("%s ", ft_strsub(ctime(&list->s_stat.st_atime), 3, 13));
+	else
+		ft_printf_("%s ", ft_strsub(ctime(&list->s_stat.st_mtime), 3, 13));
 	ft_print_def(flags, list);
 	return (1);
 }
