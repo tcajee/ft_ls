@@ -6,7 +6,7 @@
 /*   By: sminnaar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 14:34:00 by sminnaar          #+#    #+#             */
-/*   Updated: 2019/08/30 12:07:06 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/08/30 12:10:22 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	ft_printf_(char *format, ...)
 	int		i;
 	int		width;
 
-		
 	va_start(v_list, format);
 	i = 0;
 	while (format[i])
