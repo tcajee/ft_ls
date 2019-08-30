@@ -92,6 +92,7 @@ typedef struct			s_info
 	char				*root;
 	char				*name;
 	char				*path;
+	int					i;
 	t_stat				s_stat;
 	struct s_info		*next;
 	struct s_info		*prev;
@@ -106,6 +107,7 @@ typedef struct			s_dirs
 	t_form				s_form;
 	struct s_info		*list;
 	struct s_info		*last;
+	t_info				*array[];
 }						t_dirs;
 
 int						ft_ls_rec(int *flags, char *path);
@@ -131,10 +133,11 @@ void					ft_list_clean(t_dirs *dirs);
 void					ft_list_print(t_dirs *dirs);
 
 void					ft_sorts(int *flags, t_dirs *dirs);
-void					ft_sort_tim(int *flags, t_info *list, int size);
-void					ft_sort_merge(int *flags, t_info *list, int l, int m, int r);
-void					ft_sort_ins(int *flags, t_info *list, int l, int r);
-int						ft_sort_comp(int *flags, t_info *list, int i, int j);
+void					ft_sort_tim(int *flags, t_dirs *dirs, int size);
+void					ft_sort_merge(int *flags, t_dirs *dirs, int l, int m, int r);
+void					ft_sort_ins(int *flags, t_dirs *dirs, t_info *l, t_info  *r);
+t_info					*ft_sort_comp(int *flags, t_dirs *dirs, t_info *i, t_info *j);
+
 
 int						ft_prints(int *flags, t_dirs *dirs);
 int						ft_print_def(int *flags, t_info *dir);

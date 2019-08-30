@@ -58,12 +58,14 @@ void	ft_list_print(t_dirs *dirs)
 	while (list)
 	{
 		printf("-------------------------------------------\n");
+		printf("dirs->array[%d]		[%p]\n", i, dirs->array[i]);
 		printf("[%d]			[%p]\n", i, list);
 		printf("list->root		[%s]\n", list->root);
 		printf("list->name		[%s]\n", list->name);
 		printf("list->path		[%s]\n", list->path);
 		printf("list->next		[%p]\n", list->next);
 		printf("list->prev		[%p]\n", list->prev);
+		printf("list->i			[%d]\n", list->i);
 		i++;
 		list = list->next;
 	}

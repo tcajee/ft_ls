@@ -71,6 +71,7 @@ int ft_dir_fill(int *flags, t_dirs *dirs, char *path)
 
 	list = dirs->list;
 	dirs->last = list;
+	dirs->name = ft_strdup(path);
 	if (!(dir = opendir(path)))
 		return (ft_errors(flags, E_PRINTS, path));
 	while ((s_dir = readdir(dir)) != NULL && ++dirs->size)
@@ -80,9 +81,11 @@ int ft_dir_fill(int *flags, t_dirs *dirs, char *path)
 		list->root = ft_strdup(path);
 		list->name = ft_strdup(s_dir->d_name);
 		list->path = ft_ls_path(path, s_dir->d_name);
+		list->i = dirs->size -1;
 		lstat(list->path, &list->s_stat);
 		dirs->total += list->s_stat.st_blocks;
 		dirs->last = list;
+		dirs->array[dirs->size - 1] = list;
 		ft_dir_form(flags, dirs);
 		list = list->next;
 	}
@@ -123,8 +126,8 @@ int ft_dirs(int *flags, char *path)
 			return (0);
 		/* if (dirs->size > 1 && !(*flags & F_REG) && !(*flags & F_f)) */
 		/* 	ft_sorts(flags, dirs); */
-		/* ft_list_print(dirs); */
-		ft_prints(flags, dirs);
+		ft_list_print(dirs);
+		/* ft_prints(flags, dirs); */
 		
 		dirs->s_form.grp_len = 0;
 		dirs->s_form.usr_len = 0;
