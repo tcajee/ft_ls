@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/30 14:13:38 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/08/30 16:58:27 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,28 +73,33 @@ int	ft_print_def(int *flags, t_info *list)
 	ft_printf_("\n");
 	return (1);
 }
-
+/*
+ *
+ * Waitng for max values
+ * The format is %.i where i = variable for max width
+ * 
+ * */
 int	ft_print_lst(int *flags, t_info *list)
 {
 	t_passwd	*s_pwd;
 	t_group		*s_grp;
 
 	ft_print_perm(&list->s_stat);
-	ft_printf_("%5x ", list->s_stat.st_nlink);
+	ft_printf_("%x ", list->s_stat.st_nlink);
 	s_pwd = getpwuid(list->s_stat.st_uid);
 	if (s_pwd)
-		ft_printf_("%10s", s_pwd->pw_name);
+		ft_printf_("%s", s_pwd->pw_name);
 	else
-		ft_printf_("%10d", list->s_stat.st_uid);
+		ft_printf_("%d", list->s_stat.st_uid);
 	s_grp = getgrgid(list->s_stat.st_gid);
 	if (!(*flags & F_g))
 	{
 		if (s_grp)
-			ft_printf_("%10s", s_grp->gr_name);
+			ft_printf_("%s", s_grp->gr_name);
 		else
-			ft_printf_("%10d", list->s_stat.st_gid);
+			ft_printf_("%d", list->s_stat.st_gid);
 	}
-	ft_printf_("%5d", list->s_stat.st_size);
+	ft_printf_("%d", list->s_stat.st_size);
 	if (*flags & F_u)
 		ft_printf_("%s ", ft_strsub(ctime(&list->s_stat.st_atime), 3, 13));
 	else
