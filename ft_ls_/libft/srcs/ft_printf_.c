@@ -6,7 +6,7 @@
 /*   By: sminnaar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 14:34:00 by sminnaar          #+#    #+#             */
-/*   Updated: 2019/08/29 16:40:20 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/08/30 12:07:06 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,7 @@ void	ft_printf_(char *format, ...)
 		{
 			++i;
 			width = ft_spec(&format[i], v_list);
-			if (width == 0)
-				i += 1;
-			if (width <= 9 && width != 0)
-				i += 2;
-			if (width >= 10)
-				i += 3;
+			ft_inc_width(&i, width);
 		}
 		else if (format[i] == '\\')
 		{
