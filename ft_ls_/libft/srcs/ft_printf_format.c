@@ -6,19 +6,11 @@
 /*   By: sminnaar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/30 16:37:39 by sminnaar          #+#    #+#             */
-/*   Updated: 2019/08/30 16:53:08 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/08/30 18:46:46 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/ft_printf_.h"
-
-int		ft_format_width(va_list list)
-{
-	int width;
-
-	width = va_arg(list, int);
-	return (width);
-}
 
 void	ft_parse(char *form, va_list list)
 {
@@ -31,8 +23,8 @@ void	ft_parse(char *form, va_list list)
 	{
 		if (form[i + 1] == '.' && form[i] == '%')
 		{
-			i += 3;
-			width = ft_format_width(list);
+			i += 2;
+			width = va_arg(list, int);
 		}
 		if (form[i] == '%')
 		{

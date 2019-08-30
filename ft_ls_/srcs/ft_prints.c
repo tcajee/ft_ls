@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/30 17:55:52 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/08/30 18:47:35 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,27 +84,27 @@ int	ft_print_def(int *flags, t_info *list)
  * The format is %.i where i = variable for max width
  * 
  * */
-int	ft_print_lst(int *flags, t_info *list)
+int	ft_print_lst(int *flags, t_dirs *dirs, t_info *list)
 {
 	t_passwd	*s_pwd;
 	t_group		*s_grp;
 
 	ft_print_perm(&list->s_stat);
-	ft_printf_("%x ", list->s_stat.st_nlink);
+	ft_printf_("%.%x ", dirs->s_form.link_len, list->s_stat.st_nlink);
 	s_pwd = getpwuid(list->s_stat.st_uid);
 	if (s_pwd)
-		ft_printf_("%s", s_pwd->pw_name);
+		ft_printf_("%.%s", dirs->s_form.usr_len, s_pwd->pw_name);
 	else
-		ft_printf_("%d", list->s_stat.st_uid);
+		ft_printf_("%.%d", dirs->s_form.usr_len, list->s_stat.st_uid);
 	s_grp = getgrgid(list->s_stat.st_gid);
 	if (!(*flags & F_g))
 	{
 		if (s_grp)
-			ft_printf_("%s", s_grp->gr_name);
+			ft_printf_("%.%s", dirs->s_form.grp_len, s_grp->gr_name);
 		else
-			ft_printf_("%d", list->s_stat.st_gid);
+			ft_printf_("%.%d", dirs->s_form.grp_len, list->s_stat.st_gid);
 	}
-	ft_printf_("%d", list->s_stat.st_size);
+	ft_printf_("%.%d", dirs->s_form.size_len, list->s_stat.st_size);
 	if (*flags & F_u)
 		ft_printf_("%s ", ft_strsub(ctime(&list->s_stat.st_atime), 3, 13));
 	else
@@ -134,7 +134,7 @@ int	ft_prints(int *flags, t_dirs *dirs)
 		if (*flags & F_1)
 			ft_print_def(flags, list);
 		else if (*flags & F_l)
-			ft_print_lst(flags, list);
+			ft_print_lst(flags, dirs, list);
 		list = (*flags & F_r) ? list->prev: list->next;
 	}
 //	ft_list_clean(dirs);

@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/30 18:16:28 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/30 18:38:13 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_dirs	*ft_dir_new(char *path)
 }
 
 
-int	ft_dir_form(int *flags, t_dirs *dirs, t_stat *t_stat)
+int	ft_dir_form(int *flags, t_dirs *dirs)
 {
 	t_info		*last;
 	t_passwd	*s_pwd;
@@ -49,12 +49,12 @@ int	ft_dir_form(int *flags, t_dirs *dirs, t_stat *t_stat)
 		s_pwd = getpwuid(last->s_stat.st_uid);
 		if (s_pwd && (len = ft_strlen(s_pwd->pw_name)) > dirs->s_form.usr_len)
 			dirs->s_form.usr_len = len;
-		else if ((len = ft_intlen(s_pwd->pw_name)) > dirs->s_form.usr_len)
+		else if ((len = ft_intlen((int)s_pwd->pw_name)) > dirs->s_form.usr_len)
 			dirs->s_form.usr_len = len;
 		s_grp = getgrgid(last->s_stat.st_gid);
 		if (s_grp && (len = ft_strlen(s_grp->gr_name)) > dirs->s_form.grp_len)
 			dirs->s_form.grp_len = len;
-		else if ((len = ft_intlen(s_grp->gr_name)) > dirs->s_form.grp_len)
+		else if ((len = ft_intlen((int)s_grp->gr_name)) > dirs->s_form.grp_len)
 			dirs->s_form.grp_len = len;
 		if ((len = ft_intlen(last->s_stat.st_size)) > dirs->s_form.size_len)
 			dirs->s_form.size_len = len;
@@ -83,7 +83,7 @@ int ft_dir_fill(int *flags, t_dirs *dirs, char *path)
 		lstat(list->path, &list->s_stat);
 		dirs->total += list->s_stat.st_blocks;
 		dirs->last = list;
-		ft_dir_form(flags, dirs, &list->s_stat);
+		ft_dir_form(flags, dirs);
 		list = list->next;
 	}
 	closedir(dir);
@@ -125,6 +125,12 @@ int ft_dirs(int *flags, char *path)
 		/* 	ft_sorts(flags, dirs); */
 		/* ft_list_print(dirs); */
 		ft_prints(flags, dirs);
+		
+		dirs->s_form.grp_len = 0;
+		dirs->s_form.usr_len = 0;
+		dirs->s_form.size_len = 0;
+		dirs->s_form.link_len = 0;
+
 		/* ft_ls_clean(dirs); */
 	}
 	if (*flags & F_R)

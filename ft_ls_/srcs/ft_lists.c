@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 11:16:28 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/30 14:19:51 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/30 18:21:25 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void	ft_list_print(t_dirs *dirs)
 	printf("dirs->total		[%d]\n", dirs->total);
 	if (dirs->name)
 		printf("dirs->name		[%s]\n", dirs->name);
-	printf("dirs->s_form.grp_len	[%d]\n", dirs->s_form.grp_len);
-	printf("dirs->s_form.usr_len	[%d]\n", dirs->s_form.usr_len);
-	printf("dirs->s_form-.link_len	[%d]\n", dirs->s_form.link_len);
-	printf("dirs->s_form.size_len	[%d]\n", dirs->s_form.size_len);
+	printf("dirs->s_form.grp_len	[%zu]\n", dirs->s_form.grp_len);
+	printf("dirs->s_form.usr_len	[%zu]\n", dirs->s_form.usr_len);
+	printf("dirs->s_form-.link_len	[%zu]\n", dirs->s_form.link_len);
+	printf("dirs->s_form.size_len	[%zu]\n", dirs->s_form.size_len);
 	printf("&dirs->last		[%p]\n", &dirs->last);
 	printf("dirs->last		[%p]\n", dirs->last);
 	printf("------------------------------------------\n");
