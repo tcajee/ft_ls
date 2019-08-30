@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/30 12:21:51 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/30 13:57:12 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,9 +140,6 @@ int						ft_prints(int *flags,  t_dirs *dirs);
 int						ft_print_def(int *flags, t_info *dir);
 int						ft_print_lst(int *flags, t_info *dir);
 void					ft_print_perm(t_stat *s_stat);
-void					ft_print_time(t_stat s_stat, int *flags);
-
-int						ft_print_f(char *format, ...);
 
 int						ft_errors(int *flags, int code, char *error);
 int						ft_error_flag(char *arg);
