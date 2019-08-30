@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/30 14:44:22 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/30 17:38:38 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_dirs	*ft_dir_new(char *path)
 }
 
 
-int ft_dir_fill(t_dirs *dirs, char *path)
+int ft_dir_fill(int *flags, t_dirs *dirs, char *path)
 {
 	t_dirent	*s_dir;
 	DIR			*dir;
@@ -42,7 +42,8 @@ int ft_dir_fill(t_dirs *dirs, char *path)
 
 	list = dirs->list;
 	dirs->last = list;
-	dir = opendir(path);
+	if (!(dir = opendir(path)))
+		return (ft_errors(flags, E_PRINTS, path));
 	while ((s_dir = readdir(dir)) != NULL && ++dirs->size)
 	{
 		if (!list)
@@ -88,11 +89,12 @@ int ft_dirs(int *flags, char *path)
 	{
 		if (!(dirs = ft_dir_new(path)))
 			return (0);
-		ft_dir_fill(dirs, path);
+		if (!(ft_dir_fill(flags, dirs, path)))
+			return (0);
 		/* if (dirs->size > 1 && !(*flags & F_REG) && !(*flags & F_f)) */
 		/* 	ft_sorts(flags, dirs); */
-		ft_list_print(dirs);
-		/* ft_prints(flags, dirs); */
+		/* ft_list_print(dirs); */
+		ft_prints(flags, dirs);
 		/* ft_ls_clean(dirs); */
 	}
 	if (*flags & F_R)
