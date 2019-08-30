@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 11:36:46 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/29 12:08:00 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/30 17:36:34 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_errors(int *flags, int code, char *error)
 		return (ft_error_print(flags, error));
 	else if (code == E_FILES)
 		return (ft_error_file(error));
-	return (code);
+	return (0);
 }
 
 
