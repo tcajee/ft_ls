@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/30 13:36:55 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/08/30 13:48:44 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,37 +116,29 @@ int	ft_print_lst(int *flags, t_info *list)
 
 int	ft_prints(int *flags, t_dirs *dirs)
 {
-/* ft_putendl("begin print"); */
 	t_info	*list;
-	int j;
 
 	if ((*flags & F_M || *flags & F_R) && *flags & F_P && !(*flags & F_REG))
 		ft_printf_("\n%s:\n", dirs->list->root);
 	if (*flags & F_l && !(*flags & F_REG))
 		ft_printf_("%s %d\n", "total", dirs->total);
 	*flags |= F_P;
-	j = dirs->size;
 	list = ((*flags & F_r) && !(*flags & F_REG)) ? dirs->last: dirs->list;
-	while (j--)
+	while (dirs->size--)
 	{
- 		/* ft_putendl("increment list"); */
- 		
 		if (!(*flags & F_a) && list->name[0] == '.')
-		{
 			if (!(*flags & F_REG))
+			{
 				list = (*flags & F_r) ? list->prev: list->next;
-		}
-		else
-		{
-			if (*flags & F_1)
-				ft_print_def(flags, list);
-			else if (*flags & F_l)
-				ft_print_lst(flags, list);
-			list = (*flags & F_r) ? list->prev: list->next;
-		}
+				continue;
+			}
+		if (*flags & F_1)
+			ft_print_def(flags, list);
+		else if (*flags & F_l)
+			ft_print_lst(flags, list);
+		list = (*flags & F_r) ? list->prev: list->next;
 	}
 //	ft_list_clean(dirs);
- /* ft_putendl("end print"); */
 	return (1);
 }
 
