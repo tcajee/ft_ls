@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/02 12:36:44 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/02 13:33:47 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ void					ft_sort_ins(int *flags, t_dirs *dirs, t_info *l, t_info  *r);
 t_info					*ft_sort_comp(int *flags, t_dirs *dirs, t_info *i, t_info *j);
 
 void					ft_sort(int *flags, t_info **head);
+void					insertionSort(t_dirs **head_ref);
 
 
 int						ft_prints(int *flags, t_dirs *dirs);
