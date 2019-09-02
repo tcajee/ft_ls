@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 11:16:28 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/02 10:53:43 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/02 11:51:06 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	ft_list_print(t_dirs *dirs)
 	while (list)
 	{
 		printf("-------------------------------------------\n");
-		printf("dirs->array[%d]		[%p]\n", i, dirs->array[i]);
 		printf("[%d]			[%p]\n", i, list);
 		printf("list->root		[%s]\n", list->root);
 		printf("list->name		[%s]\n", list->name);
