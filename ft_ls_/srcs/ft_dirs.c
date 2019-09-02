@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/02 15:05:50 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/02 15:24:47 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,23 +124,12 @@ int ft_dirs(int *flags, char *path)
 		dirs = ft_dir_new(path);
 		if (!(ft_dir_fill(flags, dirs, path)))
 			return (0);
+		if (dirs->size > 1 && !(*flags & F_REG) && !(*flags & F_f))
+			ft_sorts(flags, dirs);
 
-
-		/* if (dirs->size > 1 && !(*flags & F_REG) && !(*flags & F_f)) */
-		/* 	ft_sorts(flags, dirs); */
-
-		//ft_list_print(dirs);
-		/* ft_sorts(flags, dirs); */
-//		ft_sort(flags, &dirs->list);
 		/* ft_list_print(dirs); */
 		ft_prints(flags, dirs);
-
-		/* ft_prints(flags, dirs); */
-		/* dirs->s_form.grp_len = 0; */
-		/* dirs->s_form.usr_len = 0; */
-		/* dirs->s_form.size_len = 0; */
-		/* dirs->s_form.link_len = 0; */
-		/* ft_ls_clean(dirs); */
+		ft_ls_clean(dirs);
 	}
 	if (*flags & F_R)
 		ft_ls_rec(flags, path);

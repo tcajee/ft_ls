@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/02 10:29:06 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/02 15:23:54 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,14 @@ void	ft_ls_clean(t_dirs *dirs)
 	list = dirs->list;
 	while (list)
 	{
-		if (list->root)
-			free(list->root);
-		if (list->name)
-			free(list->name);
-		if (list->path)
-			free(list->path);
-		if (list->next)
-			free(list->next);
-		list = list->prev;
+		free(list->root);
+		free(list->name);
+		free(list->path);
+		list = list->next;
+		free(list);
 	}
 	free(dirs);
-
+}
 	
 	/* if (dirs->root) */
 	/* 	free(dirs->root); */
@@ -58,8 +54,6 @@ void	ft_ls_clean(t_dirs *dirs)
 	/* new->path = NULL; */
 	/* new->next = NULL; */
 	/* new->prev = NULL; */
-
-}
 
 int		ft_ls_check(char *path)
 {
@@ -100,7 +94,6 @@ int		ft_ls_rec(int *flags, char *path)
 	DIR			*dir;
 	char		*fpath;
 
-/* ft_putendl("begin ls rec"); */
 	if (!(dir = opendir(path)))
 		return (0);
 	while ((s_dir = readdir(dir)) != NULL)
@@ -114,7 +107,6 @@ int		ft_ls_rec(int *flags, char *path)
 		free(fpath);
 	}
 	closedir(dir);
-/* ft_putendl("end ls rec"); */
 	return (1);
 }
 
@@ -124,23 +116,12 @@ int		main(int argc, char **argv)
 	int			i;
 	int			j;
 
-
-/* ft_putendl("begin ls"); */
 	i = 0;
 	i = ft_flags(&flags, argv);
-	
-	/* ft_putnbr(i); */
-	/* ft_putendl(""); */
-	/* ft_putnbr(argc); */
-	/* ft_putendl(""); */
-	
-
 	if ((argc - i) > 1)
 		flags |= F_M;
-
 	if (!argv[i])
 		return (ft_dirs(&flags, "."));
-
 	j = i - 1;
 	while (argv[++j])
 		if (ft_ls_check(argv[j]) == 0)
@@ -153,7 +134,6 @@ int		main(int argc, char **argv)
 	while (argv[++j])
 		if (ft_ls_check(argv[j]) == 2)
 			ft_dirs(&flags, argv[j]);
-/* ft_putendl("end ls"); */
 	/* sleep(20); */
 	return (1);
 }
