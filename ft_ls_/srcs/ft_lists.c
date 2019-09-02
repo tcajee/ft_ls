@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 11:16:28 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/30 18:21:25 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/02 10:53:43 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ void	ft_list_print(t_dirs *dirs)
 	printf("dirs->list		[%p]\n", dirs->list);
 	printf("dirs->size		[%d]\n", dirs->size);
 	printf("dirs->total		[%d]\n", dirs->total);
-	if (dirs->name)
-		printf("dirs->name		[%s]\n", dirs->name);
+	printf("dirs->root		[%s]\n", dirs->root);
 	printf("dirs->s_form.grp_len	[%zu]\n", dirs->s_form.grp_len);
 	printf("dirs->s_form.usr_len	[%zu]\n", dirs->s_form.usr_len);
 	printf("dirs->s_form-.link_len	[%zu]\n", dirs->s_form.link_len);
@@ -81,15 +80,15 @@ int	ft_list_ins(t_info *list)
 	return (0);
 }
 
-t_info	*ft_list_add(t_info *list)
+t_info	*ft_list_add(t_info *last)
 {
 /* ft_putendl("begin list add"); */
 	t_info	*new;
 
 	if (!(new = ft_list_new()))
 		return (NULL);
-	list->next = new;
-	new->prev = list;
+	last->next = new;
+	new->prev = last;
 /* ft_putendl("end list add"); */
 	return (new);
 }

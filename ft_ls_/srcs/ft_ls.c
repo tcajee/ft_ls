@@ -6,11 +6,60 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/30 12:44:04 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/02 10:29:06 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
+
+void	ft_ls_clean(t_dirs *dirs)
+{
+	t_info *list;
+
+	free(dirs->root);
+	list = dirs->list;
+	while (list)
+	{
+		if (list->root)
+			free(list->root);
+		if (list->name)
+			free(list->name);
+		if (list->path)
+			free(list->path);
+		if (list->next)
+			free(list->next);
+		list = list->prev;
+	}
+	free(dirs);
+
+	
+	/* if (dirs->root) */
+	/* 	free(dirs->root); */
+	/* if (dirs->path) */
+	/* 	free(dirs->path); */
+	/* if (dirs->name) */
+	/* 	free(dirs->name); */
+
+	/* t_dirs	*new; */
+	/* new = NULL; */
+	/* new->name = ft_strdup(path); */
+	/* new->list = ft_list_new(); */
+	/* new->last = NULL; */
+	/* new->total = 0; */
+	/* new->size = 0; */
+	/* new->s_form.grp_len = 0; */
+	/* new->s_form.usr_len = 0; */
+	/* new->s_form.size_len = 0; */
+	/* new->s_form.link_len = 0; */
+
+	/* t_info	*new; */
+	/* new->root = NULL; */
+	/* new->name = NULL; */
+	/* new->path = NULL; */
+	/* new->next = NULL; */
+	/* new->prev = NULL; */
+
+}
 
 int		ft_ls_check(char *path)
 {
@@ -105,5 +154,6 @@ int		main(int argc, char **argv)
 		if (ft_ls_check(argv[j]) == 2)
 			ft_dirs(&flags, argv[j]);
 /* ft_putendl("end ls"); */
+	/* sleep(20); */
 	return (1);
 }
