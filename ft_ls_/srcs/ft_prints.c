@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/02 12:34:24 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/02 15:14:08 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,16 @@ void	ft_print_perm(t_stat *s_stat)
 
 int	ft_print_def(int *flags, t_info *list)
 {
+	char	path[PATH_MAX];
+
+	readlink(list->path, path, PATH_MAX);
 	ft_printf_("%s", list->name);
 	if (*flags & F_F)
 	{
 		if (ft_ls_check(list->path) == 2)
 			ft_printf_("/");
 		else if ((list->s_stat.st_mode & S_IFMT) == S_IFLNK)
-			ft_printf_("@");
+			ft_printf_("@ -> %s", path);
 		else if ((list->s_stat.st_mode & S_IFMT) == S_IFIFO)
 			ft_printf_("|");
 		else if ((list->s_stat.st_mode & S_IFMT) == S_IFSOCK)
@@ -75,15 +78,12 @@ int	ft_print_def(int *flags, t_info *list)
 		else if (list->s_stat.st_mode & S_IXUSR)
 			ft_printf_("*");
 	}
+	else if ((list->s_stat.st_mode & S_IFMT) == S_IFLNK)
+		ft_printf_(" -> %s", path);
 	ft_printf_("\n");
 	return (1);
 }
-/*
- *
- * Waitng for max values
- * The format is %.i where i = variable for max width
- * 
- * */
+
 int	ft_print_lst(int *flags, t_dirs *dirs, t_info *list)
 {
 	t_passwd	*s_pwd;
