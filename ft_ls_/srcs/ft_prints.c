@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 12:29:50 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 14:54:42 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,12 @@ void	ft_print_lst(int *flags, t_dirs *dirs, t_info *list)
 int	ft_prints(int *flags, t_dirs *dirs)
 {
 	t_info	*list;
-
 	if ((*flags & F_M || *flags & F_R) && *flags & F_P && !(*flags & F_REG))
 		ft_printf_("\n%s:\n", dirs->root);
 	if (*flags & F_l && !(*flags & F_REG))
 		ft_printf_("%s %d\n", "total", dirs->total);
 	*flags |= F_P;
-	list = ((*flags & F_r) && !(*flags & F_REG)) ? dirs->last : dirs->list;
+	list = (*flags & F_r) ? dirs->last : dirs->list;
 	while (dirs->size--)
 	{
 		if (!(*flags & F_a) && list->name[0] == '.')

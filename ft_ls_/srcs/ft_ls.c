@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 14:14:14 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 14:54:52 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,21 @@
 
 void	ft_ls_file(int *flags, char **argv)
 {
-	int		i;
 	t_dirs	*dirs;
 	t_info	*list;
 
-	i = 0;
-	if (!(dirs = ft_dir_new(argv[i + 1])))
+	F_SET(*flags, F_0, F_REG);
+	if (!(dirs = ft_dir_new(*(argv + 1))))
 		return ;
 	list = dirs->list;
-	while (argv[++i])
+	while (*++argv)
 	{
-		if (ft_ls_check(argv[i]) == 1)
+		if (ft_ls_check(*argv) == 1 && ++dirs->size)
 		{
-			F_SET(*flags, F_0, F_REG);
 			if (!list)
 				list = ft_dir_add(dirs->last);
 			dirs->last = list;
-			dirs->size = i;
-			list->name = ft_strdup(argv[i]);
+			list->name = ft_strdup(*argv);
 			lstat(list->name, &list->s_stat);
 			ft_dir_form(flags, dirs);
 			if (!(*flags & F_f))
@@ -39,6 +36,7 @@ void	ft_ls_file(int *flags, char **argv)
 			list = !(*flags & F_f) ? dirs->last->next : list->next;
 		}
 	}
+	/* ft_list_print(dirs); */
 	ft_prints(flags, dirs);
 	F_SET(*flags, F_REG, F_0);
 }
