@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 12:29:56 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 12:35:04 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int						ft_dirs(int *flags, char *path);
 t_dirs					*ft_dir_new(char *path);
 t_info					*ft_dir_add(t_info *list);
 int						ft_dir_fill(int *flags, t_dirs *dirs, char *path);
-int						ft_dir_form(int *flags, t_dirs *dirs);
+void					ft_dir_form(int *flags, t_dirs *dirs);
 
 
 void					ft_sorts(int *flags, t_dirs *dirs);

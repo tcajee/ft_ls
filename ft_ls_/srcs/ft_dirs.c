@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 12:31:43 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 12:38:31 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_dirs	*ft_dir_new(char *path)
 	return (new);
 }
 
-int	ft_dir_form(int *flags, t_dirs *dirs)
+void	ft_dir_form(int *flags, t_dirs *dirs)
 {
 	t_info		*last;
 	t_passwd	*s_pwd;
@@ -76,7 +76,6 @@ int	ft_dir_form(int *flags, t_dirs *dirs)
 		if ((len = ft_intlen(last->s_stat.st_size)) > dirs->s_form.size_len)
 			dirs->s_form.size_len = len;
 	}
-	return (1);
 }
 
 int ft_dir_fill(int *flags, t_dirs *dirs, char *path)
