@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 16:40:32 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 17:07:09 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct			s_info
 {
 	char				*name;
 	char				*path;
-	char				*temp;
+	char				*t;
 	t_stat				s_stat;
 	struct s_info		*next;
 	struct s_info		*prev;

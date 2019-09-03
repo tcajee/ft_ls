@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 16:54:40 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 16:59:40 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	ft_ls_file(int *flags, char **argv)
 int		ft_ls_check(char *path)
 {
 	t_stat	s_stat;
+
 	if (lstat(path, &s_stat) < 0)
 		return (0);
 	if ((s_stat.st_mode & S_IFMT) == S_IFREG)
@@ -57,6 +58,7 @@ char	*ft_ls_path(char *path, char *d_name)
 	int		i;
 	int		len;
 	char	*temp;
+
 	i = 0;
 	len = ft_strlen(path) + ft_strlen(d_name);
 	if (!(temp = (char *)malloc(sizeof(char) * (len + 2))))
@@ -84,7 +86,7 @@ int		ft_ls_rec(int *flags, char *path)
 	while ((s_dir = readdir(dir)) != NULL)
 	{
 		if ((s_dir->d_name[0] == '.' && s_dir->d_name[1] == '\0') ||
-		   ((s_dir->d_name[0] == '.' && s_dir->d_name[2] == '\0') &&
+			((s_dir->d_name[0] == '.' && s_dir->d_name[2] == '\0') &&
 			s_dir->d_name[1] == '.'))
 			continue;
 		if (ft_ls_check(fpath = ft_ls_path(path, s_dir->d_name)) == 2)
@@ -113,8 +115,5 @@ int		main(int argc, char **argv)
 	while (argv[++j])
 		if (ft_ls_check(argv[j]) == 2)
 			ft_dirs(&flags, argv[j]);
-
-	sleep(20);
-
 	return (1);
 }

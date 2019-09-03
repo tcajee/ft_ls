@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 16:57:55 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 17:07:30 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,36 +83,36 @@ void	ft_print_def(int *flags, t_info *list)
 	ft_printf_("\n");
 }
 
-void	ft_print_lst(int *flags, t_dirs *dirs, t_info *list)
+void	ft_print_lst(int *flags, t_dirs *dirs, t_info *l)
 {
 	t_passwd	*s_pwd;
 	t_group		*s_grp;
 
-	ft_print_perm(&list->s_stat);
-	ft_printf_("%.%x ", dirs->s_form.link_len, list->s_stat.st_nlink);
-	s_pwd = getpwuid(list->s_stat.st_uid);
+	ft_print_perm(&l->s_stat);
+	ft_printf_("%.%x ", dirs->s_form.link_len, l->s_stat.st_nlink);
+	s_pwd = getpwuid(l->s_stat.st_uid);
 	if (s_pwd)
 		ft_printf_("%.%s ", dirs->s_form.usr_len, s_pwd->pw_name);
 	else
-		ft_printf_("%.%d ", dirs->s_form.usr_len, list->s_stat.st_uid);
-	s_grp = getgrgid(list->s_stat.st_gid);
+		ft_printf_("%.%d ", dirs->s_form.usr_len, l->s_stat.st_uid);
+	s_grp = getgrgid(l->s_stat.st_gid);
 	if (!(*flags & F_g))
 	{
 		if (s_grp)
 			ft_printf_("%.%s ", dirs->s_form.grp_len, s_grp->gr_name);
 		else
-			ft_printf_("%.%d ", dirs->s_form.grp_len, list->s_stat.st_gid);
+			ft_printf_("%.%d ", dirs->s_form.grp_len, l->s_stat.st_gid);
 	}
-	ft_printf_("%.%d", dirs->s_form.size_len, list->s_stat.st_size);
+	ft_printf_("%.%d", dirs->s_form.size_len, l->s_stat.st_size);
 	if (*flags & F_u)
-		ft_printf_("%s ", list->temp = ft_strsub(ctime(&list->s_stat.st_atime), 3, 13));
+		ft_printf_("%s ", l->t = ft_strsub(ctime(&l->s_stat.st_atime), 3, 13));
 	else
-		ft_printf_("%s ", list->temp = ft_strsub(ctime(&list->s_stat.st_mtime), 3, 13));
-	ft_print_def(flags, list);
-	free(list->temp);
+		ft_printf_("%s ", l->t = ft_strsub(ctime(&l->s_stat.st_mtime), 3, 13));
+	ft_print_def(flags, l);
+	free(l->t);
 }
 
-int	ft_prints(int *flags, t_dirs *dirs)
+int		ft_prints(int *flags, t_dirs *dirs)
 {
 	t_info	*list;
 

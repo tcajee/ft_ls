@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 16:55:18 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 17:00:48 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_info	*ft_dir_add(t_info *last)
 {
 	t_info	*new;
+
 	if (!(new = (t_info *)malloc(sizeof(t_info))))
 		return (NULL);
 	new->name = NULL;
@@ -76,7 +77,7 @@ void	ft_dir_form(int *flags, t_dirs *dirs)
 	}
 }
 
-int ft_dir_fill(int *flags, t_dirs *dirs, char *path)
+int		ft_dir_fill(int *flags, t_dirs *dirs, char *path)
 {
 	t_dirent	*s_dir;
 	DIR			*dir;
@@ -100,11 +101,10 @@ int ft_dir_fill(int *flags, t_dirs *dirs, char *path)
 		list = !(*flags & F_f) ? dirs->last->next : list->next;
 	}
 	closedir(dir);
-	/* ft_list_print(dirs); */
 	return (ft_prints(flags, dirs));
 }
 
-int ft_dirs(int *flags, char *path)
+int		ft_dirs(int *flags, char *path)
 {
 	t_dirs	*dirs;
 
