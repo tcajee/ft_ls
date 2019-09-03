@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 12:09:12 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 12:31:43 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_info	*ft_dir_add(t_info *last)
 	new->name = NULL;
 	new->path = NULL;
 	new->next = NULL;
+	new->temp = NULL;
 	last->next = new;
 	new->prev = last;
 	return (new);
@@ -132,7 +133,6 @@ int ft_dirs(int *flags, char *path)
 			list = next;
 		}
 		free(dirs);
-
 	}
 	if (*flags & F_R)
 		ft_ls_rec(flags, path);

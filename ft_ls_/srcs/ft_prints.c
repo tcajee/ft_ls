@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 12:11:21 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 12:29:50 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_print_perm(t_stat *s_stat)
 	ft_printf_("%s ", permissions);
 }
 
-int	ft_print_def(int *flags, t_info *list)
+void	ft_print_def(int *flags, t_info *list)
 {
 	char	path[PATH_MAX];
 
@@ -81,10 +81,9 @@ int	ft_print_def(int *flags, t_info *list)
 	else if ((list->s_stat.st_mode & S_IFMT) == S_IFLNK)
 		ft_printf_(" -> %s", path);
 	ft_printf_("\n");
-	return (1);
 }
 
-int	ft_print_lst(int *flags, t_dirs *dirs, t_info *list)
+void	ft_print_lst(int *flags, t_dirs *dirs, t_info *list)
 {
 	t_passwd	*s_pwd;
 	t_group		*s_grp;
@@ -106,11 +105,11 @@ int	ft_print_lst(int *flags, t_dirs *dirs, t_info *list)
 	}
 	ft_printf_("%.%d", dirs->s_form.size_len, list->s_stat.st_size);
 	if (*flags & F_u)
-		ft_printf_("%s ", ft_strsub(ctime(&list->s_stat.st_atime), 3, 13));
+		ft_printf_("%s ", list->temp = ft_strsub(ctime(&list->s_stat.st_atime), 3, 13));
 	else
-		ft_printf_("%s ", ft_strsub(ctime(&list->s_stat.st_mtime), 3, 13));
+		ft_printf_("%s ", list->temp = ft_strsub(ctime(&list->s_stat.st_mtime), 3, 13));
 	ft_print_def(flags, list);
-	return (1);
+	free(list->temp);
 }
 
 int	ft_prints(int *flags, t_dirs *dirs)
