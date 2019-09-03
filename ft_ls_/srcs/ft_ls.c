@@ -6,31 +6,41 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 12:36:24 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 14:03:45 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-int		ft_ls_file(int *flags, char *path)
+void	ft_ls_file(int *flags, char **argv)
 {
+	int		i;
 	t_dirs	*dirs;
+	t_info	*list;
 
-	F_SET(*flags, F_0, F_REG);
-	if (!(dirs = ft_dir_new(path)))
-		return (0);
-	dirs->size = 1;
-	dirs->last = dirs->list;
-	if (!(dirs->last->name = ft_strdup(path)))
-		return (0);
-	lstat(dirs->last->name, &dirs->s_stat);
-	ft_dir_form(flags, dirs);
-	ft_prints(flags, dirs);
-	free(dirs->last->name);
-	free(dirs->root);
-	free(dirs);
+	i = 0;
+	if (!(dirs = ft_dir_new(argv[i])))
+		return ;
+	list = dirs->list;
+	while (argv[++i])
+	{
+		if (ft_ls_check(argv[i]) == 1)
+		{
+			F_SET(*flags, F_0, F_REG);
+			if (!list)
+				list = ft_dir_add(dirs->last);
+			dirs->last = list;
+			dirs->size = i;
+			list->name = ft_strdup(argv[i]);
+			lstat(list->name, &list->s_stat);
+			ft_dir_form(flags, dirs);
+			if (!(*flags & F_f))
+				ft_sorts(flags, dirs);
+			list = !(*flags & F_f) ? dirs->last->next : list->next;
+		}
+		ft_prints(flags, dirs);
+	}
 	F_SET(*flags, F_REG, F_0);
-	return (1);
 }
 
 int		ft_ls_check(char *path)
@@ -105,9 +115,10 @@ int		main(int argc, char **argv)
 		if (ft_ls_check(argv[j]) == 0)
 			ft_errors(&flags, E_DIRS, argv[j]);
 	j = i - 1;
-	while (argv[++j])
-		if (ft_ls_check(argv[j]) == 1)
-			ft_dirs(&flags, argv[j]);
+	ft_ls_file(&flags, argv + j);
+
+
+
 	j = i - 1;
 	while (argv[++j])
 		if (ft_ls_check(argv[j]) == 2)

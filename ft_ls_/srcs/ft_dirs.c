@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 12:38:31 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 13:45:57 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int ft_dir_fill(int *flags, t_dirs *dirs, char *path)
 		list = !(*flags & F_f) ? dirs->last->next : list->next;
 	}
 	closedir(dir);
+	/* ft_list_print(dirs); */
 	return (ft_prints(flags, dirs));
 }
 
@@ -112,27 +113,22 @@ int ft_dirs(int *flags, char *path)
 	t_info	*list;
 	t_info	*next;
 
-	if (ft_ls_check(path) == 1 && (!(ft_ls_file(flags, path))))
+	dirs = ft_dir_new(path);
+	if (!(ft_dir_fill(flags, dirs, path)))
 		return (0);
-	else if (ft_ls_check(path) == 2)
+	
+	free(dirs->root);
+	list = dirs->list;
+	while (list)
 	{
-		dirs = ft_dir_new(path);
-		if (!(ft_dir_fill(flags, dirs, path)))
-			return (0);
-		
-		free(dirs->root);
-		list = dirs->list;
-		while (list)
-		{
-			next = list->next;
-			free(list->root);
-			free(list->name);
-			free(list->path);
-			free(list);
-			list = next;
-		}
-		free(dirs);
+		next = list->next;
+		free(list->root);
+		free(list->name);
+		free(list->path);
+		free(list);
+		list = next;
 	}
+	free(dirs);
 	if (*flags & F_R)
 		ft_ls_rec(flags, path);
 	return (1);
