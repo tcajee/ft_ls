@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 16:59:40 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 17:25:09 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	ft_ls_file(int *flags, char **argv)
 			list->name = ft_strdup(*argv);
 			lstat(list->name, &list->s_stat);
 			ft_dir_form(flags, dirs);
-			if (!(*flags & F_f))
+			if (!(*flags & F_F))
 				ft_sorts(flags, dirs);
-			list = !(*flags & F_f) ? dirs->last->next : list->next;
+			list = !(*flags & F_F) ? dirs->last->next : list->next;
 		}
 	}
 	ft_prints(flags, dirs);

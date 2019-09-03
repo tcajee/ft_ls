@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 17:17:00 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 17:27:30 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 # define F_FF 1024
 # define F_GG 2048
 # define F_LL 4096
-# define F_PP 8192
+# define F_P 8192
 # define F_2 16384
 # define F_3 32768
 

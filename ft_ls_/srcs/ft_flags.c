@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 17:00:02 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 17:24:50 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,58 +28,58 @@ void	ft_flag_print(int *flags)
 int		ft_flag_check(int *flags, char flag)
 {
 	if (flag == '1')
-		return (*flags = (*flags & ~F_l) | F_1);
+		return (*flags = (*flags & ~F_L) | F_1);
 	else if (flag == 'l')
-		return (*flags = (*flags & ~F_1) | F_l);
+		return (*flags = (*flags & ~F_1) | F_L);
 	else if (flag == 'g')
-		return (*flags = (*flags & ~F_1) | (F_l + F_g));
+		return (*flags = (*flags & ~F_1) | (F_L + F_G));
 	else if (flag == 't')
-		return ((*flags & F_u) ? *flags : (*flags = (*flags & ~F_0) | F_t));
+		return ((*flags & F_U) ? *flags : (*flags = (*flags & ~F_0) | F_T));
 	else if (flag == 'u')
-		return (*flags = (*flags & ~(F_t)) | F_u);
+		return (*flags = (*flags & ~(F_T)) | F_U);
 	else if (flag == 'r')
-		return (*flags = (*flags & ~F_0) | F_r);
+		return (*flags = (*flags & ~F_0) | F_R);
 	else if (flag == 'f')
-		return (*flags = (*flags & ~(F_u + F_t)) | (F_f + F_a));
+		return (*flags = (*flags & ~(F_U + F_T)) | (F_F + F_A));
 	else if (flag == 'a')
-		return (*flags = (*flags & ~F_0) | F_a);
+		return (*flags = (*flags & ~F_0) | F_A);
 	else if (flag == 'R')
-		return (*flags = (*flags & ~F_d) | F_R);
+		return (*flags = (*flags & ~F_D) | F_RR);
 	else if (flag == 'd')
-		return (*flags = (*flags & ~F_R) | F_d);
+		return (*flags = (*flags & ~F_RR) | F_D);
 	else if (flag == 'G')
-		return (*flags = (*flags & ~F_0) | F_G);
+		return (*flags = (*flags & ~F_0) | F_GG);
 	else if (flag == 'F')
-		return (*flags = (*flags & ~F_0) | F_F);
+		return (*flags = (*flags & ~F_0) | F_FF);
 	exit(ft_error_flag(&flag));
 }
 
 int		ft_lflag_check(int *flags, char *opt)
 {
 	if (!ft_strcmp(opt, "long"))
-		return (*flags = (*flags & ~F_l) | F_1);
+		return (*flags = (*flags & ~F_L) | F_1);
 	else if (!ft_strcmp(opt, "list"))
-		return (*flags = (*flags & ~F_1) | F_l);
+		return (*flags = (*flags & ~F_1) | F_L);
 	else if (!ft_strcmp(opt, "no-owner"))
-		return (*flags = (*flags & ~F_1) | (F_l + F_g));
+		return (*flags = (*flags & ~F_1) | (F_L + F_G));
 	else if (!ft_strcmp(opt, "colour"))
-		return (*flags = (*flags & ~F_0) | F_G);
+		return (*flags = (*flags & ~F_0) | F_GG);
 	else if (!ft_strcmp(opt, "all"))
-		return (*flags = (*flags & ~F_0) | F_a);
+		return (*flags = (*flags & ~F_0) | F_A);
 	else if (!ft_strcmp(opt, "no-sort"))
-		return (*flags = (*flags & ~(F_u + F_t)) | (F_f + F_a));
+		return (*flags = (*flags & ~(F_U + F_T)) | (F_F + F_A));
 	else if (!ft_strcmp(opt, "mod-time"))
-		return ((*flags & F_u) ? *flags : (*flags = (*flags & ~F_0) | F_t));
+		return ((*flags & F_U) ? *flags : (*flags = (*flags & ~F_0) | F_T));
 	else if (!ft_strcmp(opt, "acc-time"))
-		return (*flags = (*flags & ~(F_t)) | F_u);
+		return (*flags = (*flags & ~(F_T)) | F_U);
 	else if (!ft_strcmp(opt, "reverse"))
-		return (*flags = (*flags & ~F_0) | F_r);
+		return (*flags = (*flags & ~F_0) | F_R);
 	else if (!ft_strcmp(opt, "directory"))
-		return (*flags = (*flags & ~F_R) | F_d);
+		return (*flags = (*flags & ~F_RR) | F_D);
 	else if (!ft_strcmp(opt, "recursive"))
-		return (*flags = (*flags & ~F_d) | F_R);
+		return (*flags = (*flags & ~F_D) | F_RR);
 	else if (!ft_strcmp(opt, "verbose"))
-		return (*flags = (*flags & ~F_0) | F_F);
+		return (*flags = (*flags & ~F_0) | F_FF);
 	exit(ft_error_flag(opt));
 }
 

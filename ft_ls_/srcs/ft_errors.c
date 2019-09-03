@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 11:36:46 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 17:02:38 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 17:22:45 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_error_dir(char *path)
 
 int	ft_error_perm(int *flags, char *path)
 {
-	if (*flags & F_R)
+	if (*flags & F_RR)
 	{
 		ft_putstr_fd(path, 2);
 		ft_putendl_fd(":", 2);
@@ -47,13 +47,13 @@ int	ft_error_print(int *flags, t_dirs *dirs)
 {
 	t_info	*list;
 
-	list = (*flags & F_r) ? dirs->last : dirs->list;
+	list = (*flags & F_R) ? dirs->last : dirs->list;
 	while (dirs->size--)
 	{
 		ft_putstr_fd("./ft_ls: ", 2);
 		ft_putstr_fd(list->name, 2);
 		ft_putendl_fd(": No such file or directory", 2);
-		list = (*flags & F_r) ? list->prev : list->next;
+		list = (*flags & F_R) ? list->prev : list->next;
 	}
 	return (0);
 }
@@ -74,9 +74,9 @@ int	ft_errors(int *flags, char **error)
 				list = ft_dir_add(dirs->last);
 			dirs->last = list;
 			list->name = ft_strdup(*error);
-			if (!(*flags & F_f))
+			if (!(*flags & F_F))
 				ft_sorts(flags, dirs);
-			list = !(*flags & F_f) ? dirs->last->next : list->next;
+			list = !(*flags & F_F) ? dirs->last->next : list->next;
 		}
 	}
 	ft_error_print(flags, dirs);
