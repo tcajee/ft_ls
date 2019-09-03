@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 14:03:45 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 14:14:14 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_ls_file(int *flags, char **argv)
 	t_info	*list;
 
 	i = 0;
-	if (!(dirs = ft_dir_new(argv[i])))
+	if (!(dirs = ft_dir_new(argv[i + 1])))
 		return ;
 	list = dirs->list;
 	while (argv[++i])
@@ -38,8 +38,8 @@ void	ft_ls_file(int *flags, char **argv)
 				ft_sorts(flags, dirs);
 			list = !(*flags & F_f) ? dirs->last->next : list->next;
 		}
-		ft_prints(flags, dirs);
 	}
+	ft_prints(flags, dirs);
 	F_SET(*flags, F_REG, F_0);
 }
 
@@ -116,13 +116,8 @@ int		main(int argc, char **argv)
 			ft_errors(&flags, E_DIRS, argv[j]);
 	j = i - 1;
 	ft_ls_file(&flags, argv + j);
-
-
-
-	j = i - 1;
 	while (argv[++j])
 		if (ft_ls_check(argv[j]) == 2)
 			ft_dirs(&flags, argv[j]);
-	sleep(20);
 	return (1);
 }
