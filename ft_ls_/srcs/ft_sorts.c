@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 10:54:40 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 11:19:33 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_info *ft_sort_comp(int *flags, t_info *list, t_info *unsorted)
 void	ft_sort_time(int *flags, t_info **sorted, t_info *unsorted)
 {
 	t_info *list;
-	ft_putendl("time");
+
 	if (!*sorted)
 		*sorted = unsorted;
     else if (ft_strcmp((*sorted)->name, unsorted->name) >= 0)
@@ -63,7 +63,6 @@ void	ft_sort_lex(int* flags, t_info **sorted, t_info *unsorted)
 {
 	t_info *list;
 
-	ft_putendl("lex");
 	if (!*sorted)
 		*sorted = unsorted;
     else if (ft_strcmp((*sorted)->name, unsorted->name) >= 0)
@@ -90,7 +89,6 @@ void	ft_sorts(int *flags, t_dirs *dirs)
 	t_info *list;
 	t_info *sorted;
 
-	ft_putendl("sorts");
 	sorted = NULL;
 	list = dirs->list;
 	while (list)

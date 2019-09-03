@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 10:58:48 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 11:18:23 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,14 +111,12 @@ typedef struct			s_dirs
 int						ft_ls_rec(int *flags, char *path);
 char					*ft_ls_path(char *path, char *d_name);
 int						ft_ls_check(char *path);
-void					ft_ls_clean(t_dirs *dirs);
 int						ft_ls_file(int *flags, char *path);
 
 int						ft_flags(int *flags, char **argv);
 int						ft_flag_check(int *flags, char flag);
 int						ft_lflag_check(int *flags, char *option);
 
-void					ft_flag_print(int *flags);
 
 int						ft_dirs(int *flags, char *path);
 t_dirs					*ft_dir_new(char *path);
@@ -126,7 +124,6 @@ t_info					*ft_dir_add(t_info *list);
 int						ft_dir_fill(int *flags, t_dirs *dirs, char *path);
 int						ft_dir_form(int *flags, t_dirs *dirs);
 
-void					ft_list_print(t_dirs *dirs);
 
 void					ft_sorts(int *flags, t_dirs *dirs);
 void					ft_sort_lex(int *flags, t_info **sorted, t_info *unsorted);
@@ -144,5 +141,8 @@ int						ft_error_flag(char *arg);
 int						ft_error_print(int *flags, char *arg);
 int						ft_error_dir(char *arg);
 int						ft_error_file(char *arg);
+
+void					ft_flag_print(int *flags);
+void					ft_list_print(t_dirs *dirs);
 
 #endif

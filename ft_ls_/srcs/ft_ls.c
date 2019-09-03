@@ -6,13 +6,13 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 10:39:53 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 11:18:29 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-int ft_ls_file(int *flags, char *path)
+int		ft_ls_file(int *flags, char *path)
 {
 	t_dirs	*dirs;
 
@@ -28,24 +28,6 @@ int ft_ls_file(int *flags, char *path)
 	free(dirs);
 	F_SET(*flags, F_REG, F_0);
 	return (1);
-}
-
-void	ft_ls_clean(t_dirs *dirs)
-{
-	t_info *list;
-
-	free(dirs->root);
-	list = dirs->list;
-	while (list)
-	{
-		/* free(list->root); */
-		/* free(list->name); */
-		free(list->path);
-		list = list->next;
-		if (list)
-			free(list);
-	}
-	free(dirs);
 }
 
 int		ft_ls_check(char *path)
