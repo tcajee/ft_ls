@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 11:36:46 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/30 17:36:34 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 15:32:22 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_error_dir(char *path)
 	return (0);
 }
 
-int	ft_error_print(int *flags, char *path)
+int	ft_error_perm(int *flags, char *path)
 {
 	if (*flags & F_R)
 	{
@@ -45,25 +45,49 @@ int	ft_error_flag(char *flag)
 	return (0);
 }
 
-int	ft_error_file(char *path)
+int	ft_error_print(int *flags, t_dirs *dirs)
 {
-	ft_putstr_fd("./ft_ls: ", 2);
-	ft_putstr_fd(path, 2);
-	ft_putendl_fd(": No such file or directory", 2);
+	t_info	*list;
+
+	list = (*flags & F_r) ? dirs->last : dirs->list;
+	while (dirs->size--)
+	{
+		ft_putstr_fd("./ft_ls: ", 2);
+		ft_putstr_fd(list->name, 2);
+		ft_putendl_fd(": No such file or directory", 2);
+		list = (*flags & F_r) ? list->prev : list->next;
+	}
 	return (0);
 }
 
-int	ft_errors(int *flags, int code, char *error)
+int	ft_errors(int *flags, char **error)
 {
-	if (code == E_FLAGS)
-		return (ft_error_flag(error));
-	else if (code == E_DIRS)
-		return (ft_error_dir(error));
-	else if (code == E_PRINTS)
-		return (ft_error_print(flags, error));
-	else if (code == E_FILES)
-		return (ft_error_file(error));
+	t_dirs	*dirs;
+	t_info	*list;
+
+	if (!(dirs = ft_dir_new(*(error + 1))))
+		return (0);
+	list = dirs->list;
+	while (*++error)
+	{
+		if (ft_ls_check(*error) == 0 && ++dirs->size)
+		{
+			if (!list)
+				list = ft_dir_add(dirs->last);
+			dirs->last = list;
+			list->name = ft_strdup(*error);
+			if (!(*flags & F_f))
+				ft_sorts(flags, dirs);
+			list = !(*flags & F_f) ? dirs->last->next : list->next;
+		}
+	}
+	/* ft_list_print(dirs); */
+	ft_error_print(flags, dirs);
 	return (0);
 }
+
+
+
+
 
 

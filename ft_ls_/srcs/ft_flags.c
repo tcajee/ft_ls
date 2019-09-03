@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/28 11:57:12 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 15:26:55 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		ft_flag_check(int *flags, char flag)
 		return (*flags = (*flags & ~F_0) | F_G);
 	else if (flag == 'F')
 		return (*flags = (*flags & ~F_0) | F_F);
-	exit (ft_errors(flags, E_FLAGS, &flag));
+	exit (ft_error_flag(&flag));
 }
 
 int		ft_lflag_check(int *flags, char *opt)
@@ -80,7 +80,7 @@ int		ft_lflag_check(int *flags, char *opt)
 		return (*flags = (*flags & ~F_d) | F_R);
 	else if (!ft_strcmp(opt, "verbose"))
 		return (*flags = (*flags & ~F_0) | F_F);
-	exit (ft_errors(flags, E_FLAGS, opt));
+	exit (ft_error_flag(opt));
 }
 
 int		ft_flags(int *flags, char **argv)

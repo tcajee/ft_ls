@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 14:05:18 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 15:30:56 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 
 # define E_FLAGS -1
 # define E_DIRS -2
-# define E_PRINTS -4
-# define E_FILES -8
+# define E_PERMS -4
+# define E_PRINTS -8
 
 # define F_SET(FLAGS, F_OFF, F_ON) FLAGS = (FLAGS & ~(F_OFF)) | (F_ON);
 
@@ -136,11 +136,11 @@ void					ft_print_lst(int *flags, t_dirs *dirs, t_info *dir);
 void					ft_print_perm(t_stat *s_stat);
 void					ft_print_perms(char *permissions, t_stat *s_stat);
 
-int						ft_errors(int *flags, int code, char *error);
+int						ft_errors(int *flags, char **error);
 int						ft_error_flag(char *arg);
-int						ft_error_print(int *flags, char *arg);
+int						ft_error_perm(int *flags, char *path);
 int						ft_error_dir(char *arg);
-int						ft_error_file(char *arg);
+int						ft_error_print(int *flags, t_dirs *dirs);
 
 void					ft_flag_print(int *flags);
 void					ft_list_print(t_dirs *dirs);
