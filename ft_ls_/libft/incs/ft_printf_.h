@@ -6,12 +6,12 @@
 /*   By: sminnaar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 12:04:29 by sminnaar          #+#    #+#             */
-/*   Updated: 2019/08/30 16:51:33 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/03 11:45:16 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#ifndef FT_PRINTF_H
-//# define FT_PRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 # include "libft.h"
 # include <stdarg.h>
 
@@ -24,3 +24,5 @@ void	ft_l(int width, va_list list);
 void	ft_s(int width, va_list list);
 void	ft_x(int width, va_list list);
 int		ft_format_width(va_list list);
+
+#endif

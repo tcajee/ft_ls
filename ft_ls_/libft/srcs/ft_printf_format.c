@@ -6,7 +6,7 @@
 /*   By: sminnaar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/30 16:37:39 by sminnaar          #+#    #+#             */
-/*   Updated: 2019/08/30 18:46:46 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 12:07:55 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_parse(char *form, va_list list)
 		{
 			ft_slash(form[++i]);
 		}
-		else if (form[i] != '\0') 
+		else if (form[i] != '\0')
 			ft_putchar(form[i++]);
 	}
 }
