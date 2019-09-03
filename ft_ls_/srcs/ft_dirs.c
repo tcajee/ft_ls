@@ -66,12 +66,12 @@ void	ft_dir_form(int *flags, t_dirs *dirs)
 		s_pwd = getpwuid(last->s_stat.st_uid);
 		if (s_pwd && (len = ft_strlen(s_pwd->pw_name)) > dirs->s_form.usr_len)
 			dirs->s_form.usr_len = len;
-		else if ((len = ft_intlen((int)s_pwd->pw_name)) > dirs->s_form.usr_len)
+		else if ((len = ft_intlen((int)*s_pwd->pw_name)) > dirs->s_form.usr_len)
 			dirs->s_form.usr_len = len;
 		s_grp = getgrgid(last->s_stat.st_gid);
 		if (s_grp && (len = ft_strlen(s_grp->gr_name)) > dirs->s_form.grp_len)
 			dirs->s_form.grp_len = len;
-		else if ((len = ft_intlen((int)s_grp->gr_name)) > dirs->s_form.grp_len)
+		else if ((len = ft_intlen((int)*s_grp->gr_name)) > dirs->s_form.grp_len)
 			dirs->s_form.grp_len = len;
 		if ((len = ft_intlen(last->s_stat.st_size)) > dirs->s_form.size_len)
 			dirs->s_form.size_len = len;

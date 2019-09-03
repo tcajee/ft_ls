@@ -56,7 +56,7 @@ void	ft_print_perm(t_stat *s_stat)
 	ft_print_perms(permissions, s_stat);
 	permissions[10] = ' ';
 	permissions[11] = '\0';
-	ft_printf_("%s ", permissions);
+	ft_printf_("%s", permissions);
 }
 
 void	ft_print_def(int *flags, t_info *list)
@@ -92,16 +92,16 @@ void	ft_print_lst(int *flags, t_dirs *dirs, t_info *list)
 	ft_printf_("%.%x ", dirs->s_form.link_len, list->s_stat.st_nlink);
 	s_pwd = getpwuid(list->s_stat.st_uid);
 	if (s_pwd)
-		ft_printf_("%.%s", dirs->s_form.usr_len, s_pwd->pw_name);
+		ft_printf_("%.%s ", dirs->s_form.usr_len, s_pwd->pw_name);
 	else
-		ft_printf_("%.%d", dirs->s_form.usr_len, list->s_stat.st_uid);
+		ft_printf_("%.%d ", dirs->s_form.usr_len, list->s_stat.st_uid);
 	s_grp = getgrgid(list->s_stat.st_gid);
 	if (!(*flags & F_g))
 	{
 		if (s_grp)
-			ft_printf_("%.%s", dirs->s_form.grp_len, s_grp->gr_name);
+			ft_printf_("%.%s ", dirs->s_form.grp_len, s_grp->gr_name);
 		else
-			ft_printf_("%.%d", dirs->s_form.grp_len, list->s_stat.st_gid);
+			ft_printf_("%.%d ", dirs->s_form.grp_len, list->s_stat.st_gid);
 	}
 	ft_printf_("%.%d", dirs->s_form.size_len, list->s_stat.st_size);
 	if (*flags & F_u)
