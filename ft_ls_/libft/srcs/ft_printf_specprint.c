@@ -6,11 +6,11 @@
 /*   By: sminnaar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 17:12:11 by sminnaar          #+#    #+#             */
-/*   Updated: 2019/09/03 12:08:48 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 17:20:39 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/ft_printf_.h"
+#include "../incs/libft.h"
 
 void	ft_d(int width, va_list list)
 {

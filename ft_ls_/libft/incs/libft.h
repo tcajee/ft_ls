@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:27:09 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/30 18:06:30 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/03 17:18:52 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # include "get_next_line.h"
 # include "ft_ls.h"
-# include "ft_printf_.h"
+# include "ft_printf.h"
 
 typedef	struct		s_list
 {

@@ -6,11 +6,11 @@
 /*   By: sminnaar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 14:55:55 by sminnaar          #+#    #+#             */
-/*   Updated: 2019/08/30 16:54:30 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/03 17:20:47 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/ft_printf_.h"
+#include "../incs/libft.h"
 
 void	ft_spec(char *spec, va_list list, int width)
 {

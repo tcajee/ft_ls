@@ -6,11 +6,11 @@
 /*   By: sminnaar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 14:34:00 by sminnaar          #+#    #+#             */
-/*   Updated: 2019/08/30 16:40:05 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/03 17:20:28 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/ft_printf_.h"
+#include "../incs/libft.h"
 
 void	ft_printf_(char *format, ...)
 {
