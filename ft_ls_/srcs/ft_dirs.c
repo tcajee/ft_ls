@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/02 15:24:47 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 11:06:51 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,37 @@ t_dirs	*ft_dir_new(char *path)
 
 	if (!(new = (t_dirs *)malloc(sizeof(t_dirs))))
 		return (NULL);
-
-
 	new->root = ft_strdup(path);
-
-
-	new->list = NULL;
-	new->last = NULL;
-	new->total = 0;
-	new->size = 0;
+	if (!(new->list = (t_info *)malloc(sizeof(t_info))))
+		return (NULL);
+	new->list->root = NULL;
+	new->list->name = NULL;
+	new->list->path = NULL;
+	new->list->next = NULL;
+	new->list->prev = NULL;
 	new->s_form.grp_len = 0;
 	new->s_form.usr_len = 0;
 	new->s_form.size_len = 0;
 	new->s_form.link_len = 0;
+	new->total = 0;
+	new->size = 0;
+	new->last = NULL;
 	return (new);
 }
 
+t_info	*ft_dir_add(t_info *last)
+{
+	t_info	*new;
+	if (!(new = (t_info *)malloc(sizeof(t_info))))
+		return (NULL);
+	new->root = NULL;
+	new->name = NULL;
+	new->path = NULL;
+	new->next = NULL;
+	last->next = new;
+	new->prev = last;
+	return (new);
+}
 
 int	ft_dir_form(int *flags, t_dirs *dirs)
 {
@@ -63,53 +78,32 @@ int	ft_dir_form(int *flags, t_dirs *dirs)
 	return (1);
 }
 
-
 int ft_dir_fill(int *flags, t_dirs *dirs, char *path)
 {
 	t_dirent	*s_dir;
 	DIR			*dir;
 	t_info		*list;
 
-	dirs->list = ft_list_new();
 	list = dirs->list;
 	dirs->last = list;
 	if (!(dir = opendir(path)))
 		return (ft_errors(flags, E_PRINTS, path));
-	while ((s_dir = readdir(dir)) != NULL)
+	while ((s_dir = readdir(dir)) != NULL && ++dirs->size)
 	{
 		if (!list)
-			list = ft_list_add(dirs->last);
+			list = ft_dir_add(dirs->last);
 		list->root = ft_strdup(path);
 		list->name = ft_strdup(s_dir->d_name);
 		list->path = ft_ls_path(path, s_dir->d_name);
-		list->i = dirs->size;
 		lstat(list->path, &list->s_stat);
 		dirs->total += list->s_stat.st_blocks;
 		ft_dir_form(flags, dirs);
 		dirs->last = list;
-		list = list->next;
-		dirs->size++;
+		if (!(*flags & F_f))
+			ft_sorts(flags, dirs);
+		list = !(*flags & F_f) ? dirs->last->next : list->next;
 	}
 	closedir(dir);
-	return (1);
-}
-
-
-int ft_dir_file(int *flags, char *path)
-{
-	t_dirs	*dirs;
-
-	F_SET(*flags, F_0, F_REG);
-	if (!(dirs = ft_dir_new(path)))
-		return (0);
-	if (!(dirs->list->root = ft_strdup(path)))
-		return (0);
-	lstat(dirs->list->root, &dirs->list->s_stat);
-	dirs->size = 1;
-	ft_prints(flags, dirs);
-	free(dirs->list->root);
-	free(dirs);
-	F_SET(*flags, F_REG, F_0);
 	return (1);
 }
 
@@ -117,17 +111,14 @@ int ft_dirs(int *flags, char *path)
 {
 	t_dirs		*dirs;
 
-	if (ft_ls_check(path) == 1 && (!(ft_dir_file(flags, path))))
+	if (ft_ls_check(path) == 1 && (!(ft_ls_file(flags, path))))
 		return (0);
 	else if (ft_ls_check(path) == 2)
 	{
 		dirs = ft_dir_new(path);
 		if (!(ft_dir_fill(flags, dirs, path)))
 			return (0);
-		if (dirs->size > 1 && !(*flags & F_REG) && !(*flags & F_f))
-			ft_sorts(flags, dirs);
-
-		/* ft_list_print(dirs); */
+		ft_list_print(dirs);
 		ft_prints(flags, dirs);
 		ft_ls_clean(dirs);
 	}

@@ -6,13 +6,13 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/02 15:14:08 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 10:17:38 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-void	ft_perm(char *permissions, t_stat *s_stat)
+void	ft_print_perms(char *permissions, t_stat *s_stat)
 {
 	if (s_stat->st_mode & S_IRUSR)
 		permissions[1] = 'r';
@@ -53,7 +53,7 @@ void	ft_print_perm(t_stat *s_stat)
 		permissions[0] = 's';
 	else if ((s_stat->st_mode & S_IFMT) == S_IFIFO)
 		permissions[0] = 'p';
-	ft_perm(permissions, s_stat);
+	ft_print_perms(permissions, s_stat);
 	permissions[10] = ' ';
 	permissions[11] = '\0';
 	ft_printf_("%s ", permissions);
@@ -137,43 +137,5 @@ int	ft_prints(int *flags, t_dirs *dirs)
 			ft_print_lst(flags, dirs, list);
 		list = (*flags & F_r) ? list->prev: list->next;
 	}
-//	ft_list_clean(dirs);
 	return (1);
 }
-
-/*	if (s_stat->st_mode & S_IRUSR)
-		permissions[1] = 'r';
-	if (s_stat->st_mode & S_IWUSR)
-		permissions[2] = 'w';
-	if (s_stat->st_mode & S_IXUSR)
-		permissions[3] = 'x';
-	if (s_stat->st_mode & S_IRGRP)
-		permissions[4] = 'r';
-	if (s_stat->st_mode & S_IWGRP)
-		permissions[5] = 'w';
-	if (s_stat->st_mode & S_IXGRP)
-		permissions[6] = 'x';
-	if (s_stat->st_mode & S_IROTH)
-		permissions[7] = 'r';
-	if (s_stat->st_mode & S_IWOTH)
-		permissions[8] = 'w';
-	if (s_stat->st_mode & S_IXOTH)
-		permissions[9] = 'x';*/
-
-
-
-		/* if (!(*flags & F_a) && list->name[0] == '.') */
-		/* 	if (!(*flags & F_REG)) */
-		/* 	{ */
-		/* 		ft_putstr("SKIPPED: "); */
-		/* 		ft_putstr(list->name); */
-		/* 		ft_putendl("	"); */
-		/* 		list = (*flags & F_r) ? list->prev: list->next; */
-		/* 		continue; */
-		/* 	} */
-		/* if (*flags & F_1) */
-		/* 	ft_print_def(flags, list); */
-		/* else if (*flags & F_l) */
-		/* 	ft_print_lst(flags, list); */
-		/* list = (*flags & F_r) ? list->prev: list->next; */
-

@@ -6,11 +6,29 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/02 15:23:54 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 10:39:53 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
+
+int ft_ls_file(int *flags, char *path)
+{
+	t_dirs	*dirs;
+
+	F_SET(*flags, F_0, F_REG);
+	if (!(dirs = ft_dir_new(path)))
+		return (0);
+	if (!(dirs->list->root = ft_strdup(path)))
+		return (0);
+	lstat(dirs->list->root, &dirs->list->s_stat);
+	dirs->size = 1;
+	ft_prints(flags, dirs);
+	free(dirs->list->root);
+	free(dirs);
+	F_SET(*flags, F_REG, F_0);
+	return (1);
+}
 
 void	ft_ls_clean(t_dirs *dirs)
 {
@@ -20,40 +38,15 @@ void	ft_ls_clean(t_dirs *dirs)
 	list = dirs->list;
 	while (list)
 	{
-		free(list->root);
-		free(list->name);
+		/* free(list->root); */
+		/* free(list->name); */
 		free(list->path);
 		list = list->next;
-		free(list);
+		if (list)
+			free(list);
 	}
 	free(dirs);
 }
-	
-	/* if (dirs->root) */
-	/* 	free(dirs->root); */
-	/* if (dirs->path) */
-	/* 	free(dirs->path); */
-	/* if (dirs->name) */
-	/* 	free(dirs->name); */
-
-	/* t_dirs	*new; */
-	/* new = NULL; */
-	/* new->name = ft_strdup(path); */
-	/* new->list = ft_list_new(); */
-	/* new->last = NULL; */
-	/* new->total = 0; */
-	/* new->size = 0; */
-	/* new->s_form.grp_len = 0; */
-	/* new->s_form.usr_len = 0; */
-	/* new->s_form.size_len = 0; */
-	/* new->s_form.link_len = 0; */
-
-	/* t_info	*new; */
-	/* new->root = NULL; */
-	/* new->name = NULL; */
-	/* new->path = NULL; */
-	/* new->next = NULL; */
-	/* new->prev = NULL; */
 
 int		ft_ls_check(char *path)
 {
