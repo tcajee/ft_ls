@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 12:15:39 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 12:23:03 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 int		ft_ls_file(int *flags, char *path)
 {
 	t_dirs	*dirs;
-	t_info	*list;
 
 	F_SET(*flags, F_0, F_REG);
 	if (!(dirs = ft_dir_new(path)))
 		return (0);
-	list = dirs->list;
-	if (!(list->name = ft_strdup(path)))
-		return (0);
-	lstat(list->root, &list->s_stat);
-
 	dirs->size = 1;
+	dirs->last = dirs->list;
+	if (!(dirs->last->name = ft_strdup(path)))
+		return (0);
+	lstat(dirs->last->name, &dirs->last->s_stat);
+	ft_dir_form(flags, dirs);
 	ft_prints(flags, dirs);
-	free(list->root);
+	free(dirs->last->name);
+	free(dirs->root);
 	free(dirs);
 	F_SET(*flags, F_REG, F_0);
 	return (1);
