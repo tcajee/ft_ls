@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 15:34:26 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 16:40:32 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ typedef struct			s_form
 
 typedef struct			s_info
 {
-	char				*root;
 	char				*name;
 	char				*path;
 	char				*temp;
@@ -129,6 +128,7 @@ void					ft_sorts(int *flags, t_dirs *dirs);
 void					ft_sort_lex(int *flags, t_info **sorted, t_info *unsorted);
 void					ft_sort_time(int *flags, t_info **sorted, t_info *unsorted);
 t_info					*ft_sort_comp(int *flags, t_info *list, t_info* unsorted);
+void					ft_sort_clean(t_dirs *dirs);
 
 int						ft_prints(int *flags, t_dirs *dirs);
 void					ft_print_def(int *flags, t_info *dir);

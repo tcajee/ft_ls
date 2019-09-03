@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 15:47:17 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 16:55:18 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ t_info	*ft_dir_add(t_info *last)
 	t_info	*new;
 	if (!(new = (t_info *)malloc(sizeof(t_info))))
 		return (NULL);
-	new->root = NULL;
 	new->name = NULL;
 	new->path = NULL;
 	new->next = NULL;
@@ -36,7 +35,6 @@ t_dirs	*ft_dir_new(char *path)
 	new->root = ft_strdup(path);
 	if (!(new->list = (t_info *)malloc(sizeof(t_info))))
 		return (NULL);
-	new->list->root = NULL;
 	new->list->name = NULL;
 	new->list->path = NULL;
 	new->list->next = NULL;
@@ -92,7 +90,6 @@ int ft_dir_fill(int *flags, t_dirs *dirs, char *path)
 		if (!list)
 			list = ft_dir_add(dirs->last);
 		dirs->last = list;
-		list->root = ft_strdup(path);
 		list->name = ft_strdup(s_dir->d_name);
 		list->path = ft_ls_path(path, s_dir->d_name);
 		lstat(list->path, &list->s_stat);
@@ -110,24 +107,12 @@ int ft_dir_fill(int *flags, t_dirs *dirs, char *path)
 int ft_dirs(int *flags, char *path)
 {
 	t_dirs	*dirs;
-	t_info	*list;
-	t_info	*next;
 
-	dirs = ft_dir_new(path);
+	if (!(dirs = ft_dir_new(path)))
+		return (0);
 	if (!(ft_dir_fill(flags, dirs, path)))
 		return (0);
-	list = dirs->list;
-	while (list)
-	{
-		next = list->next;
-		free(list->root);
-		free(list->name);
-		free(list->path);
-		free(list);
-		list = next;
-	}
-	free(dirs->root);
-	free(dirs);
+	ft_sort_clean(dirs);
 	if (*flags & F_R)
 		ft_ls_rec(flags, path);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 15:46:00 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/03 16:57:55 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	ft_print_def(int *flags, t_info *list)
 	else if ((list->s_stat.st_mode & S_IFMT) == S_IFLNK)
 		ft_printf_(" -> %s", path);
 	ft_printf_("\n");
-	/* free(list->name); */
 }
 
 void	ft_print_lst(int *flags, t_dirs *dirs, t_info *list)
@@ -116,6 +115,7 @@ void	ft_print_lst(int *flags, t_dirs *dirs, t_info *list)
 int	ft_prints(int *flags, t_dirs *dirs)
 {
 	t_info	*list;
+
 	if ((*flags & F_M || *flags & F_R) && *flags & F_P && !(*flags & F_REG))
 		ft_printf_("\n%s:\n", dirs->root);
 	if (*flags & F_l && !(*flags & F_REG))
