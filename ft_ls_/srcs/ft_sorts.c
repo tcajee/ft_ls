@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 17:28:05 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/04 18:08:17 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,100 +35,106 @@ void	ft_sort_clean(t_dirs *dirs)
 	}
 }
 
-t_info	*ft_sort_comp(int *flags, t_info *list, t_info *unsorted)
+int		ft_sort_comp(int *flags, t_info *a, t_info *b)
 {
 	if (*flags & F_T)
-	{
-		while (list->next && ft_strcmp(list->next->name, unsorted->name) < 0)
-			list = list->next;
-		return (list);
-	}
+		return (ft_strcmp(a->name, b->name));
 	else if (*flags & F_U)
-	{
-		while (list->next && ft_strcmp(list->next->name, unsorted->name) < 0)
-			list = list->next;
-		return (list);
-	}
+		return (ft_strcmp(a->name, b->name));
 	else
-	{
-		while (list->next && ft_strcmp(list->next->name, unsorted->name) < 0)
-			list = list->next;
-		return (list);
-	}
+		return (ft_strcmp(a->name, b->name));
 }
 
-void	ft_sort_time(int *flags, t_info **sorted, t_info *unsorted)
+int ft_sort_merge(int *flags, t_dirs *dirs, int n)
 {
 	t_info *list;
-
-	if (!*sorted)
-		*sorted = unsorted;
-	else if (ft_strcmp((*sorted)->name, unsorted->name) >= 0)
+	t_info *temp;
+	t_info *next;
+	t_info *tail;
+	int insize;
+	int nmerges;
+	int listsize;
+	int nextsize;
+	int i;
+	insize = n;
+	list = dirs->list;
+	dirs->list = NULL;
+	tail = NULL;
+	nmerges = 0;
+	while (list)
 	{
-		unsorted->next = *sorted;
-		unsorted->next->prev = unsorted;
-		*sorted = unsorted;
+		nmerges++;
+		next = list;
+		listsize = 0;
+		i = 0;
+		while (i < insize)
+		{
+			listsize++;
+			next = next->next;
+			if (!next)
+				break;
+			i++;
+		}
+		nextsize = insize;
+		while (listsize > 0 || (nextsize > 0 && next))
+		{
+			/* decide whether next element of merge comes from p or q */
+			if (listsize == 0)
+			{
+				/* p is empty; e must come from q. */
+				temp = next;
+				next = next->next;
+				nextsize--;
+			}
+			else if (nextsize == 0 || !next)
+			{
+				/* q is empty; e must come from p. */
+				temp = list;
+				list = list->next;
+				listsize--;
+			}
+			else if (ft_sort_comp(flags, list, next) <= 0)
+			{
+				/* First element of p is lower (or same);
+				 * * e must come from p. */
+				temp = list;
+				list = list->next;
+				listsize--;
+			}
+			else
+			{
+				/* First element of q is lower; e must come from q. */
+				temp = next;
+				next = next->next;
+				nextsize--;
+			}
+			/* add the next element to the merged list */
+			if (tail)
+				tail->next = temp;
+			else
+				dirs->list = temp;
+			temp->prev = tail;
+			tail = temp;
+		}
+		/* now p has stepped `insize' places along, and q has too */
+		list = next;
 	}
+	dirs->list->prev = tail;
+	if (nmerges <= 1)
+		return (0);
 	else
-	{
-		list = *sorted;
-		list = ft_sort_comp(flags, list, unsorted);
-		unsorted->next = list->next;
-		if (list->next)
-			unsorted->next->prev = unsorted;
-		list->next = unsorted;
-		unsorted->prev = list;
-	}
-}
-
-void	ft_sort_lex(int *flags, t_info **sorted, t_info *unsorted)
-{
-	t_info *list;
-
-	if (!*sorted)
-		*sorted = unsorted;
-	else if (ft_strcmp((*sorted)->name, unsorted->name) >= 0)
-	{
-		unsorted->next = *sorted;
-		unsorted->next->prev = unsorted;
-		*sorted = unsorted;
-	}
-	else
-	{
-		list = *sorted;
-		list = ft_sort_comp(flags, list, unsorted);
-		unsorted->next = list->next;
-		if (list->next)
-			unsorted->next->prev = unsorted;
-		list->next = unsorted;
-		unsorted->prev = list;
-	}
+		return (1);
 }
 
 void	ft_sorts(int *flags, t_dirs *dirs)
 {
-	t_info *next;
-	t_info *list;
-	t_info *sorted;
+	int i;
+	int n;
 
-	sorted = NULL;
-	list = dirs->list;
-	while (list)
-	{
-		next = list->next;
-		list->prev = NULL;
-		list->next = NULL;
-		if (*flags & F_T || *flags & F_U)
-			ft_sort_time(flags, &sorted, list);
-		else
-			ft_sort_lex(flags, &sorted, list);
-		list = next;
-	}
-	dirs->list = sorted;
-	while (sorted)
-	{
-		if (!sorted->next)
-			dirs->last = sorted;
-		sorted = sorted->next;
-	}
+	i = 0;
+	n = 1;
+	while ((i = ft_sort_merge(flags, dirs, n)))
+		n *= 2;
 }
+
+

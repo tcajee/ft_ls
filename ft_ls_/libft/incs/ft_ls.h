@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 17:27:30 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/04 17:58:03 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct			s_info
 {
 	char				*name;
 	char				*path;
+	int				i;
 	char				*t;
 	t_stat				s_stat;
 	struct s_info		*next;
@@ -99,7 +100,7 @@ typedef struct			s_dirs
 	struct s_info		*last;
 }						t_dirs;
 
-int						main(int argc, char **argv);
+/* int						main(int argc, char **argv); */
 int						ft_ls_check(char *path);
 char					*ft_ls_path(char *path, char *d_name);
 void					ft_ls_file(int *flags, char **argv);
@@ -118,7 +119,7 @@ void					ft_dir_form(int *flags, t_dirs *dirs);
 void					ft_sorts(int *flags, t_dirs *dirs);
 void					ft_sort_lex(int *flags, t_info **sort, t_info *unsort);
 void					ft_sort_time(int *flags, t_info **sort, t_info *unsort);
-t_info					*ft_sort_comp(int *flags, t_info *list, t_info *unsort);
+int						ft_sort_comp(int *flags, t_info *list, t_info *unsort);
 void					ft_sort_clean(t_dirs *dirs);
 
 int						ft_prints(int *flags, t_dirs *dirs);

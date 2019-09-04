@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 17:22:17 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/04 17:07:28 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,15 @@ int		ft_dir_fill(int *flags, t_dirs *dirs, char *path)
 		lstat(list->path, &list->s_stat);
 		dirs->total += list->s_stat.st_blocks;
 		ft_dir_form(flags, dirs);
-		if (!(*flags & F_F))
-			ft_sorts(flags, dirs);
-		list = !(*flags & F_F) ? dirs->last->next : list->next;
+		/* if (!(*flags & F_F)) */
+			/* ft_sorts(flags, dirs); */
+		/* list = !(*flags & F_F) ? dirs->last->next : list->next; */
+		list = list->next;
 	}
 	closedir(dir);
+	/* ft_list_print(dirs); */
+		if (!(*flags & F_F))
+			ft_sorts(flags, dirs);
 	return (ft_prints(flags, dirs));
 }
 
