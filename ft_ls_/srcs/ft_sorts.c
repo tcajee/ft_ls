@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/04 18:08:17 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/05 15:23:54 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,10 @@ insize = 1;
 		}
 		/* dirs->list->prev = tail; */
 		if (tail)
+		{
 			tail->next = NULL;
+			dirs->last = tail;
+		}
 		if (nmerges <= 1)
 			break;
 		insize *= 2;
