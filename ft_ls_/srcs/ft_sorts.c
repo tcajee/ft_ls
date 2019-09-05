@@ -45,96 +45,95 @@ int		ft_sort_comp(int *flags, t_info *a, t_info *b)
 		return (ft_strcmp(a->name, b->name));
 }
 
-int ft_sort_merge(int *flags, t_dirs *dirs, int n)
+t_dirs *ft_sort_merge(int *flags, t_dirs *dirs)
 {
-	t_info *list;
-	t_info *temp;
-	t_info *next;
-	t_info *tail;
-	int insize;
-	int nmerges;
-	int listsize;
-	int nextsize;
-	int i;
-	insize = n;
-	list = dirs->list;
-	dirs->list = NULL;
-	tail = NULL;
-	nmerges = 0;
-	while (list)
+t_info *list;
+t_info *temp;
+t_info *next;
+t_info *tail;
+int insize;
+int nmerges;
+int listsize;
+int nextsize;
+int i;
+insize = 1;
+
+	while (1)
 	{
-		nmerges++;
-		next = list;
-		listsize = 0;
-		i = 0;
-		while (i < insize)
+		list = dirs->list;
+		dirs->list = NULL;
+		tail = NULL;
+		nmerges = 0;
+		while (list)
 		{
-			listsize++;
-			next = next->next;
-			if (!next)
-				break;
-			i++;
-		}
-		nextsize = insize;
-		while (listsize > 0 || (nextsize > 0 && next))
-		{
-			/* decide whether next element of merge comes from p or q */
-			if (listsize == 0)
+			++nmerges;
+			next = list;
+			listsize = 0;
+			i = 0;
+			while (i < insize)
 			{
-				/* p is empty; e must come from q. */
-				temp = next;
+				listsize++;
 				next = next->next;
-				nextsize--;
+				if (!next)
+					break;
+				i++;
 			}
-			else if (nextsize == 0 || !next)
+			nextsize = insize;
+			while (listsize > 0 || (nextsize > 0 && next))
 			{
-				/* q is empty; e must come from p. */
-				temp = list;
-				list = list->next;
-				listsize--;
+				/* decide whether next element of merge comes from p or q */
+				if (listsize == 0)
+				{
+					/* p is empty; e must come from q. */
+					temp = next;
+					next = next->next;
+					nextsize--;
+				}
+				else if (nextsize == 0 || !next)
+				{
+					/* q is empty; e must come from p. */
+					temp = list;
+					list = list->next;
+					listsize--;
+				}
+				else if (ft_sort_comp(flags, list, next) <= 0)
+				{
+					/* First element of p is lower (or same);
+					 * * e must come from p. */
+					temp = list;
+					list = list->next;
+					listsize--;
+				}
+				else
+				{
+					/* First element of q is lower; e must come from q. */
+					temp = next;
+					next = next->next;
+					nextsize--;
+				}
+				/* add the next element to the merged list */
+				if (tail)
+					tail->next = temp;
+				else
+					dirs->list = temp;
+				temp->prev = tail;
+				tail = temp;
 			}
-			else if (ft_sort_comp(flags, list, next) <= 0)
-			{
-				/* First element of p is lower (or same);
-				 * * e must come from p. */
-				temp = list;
-				list = list->next;
-				listsize--;
-			}
-			else
-			{
-				/* First element of q is lower; e must come from q. */
-				temp = next;
-				next = next->next;
-				nextsize--;
-			}
-			/* add the next element to the merged list */
-			if (tail)
-				tail->next = temp;
-			else
-				dirs->list = temp;
-			temp->prev = tail;
-			tail = temp;
+			/* now p has stepped `insize' places along, and q has too */
+			list = next;
 		}
-		/* now p has stepped `insize' places along, and q has too */
-		list = next;
+		/* dirs->list->prev = tail; */
+		tail->next = NULL;
+		if (nmerges <= 1)
+			return (dirs);
+		insize *= 2;
 	}
-	dirs->list->prev = tail;
-	if (nmerges <= 1)
-		return (0);
-	else
-		return (1);
+
 }
 
 void	ft_sorts(int *flags, t_dirs *dirs)
 {
-	int i;
-	int n;
-
-	i = 0;
-	n = 1;
-	while ((i = ft_sort_merge(flags, dirs, n)))
-		n *= 2;
+	dirs = ft_sort_merge(flags, dirs);
 }
 
 
