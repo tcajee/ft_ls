@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/05 15:31:30 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/05 17:51:46 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,50 @@ int		ft_sort_comp(int *flags, t_info *a, t_info *b)
 {
 	if (*flags & F_T)
 	{
+
 		if (a->s_stat.st_mtimespec.tv_sec == b->s_stat.st_mtimespec.tv_sec)
-			return (ft_strcmp(a->name, b->name));
+		{
+			if (a->s_stat.st_mtimespec.tv_nsec != b->s_stat.st_mtimespec.tv_nsec)
+				return (a->s_stat.st_mtimespec.tv_nsec < b->s_stat.st_mtimespec.tv_nsec);
+			else
+				return (ft_strcmp(a->name, b->name));
+		}
 		else
 			return (a->s_stat.st_mtimespec.tv_sec < b->s_stat.st_mtimespec.tv_sec);
+	
+		
+		
+		/* else if (a->s_stat.st_mtimespec.tv_nsec != b->s_stat.st_mtimespec.tv_nsec) */
+		/* 	return (a->s_stat.st_mtimespec.tv_nsec < b->s_stat.st_mtimespec.tv_nsec); */
+		/* else */
+		/* 	return (a->s_stat.st_mtimespec.tv_sec < b->s_stat.st_mtimespec.tv_sec); */
+
 	}
 	else if (*flags & F_U)
 	{
 		if (a->s_stat.st_atimespec.tv_sec == b->s_stat.st_atimespec.tv_sec)
-			return (ft_strcmp(a->name, b->name));
+		{
+			if (a->s_stat.st_atimespec.tv_nsec != b->s_stat.st_atimespec.tv_nsec)
+				return (a->s_stat.st_atimespec.tv_nsec < b->s_stat.st_atimespec.tv_nsec);
+			else
+				return (ft_strcmp(a->name, b->name));
+		}
 		else
-			return (a->s_stat.st_atimespec.tv_sec < b->s_stat.st_atimespec.tv_sec)
+			return (a->s_stat.st_atimespec.tv_sec < b->s_stat.st_atimespec.tv_sec);
+		
+		
+		/* if (a->s_stat.st_atimespec.tv_sec == b->s_stat.st_atimespec.tv_sec) */
+		/* { */
+		/* 	if (a->s_stat.st_atimespec.tv_nsec == b->s_stat.st_atimespec.tv_nsec) */
+		/* 		return (ft_strcmp(a->name, b->name)); */
+		/* } */
+		/* else if (a->s_stat.st_atimespec.tv_nsec != b->s_stat.st_atimespec.tv_nsec) */
+		/* 	return (a->s_stat.st_atimespec.tv_nsec < b->s_stat.st_atimespec.tv_nsec); */
+		/* else */
+		/* 	return (a->s_stat.st_atimespec.tv_sec < b->s_stat.st_atimespec.tv_sec); */
+
 	}
-	else
-		return (ft_strcmp(a->name, b->name));
+	return (ft_strcmp(a->name, b->name));
 }
 
 t_dirs *ft_sort_merge(int *flags, t_dirs *dirs)
