@@ -77,12 +77,13 @@ void	ft_dir_form(int *flags, t_dirs *dirs)
 	}
 }
 
-int		ft_dir_fill(int *flags, t_dirs *dirs, char *path)
+int		ft_dirs(int *flags, t_dirs *dirs, char *path)
 {
 	t_dirent	*s_dir;
 	DIR			*dir;
 	t_info		*list;
 
+	path = !(path) ? "." : path;
 	list = dirs->list;
 	if (!(dir = opendir(path)))
 		return (ft_error_perm(flags, path));
@@ -96,28 +97,10 @@ int		ft_dir_fill(int *flags, t_dirs *dirs, char *path)
 		lstat(list->path, &list->s_stat);
 		dirs->total += list->s_stat.st_blocks;
 		ft_dir_form(flags, dirs);
-		/* if (!(*flags & F_F)) */
-			/* ft_sorts(flags, dirs); */
-		/* list = !(*flags & F_F) ? dirs->last->next : list->next; */
 		list = list->next;
 	}
 	closedir(dir);
-	/* ft_list_print(dirs); */
 	if (!(*flags & F_F))
 		ft_sorts(flags, dirs);
 	return (ft_prints(flags, dirs));
-}
-
-int		ft_dirs(int *flags, char *path)
-{
-	t_dirs	*dirs;
-
-	if (!(dirs = ft_dir_new(path)))
-		return (0);
-	if (!(ft_dir_fill(flags, dirs, path)))
-		return (0);
-	ft_sort_clean(dirs);
-	if (*flags & F_RR)
-		ft_ls_rec(flags, path);
-	return (1);
 }

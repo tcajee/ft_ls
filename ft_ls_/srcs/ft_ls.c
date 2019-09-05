@@ -40,19 +40,6 @@ void	ft_ls_file(int *flags, char **argv)
 	F_SET(*flags, F_REG, F_0);
 }
 
-int		ft_ls_check(char *path)
-{
-	t_stat	s_stat;
-
-	if (lstat(path, &s_stat) < 0)
-		return (0);
-	if ((s_stat.st_mode & S_IFMT) == S_IFREG)
-		return (1);
-	if ((s_stat.st_mode & S_IFMT) == S_IFDIR)
-		return (2);
-	return (0);
-}
-
 char	*ft_ls_path(char *path, char *d_name)
 {
 	int		i;
@@ -75,46 +62,65 @@ char	*ft_ls_path(char *path, char *d_name)
 	return (temp);
 }
 
-int		ft_ls_rec(int *flags, char *path)
+int		ft_ls_rec(int *flags, t_dirs *dirs)
 {
-	t_dirent	*s_dir;
-	DIR			*dir;
-	char		*fpath;
+	/* char		*fpath; */
+	t_info		*list;
 
-	if (!(dir = opendir(path)))
-		return (0);
-	while ((s_dir = readdir(dir)) != NULL)
+	list = (*flags & F_R) ? dirs->last : dirs->list;
+	while (list)
 	{
-		if ((s_dir->d_name[0] == '.' && s_dir->d_name[1] == '\0') ||
-			((s_dir->d_name[0] == '.' && s_dir->d_name[2] == '\0') &&
-			s_dir->d_name[1] == '.'))
+		if ((list->name[0] == '.' && list->name[1] == '\0') ||
+			((list->name[0] == '.' && list->name[2] == '\0') &&
+			list->name[1] == '.'))
+		{
+			list = (*flags & F_R) ? list->prev : list->next;
 			continue;
-		if (ft_ls_check(fpath = ft_ls_path(path, s_dir->d_name)) == 2)
-			ft_dirs(flags, fpath);
-		free(fpath);
+		}
+		if (ft_ls_check(list->path) == 2)
+			ft_dirs(flags, dirs, list->path);
+		list = (*flags & F_R) ? list->prev : list->next;
 	}
-	closedir(dir);
 	return (1);
+}
+
+int		ft_ls_check(char *path)
+{
+	t_stat	s_stat;
+
+	if (lstat(path, &s_stat) < 0)
+		return (0);
+	if ((s_stat.st_mode & S_IFMT) == S_IFREG)
+		return (1);
+	if ((s_stat.st_mode & S_IFMT) == S_IFDIR)
+		return (2);
+	return (0);
 }
 
 int		main(int argc, char **argv)
 {
 	int			flags;
+	t_dirs		*dirs;
 	int			i;
-	int			j;
 
 	i = 0;
-	i = ft_flags(&flags, argv);
-	if ((argc - i) > 1)
+	if ((argc - (i = ft_flags(&flags, argv))) > 1)
 		flags |= F_M;
-	if (!argv[i])
-		return (ft_dirs(&flags, "."));
-	j = i - 1;
-	ft_errors(&flags, argv + j);
-	ft_ls_file(&flags, argv + j);
-	while (argv[++j])
-		if (ft_ls_check(argv[j]) == 2)
-			ft_dirs(&flags, argv[j]);
-	sleep(29);
+	ft_errors(&flags, argv + i - 1);
+	ft_ls_file(&flags, argv + i - 1);
+	while (argv[i - 1])
+	{
+		if (ft_ls_check(argv[i]) == 2)
+		{
+			if (!(dirs = ft_dir_new(argv[i])))
+				return (0);
+			if (!(ft_dirs(&flags, dirs, argv[i])))
+				return (0);
+			if (flags & F_RR)
+				ft_ls_rec(&flags, dirs);
+			ft_sort_clean(dirs);
+		}
+		i++;
+	}
 	return (1);
 }

@@ -62,7 +62,8 @@ void	ft_print_perm(t_stat *s_stat)
 void	ft_print_def(int *flags, t_info *list)
 {
 	char	path[PATH_MAX];
-
+	
+	ft_bzero(path, PATH_MAX);
 	readlink(list->path, path, PATH_MAX);
 	ft_printf_("%s", list->name);
 	if (*flags & F_FF)
