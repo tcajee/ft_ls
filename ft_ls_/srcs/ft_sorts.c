@@ -38,9 +38,19 @@ void	ft_sort_clean(t_dirs *dirs)
 int		ft_sort_comp(int *flags, t_info *a, t_info *b)
 {
 	if (*flags & F_T)
-		return (a->s_stat.st_mtimespec.tv_sec < b->s_stat.st_mtimespec.tv_sec);
+	{
+		if (a->s_stat.st_mtimespec.tv_sec == b->s_stat.st_mtimespec.tv_sec)
+			return (ft_strcmp(a->name, b->name));
+		else
+			return (a->s_stat.st_mtimespec.tv_sec < b->s_stat.st_mtimespec.tv_sec);
+	}
 	else if (*flags & F_U)
-		return (a->s_stat.st_atimespec.tv_sec < b->s_stat.st_atimespec.tv_sec);
+	{
+		if (a->s_stat.st_atimespec.tv_sec == b->s_stat.st_atimespec.tv_sec)
+			return (ft_strcmp(a->name, b->name));
+		else
+			return (a->s_stat.st_atimespec.tv_sec < b->s_stat.st_atimespec.tv_sec)
+	}
 	else
 		return (ft_strcmp(a->name, b->name));
 }
