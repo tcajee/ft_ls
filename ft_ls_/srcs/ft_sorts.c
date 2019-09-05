@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/05 15:23:54 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/05 15:31:30 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	ft_sort_clean(t_dirs *dirs)
 int		ft_sort_comp(int *flags, t_info *a, t_info *b)
 {
 	if (*flags & F_T)
-		return (ft_strcmp(a->name, b->name));
+		return (a->s_stat.st_mtimespec.tv_sec < b->s_stat.st_mtimespec.tv_sec);
 	else if (*flags & F_U)
-		return (ft_strcmp(a->name, b->name));
+		return (a->s_stat.st_atimespec.tv_sec < b->s_stat.st_atimespec.tv_sec);
 	else
 		return (ft_strcmp(a->name, b->name));
 }

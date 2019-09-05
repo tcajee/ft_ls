@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 17:25:09 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/05 15:27:17 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,6 @@ int		main(int argc, char **argv)
 	while (argv[++j])
 		if (ft_ls_check(argv[j]) == 2)
 			ft_dirs(&flags, argv[j]);
+	sleep(29);
 	return (1);
 }
