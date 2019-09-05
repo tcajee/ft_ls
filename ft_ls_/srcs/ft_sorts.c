@@ -58,7 +58,7 @@ int nextsize;
 int i;
 insize = 1;
 
-	while (1)
+	while (insize)
 	{
 		list = dirs->list;
 		dirs->list = NULL;
@@ -123,12 +123,13 @@ insize = 1;
 			list = next;
 		}
 		/* dirs->list->prev = tail; */
-		tail->next = NULL;
+		if (tail)
+			tail->next = NULL;
 		if (nmerges <= 1)
-			return (dirs);
+			break;
 		insize *= 2;
 	}
-
+	return (dirs);
 }
 
 void	ft_sorts(int *flags, t_dirs *dirs)
