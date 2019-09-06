@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/06 13:44:23 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/06 13:49:05 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,24 +99,20 @@ int		ft_dir_fill(int *flags, t_dirs *dirs, char *path)
 		if (!(*flags & F_F))
 			ft_sorts(flags, dirs);
 		list = !(*flags & F_F) ? dirs->last->next : list->next;
-		/* list = list->next; */
 	}
 	closedir(dir);
-	/* ft_list_print(dirs); */
-	/* if (!(*flags & F_F)) */
-	/* 	ft_sorts(flags, dirs); */
 	return (ft_prints(flags, dirs));
 }
 
-void		ft_dirs(int *flags, char *path)
+void	ft_dirs(int *flags, char *path)
 {
 	t_dirs	*dirs;
 	t_info	*list;
 
 	if (!(dirs = ft_dir_new(path)))
-		exit(-1);
+		return ;
 	if (!(ft_dir_fill(flags, dirs, path)))
-		exit(-1);
+		return ;
 	if (*flags & F_RR)
 	{
 		list = (*flags & F_R) ? dirs->last : dirs->list;

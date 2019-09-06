@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/06 13:44:04 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/06 13:45:41 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,10 @@ typedef struct			s_dirs
 	struct s_info		*last;
 }						t_dirs;
 
-/* int						main(int argc, char **argv); */
+int						main(int argc, char **argv);
 int						ft_ls_check(char *path);
 char					*ft_ls_path(char *path, char *d_name);
 void					ft_ls_file(int *flags, char **argv);
-/* int						ft_ls_rec(int *flags, t_dirs *dirs); */
-/* int						ft_ls_rec(int *flags, char *path); */
 
 int						ft_flags(int *flags, char **argv);
 int						ft_flag_check(int *flags, char flag);
