@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/05 15:26:15 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/06 13:30:50 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,15 @@ int		ft_dir_fill(int *flags, t_dirs *dirs, char *path)
 		lstat(list->path, &list->s_stat);
 		dirs->total += list->s_stat.st_blocks;
 		ft_dir_form(flags, dirs);
-		/* if (!(*flags & F_F)) */
-			/* ft_sorts(flags, dirs); */
-		/* list = !(*flags & F_F) ? dirs->last->next : list->next; */
-		list = list->next;
+		if (!(*flags & F_F))
+			ft_sorts(flags, dirs);
+		list = !(*flags & F_F) ? dirs->last->next : list->next;
+		/* list = list->next; */
 	}
 	closedir(dir);
 	/* ft_list_print(dirs); */
-	if (!(*flags & F_F))
-		ft_sorts(flags, dirs);
+	/* if (!(*flags & F_F)) */
+	/* 	ft_sorts(flags, dirs); */
 	return (ft_prints(flags, dirs));
 }
 
@@ -116,8 +116,8 @@ int		ft_dirs(int *flags, char *path)
 		return (0);
 	if (!(ft_dir_fill(flags, dirs, path)))
 		return (0);
-	ft_sort_clean(dirs);
 	if (*flags & F_RR)
-		ft_ls_rec(flags, path);
+		ft_ls_rec(flags, dirs);
+	ft_sort_clean(dirs);
 	return (1);
 }
