@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/06 15:53:56 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/06 18:42:20 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,8 @@ void	ft_print_lst(int *flags, t_dirs *dirs, t_info *l)
 int		ft_prints(int *flags, t_dirs *dirs)
 {
 	t_info	*list;
-/* ft_putendl("			PRINT"); */
-/* ft_putendl("-----------------------------------"); */
+ft_putendl("			PRINT");
+ft_putendl("-----------------------------------");
 
 	if ((*flags & F_M || *flags & F_RR) && *flags & F_P && !(*flags & F_REG))
 		ft_printf_("\n%s:\n", dirs->root);
@@ -140,7 +140,7 @@ int		ft_prints(int *flags, t_dirs *dirs)
 			ft_print_lst(flags, dirs, list);
 		list = (*flags & F_R) ? list->prev : list->next;
 	}
-/* ft_putendl("			PRINT END"); */
-/* ft_putendl("-----------------------------------"); */
+ft_putendl("			PRINT END");
+ft_putendl("-----------------------------------");
 	return (1);
 }

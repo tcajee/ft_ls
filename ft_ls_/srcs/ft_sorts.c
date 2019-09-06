@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/06 15:45:15 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/06 18:42:00 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_sort_clean(t_dirs *dirs)
 	t_info	*list;
 	t_info	*next;
 
+ ft_putendl("			SORT_CLEAN");
+ ft_putendl("-----------------------------------");
 	if (dirs)
 	{
 		list = dirs->list;
@@ -33,6 +35,8 @@ void	ft_sort_clean(t_dirs *dirs)
 		free(dirs->root);
 		free(dirs);
 	}
+ ft_putendl("			SORT_CLEAN END");
+ ft_putendl("-----------------------------------");
 }
 
 int		ft_sort_comp(int *flags, t_info *a, t_info *b)
@@ -178,12 +182,12 @@ insize = 1;
 void	ft_sorts(int *flags, t_dirs *dirs)
 {
 
- /* ft_putendl("			SORT"); */
- /* ft_putendl("-----------------------------------"); */
+ ft_putendl("			SORT");
+ ft_putendl("-----------------------------------");
 	dirs = ft_sort_merge(flags, dirs);
 
- /* ft_putendl("			SORT END"); */
- /* ft_putendl("-----------------------------------"); */
+ ft_putendl("			SORT END");
+ ft_putendl("-----------------------------------");
 }
 
 

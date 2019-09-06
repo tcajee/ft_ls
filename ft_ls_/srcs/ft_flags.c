@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 17:24:50 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/06 18:54:05 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ int		ft_flags(int *flags, char **argv)
 {
 	int i;
 	int j;
-
+ft_putendl("			FLAGS");
+ft_putendl("-----------------------------------");
 	i = 0;
 	*flags = 0;
 	F_SET(*flags, F_0, F_1);
@@ -109,5 +110,13 @@ int		ft_flags(int *flags, char **argv)
 		else
 			return (i);
 	}
+
+ft_putstr("[");
+ft_putstr("]");
+ft_putendl("			FLAGS END");
+ft_putendl("			FLAGS END");
+ft_flag_print(flags);
+ft_putendl("			FLAGS END");
+ft_putendl("-----------------------------------");
 	return (i);
 }
