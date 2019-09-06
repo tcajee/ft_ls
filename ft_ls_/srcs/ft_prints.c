@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/06 15:45:24 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/06 15:53:56 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ void	ft_print_def(int *flags, t_info *list)
 {
 	char	path[PATH_MAX];
 
+	ft_bzero(path, PATH_MAX);
 	readlink(list->path, path, PATH_MAX);
+
 	ft_printf_("%s", list->name);
 	if (*flags & F_FF)
 	{
