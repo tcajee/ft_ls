@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/05 17:51:46 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/06 15:45:15 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,13 @@ insize = 1;
 
 void	ft_sorts(int *flags, t_dirs *dirs)
 {
+
+ /* ft_putendl("			SORT"); */
+ /* ft_putendl("-----------------------------------"); */
 	dirs = ft_sort_merge(flags, dirs);
+
+ /* ft_putendl("			SORT END"); */
+ /* ft_putendl("-----------------------------------"); */
 }
 
 
