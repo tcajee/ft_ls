@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/06 20:11:31 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/06 20:38:11 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int		ft_flags(int *flags, char **argv)
 {
 	int i;
 	int j;
-ft_putendl("			FLAGS");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			FLAGS"); */
+/* ft_putendl("-----------------------------------"); */
 	i = 0;
 	*flags = 0;
 	F_SET(*flags, F_0, F_1);
@@ -77,17 +77,17 @@ ft_putendl("-----------------------------------");
 		j = 0;
 		if (!argv[i][0] || argv[i][0] != '-')
 		{
-			ft_putstr("[");
-			ft_putnbr(i);
-			ft_putstr("]");
-			ft_putstr("	");
-			if (!argv[i])
-				ft_putendl("NULL");
-			else
-				ft_putendl(argv[i]);
-			ft_putstr("[");
-			ft_flag_print(flags);
-			ft_putendl("]");
+			/* ft_putstr("["); */
+			/* ft_putnbr(i); */
+			/* ft_putstr("]"); */
+			/* ft_putstr("	"); */
+			/* if (!argv[i]) */
+				/* ft_putendl("NULL"); */
+			/* else */
+				/* ft_putendl(argv[i]); */
+			/* ft_putstr("["); */
+			/* ft_flag_print(flags); */
+			/* ft_putendl("]"); */
 			/* ft_putendl("			FLAGS END"); */
 			/* ft_putendl("-----------------------------------"); */
 			return (i);
@@ -96,17 +96,17 @@ ft_putendl("-----------------------------------");
 		{
 			/* ft_putendl("			FLAGS END"); */
 			/* ft_putendl("-----------------------------------"); */
-			ft_putstr("[");
-			ft_putnbr(i);
-			ft_putstr("]");
-			ft_putstr("	");
-			if (!argv[i + 1])
-				ft_putendl("NULL");
-			else
-				ft_putendl(argv[i + 1]);
-			ft_putstr("[");
-			ft_flag_print(flags);
-			ft_putendl("]");
+			/* ft_putstr("["); */
+			/* ft_putnbr(i); */
+			/* ft_putstr("]"); */
+			/* ft_putstr("	"); */
+			/* if (!argv[i + 1]) */
+				/* ft_putendl("NULL"); */
+			/* else */
+				/* ft_putendl(argv[i + 1]); */
+			/* ft_putstr("["); */
+			/* ft_flag_print(flags); */
+			/* ft_putendl("]"); */
 			/* ft_putendl("			FLAGS END"); */
 			/* ft_putendl("-----------------------------------"); */
 			return (i + 1);
@@ -119,33 +119,33 @@ ft_putendl("-----------------------------------");
 		}
 		else
 		{
-			ft_putstr("[");
-			ft_putnbr(i);
-			ft_putstr("]");
-			ft_putstr("	");
-			if (!argv[i])
-				ft_putendl("NULL");
-			else
-				ft_putendl(argv[i]);
-			ft_putstr("[");
-			ft_flag_print(flags);
-			ft_putendl("]");
+			/* ft_putstr("["); */
+			/* ft_putnbr(i); */
+			/* ft_putstr("]"); */
+			/* ft_putstr("	"); */
+			/* if (!argv[i]) */
+				/* ft_putendl("NULL"); */
+			/* else */
+				/* ft_putendl(argv[i]); */
+			/* ft_putstr("["); */
+			/* ft_flag_print(flags); */
+			/* ft_putendl("]"); */
 			/* ft_putendl("			FLAGS END"); */
 			/* ft_putendl("-----------------------------------"); */
 			return (i);
 		}
 	}
-	ft_putstr("[");
-	ft_putnbr(i);
-	ft_putstr("]");
-	ft_putstr("	");
-	if (!argv[i])
-		ft_putendl("NULL");
-	else
-		ft_putendl(argv[i]);
-	ft_putstr("[");
-	ft_flag_print(flags);
-	ft_putendl("]");
+	/* ft_putstr("["); */
+	/* ft_putnbr(i); */
+	/* ft_putstr("]"); */
+	/* ft_putstr("	"); */
+	/* if (!argv[i]) */
+		/* ft_putendl("NULL"); */
+	/* else */
+		/* ft_putendl(argv[i]); */
+	/* ft_putstr("["); */
+	/* ft_flag_print(flags); */
+	/* ft_putendl("]"); */
 	/* ft_putendl("			FLAGS END"); */
 	/* ft_putendl("-----------------------------------"); */
 	return (i);

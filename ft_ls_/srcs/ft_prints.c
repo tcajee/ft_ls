@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/06 20:31:12 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/06 20:40:59 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,15 @@ void	ft_print_lst(int *flags, t_dirs *dirs, t_info *l)
 	ft_print_perm(&l->s_stat);
 	ft_printf_("%.%x ", dirs->s_form.link_len, l->s_stat.st_nlink);
 	s_pwd = getpwuid(l->s_stat.st_uid);
-	if (s_pwd)
-		ft_printf_("%.%s ", dirs->s_form.usr_len, s_pwd->pw_name);
-	else
-		ft_printf_("%.%d ", dirs->s_form.usr_len, l->s_stat.st_uid);
-	s_grp = getgrgid(l->s_stat.st_gid);
+	if (!(*flags & F_O))
+	{
+		if (s_pwd)
+			ft_printf_("%.%s ", dirs->s_form.usr_len, s_pwd->pw_name);
+		else
+			ft_printf_("%.%d ", dirs->s_form.usr_len, l->s_stat.st_uid);
+		s_grp = getgrgid(l->s_stat.st_gid);
+	}
+
 	if (!(*flags & F_G))
 	{
 		if (s_grp)
@@ -116,8 +120,8 @@ void	ft_print_lst(int *flags, t_dirs *dirs, t_info *l)
 int		ft_prints(int *flags, t_dirs *dirs)
 {
 	t_info	*list;
-ft_putendl("			PRINT");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			PRINT"); */
+/* ft_putendl("-----------------------------------"); */
 
 	if ((*flags & F_M || *flags & F_RR) && *flags & F_P && !(*flags & F_REG))
 		ft_printf_("\n%s:\n", dirs->root);

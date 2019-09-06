@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/06 20:31:37 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/06 20:38:07 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	ft_ls_file(int *flags, char **argv)
 	t_dirs	*dirs;
 	t_info	*list;
 
-ft_putendl("			FILES");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			FILES"); */
+/* ft_putendl("-----------------------------------"); */
 	F_SET(*flags, F_0, F_REG);
 	dirs = ft_dir_new(*(argv + 1));
 	list = dirs->list;
@@ -97,19 +97,19 @@ int		main(int argc, char **argv)
 	int		i;
 	int		j;
 
-ft_putendl("-----------------------------------");
-ft_putendl("			INIT");
-ft_putendl("-----------------------------------");
-	i = -1;
-ft_putendl("PARAMS");
-while (argv[++i])
-{
-ft_putstr("[");
-ft_putnbr(i);
-ft_putstr("]");
-ft_putstr("	");
-ft_putendl(argv[i]);
-}
+/* ft_putendl("-----------------------------------"); */
+/* ft_putendl("			INIT"); */
+/* ft_putendl("-----------------------------------"); */
+	/* i = -1; */
+/* ft_putendl("PARAMS"); */
+/* while (argv[++i]) */
+/* { */
+/* ft_putstr("["); */
+/* ft_putnbr(i); */
+/* ft_putstr("]"); */
+/* ft_putstr("	"); */
+/* ft_putendl(argv[i]); */
+/* } */
 
 	i = 0;
 	i = ft_flags(&flags, argv);
@@ -118,9 +118,9 @@ ft_putendl(argv[i]);
 	if (!argv[i])
 	{
 		ft_dirs(&flags, ".");
-ft_putendl("-----------------------------------");
-ft_putendl("			END");
-ft_putendl("-----------------------------------");
+/* ft_putendl("-----------------------------------"); */
+/* ft_putendl("			END"); */
+/* ft_putendl("-----------------------------------"); */
 		return (1);
 	}
 	j = i - 1;
@@ -131,8 +131,8 @@ ft_putendl("-----------------------------------");
 		if (ft_ls_check(argv[j]) == 2)
 			ft_dirs(&flags, argv[j]);
 	}
-ft_putendl("-----------------------------------");
-ft_putendl("			END");
-ft_putendl("-----------------------------------");
+/* ft_putendl("-----------------------------------"); */
+/* ft_putendl("			END"); */
+/* ft_putendl("-----------------------------------"); */
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/06 20:34:48 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/06 20:38:37 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ int		ft_dir_fill(int *flags, t_dirs *dirs, char *path)
 	DIR			*dir;
 	t_info		*list;
 
-ft_putendl("			DIR_FILL");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			DIR_FILL"); */
+/* ft_putendl("-----------------------------------"); */
 	if (!(dir = opendir(path)))
 		return (ft_error_perm(flags, path));
 	list = dirs->list;
@@ -144,8 +144,8 @@ void	ft_dirs(int *flags, char *path)
 
 	if (!(dirs = ft_dir_new(path)))
 		return ;
-ft_putendl("			DIRS");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			DIRS"); */
+/* ft_putendl("-----------------------------------"); */
 	if (!(ft_dir_fill(flags, dirs, path)))
 		return ;
 	/* ft_list_print(dirs); */
