@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/06 13:25:57 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/06 13:44:04 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,14 @@ typedef struct			s_dirs
 int						ft_ls_check(char *path);
 char					*ft_ls_path(char *path, char *d_name);
 void					ft_ls_file(int *flags, char **argv);
-int						ft_ls_rec(int *flags, t_dirs *dirs);
+/* int						ft_ls_rec(int *flags, t_dirs *dirs); */
 /* int						ft_ls_rec(int *flags, char *path); */
 
 int						ft_flags(int *flags, char **argv);
 int						ft_flag_check(int *flags, char flag);
 int						ft_lflag_check(int *flags, char *option);
 
-int						ft_dirs(int *flags, char *path);
+void					ft_dirs(int *flags, char *path);
 t_dirs					*ft_dir_new(char *path);
 t_info					*ft_dir_add(t_info *list);
 int						ft_dir_fill(int *flags, t_dirs *dirs, char *path);
