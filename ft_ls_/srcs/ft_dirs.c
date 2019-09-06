@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/06 20:29:35 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/06 20:34:48 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ ft_putendl("-----------------------------------");
 	if (!(dir = opendir(path)))
 		return (ft_error_perm(flags, path));
 	list = dirs->list;
-	while ((s_dir = readdir(dir)) != NULL && ++dirs->size)
+	while ((s_dir = readdir(dir)) != NULL)
 	{
 		if (!list)
 			list = ft_dir_add(dirs->last);
@@ -121,7 +121,6 @@ ft_putendl("-----------------------------------");
 		list->name = ft_strdup(s_dir->d_name);
 		list->path = ft_ls_path(path, s_dir->d_name);
 		lstat(list->path, &list->s_stat);
-
 		dirs->total += list->s_stat.st_blocks;
 		ft_dir_form(flags, dirs);
 		/* if (!(*flags & F_F)) */
