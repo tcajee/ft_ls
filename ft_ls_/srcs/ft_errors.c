@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 11:36:46 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/04 16:22:05 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/06 20:31:54 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ int	ft_error_print(int *flags, t_dirs *dirs)
 {
 	t_info	*list;
 
+ft_putendl("			PRINT");
+ft_putendl("-----------------------------------");
 	list = (*flags & F_R) ? dirs->last : dirs->list;
-	while (dirs->size--)
+	while (list && list->name)
 	{
 		ft_putstr_fd("./ft_ls: ", 2);
 		ft_putstr_fd(list->name, 2);
@@ -63,23 +65,27 @@ int	ft_errors(int *flags, char **error)
 {
 	t_dirs	*dirs;
 	t_info	*list;
-
+ft_putendl("			ERRORS");
+ft_putendl("-----------------------------------");
 	if (!(dirs = ft_dir_new(*(error + 1))))
 		return (0);
 	list = dirs->list;
 	while (*++error)
 	{
-		if (ft_ls_check(*error) == 0 && ++dirs->size)
+		if (ft_ls_check(*error) != 0)
+			continue;
+		else
 		{
 			if (!list)
 				list = ft_dir_add(dirs->last);
 			dirs->last = list;
 			list->name = ft_strdup(*error);
-			if (!(*flags & F_F))
-				ft_sorts(flags, dirs);
-			list = !(*flags & F_F) ? dirs->last->next : list->next;
+			/* list = !(*flags & F_F) ? dirs->last->next : list->next; */
+			list = list->next;
 		}
 	}
+	if (!(*flags & F_F))
+		ft_sorts(flags, dirs);
 	ft_error_print(flags, dirs);
 	ft_sort_clean(dirs);
 	return (0);

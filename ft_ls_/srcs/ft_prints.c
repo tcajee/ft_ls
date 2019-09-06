@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/06 18:42:20 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/06 20:31:12 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	ft_print_def(int *flags, t_info *list)
 
 	ft_bzero(path, PATH_MAX);
 	readlink(list->path, path, PATH_MAX);
-
 	ft_printf_("%s", list->name);
 	if (*flags & F_FF)
 	{
@@ -126,7 +125,7 @@ ft_putendl("-----------------------------------");
 		ft_printf_("%s %d\n", "total", dirs->total);
 	*flags |= F_P;
 	list = (*flags & F_R) ? dirs->last : dirs->list;
-	while (list)
+	while (list && list->name)
 	{
 		if (!(*flags & F_A) && list->name[0] == '.')
 			if (!(*flags & F_REG))
@@ -140,7 +139,7 @@ ft_putendl("-----------------------------------");
 			ft_print_lst(flags, dirs, list);
 		list = (*flags & F_R) ? list->prev : list->next;
 	}
-ft_putendl("			PRINT END");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			PRINT END"); */
+/* ft_putendl("-----------------------------------"); */
 	return (1);
 }

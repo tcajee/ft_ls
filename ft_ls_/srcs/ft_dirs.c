@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/06 18:41:17 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/06 20:29:35 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ t_info	*ft_dir_add(t_info *last)
 {
 	t_info	*new;
 
-ft_putendl("			DIR_ADD");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			DIR_ADD"); */
+/* ft_putendl("-----------------------------------"); */
 	if (!(new = (t_info *)malloc(sizeof(t_info))))
 		return (NULL);
 	new->name = NULL;
@@ -26,8 +26,8 @@ ft_putendl("-----------------------------------");
 	new->t = NULL;
 	last->next = new;
 	new->prev = last;
-ft_putendl("			DIR_ADD END");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			DIR_ADD END"); */
+/* ft_putendl("-----------------------------------"); */
 	return (new);
 }
 
@@ -35,8 +35,8 @@ t_dirs	*ft_dir_new(char *path)
 {
 	t_dirs	*new;
 
-ft_putendl("			DIR_NEW");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			DIR_NEW"); */
+/* ft_putendl("-----------------------------------"); */
 	if (!(new = (t_dirs *)malloc(sizeof(t_dirs))))
 		return (NULL);
 	new->root = ft_strdup(path);
@@ -53,8 +53,8 @@ ft_putendl("-----------------------------------");
 	new->total = 0;
 	new->size = 0;
 	new->last = NULL;
-ft_putendl("			DIR_NEW END");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			DIR_NEW END"); */
+/* ft_putendl("-----------------------------------"); */
 	return (new);
 }
 
@@ -65,59 +65,41 @@ void	ft_dir_form(int *flags, t_dirs *dirs)
 	t_group		*s_grp;
 	size_t		len;
 
-ft_putendl("			DIR_FORM");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			DIR_FORM"); */
+/* ft_putendl("-----------------------------------"); */
+	last = dirs->last;
 	if (*flags & F_L)
 	{
-		last = dirs->last;
 		if ((len = ft_intlen(last->s_stat.st_nlink)) > dirs->s_form.link_len)
 			dirs->s_form.link_len = len;
 
-		
-		
-/* ft_putendl(""); */
-/* ft_putendl("S_PWD"); */
-/* ft_putendl("-----------------------------------"); */
-/* ft_putendl(last->name); */
-/* ft_putendl("-----------------------------------"); */
-/* ft_putendl(last->path); */
-/* ft_putendl("-----------------------------------"); */
+		if (!(*flags & F_O))
+		{
+			if ((s_pwd = getpwuid(last->s_stat.st_uid)))
+			{
+				if (s_pwd && s_pwd->pw_name && (len = ft_strlen(s_pwd->pw_name)) > dirs->s_form.usr_len)
+					dirs->s_form.usr_len = len;
+				else if ((len = ft_intlen((int)*s_pwd->pw_name)) > dirs->s_form.usr_len)
+					dirs->s_form.usr_len = len;
+			}
+		}
+			
+		if (!(*flags & F_G)) 
+		{
+			if (( s_grp = getgrgid(last->s_stat.st_gid)))
+			{
+				if (s_grp && s_grp->gr_name && (len = ft_strlen(s_grp->gr_name)) > dirs->s_form.grp_len)
+					dirs->s_form.grp_len = len;
+				else if ((len = ft_intlen((int)*s_grp->gr_name)) > dirs->s_form.grp_len)
+					dirs->s_form.grp_len = len;
+			}
+		}
 
-		/* { */
-		/* 	if (s_pwd->pw_name) */
-		/* 		ft_putendl(s_pwd->pw_name); */
-		/* else */
-		/* 	ft_putnbr(*s_pwd->pw_name); */
-		/* } */
-
-
-	s_pwd = getpwuid(last->s_stat.st_uid);
-	if (s_pwd && (len = ft_strlen(s_pwd->pw_name)) > dirs->s_form.usr_len)
-		dirs->s_form.usr_len = len;
-	else if ((len = ft_intlen((int)*s_pwd->pw_name)) > dirs->s_form.usr_len)
-		dirs->s_form.usr_len = len;
-
-
-/* ft_putendl("-----------------------------------"); */
-		
-/* ft_putendl(""); */
-/* ft_putendl("S_GRP"); */
-		s_grp = getgrgid(last->s_stat.st_gid);
-/* ft_putnbr((int)*s_grp->gr_name); */
-		if (s_grp && (len = ft_strlen(s_grp->gr_name)) > dirs->s_form.grp_len)
-			dirs->s_form.grp_len = len;
-		else if ((len = ft_intlen((int)*s_grp->gr_name)) > dirs->s_form.grp_len)
-			dirs->s_form.grp_len = len;
-
-		
-		
-		
-		
 		if ((len = ft_intlen(last->s_stat.st_size)) > dirs->s_form.size_len)
 			dirs->s_form.size_len = len;
 	}
-ft_putendl("			DIR_FORM END");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			DIR_FORM END"); */
+/* ft_putendl("-----------------------------------"); */
 }
 
 int		ft_dir_fill(int *flags, t_dirs *dirs, char *path)
@@ -150,8 +132,9 @@ ft_putendl("-----------------------------------");
 	closedir(dir);
 	if (!(*flags & F_F))
 		ft_sorts(flags, dirs);
-ft_putendl("			DIR_FILL END");
-ft_putendl("-----------------------------------");
+	ft_prints(flags, dirs);
+/* ft_putendl("			DIR_FILL END"); */
+/* ft_putendl("-----------------------------------"); */
 	return (1);
 }
 
@@ -167,7 +150,6 @@ ft_putendl("-----------------------------------");
 	if (!(ft_dir_fill(flags, dirs, path)))
 		return ;
 	/* ft_list_print(dirs); */
-	ft_prints(flags, dirs);
 	if (*flags & F_RR)
 	{
 		list = (*flags & F_R) ? dirs->last : dirs->list;
@@ -186,6 +168,6 @@ ft_putendl("-----------------------------------");
 		}
 	}
 	ft_sort_clean(dirs);
-ft_putendl("			DIRS END");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			DIRS END"); */
+/* ft_putendl("-----------------------------------"); */
 }

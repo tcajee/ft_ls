@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/06 18:50:54 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/06 20:31:37 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@ void	ft_ls_file(int *flags, char **argv)
 	t_dirs	*dirs;
 	t_info	*list;
 
-ft_putendl("			LS_FILE");
+ft_putendl("			FILES");
 ft_putendl("-----------------------------------");
 	F_SET(*flags, F_0, F_REG);
 	dirs = ft_dir_new(*(argv + 1));
 	list = dirs->list;
 	while (*++argv)
 	{
-		if (ft_ls_check(*argv) == 1 && ++dirs->size)
+		if (ft_ls_check(*argv) != 1)
+			continue;
+		else
 		{
 			if (!list)
 				list = ft_dir_add(dirs->last);
@@ -32,32 +34,34 @@ ft_putendl("-----------------------------------");
 			list->name = ft_strdup(*argv);
 			lstat(list->name, &list->s_stat);
 			ft_dir_form(flags, dirs);
-			if (!(*flags & F_F))
-				ft_sorts(flags, dirs);
-			list = !(*flags & F_F) ? dirs->last->next : list->next;
+			/* list = !(*flags & F_F) ? dirs->last->next : list->next; */
+			list = list->next;
 		}
 	}
+	/* ft_list_print(dirs); */
+	if (!(*flags & F_F))
+		ft_sorts(flags, dirs);
 	ft_prints(flags, dirs);
 	ft_sort_clean(dirs);
 	F_SET(*flags, F_REG, F_0);
-ft_putendl("			LS_FILE END");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			LS_FILE END"); */
+/* ft_putendl("-----------------------------------"); */
 }
 
 int		ft_ls_check(char *path)
 {
 	t_stat	s_stat;
 
-ft_putendl("			LS_CHECK");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			LS_CHECK"); */
+/* ft_putendl("-----------------------------------"); */
 	if (lstat(path, &s_stat) < 0)
 		return (0);
 	if ((s_stat.st_mode & S_IFMT) == S_IFREG)
 		return (1);
 	if ((s_stat.st_mode & S_IFMT) == S_IFDIR)
 		return (2);
-ft_putendl("			LS_CHECK");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			LS_CHECK END"); */
+/* ft_putendl("-----------------------------------"); */
 	return (0);
 }
 
@@ -67,8 +71,8 @@ char	*ft_ls_path(char *path, char *d_name)
 	int		len;
 	char	*temp;
 
-ft_putendl("			LS_PATH");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			LS_PATH"); */
+/* ft_putendl("-----------------------------------"); */
 	i = 0;
 	len = ft_strlen(path) + ft_strlen(d_name);
 	if (!(temp = (char *)malloc(sizeof(char) * (len + 2))))
@@ -82,8 +86,8 @@ ft_putendl("-----------------------------------");
 	while (*d_name)
 		temp[i++] = *d_name++;
 	temp[i] = '\0';
-ft_putendl("			LS_PATH END");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			LS_PATH END"); */
+/* ft_putendl("-----------------------------------"); */
 	return (temp);
 }
 
@@ -95,6 +99,7 @@ int		main(int argc, char **argv)
 
 ft_putendl("-----------------------------------");
 ft_putendl("			INIT");
+ft_putendl("-----------------------------------");
 	i = -1;
 ft_putendl("PARAMS");
 while (argv[++i])
@@ -105,7 +110,6 @@ ft_putstr("]");
 ft_putstr("	");
 ft_putendl(argv[i]);
 }
-ft_putendl("-----------------------------------");
 
 	i = 0;
 	i = ft_flags(&flags, argv);
