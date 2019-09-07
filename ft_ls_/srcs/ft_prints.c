@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/06 20:40:59 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/07 00:48:53 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,76 @@ void	ft_print_perm(t_stat *s_stat)
 
 void	ft_print_def(int *flags, t_info *list)
 {
-	char	path[PATH_MAX];
+	/* char	path[PATH_MAX]; */
 
-	ft_bzero(path, PATH_MAX);
-	readlink(list->path, path, PATH_MAX);
+	/* ft_bzero(path, PATH_MAX); */
+	/* if (readlink(list->path, path, PATH_MAX) == -1) */
+	/* { */
+	/* 		int errsv = errno; */
+	/* 		ft_putstr("ERROR_"); */
+	/* 			perror(""); */
+	/* 		if (errsv == EACCES) */
+	/* 		{ */
+	/* 			ft_putendl("EACCES"); */
+	/* 			ft_putendl("Permission denied (POSIX.1-2001)."); */
+	/* 			perror(""); */
+	/* 		} */
+	/* 		if (errsv == EISDIR) */ 
+	/* 		{ */
+	/* 			ft_putendl("EISDIR"); */
+	/* 			ft_putendl("Is a directory (POSIX.1-2001)."); */
+	/* 			perror(""); */
+	/* 		} */
+	/* 		if (errsv == ELOOP) */
+	/* 		{ */
+	/* 			ft_putendl("ELOOP"); */
+	/* 			ft_putendl("Too many levels of symbolic links (POSIX.1-2001)."); */
+	/* 			perror(""); */
+	/* 		} */
+	/* 		if (errsv == EMLINK) */
+	/* 		{ */
+	/* 			ft_putendl("EMLINK"); */
+	/* 			ft_putendl("Too many links (POSIX.1-2001)."); */
+	/* 			perror(""); */
+	/* 		} */
+	/* 		if (errsv == ENAMETOOLONG) */
+	/* 		{ */
+	/* 			ft_putendl("ENAMETOOLONG"); */
+	/* 			ft_putendl("Filename too long (POSIX.1-2001)."); */ 
+	/* 			perror(""); */
+	/* 		} */
+	/* 		if (errsv == ENOENT) */
+	/* 		{ */
+	/* 			ft_putendl("ENOENT"); */
+	/* 			ft_putendl("No such file or directory (POSIX.1-2001)."); */
+	/* 			perror(""); */
+	/* 		} */
+	/* 		if (errsv == ENOMEM) */
+	/* 		{ */
+	/* 			ft_putendl("ENOMEM"); */
+	/* 			ft_putendl("Not enough space/cannot allocate memory (POSIX.1-2001)."); */
+	/* 			perror(""); */
+	/* 		} */
+	/* 		if (errsv == ENOTDIR) */
+	/* 		{ */
+	/* 			ft_putendl("ENOTDIR"); */
+	/* 			ft_putendl("Not a directory (POSIX.1-2001)."); */
+	/* 			perror(""); */
+	/* 		} */
+	/* 		if (errsv == EROFS) */
+	/* 		{ */
+	/* 			ft_putendl("EROFS"); */
+	/* 			ft_putendl("Read-only filesystem (POSIX.1-2001)."); */
+	/* 			perror(""); */
+	/* 		} */
+	/* } */
 	ft_printf_("%s", list->name);
 	if (*flags & F_FF)
 	{
 		if (ft_ls_check(list->path) == 2)
 			ft_printf_("/");
-		else if ((list->s_stat.st_mode & S_IFMT) == S_IFLNK)
-			ft_printf_("@ -> %s", path);
+		/* else if ((list->s_stat.st_mode & S_IFMT) == S_IFLNK) */
+		/* 	ft_printf_("@ -> %s", path); */
 		else if ((list->s_stat.st_mode & S_IFMT) == S_IFIFO)
 			ft_printf_("|");
 		else if ((list->s_stat.st_mode & S_IFMT) == S_IFSOCK)
@@ -79,8 +138,8 @@ void	ft_print_def(int *flags, t_info *list)
 		else if (list->s_stat.st_mode & S_IXUSR)
 			ft_printf_("*");
 	}
-	else if ((list->s_stat.st_mode & S_IFMT) == S_IFLNK)
-		ft_printf_(" -> %s", path);
+	/* else if ((list->s_stat.st_mode & S_IFMT) == S_IFLNK) */
+	/* 	ft_printf_(" -> %s", path); */
 	ft_printf_("\n");
 }
 
@@ -91,16 +150,134 @@ void	ft_print_lst(int *flags, t_dirs *dirs, t_info *l)
 
 	ft_print_perm(&l->s_stat);
 	ft_printf_("%.%x ", dirs->s_form.link_len, l->s_stat.st_nlink);
-	s_pwd = getpwuid(l->s_stat.st_uid);
+	if (!(s_pwd = getpwuid(l->s_stat.st_uid)))
+	{
+			int errsv = errno;
+			ft_putstr("ERROR_");
+				perror("");
+			if (errsv == EACCES)
+			{
+				ft_putendl("EACCES");
+				ft_putendl("Permission denied (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == EISDIR) 
+			{
+				ft_putendl("EISDIR");
+				ft_putendl("Is a directory (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == ELOOP)
+			{
+				ft_putendl("ELOOP");
+				ft_putendl("Too many levels of symbolic links (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == EMLINK)
+			{
+				ft_putendl("EMLINK");
+				ft_putendl("Too many links (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == ENAMETOOLONG)
+			{
+				ft_putendl("ENAMETOOLONG");
+				ft_putendl("Filename too long (POSIX.1-2001)."); 
+				perror("");
+			}
+			if (errsv == ENOENT)
+			{
+				ft_putendl("ENOENT");
+				ft_putendl("No such file or directory (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == ENOMEM)
+			{
+				ft_putendl("ENOMEM");
+				ft_putendl("Not enough space/cannot allocate memory (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == ENOTDIR)
+			{
+				ft_putendl("ENOTDIR");
+				ft_putendl("Not a directory (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == EROFS)
+			{
+				ft_putendl("EROFS");
+				ft_putendl("Read-only filesystem (POSIX.1-2001).");
+				perror("");
+			}
+	}
 	if (!(*flags & F_O))
 	{
 		if (s_pwd)
 			ft_printf_("%.%s ", dirs->s_form.usr_len, s_pwd->pw_name);
 		else
 			ft_printf_("%.%d ", dirs->s_form.usr_len, l->s_stat.st_uid);
-		s_grp = getgrgid(l->s_stat.st_gid);
 	}
 
+	if (!(s_grp = getgrgid(l->s_stat.st_gid)))
+	{
+			int errsv = errno;
+			ft_putstr("ERROR_");
+				perror("");
+			if (errsv == EACCES)
+			{
+				ft_putendl("EACCES");
+				ft_putendl("Permission denied (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == EISDIR) 
+			{
+				ft_putendl("EISDIR");
+				ft_putendl("Is a directory (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == ELOOP)
+			{
+				ft_putendl("ELOOP");
+				ft_putendl("Too many levels of symbolic links (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == EMLINK)
+			{
+				ft_putendl("EMLINK");
+				ft_putendl("Too many links (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == ENAMETOOLONG)
+			{
+				ft_putendl("ENAMETOOLONG");
+				ft_putendl("Filename too long (POSIX.1-2001)."); 
+				perror("");
+			}
+			if (errsv == ENOENT)
+			{
+				ft_putendl("ENOENT");
+				ft_putendl("No such file or directory (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == ENOMEM)
+			{
+				ft_putendl("ENOMEM");
+				ft_putendl("Not enough space/cannot allocate memory (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == ENOTDIR)
+			{
+				ft_putendl("ENOTDIR");
+				ft_putendl("Not a directory (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == EROFS)
+			{
+				ft_putendl("EROFS");
+				ft_putendl("Read-only filesystem (POSIX.1-2001).");
+				perror("");
+			}
+	}
 	if (!(*flags & F_G))
 	{
 		if (s_grp)
@@ -120,8 +297,8 @@ void	ft_print_lst(int *flags, t_dirs *dirs, t_info *l)
 int		ft_prints(int *flags, t_dirs *dirs)
 {
 	t_info	*list;
-/* ft_putendl("			PRINT"); */
-/* ft_putendl("-----------------------------------"); */
+ft_putendl("			PRINT");
+ft_putendl("-----------------------------------");
 
 	if ((*flags & F_M || *flags & F_RR) && *flags & F_P && !(*flags & F_REG))
 		ft_printf_("\n%s:\n", dirs->root);

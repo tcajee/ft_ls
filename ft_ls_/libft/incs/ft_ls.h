@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/06 20:29:15 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/07 00:23:36 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,66 @@
 # define F_6 2097152
 # define F_7 4194304
 # define F_8 8388608
+
+
+
+
+#define FT_(x) if (x)\
+{\
+	int errsv = errno;\
+	ft_putstr("ERROR_");\
+	if (errsv == EACCES)\
+	{\
+		ft_putendl("EACCES");\
+		ft_putendl("Permission denied (POSIX.1-2001).")\
+	}\
+	if (errsv == EISDIR) \
+	{\
+		ft_putendl("EISDIR");\
+		ft_putendl("Is a directory (POSIX.1-2001).");\
+    }\
+	if (errsv == EISNAM)\
+	{\
+		ft_putendl("EISNAME");\
+		ft_putendl("Is a named type file.");\
+	}\
+	if (errsv == ELOOP)\
+	{\
+		ft_putendl("ELOOP");\
+		ft_putendl("Too many levels of symbolic links (POSIX.1-2001).");\
+	}\
+	if (errsv == EMLINK)\
+	{\
+		ft_putendl("EMLINK");\
+		ft_putendl("Too many links (POSIX.1-2001).");\
+	}\
+	if (errsv == ENAMETOOLONG)\
+	{\
+		ft_putendl("ENAMETOOLONG");\
+		ft_putendl("Filename too long (POSIX.1-2001)."); \
+	}\
+	if (errsv == ENOENT)\
+	{\
+		ft_putendl("ENOENT");\
+		ft_putendl("No such file or directory (POSIX.1-2001).");\
+	}\
+	if (errsv == ENOMEM)\
+	{\
+		ft_putendl("ENOMEM");\
+		ft_putendl("Not enough space/cannot allocate memory (POSIX.1-2001).");\
+	}\
+	if (errsv == ENOTDIR)\
+	{\
+		ft_putendl("ENOTDIR");\
+		ft_putendl("Not a directory (POSIX.1-2001).")\
+	}\
+	if (errsv == EROFS)\
+	{\
+		ft_putendl("EROFS");\
+		ft_putendl("Read-only filesystem (POSIX.1-2001).");\
+	}\
+
+
 
 typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;

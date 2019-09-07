@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/06 20:38:37 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/07 01:54:06 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,72 @@ int		ft_dir_fill(int *flags, t_dirs *dirs, char *path)
 /* ft_putendl("			DIR_FILL"); */
 /* ft_putendl("-----------------------------------"); */
 	if (!(dir = opendir(path)))
+		{
+			int errsv = errno;
+			ft_putstr("ERROR_");
+				perror("");
+			if (errsv == EACCES)
+			{
+				ft_putendl("EACCES");
+				ft_putendl("Permission denied (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == EISDIR) 
+			{
+				ft_putendl("EISDIR");
+				ft_putendl("Is a directory (POSIX.1-2001).");
+				perror("");
+			}
+			/* if (errsv == EISNAM) */
+			/* { */
+			/* 	ft_putendl("EISNAME"); */
+			/* 	ft_putendl("Is a named type file."); */
+			/* } */
+			if (errsv == ELOOP)
+			{
+				ft_putendl("ELOOP");
+				ft_putendl("Too many levels of symbolic links (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == EMLINK)
+			{
+				ft_putendl("EMLINK");
+				ft_putendl("Too many links (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == ENAMETOOLONG)
+			{
+				ft_putendl("ENAMETOOLONG");
+				ft_putendl("Filename too long (POSIX.1-2001)."); 
+				perror("");
+			}
+			if (errsv == ENOENT)
+			{
+				ft_putendl("ENOENT");
+				ft_putendl("No such file or directory (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == ENOMEM)
+			{
+				ft_putendl("ENOMEM");
+				ft_putendl("Not enough space/cannot allocate memory (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == ENOTDIR)
+			{
+				ft_putendl("ENOTDIR");
+				ft_putendl("Not a directory (POSIX.1-2001).");
+				perror("");
+			}
+			if (errsv == EROFS)
+			{
+				ft_putendl("EROFS");
+				ft_putendl("Read-only filesystem (POSIX.1-2001).");
+				perror("");
+			}
 		return (ft_error_perm(flags, path));
+	}
+	/* if (!(dir = opendir(path))) */
 	list = dirs->list;
 	while ((s_dir = readdir(dir)) != NULL)
 	{
@@ -141,11 +206,13 @@ void	ft_dirs(int *flags, char *path)
 {
 	t_dirs	*dirs;
 	t_info	*list;
+	t_stat		s_stat;
 
+	lstat(path, &s_stat);
 	if (!(dirs = ft_dir_new(path)))
 		return ;
-/* ft_putendl("			DIRS"); */
-/* ft_putendl("-----------------------------------"); */
+ft_putendl("			DIRS");
+ft_putendl("-----------------------------------");
 	if (!(ft_dir_fill(flags, dirs, path)))
 		return ;
 	/* ft_list_print(dirs); */
@@ -161,7 +228,7 @@ void	ft_dirs(int *flags, char *path)
 				list = (*flags & F_R) ? list->prev : list->next;
 				continue;
 			}
-			else if (ft_ls_check(list->path) == 2)
+			else if ((s_stat.st_mode & S_IFMT) == S_IFDIR)
 				ft_dirs(flags, list->path);
 			list = (*flags & F_R) ? list->prev : list->next;
 		}
