@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/09 17:37:14 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/09 17:41:47 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int		ft_ls_rec(int *flags, t_dirs *dirs)
 			//	if (!(ft_dir_fill(flags, rdirs, list->path)))
 					//continue ;
 					//return (0);
-				else if (*flags & F_RR)
+				if (*flags & F_RR)
 					ft_ls_rec(flags, rdirs);
 				ft_sort_clean(rdirs);
 			}

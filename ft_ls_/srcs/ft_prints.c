@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/09 17:38:27 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/09 17:45:30 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	ft_print_lst(int *flags, t_dirs *dirs, t_info *l)
 				ft_printf_("%.%d ", dirs->s_form.usr_len, l->s_stat.st_uid);
 		}
 	}
-	if (!(s_grp = getgrgid(l->s_stat.st_gid)))
+	if ((s_grp = getgrgid(l->s_stat.st_gid)))
 	{
 		if (!(*flags & F_G))
 		{
