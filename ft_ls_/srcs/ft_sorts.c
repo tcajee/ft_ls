@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/09 16:21:12 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/09 16:53:21 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	ft_sort_clean(t_dirs *dirs)
 	t_info	*list;
 	t_info	*next;
 
- /* ft_putendl("			CLEAN"); */
- /* ft_putendl("-----------------------------------"); */
 	if (dirs)
 	{
 		list = dirs->list;
@@ -35,15 +33,12 @@ void	ft_sort_clean(t_dirs *dirs)
 		free(dirs->root);
 		free(dirs);
 	}
- /* ft_putendl("			SORT_CLEAN END"); */
- /* ft_putendl("-----------------------------------"); */
 }
 
 int		ft_sort_comp(int *flags, t_info *a, t_info *b)
 {
 	if (*flags & F_T)
 	{
-
 		if (a->s_stat.st_mtimespec.tv_sec == b->s_stat.st_mtimespec.tv_sec)
 		{
 			if (a->s_stat.st_mtimespec.tv_nsec != b->s_stat.st_mtimespec.tv_nsec)
@@ -53,14 +48,6 @@ int		ft_sort_comp(int *flags, t_info *a, t_info *b)
 		}
 		else
 			return (a->s_stat.st_mtimespec.tv_sec < b->s_stat.st_mtimespec.tv_sec);
-	
-		
-		
-		/* else if (a->s_stat.st_mtimespec.tv_nsec != b->s_stat.st_mtimespec.tv_nsec) */
-		/* 	return (a->s_stat.st_mtimespec.tv_nsec < b->s_stat.st_mtimespec.tv_nsec); */
-		/* else */
-		/* 	return (a->s_stat.st_mtimespec.tv_sec < b->s_stat.st_mtimespec.tv_sec); */
-
 	}
 	else if (*flags & F_U)
 	{
@@ -73,34 +60,23 @@ int		ft_sort_comp(int *flags, t_info *a, t_info *b)
 		}
 		else
 			return (a->s_stat.st_atimespec.tv_sec < b->s_stat.st_atimespec.tv_sec);
-		
-		
-		/* if (a->s_stat.st_atimespec.tv_sec == b->s_stat.st_atimespec.tv_sec) */
-		/* { */
-		/* 	if (a->s_stat.st_atimespec.tv_nsec == b->s_stat.st_atimespec.tv_nsec) */
-		/* 		return (ft_strcmp(a->name, b->name)); */
-		/* } */
-		/* else if (a->s_stat.st_atimespec.tv_nsec != b->s_stat.st_atimespec.tv_nsec) */
-		/* 	return (a->s_stat.st_atimespec.tv_nsec < b->s_stat.st_atimespec.tv_nsec); */
-		/* else */
-		/* 	return (a->s_stat.st_atimespec.tv_sec < b->s_stat.st_atimespec.tv_sec); */
-
 	}
 	return (ft_strcmp(a->name, b->name));
 }
 
 t_dirs *ft_sort_merge(int *flags, t_dirs *dirs)
 {
-t_info *list;
-t_info *temp;
-t_info *next;
-t_info *tail;
-int insize;
-int nmerges;
-int listsize;
-int nextsize;
-int i;
-insize = 1;
+
+	t_info *list;
+	t_info *temp;
+	t_info *next;
+	t_info *tail;
+	int insize;
+	int nmerges;
+	int listsize;
+	int nextsize;
+	int i;
+	insize = 1;
 
 	while (insize)
 	{
@@ -125,37 +101,30 @@ insize = 1;
 			nextsize = insize;
 			while (listsize > 0 || (nextsize > 0 && next))
 			{
-				/* decide whether next element of merge comes from p or q */
 				if (listsize == 0)
 				{
-					/* p is empty; e must come from q. */
 					temp = next;
 					next = next->next;
 					nextsize--;
 				}
 				else if (nextsize == 0 || !next)
 				{
-					/* q is empty; e must come from p. */
 					temp = list;
 					list = list->next;
 					listsize--;
 				}
 				else if (ft_sort_comp(flags, list, next) <= 0)
 				{
-					/* First element of p is lower (or same);
-					 * * e must come from p. */
 					temp = list;
 					list = list->next;
 					listsize--;
 				}
 				else
 				{
-					/* First element of q is lower; e must come from q. */
 					temp = next;
 					next = next->next;
 					nextsize--;
 				}
-				/* add the next element to the merged list */
 				if (tail)
 					tail->next = temp;
 				else
@@ -163,10 +132,8 @@ insize = 1;
 				temp->prev = tail;
 				tail = temp;
 			}
-			/* now p has stepped `insize' places along, and q has too */
 			list = next;
 		}
-		/* dirs->list->prev = tail; */
 		if (tail)
 		{
 			tail->next = NULL;
@@ -186,8 +153,6 @@ void	ft_sorts(int *flags, t_dirs *dirs)
  /* ft_putendl("-----------------------------------"); */
 	dirs = ft_sort_merge(flags, dirs);
 
- /* ft_putendl("			SORT END"); */
- /* ft_putendl("-----------------------------------"); */
 }
 
 
