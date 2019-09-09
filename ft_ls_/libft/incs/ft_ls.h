@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/04 17:58:03 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/09 13:41:57 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct			s_info
 {
 	char				*name;
 	char				*path;
-//	char				*t;
+	char				*t;
 	t_stat				s_stat;
 	struct s_info		*next;
 	struct s_info		*prev;
@@ -99,7 +99,6 @@ typedef struct			s_dirs
 	struct s_info		*last;
 }						t_dirs;
 
-/* int						main(int argc, char **argv); */
 int						ft_ls_check(char *path);
 char					*ft_ls_path(char *path, char *d_name);
 void					ft_ls_file(int *flags, char **argv);
