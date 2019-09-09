@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/09 18:42:41 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/09 18:54:09 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_ls_file(int *flags, char **argv)
 		ft_sorts(flags, dirs);
 	ft_prints(flags, dirs);
 	ft_sort_clean(dirs);
-	F_SET(*flags, F_REG, F_0);
+	F_SET(*flags, (F_REG + F_P), F_0);
 }
 
 char	*ft_ls_path(char *path, char *d_name)
@@ -88,8 +88,9 @@ int		main(int argc, char **argv)
 	int		flags;
 	int		i;
 
-	if ((argc - (i = ft_flags(&flags, argv)) > 1))
-		flags |= F_M;
+	i = ft_flags(&flags, argv);
+	if ((argc - i) > 1)
+		F_SET(flags, F_0, F_M);
 	if (!argv[i--])
 	{
 		ft_dirs(&flags, ".");
