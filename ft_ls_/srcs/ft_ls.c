@@ -22,7 +22,7 @@ void	ft_ls_file(int *flags, char **argv)
 	list = dirs->list;
 	while (*++argv)
 	{
-		if (ft_ls_check(*argv) != 1)
+		if (ft_ls_check(*argv) != 1 && ft_ls_check(*argv) != 4)
 			continue;
 		if (!list)
 			list = ft_dir_add(dirs->last);
@@ -79,6 +79,8 @@ int		ft_ls_check(char *path)
 		return (2);
 	if ((s_stat.st_mode & S_IFMT) == S_IFLNK)
 		return (3);
+	if ((s_stat.st_mode & S_IFMT) == S_IFCHR)
+		return (4);
 	return (0);
 }
 

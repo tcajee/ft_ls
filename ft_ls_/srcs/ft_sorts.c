@@ -35,31 +35,60 @@ void	ft_sort_clean(t_dirs *dirs)
 	}
 }
 
+/* int		ft_sort_comp(int *flags, t_info *a, t_info *b) */
+/* { */
+/* 	if (*flags & F_T) */
+/* 	{ */
+/* 		if (a->s_stat.st_mtimespec.tv_sec == b->s_stat.st_mtimespec.tv_sec) */
+/* 		{ */
+/* 			if (a->s_stat.st_mtimespec.tv_nsec != b->s_stat.st_mtimespec.tv_nsec) */
+/* 				return (a->s_stat.st_mtimespec.tv_nsec < b->s_stat.st_mtimespec.tv_nsec); */
+/* 			else */
+/* 				return (ft_strcmp(a->name, b->name)); */
+/* 		} */
+/* 		else */
+/* 			return (a->s_stat.st_mtimespec.tv_sec < b->s_stat.st_mtimespec.tv_sec); */
+/* 	} */
+/* 	else if (*flags & F_U) */
+/* 	{ */
+/* 		if (a->s_stat.st_atimespec.tv_sec == b->s_stat.st_atimespec.tv_sec) */
+/* 		{ */
+/* 			if (a->s_stat.st_mtime != b->s_stat.st_mtimespec.tv_nsec) */
+/* 				return (a->s_stat.st_mtimespec.tv_nsec < b->s_stat.st_mtimespec.tv_nsec); */
+/* 			else */
+/* 			return (ft_strcmp(a->name, b->name)); */
+/* 		} */
+/* 		else */
+/* 			return (a->s_stat.st_atimespec.tv_sec < b->s_stat.st_atimespec.tv_sec); */
+/* 	} */
+/* 	return (ft_strcmp(a->name, b->name)); */
+/* } */
+
 int		ft_sort_comp(int *flags, t_info *a, t_info *b)
 {
 	if (*flags & F_T)
 	{
-		if (a->s_stat.st_mtimespec.tv_sec == b->s_stat.st_mtimespec.tv_sec)
+		if (a->s_stat.st_mtime == b->s_stat.st_mtime)
 		{
-			if (a->s_stat.st_mtimespec.tv_nsec != b->s_stat.st_mtimespec.tv_nsec)
-				return (a->s_stat.st_mtimespec.tv_nsec < b->s_stat.st_mtimespec.tv_nsec);
+			if (a->s_stat.st_mtime != b->s_stat.st_mtime)
+				return (a->s_stat.st_mtime < b->s_stat.st_mtime);
 			else
 				return (ft_strcmp(a->name, b->name));
 		}
 		else
-			return (a->s_stat.st_mtimespec.tv_sec < b->s_stat.st_mtimespec.tv_sec);
+			return (a->s_stat.st_mtime < b->s_stat.st_mtime);
 	}
 	else if (*flags & F_U)
 	{
-		if (a->s_stat.st_atimespec.tv_sec == b->s_stat.st_atimespec.tv_sec)
+		if (a->s_stat.st_atime == b->s_stat.st_atime)
 		{
-			if (a->s_stat.st_mtime != b->s_stat.st_mtimespec.tv_nsec)
-				return (a->s_stat.st_mtimespec.tv_nsec < b->s_stat.st_mtimespec.tv_nsec);
+			if (a->s_stat.st_mtime != b->s_stat.st_mtime)
+				return (a->s_stat.st_mtime < b->s_stat.st_mtime);
 			else
 			return (ft_strcmp(a->name, b->name));
 		}
 		else
-			return (a->s_stat.st_atimespec.tv_sec < b->s_stat.st_atimespec.tv_sec);
+			return (a->s_stat.st_atime < b->s_stat.st_atime);
 	}
 	return (ft_strcmp(a->name, b->name));
 }

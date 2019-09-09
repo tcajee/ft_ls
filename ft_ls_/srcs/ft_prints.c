@@ -113,10 +113,19 @@ void	ft_print_lst(int *flags, t_dirs *dirs, t_info *l)
 		}
 	}
 	ft_printf_("%.%d", dirs->s_form.size_len, l->s_stat.st_size);
+
+	/* if (*flags & F_U) */
+	/* 	ft_printf_("%s ", ft_strsub(ctime(&l->s_stat.st_atimespec.tv_sec), 3, 13)); */
+	/* else */ 
+	/* 	ft_printf_("%s ", ft_strsub(ctime(&l->s_stat.st_mtimespec.tv_sec), 3, 13)); */
+
 	if (*flags & F_U)
-		ft_printf_("%s ", ft_strsub(ctime(&l->s_stat.st_atimespec.tv_sec), 3, 13));
+		ft_printf_("%s ", ft_strsub(ctime(&l->s_stat.st_atime), 3, 13));
 	else 
-		ft_printf_("%s ", ft_strsub(ctime(&l->s_stat.st_mtimespec.tv_sec), 3, 13));
+		ft_printf_("%s ", ft_strsub(ctime(&l->s_stat.st_mtime), 3, 13));
+
+
+
 	ft_print_def(flags, l);
 }
 
