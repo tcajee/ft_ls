@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/09 18:12:53 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/09 18:14:58 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,30 @@ typedef struct	s_sort
 
 }				t_sort;
 
-void	ft_sort3(int *flags, t_dirs *dirs, t_sort *sort)
+void	ft_sort3(int *flags, t_dirs *dirs, t_sort *s)
 {
-	while (sort->l_size > 0 || (sort->n_size > 0 && sort->next))
+	while (s->l_size > 0 || (s->n_size > 0 && s->next))
 	{
-		if (sort->l_size == 0 && sort->n_size--)
+		if (s->l_size == 0 && s->n_size--)
 		{
-			sort->temp = sort->next;
-			sort->next = sort->next->next;
+			s->temp = s->next;
+			s->next = s->next->next;
 		}
-		else if ((sort->n_size == 0 || !sort->next) && sort->l_size--)
+		else if ((s->n_size == 0 || !s->next) && s->l_size--)
 		{
-			sort->temp = sort->list;
-			sort->list = sort->list->next;
+			s->temp = s->list;
+			s->list = s->list->next;
 		}
-		else if (ft_sort_comp(flags, sort->list, sort->next) <= 0 && sort->l_size--)
+		else if (ft_sort_comp(flags, s->list, s->next) <= 0 && s->l_size--)
 		{
-			sort->temp = sort->list;
-			sort->list = sort->list->next;
+			s->temp = s->list;
+			s->list = s->list->next;
 		}
-		else if (sort->n_size-- && !!(sort->temp = sort->next))
-			sort->next = sort->next->next;
-		(sort->tail) ? (sort->tail->next = sort->temp) : (dirs->list = sort->temp);
-		sort->temp->prev = sort->tail;
-		sort->tail = sort->temp;
+		else if (s->n_size-- && !!(s->temp = s->next))
+			s->next = s->next->next;
+		(s->tail) ? (s->tail->next = s->temp) : (dirs->list = s->temp);
+		s->temp->prev = s->tail;
+		s->tail = s->temp;
 	}
 }
 
