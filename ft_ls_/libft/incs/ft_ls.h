@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/09 13:41:57 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/09 17:32:54 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@
 # define F_I 65536
 # define F_M 131072
 # define F_REG 262144
-# define F_4 524288
+# define F_O 524288
 # define F_5 1048576
 # define F_6 2097152
 # define F_7 4194304
@@ -93,22 +93,23 @@ typedef struct			s_dirs
 	int					size;
 	int					total;
 	char				*root;
+	int					cool;
 	t_stat				s_stat;
 	t_form				s_form;
 	struct s_info		*list;
 	struct s_info		*last;
 }						t_dirs;
 
+int						main(int argc, char **argv);
 int						ft_ls_check(char *path);
 char					*ft_ls_path(char *path, char *d_name);
 void					ft_ls_file(int *flags, char **argv);
-int						ft_ls_rec(int *flags, t_dirs *dirs);
 
 int						ft_flags(int *flags, char **argv);
 int						ft_flag_check(int *flags, char flag);
-int						ft_lflag_check(int *flags, char *option);
+int						ft_flag_check_(int *flags, char flag);
 
-int						ft_dirs(int *flags, char *path);
+void					ft_dirs(int *flags, char *path);
 t_dirs					*ft_dir_new(char *path);
 t_info					*ft_dir_add(t_info *list);
 int						ft_dir_fill(int *flags, t_dirs *dirs, char *path);

@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/09 11:24:13 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/09 17:37:14 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,17 @@ void	ft_ls_file(int *flags, char **argv)
 	t_dirs	*dirs;
 	t_info	*list;
 
+/* ft_putendl("			FILES"); */
+/* ft_putendl("-----------------------------------"); */
+
 	F_SET(*flags, F_0, F_REG);
 	dirs = ft_dir_new(*(argv + 1));
 	list = dirs->list;
 	while (*++argv)
 	{
-		if (ft_ls_check(*argv) == 1 && ++dirs->size)
+		if (ft_ls_check(*argv) != 1)
+			continue;
+		else
 		{
 			if (!list)
 				list = ft_dir_add(dirs->last);
@@ -30,11 +35,13 @@ void	ft_ls_file(int *flags, char **argv)
 			list->name = ft_strdup(*argv);
 			lstat(list->name, &list->s_stat);
 			ft_dir_form(flags, dirs);
-			if (!(*flags & F_F))
-				ft_sorts(flags, dirs);
-			list = !(*flags & F_F) ? dirs->last->next : list->next;
+			/* list = !(*flags & F_F) ? dirs->last->next : list->next; */
+			list = list->next;
 		}
 	}
+	/* ft_list_print(dirs); */
+	if (!(*flags & F_F))
+		ft_sorts(flags, dirs);
 	ft_prints(flags, dirs);
 	ft_sort_clean(dirs);
 	F_SET(*flags, F_REG, F_0);
@@ -42,10 +49,16 @@ void	ft_ls_file(int *flags, char **argv)
 
 char	*ft_ls_path(char *path, char *d_name)
 {
+	char	lpath[PATH_MAX];
 	int		i;
 	int		len;
 	char	*temp;
 
+	if (ft_ls_check(path) == 3)
+	{
+			readlink(path, ft_memset(lpath, 0, PATH_MAX), PATH_MAX);
+			path = lpath;
+	}
 	i = 0;
 	len = ft_strlen(path) + ft_strlen(d_name);
 	if (!(temp = (char *)malloc(sizeof(char) * (len + 2))))
@@ -84,7 +97,6 @@ int		ft_ls_rec(int *flags, t_dirs *dirs)
 			if (*flags & F_RR)
 			{
 				if (!(rdirs = ft_dir_new(list->path)) || !(ft_dir_fill(flags, rdirs, list->path)))
-					perror("RECURSIVE: ") ;
 					//return (0);
 			//	if (!(ft_dir_fill(flags, rdirs, list->path)))
 					//continue ;
@@ -119,21 +131,32 @@ int		ft_ls_check(char *path)
 
 int		main(int argc, char **argv)
 {
-	int			flags;
-	int			i;
-	int			j;
+	char	path[PATH_MAX];
+	int		flags;
+	int		i;
+	int		j;
 
 	i = 0;
 	i = ft_flags(&flags, argv);
 	if ((argc - i) > 1)
 		flags |= F_M;
 	if (!argv[i])
-		return (ft_dirs(&flags, "."));
+	{
+		ft_dirs(&flags, ".");
+		return (1);
+	}
 	j = i - 1;
 	ft_errors(&flags, argv + j);
 	ft_ls_file(&flags, argv + j);
 	while (argv[++j])
+	{
 		if (ft_ls_check(argv[j]) == 2)
 			ft_dirs(&flags, argv[j]);
+		else if (ft_ls_check(argv[j]) == 3)
+		{
+			readlink(argv[j], ft_memset(path, 0, PATH_MAX), PATH_MAX);
+			ft_dirs(&flags, path);
+		}
+	}
 	return (1);
 }
