@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 17:27:35 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/09 11:09:21 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void	ft_print_def(int *flags, t_info *list)
 	char	path[PATH_MAX];
 	
 	ft_bzero(path, PATH_MAX);
-	readlink(list->path, path, PATH_MAX);
+	if (ft_ls_check(list->path) == 3)
+		readlink(list->path, path, PATH_MAX);
 	ft_printf_("%s", list->name);
 	if (*flags & F_FF)
 	{
@@ -104,13 +105,10 @@ void	ft_print_lst(int *flags, t_dirs *dirs, t_info *l)
 		else
 			ft_printf_("%.%d ", dirs->s_form.grp_len, l->s_stat.st_gid);
 	}
-	ft_printf_("%.%d", dirs->s_form.size_len, l->s_stat.st_size);
-	if (*flags & F_U)
-		ft_printf_("%s ", l->t = ft_strsub(ctime(&l->s_stat.st_atime), 3, 13));
-	else
-		ft_printf_("%s ", l->t = ft_strsub(ctime(&l->s_stat.st_mtime), 3, 13));
+	ft_printf_("%.%d ", dirs->s_form.size_len, l->s_stat.st_size);
+	//ft_printf_("%s ", l->s_stat.);
 	ft_print_def(flags, l);
-	free(l->t);
+	//free(l->t);
 }
 
 int		ft_prints(int *flags, t_dirs *dirs)

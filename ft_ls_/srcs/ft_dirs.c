@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/05 15:26:15 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/09 11:22:00 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,30 @@ void	ft_dir_form(int *flags, t_dirs *dirs)
 	t_group		*s_grp;
 	size_t		len;
 
-	last = dirs->last;
-	if (*flags & F_L)
+	if(dirs)
+		last = dirs->last;
+	if (*flags & F_L && dirs)
 	{
 		if ((len = ft_intlen(last->s_stat.st_nlink)) > dirs->s_form.link_len)
 			dirs->s_form.link_len = len;
-		s_pwd = getpwuid(last->s_stat.st_uid);
-		if (s_pwd && (len = ft_strlen(s_pwd->pw_name)) > dirs->s_form.usr_len)
-			dirs->s_form.usr_len = len;
-		else if ((len = ft_intlen((int)*s_pwd->pw_name)) > dirs->s_form.usr_len)
-			dirs->s_form.usr_len = len;
-		s_grp = getgrgid(last->s_stat.st_gid);
-		if (s_grp && (len = ft_strlen(s_grp->gr_name)) > dirs->s_form.grp_len)
-			dirs->s_form.grp_len = len;
-		else if ((len = ft_intlen((int)*s_grp->gr_name)) > dirs->s_form.grp_len)
-			dirs->s_form.grp_len = len;
+		if ((s_pwd = getpwuid(last->s_stat.st_uid)))
+		{
+			if (s_pwd && (ft_strlen(s_pwd->pw_name)) > dirs->s_form.usr_len)
+			{
+				dirs->s_form.usr_len = ft_strlen(s_pwd->pw_name);
+			}
+			else if ((ft_intlen(last->s_stat.st_uid)) > dirs->s_form.usr_len)
+			{
+				dirs->s_form.usr_len = ft_intlen(last->s_stat.st_uid);
+			}
+		}
+		if((s_grp = getgrgid(last->s_stat.st_gid)))
+		{
+			if (s_grp && (len = ft_strlen(s_grp->gr_name)) > dirs->s_form.grp_len)
+				dirs->s_form.grp_len = len;
+			else if ((len = ft_intlen((int)*s_grp->gr_name)) > dirs->s_form.grp_len)
+				dirs->s_form.grp_len = len;
+		}
 		if ((len = ft_intlen(last->s_stat.st_size)) > dirs->s_form.size_len)
 			dirs->s_form.size_len = len;
 	}
@@ -96,9 +105,6 @@ int		ft_dir_fill(int *flags, t_dirs *dirs, char *path)
 		lstat(list->path, &list->s_stat);
 		dirs->total += list->s_stat.st_blocks;
 		ft_dir_form(flags, dirs);
-		/* if (!(*flags & F_F)) */
-			/* ft_sorts(flags, dirs); */
-		/* list = !(*flags & F_F) ? dirs->last->next : list->next; */
 		list = list->next;
 	}
 	closedir(dir);

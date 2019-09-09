@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/05 15:27:17 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/09 11:24:13 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int		ft_ls_rec(int *flags, t_dirs *dirs)
 {
 	/* char		*fpath; */
 	t_info		*list;
+	t_dirs *rdirs;
 
 	list = (*flags & F_R) ? dirs->last : dirs->list;
 	while (list)
@@ -79,7 +80,22 @@ int		ft_ls_rec(int *flags, t_dirs *dirs)
 		}
 		/* if (ft_ls_check(fpath = ft_ls_path(list->path)) == 2) */
 		if (ft_ls_check(list->path) == 2)
-			ft_dirs(flags, list->path);
+		{
+			if (*flags & F_RR)
+			{
+				if (!(rdirs = ft_dir_new(list->path)) || !(ft_dir_fill(flags, rdirs, list->path)))
+					perror("RECURSIVE: ") ;
+					//return (0);
+			//	if (!(ft_dir_fill(flags, rdirs, list->path)))
+					//continue ;
+					//return (0);
+				else if (*flags & F_RR)
+					ft_ls_rec(flags, rdirs);
+				ft_sort_clean(rdirs);
+			}
+
+		}
+			//ft_dirs(flags, list->path);
 		/* free(fpath); */
 		list = (*flags & F_R) ? list->prev : list->next;
 	}
@@ -96,6 +112,8 @@ int		ft_ls_check(char *path)
 		return (1);
 	if ((s_stat.st_mode & S_IFMT) == S_IFDIR)
 		return (2);
+	if ((s_stat.st_mode & S_IFMT) == S_IFLNK)
+		return (3);
 	return (0);
 }
 
