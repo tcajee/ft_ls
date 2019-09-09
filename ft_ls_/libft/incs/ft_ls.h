@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/09 16:17:29 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/09 18:22:24 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,18 @@ typedef struct			s_dirs
 	struct s_info		*last;
 }						t_dirs;
 
+typedef struct	s_sort
+{
+	t_info				*list;
+	t_info				*next;
+	t_info				*tail;
+	t_info				*temp;
+	int					i_size;
+	int					l_size;
+	int					n_size;
+	int					m_count;
+}						t_sort;
+
 int						main(int argc, char **argv);
 int						ft_ls_check(char *path);
 char					*ft_ls_path(char *path, char *d_name);
@@ -177,8 +189,8 @@ int						ft_dir_fill(int *flags, t_dirs *dirs, char *path);
 void					ft_dir_form(int *flags, t_dirs *dirs);
 
 void					ft_sorts(int *flags, t_dirs *dirs);
-void					ft_sort_lex(int *flags, t_info **sort, t_info *unsort);
-void					ft_sort_time(int *flags, t_info **sort, t_info *unsort);
+void					ft_sort_merge(int *flags, t_dirs *dirs, t_sort *sort);
+void					ft_sort_ins(int *flags, t_dirs *dirs, t_sort *sort);
 int						ft_sort_comp(int *flags, t_info *list, t_info *unsort);
 void					ft_sort_clean(t_dirs *dirs);
 
