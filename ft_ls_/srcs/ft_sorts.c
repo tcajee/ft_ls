@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/09 13:39:39 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/09 13:43:32 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ int		ft_sort_comp(int *flags, t_info *a, t_info *b)
 {
 	if (*flags & F_T)
 	{
-
-
 		if (a->s_stat.st_mtimespec.tv_sec == b->s_stat.st_mtimespec.tv_sec)
 		{
 			if (a->s_stat.st_mtimespec.tv_nsec != b->s_stat.st_mtimespec.tv_nsec)
@@ -59,24 +57,22 @@ int		ft_sort_comp(int *flags, t_info *a, t_info *b)
 		}
 		else
 			return (a->s_stat.st_mtime < b->s_stat.st_mtime);
-
 	}
 	return (ft_strcmp(a->name, b->name));
 }
 
 t_dirs *ft_sort_merge(int *flags, t_dirs *dirs)
 {
-t_info *list;
-t_info *temp;
-t_info *next;
-t_info *tail;
-int insize;
-int nmerges;
-int listsize;
-int nextsize;
-int i;
-insize = 1;
-
+	t_info *list;
+	t_info *temp;
+	t_info *next;
+	t_info *tail;
+	int insize;
+	int nmerges;
+	int listsize;
+	int nextsize;
+	int i;
+	insize = 1;
 	while (insize)
 	{
 		list = dirs->list;
