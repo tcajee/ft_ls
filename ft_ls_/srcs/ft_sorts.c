@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/09 18:19:35 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/09 18:24:49 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ void	ft_sorts(int *flags, t_dirs *dirs)
 			break;
 		sort->i_size *= 2;
 	}
+	free(sort);
 }
 
 
