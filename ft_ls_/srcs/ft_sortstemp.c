@@ -6,129 +6,115 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/09 17:24:18 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/09 17:49:44 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-void	ft_sorts3(int *flags, t_dirs *dirs)
+typedef struct	s_sort
 {
-			dirs;
-			list;
-			listsize;
-			next;
-			nextsize;
-			temp;
-			tail;
-			while (listsize > 0 || (nextsize > 0 && next))
-			{
-				if (listsize == 0)
-				{
-					temp = next;
-					next = next->next;
-					nextsize--;
-				}
-				else if (nextsize == 0 || !next)
-				{
-					temp = list;
-					list = list->next;
-					listsize--;
-				}
-				else if (ft_sort_comp(flags, list, next) <= 0)
-				{
-					temp = list;
-					list = list->next;
-					listsize--;
-				}
-				else
-				{
-					temp = next;
-					next = next->next;
-					nextsize--;
-				}
-				if (tail)
-					tail->next = temp;
-				else
-					dirs->list = temp;
-				temp->prev = tail;
-				tail = temp;
-			}
-			
+	t_info		*list;
+	t_info		*next;
+	t_info		*tail;
 
+	int			i_size;
+	int			l_size;
+	int			n_size;
+	int			m_count;
 
+}				t_sort;
 
-
-
-}
-void	ft_sorts2(int *flags, t_dirs *dirs)
+void	ft_sort3(int *flags, t_dirs *dirs, t_sort *sort)
 {
-	int i;
-
-		nmerges;
-		list;
-		listsize;
-		next;
-		nextsize;
-		insize;
-		while (list)
-		{
-			++nmerges;
-			next = list;
-			listsize = 0;
-			i = 0;
-			while (i < insize)
-			{
-				listsize++;
-				next = next->next;
-				if (!next)
-					break;
-				i++;
-			}
-			nextsize = insize;
-			//--------------------------
-			list = next;
-		}
-
-
-}
-
-
-void	ft_sorts1(int *flags, t_dirs *dirs)
-{
-
-	t_info *list;
 	t_info *temp;
-	t_info *next;
-	t_info *tail;
-	int insize;
-	int nmerges;
-	int listsize;
-	int nextsize;
-	int i;
-	insize = 1;
-	list;
-	dirs;
-	tail;
-	nmerges;
 
-	while (insize)
+	while (sort->l_size > 0 || (sort->n_size > 0 && sort->next))
 	{
-		list = dirs->list;
-		dirs->list = NULL;
-		tail = NULL;
-		nmerges = 0;
-		
-		//--------------------------2
-		
-		if (tail)
+		if (sort->l_size == 0)
 		{
-			tail->next = NULL;
-			dirs->last = tail;
+			temp = sort->next;
+			sort->next = sort->next->next;
+			sort->n_size--;
 		}
-		if (nmerges <= 1)
+		else if (sort->n_size == 0 || !sort->next)
+		{
+			temp = sort->list;
+			sort->list = sort->list->next;
+			sort->l_size--;
+		}
+		else if (ft_sort_comp(flags, sort->list, sort->next) <= 0)
+		{
+			temp = sort->list;
+			sort->list = sort->list->next;
+			sort->l_size--;
+		}
+		else
+		{
+			temp = sort->next;
+			sort->next = sort->next->next;
+			sort->n_size--;
+		}
+		if (sort->tail)
+			sort->tail->next = temp;
+		else
+			dirs->list = temp;
+		temp->prev = sort->tail;
+		sort->tail = temp;
+	}
+	
+}
+
+void	ft_sort2(int *flags, t_dirs *dirs, t_sort *sort)
+{
+	int		i;
+
+	while (sort->list)
+	{
+		i = 0;
+		++sort->m_count;
+		sort->next = sort->list;
+		sort->l_size = 0;
+		while (i < sort->i_size)
+		{
+			sort->l_size++;
+			sort->next = sort->next->next;
+			if (!sort->next)
+				break;
+			i++;
+		}
+		sort->n_size = sort->i_size;
+
+		ft_sort3(flags, dirs, sort);
+
+		sort->list = sort->next;
+	}
+}
+
+void	ft_sorts(int *flags, t_dirs *dirs)
+{
+	t_sort	*sort;
+
+	if (!(sort = (t_sort *)malloc(sizeof(t_sort))))
+		return ;
+	sort->i_size = 1;
+	while (sort->i_size)
+	{
+		sort->list = dirs->list;
+		dirs->list = NULL;
+		sort->tail = NULL;
+		sort->m_count = 0;
+		
+		ft_sort2(flags, dirs, sort);
+		
+		if (sort->tail)
+		{
+			sort->tail->next = NULL;
+			dirs->last = sort->tail;
+		}
+		if (sort->m_count <= 1)
 			break;
-		insize *= 2;
+		sort->i_size *= 2;
 	}
 }
 
