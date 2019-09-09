@@ -21,7 +21,6 @@ t_info	*ft_dir_add(t_info *last)
 	new->name = NULL;
 	new->path = NULL;
 	new->next = NULL;
-	new->t = NULL;
 	last->next = new;
 	new->prev = last;
 	return (new);

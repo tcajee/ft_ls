@@ -82,8 +82,7 @@ typedef struct			s_info
 {
 	char				*name;
 	char				*path;
-	int				i;
-	char				*t;
+//	char				*t;
 	t_stat				s_stat;
 	struct s_info		*next;
 	struct s_info		*prev;
