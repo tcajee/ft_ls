@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/09 17:49:44 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/09 18:12:53 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ typedef struct	s_sort
 	t_info		*list;
 	t_info		*next;
 	t_info		*tail;
+	t_info		*temp;
 
 	int			i_size;
 	int			l_size;
@@ -27,42 +28,29 @@ typedef struct	s_sort
 
 void	ft_sort3(int *flags, t_dirs *dirs, t_sort *sort)
 {
-	t_info *temp;
-
 	while (sort->l_size > 0 || (sort->n_size > 0 && sort->next))
 	{
-		if (sort->l_size == 0)
+		if (sort->l_size == 0 && sort->n_size--)
 		{
-			temp = sort->next;
+			sort->temp = sort->next;
 			sort->next = sort->next->next;
-			sort->n_size--;
 		}
-		else if (sort->n_size == 0 || !sort->next)
+		else if ((sort->n_size == 0 || !sort->next) && sort->l_size--)
 		{
-			temp = sort->list;
+			sort->temp = sort->list;
 			sort->list = sort->list->next;
-			sort->l_size--;
 		}
-		else if (ft_sort_comp(flags, sort->list, sort->next) <= 0)
+		else if (ft_sort_comp(flags, sort->list, sort->next) <= 0 && sort->l_size--)
 		{
-			temp = sort->list;
+			sort->temp = sort->list;
 			sort->list = sort->list->next;
-			sort->l_size--;
 		}
-		else
-		{
-			temp = sort->next;
+		else if (sort->n_size-- && !!(sort->temp = sort->next))
 			sort->next = sort->next->next;
-			sort->n_size--;
-		}
-		if (sort->tail)
-			sort->tail->next = temp;
-		else
-			dirs->list = temp;
-		temp->prev = sort->tail;
-		sort->tail = temp;
+		(sort->tail) ? (sort->tail->next = sort->temp) : (dirs->list = sort->temp);
+		sort->temp->prev = sort->tail;
+		sort->tail = sort->temp;
 	}
-	
 }
 
 void	ft_sort2(int *flags, t_dirs *dirs, t_sort *sort)
@@ -84,9 +72,7 @@ void	ft_sort2(int *flags, t_dirs *dirs, t_sort *sort)
 			i++;
 		}
 		sort->n_size = sort->i_size;
-
 		ft_sort3(flags, dirs, sort);
-
 		sort->list = sort->next;
 	}
 }
@@ -104,9 +90,7 @@ void	ft_sorts(int *flags, t_dirs *dirs)
 		dirs->list = NULL;
 		sort->tail = NULL;
 		sort->m_count = 0;
-		
 		ft_sort2(flags, dirs, sort);
-		
 		if (sort->tail)
 		{
 			sort->tail->next = NULL;
