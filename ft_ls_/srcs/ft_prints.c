@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/09 17:45:30 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/09 18:28:50 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,9 @@ void	ft_print_lst(int *flags, t_dirs *dirs, t_info *l)
 		if (!(*flags & F_O))
 		{
 			if (s_pwd)
-				ft_printf_("%.%s ", dirs->s_form.usr_len, s_pwd->pw_name);
+				ft_printf_("%.%s  ", dirs->s_form.usr_len, s_pwd->pw_name);
 			else
-				ft_printf_("%.%d ", dirs->s_form.usr_len, l->s_stat.st_uid);
+				ft_printf_("%.%d  ", dirs->s_form.usr_len, l->s_stat.st_uid);
 		}
 	}
 	if ((s_grp = getgrgid(l->s_stat.st_gid)))
@@ -107,9 +107,9 @@ void	ft_print_lst(int *flags, t_dirs *dirs, t_info *l)
 		if (!(*flags & F_G))
 		{
 			if (s_grp)
-				ft_printf_("%.%s ", dirs->s_form.grp_len, s_grp->gr_name);
+				ft_printf_("%.%s  ", dirs->s_form.grp_len, s_grp->gr_name);
 			else
-				ft_printf_("%.%d ", dirs->s_form.grp_len, l->s_stat.st_gid);
+				ft_printf_("%.%d  ", dirs->s_form.grp_len, l->s_stat.st_gid);
 		}
 	}
 	ft_printf_("%.%d", dirs->s_form.size_len, l->s_stat.st_size);
