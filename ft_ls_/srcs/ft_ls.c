@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/09 18:32:45 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/09 18:42:41 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,13 @@ void	ft_ls_file(int *flags, char **argv)
 	{
 		if (ft_ls_check(*argv) != 1)
 			continue;
-		else
-		{
-			if (!list)
-				list = ft_dir_add(dirs->last);
-			dirs->last = list;
-			list->name = ft_strdup(*argv);
-			lstat(list->name, &list->s_stat);
-			ft_dir_form(flags, dirs);
-			list = list->next;
-		}
+		if (!list)
+			list = ft_dir_add(dirs->last);
+		dirs->last = list;
+		list->name = ft_strdup(*argv);
+		lstat(list->name, &list->s_stat);
+		ft_dir_form(flags, dirs);
+		list = list->next;
 	}
 	if (!(*flags & F_F))
 		ft_sorts(flags, dirs);
@@ -51,8 +48,8 @@ char	*ft_ls_path(char *path, char *d_name)
 
 	if (ft_ls_check(path) == 3)
 	{
-			readlink(path, ft_memset(lpath, 0, PATH_MAX), PATH_MAX);
-			path = lpath;
+		readlink(path, ft_memset(lpath, 0, PATH_MAX), PATH_MAX);
+		path = lpath;
 	}
 	i = 0;
 	len = ft_strlen(path) + ft_strlen(d_name);
@@ -90,27 +87,23 @@ int		main(int argc, char **argv)
 	char	path[PATH_MAX];
 	int		flags;
 	int		i;
-	int		j;
 
-	i = 0;
-	i = ft_flags(&flags, argv);
-	if ((argc - i) > 1)
+	if ((argc - (i = ft_flags(&flags, argv)) > 1))
 		flags |= F_M;
-	if (!argv[i])
+	if (!argv[i--])
 	{
 		ft_dirs(&flags, ".");
 		return (1);
 	}
-	j = i - 1;
-	ft_errors(&flags, argv + j);
-	ft_ls_file(&flags, argv + j);
-	while (argv[++j])
+	ft_errors(&flags, argv + i);
+	ft_ls_file(&flags, argv + i);
+	while (argv[++i])
 	{
-		if (ft_ls_check(argv[j]) == 2)
-			ft_dirs(&flags, argv[j]);
-		else if (ft_ls_check(argv[j]) == 3)
+		if (ft_ls_check(argv[i]) == 2)
+			ft_dirs(&flags, argv[i]);
+		else if (ft_ls_check(argv[i]) == 3)
 		{
-			readlink(argv[j], ft_memset(path, 0, PATH_MAX), PATH_MAX);
+			readlink(argv[i], ft_memset(path, 0, PATH_MAX), PATH_MAX);
 			ft_dirs(&flags, path);
 		}
 	}
