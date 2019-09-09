@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/07 00:23:36 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/09 16:17:29 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ typedef struct			s_dirs
 	int					size;
 	int					total;
 	char				*root;
+	int					cool;
 	t_stat				s_stat;
 	t_form				s_form;
 	struct s_info		*list;

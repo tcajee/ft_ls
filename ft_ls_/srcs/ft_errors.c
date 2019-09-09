@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 11:36:46 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/06 23:26:03 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/09 16:26:08 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int	ft_error_print(int *flags, t_dirs *dirs)
 {
 	t_info	*list;
 
-ft_putendl("			PRINT");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			PRINT"); */
+/* ft_putendl("-----------------------------------"); */
 	list = (*flags & F_R) ? dirs->last : dirs->list;
 	while (list && list->name)
 	{
@@ -65,8 +65,8 @@ int	ft_errors(int *flags, char **error)
 {
 	t_dirs	*dirs;
 	t_info	*list;
-ft_putendl("			ERRORS");
-ft_putendl("-----------------------------------");
+/* ft_putendl("			ERRORS"); */
+/* ft_putendl("-----------------------------------"); */
 	if (!(dirs = ft_dir_new(*(error + 1))))
 		return (0);
 	list = dirs->list;
