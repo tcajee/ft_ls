@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/10 13:04:49 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/10 14:40:42 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,6 @@ int		main(int argc, char **argv)
 	if (!argv[i--])
 	{
 		ft_dirs(&flags, ".");
-
-		ft_putendl("SLEEP");	
-		sleep(20);
-
 		return (1);
 	}
 	ft_errors(&flags, argv + i);
@@ -114,9 +110,6 @@ int		main(int argc, char **argv)
 			ft_dirs(&flags, path);
 		}
 	}
-
-	ft_putendl("SLEEP");	
 	sleep(20);
-
 	return (1);
 }

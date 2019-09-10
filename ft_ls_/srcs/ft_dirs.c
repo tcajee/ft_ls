@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/10 14:26:36 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/10 14:40:01 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,6 @@ void	ft_dirs(int *flags, char *path)
 				ft_dirs(flags, list->path);
 			list = (*flags & F_R) ? list->prev : list->next;
 		}
-		ft_sort_clean(dirs);
 	}
+	ft_sort_clean(dirs);
 }
