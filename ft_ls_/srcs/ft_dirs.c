@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/10 14:16:45 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/10 14:26:36 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		ft_dir_fill(int *flags, t_dirs *dirs, char *path)
 	t_info		*list;
 
 	if ((dir = opendir(path)) == NULL)
-		return (ft_error_perm(flags, path));
+		return (ft_error_perm(flags, path, dirs));
 	list = dirs->list;
 	while ((s_dir = readdir(dir)) != NULL)
 	{

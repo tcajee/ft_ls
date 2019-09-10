@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/10 13:36:12 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/10 14:26:25 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void					ft_print_perms(char *permissions, t_stat *s_stat);
 
 int						ft_errors(int *flags, char **error);
 int						ft_error_flag(char *arg);
-int						ft_error_perm(int *flags, char *path);
+int						ft_error_perm(int *flags, char *path, t_dirs *dirs);
 int						ft_error_dir(char *arg);
 int						ft_error_print(int *flags, t_dirs *dirs);
 

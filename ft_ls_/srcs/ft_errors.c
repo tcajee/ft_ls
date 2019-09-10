@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 11:36:46 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/10 12:28:27 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/10 14:26:39 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_error_dir(char *path)
 	return (0);
 }
 
-int	ft_error_perm(int *flags, char *path)
+int	ft_error_perm(int *flags, char *path, t_dirs *dirs)
 {
 	ft_putendl("");
 	if (*flags & F_RR)
@@ -32,6 +32,7 @@ int	ft_error_perm(int *flags, char *path)
 	ft_putstr_fd(ft_strrchr(path, '/') + 1, 2);
 	ft_putstr_fd(": ", 2);
 	perror("");
+	ft_sort_clean(dirs);
 	return (0);
 }
 
