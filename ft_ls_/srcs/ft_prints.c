@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/10 15:05:12 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/10 15:11:25 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,8 @@ int		ft_prints(int *flags, t_dirs *dirs)
 	list = (*flags & F_R) ? dirs->last : dirs->list;
 	while (list && list->name && dirs->cool)
 	{
-		if (!(*flags & F_A) && list->name[0] == '.')
+		if ((!(*flags & F_A) || (*flags & F_AA)) && list->name[0] == '.' 
+				&& ft_ls_check(list->path) == 2)
 			if (!(*flags & F_REG))
 			{
 				list = (*flags & F_R) ? list->prev : list->next;

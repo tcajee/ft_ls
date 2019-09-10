@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/10 15:02:49 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/10 15:08:07 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@
 # define F_M 131072
 # define F_REG 262144
 # define F_O 524288
+
+# define F_AA 2048
 
 typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
