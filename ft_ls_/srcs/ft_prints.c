@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/10 14:15:36 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/10 15:05:12 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,29 +34,29 @@ void	ft_print_perms(char *permissions, t_stat *s_stat)
 		permissions[9] = 'x';
 }
 
-void	ft_print_perm(int *flags, t_stat *s_stat)
+void	ft_print_perm(int *flags, t_info *list)
 {
 	char	permissions[12];
 
 	ft_memset(permissions, '-', 11);
-	if ((s_stat->st_mode & S_IFMT) == S_IFDIR)
+	if ((list->s_stat.st_mode & S_IFMT) == S_IFDIR)
 		permissions[0] = 'd';
-	else if ((s_stat->st_mode & S_IFMT) == S_IFREG)
+	else if ((list->s_stat.st_mode & S_IFMT) == S_IFREG)
 		permissions[0] = '-';
-	else if ((s_stat->st_mode & S_IFMT) == S_IFCHR)
+	else if ((list->s_stat.st_mode & S_IFMT) == S_IFCHR)
 		permissions[0] = 'c';
-	else if ((s_stat->st_mode & S_IFMT) == S_IFBLK)
+	else if ((list->s_stat.st_mode & S_IFMT) == S_IFBLK)
 		permissions[0] = 'b';
-	else if ((s_stat->st_mode & S_IFMT) == S_IFLNK)
+	else if ((list->s_stat.st_mode & S_IFMT) == S_IFLNK)
 		permissions[0] = 'l';
-	else if ((s_stat->st_mode & S_IFMT) == S_IFSOCK)
+	else if ((list->s_stat.st_mode & S_IFMT) == S_IFSOCK)
 		permissions[0] = 's';
-	else if ((s_stat->st_mode & S_IFMT) == S_IFIFO)
+	else if ((list->s_stat.st_mode & S_IFMT) == S_IFIFO)
 		permissions[0] = 'p';
-	ft_print_perms(permissions, s_stat);
+	ft_print_perms(permissions, &list->s_stat);
 	permissions[10] = ' ';
 	permissions[11] = '\0';
-	(*flags & F_I) ? ft_printf_("%d ", s_stat->st_ino) : NULL;
+	(*flags & F_I) ? ft_printf_("%l ", list->s_stat.st_ino) : NULL;
 	ft_printf_("%s", permissions);
 }
 
@@ -91,7 +91,7 @@ void	ft_print_lst(int *flags, t_dirs *dirs, t_info *l)
 	t_passwd	*s_pwd;
 	t_group		*s_grp;
 
-	ft_print_perm(flags, &l->s_stat);
+	ft_print_perm(flags, l);
 	ft_printf_("%.%x ", dirs->s_form.link_len, l->s_stat.st_nlink);
 	if (!(*flags & F_O))
 	{
