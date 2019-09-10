@@ -12,12 +12,34 @@
 
 #include "../libft/incs/libft.h"
 
+int		ft_ls_print(int *flags, t_dirs *dirs)
+{
+	t_info	*list;
+
+	list = (*flags & F_R) ? dirs->last : dirs->list;
+	while (list && list->name && dirs->cool)
+	{
+		if (!(*flags & F_A) && list->name[0] == '.')
+			if (!(*flags & F_REG))
+			{
+				list = (*flags & F_R) ? list->prev : list->next;
+				continue;
+			}
+		if (*flags & F_1)
+			ft_print_def(flags, list);
+		else if (*flags & F_L)
+			ft_print_lst(flags, dirs, list);
+		list = (*flags & F_R) ? list->prev : list->next;
+		F_SET(*flags, F_0, F_REG);
+	}
+	return (1);
+}
+
 void	ft_ls_file(int *flags, char **argv)
 {
 	t_dirs	*dirs;
 	t_info	*list;
 
-	F_SET(*flags, F_0, F_REG);
 	dirs = ft_dir_new(*(argv + 1));
 	list = dirs->list;
 	while (*++argv)
@@ -34,9 +56,8 @@ void	ft_ls_file(int *flags, char **argv)
 	}
 	if (!(*flags & F_F))
 		ft_sorts(flags, dirs);
-	ft_prints(flags, dirs);
+	ft_ls_print(flags, dirs);
 	ft_sort_clean(dirs);
-	F_SET(*flags, (F_REG + F_P), F_0);
 }
 
 char	*ft_ls_path(char *path, char *d_name)
@@ -101,6 +122,7 @@ int		main(int argc, char **argv)
 	ft_ls_file(&flags, argv + i);
 	while (argv[++i])
 	{
+		/* (flags & F_REG) ? (ft_printf_("\n")) : NULL; */
 		if (ft_ls_check(argv[i]) == 2)
 			ft_dirs(&flags, argv[i]);
 		else if (ft_ls_check(argv[i]) == 3)

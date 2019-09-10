@@ -119,20 +119,32 @@ int		ft_prints(int *flags, t_dirs *dirs)
 {
 	t_info	*list;
 
-	if ((*flags & F_M || *flags & F_RR) && *flags & F_P && !(*flags & F_REG))
-		ft_printf_("\n%s:\n", dirs->root);
-	if (*flags & F_L && !(*flags & F_REG) && dirs->cool)
+	(*flags & F_REG && !(*flags & F_P)) ? (ft_printf_("\n")) : NULL;
+	if ((*flags & F_M))
+	{
+		if (*flags & F_P)
+			ft_printf_("\n%s:\n", dirs->root);
+		else
+			ft_printf_("%s:\n", dirs->root);
+	}
+	else if (*flags & F_RR)
+	{
+		if (*flags & F_P)
+			ft_printf_("\n%s:\n", dirs->root);
+		else
+			ft_printf_("%s:\n", dirs->root);
+	}
+	if (*flags & F_L && dirs->cool)
 		ft_printf_("%s %d\n", "total", dirs->total);
 	F_SET(*flags, F_0, F_P);
 	list = (*flags & F_R) ? dirs->last : dirs->list;
 	while (list && list->name && dirs->cool)
 	{
 		if (!(*flags & F_A) && list->name[0] == '.')
-			if (!(*flags & F_REG))
-			{
-				list = (*flags & F_R) ? list->prev : list->next;
-				continue;
-			}
+		{
+			list = (*flags & F_R) ? list->prev : list->next;
+			continue;
+		}
 		if (*flags & F_1)
 			ft_print_def(flags, list);
 		else if (*flags & F_L)
