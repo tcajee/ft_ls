@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/09 18:28:18 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/10 12:57:21 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,57 +35,27 @@ void	ft_sort_clean(t_dirs *dirs)
 	}
 }
 
-/* int		ft_sort_comp(int *flags, t_info *a, t_info *b) */
-/* { */
-/* 	if (*flags & F_T) */
-/* 	{ */
-/* 		if (a->s_stat.st_mtimespec.tv_sec == b->s_stat.st_mtimespec.tv_sec) */
-/* 		{ */
-/* 			if (a->s_stat.st_mtimespec.tv_nsec != b->s_stat.st_mtimespec.tv_nsec) */
-/* 				return (a->s_stat.st_mtimespec.tv_nsec < b->s_stat.st_mtimespec.tv_nsec); */
-/* 			else */
-/* 				return (ft_strcmp(a->name, b->name)); */
-/* 		} */
-/* 		else */
-/* 			return (a->s_stat.st_mtimespec.tv_sec < b->s_stat.st_mtimespec.tv_sec); */
-/* 	} */
-/* 	else if (*flags & F_U) */
-/* 	{ */
-/* 		if (a->s_stat.st_atimespec.tv_sec == b->s_stat.st_atimespec.tv_sec) */
-/* 		{ */
-/* 			if (a->s_stat.st_mtime != b->s_stat.st_mtimespec.tv_nsec) */
-/* 				return (a->s_stat.st_mtimespec.tv_nsec < b->s_stat.st_mtimespec.tv_nsec); */
-/* 			else */
-/* 			return (ft_strcmp(a->name, b->name)); */
-/* 		} */
-/* 		else */
-/* 			return (a->s_stat.st_atimespec.tv_sec < b->s_stat.st_atimespec.tv_sec); */
-/* 	} */
-/* 	return (ft_strcmp(a->name, b->name)); */
-/* } */
-
 int		ft_sort_comp(int *flags, t_info *a, t_info *b)
 {
 	if (*flags & F_T)
 	{
-		if (a->s_stat.st_mtime == b->s_stat.st_mtime)
+		if (a->s_stat.st_mtimespec.tv_sec == b->s_stat.st_mtimespec.tv_sec)
 		{
-			if (a->s_stat.st_mtime != b->s_stat.st_mtime)
-				return (a->s_stat.st_mtime < b->s_stat.st_mtime);
-			else
-				return (ft_strcmp(a->name, b->name));
+			return (a->s_stat.st_mtimespec.tv_nsec
+			!= b->s_stat.st_mtimespec.tv_nsec) ?
+			(a->s_stat.st_mtimespec.tv_nsec < b->s_stat.st_mtimespec.tv_nsec) :
+			(ft_strcmp(a->name, b->name));
 		}
 		else
 			return (a->s_stat.st_mtime < b->s_stat.st_mtime);
 	}
-	else if (*flags & F_U)
+	else if ((*flags & F_U) && !(*flags & F_L))
 	{
-		if (a->s_stat.st_atime == b->s_stat.st_atime)
+		if (a->s_stat.st_atimespec.tv_sec == b->s_stat.st_atimespec.tv_sec)
 		{
-			if (a->s_stat.st_mtime != b->s_stat.st_mtime)
-				return (a->s_stat.st_mtime < b->s_stat.st_mtime);
-			else
-			return (ft_strcmp(a->name, b->name));
+			return (a->s_stat.st_mtime != b->s_stat.st_mtimespec.tv_nsec) ?
+			(a->s_stat.st_mtimespec.tv_nsec < b->s_stat.st_mtimespec.tv_nsec) :
+			(ft_strcmp(a->name, b->name));
 		}
 		else
 			return (a->s_stat.st_atime < b->s_stat.st_atime);
@@ -114,7 +84,8 @@ void	ft_sort_ins(int *flags, t_dirs *dirs, t_sort *s)
 		}
 		else if (s->n_size-- && !!(s->temp = s->next))
 			s->next = s->next->next;
-		(s->tail) ? (s->tail->next = s->temp) : (dirs->list = s->temp);
+		(s->tail) ? s->tail->next = s->temp : NULL;
+		!(s->tail) ? dirs->list = s->temp : NULL;
 		s->temp->prev = s->tail;
 		s->tail = s->temp;
 	}
@@ -135,7 +106,7 @@ void	ft_sort_merge(int *flags, t_dirs *dirs, t_sort *sort)
 			sort->l_size++;
 			sort->next = sort->next->next;
 			if (!sort->next)
-				break;
+				break ;
 			i++;
 		}
 		sort->n_size = sort->i_size;
@@ -164,10 +135,8 @@ void	ft_sorts(int *flags, t_dirs *dirs)
 			dirs->last = sort->tail;
 		}
 		if (sort->m_count <= 1)
-			break;
+			break ;
 		sort->i_size *= 2;
 	}
 	free(sort);
 }
-
-

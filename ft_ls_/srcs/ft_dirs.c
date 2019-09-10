@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/09 18:31:55 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/10 14:16:45 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,37 +55,28 @@ void	ft_dir_form(int *flags, t_dirs *dirs)
 	t_info		*last;
 	t_passwd	*s_pwd;
 	t_group		*s_grp;
-	size_t		len;
 
 	last = dirs->last;
-	if (*flags & F_L)
+	if (ft_intlen(last->s_stat.st_nlink) > dirs->s_form.link_len)
+		dirs->s_form.link_len = ft_intlen(last->s_stat.st_nlink);
+	if (!(*flags & F_O))
 	{
-		if ((len = ft_intlen(last->s_stat.st_nlink)) > dirs->s_form.link_len)
-			dirs->s_form.link_len = len;
-		if (!(*flags & F_O))
-		{
-			if ((s_pwd = getpwuid(last->s_stat.st_uid)))
-			{
-				if (s_pwd && s_pwd->pw_name && (len = ft_strlen(s_pwd->pw_name)) > dirs->s_form.usr_len)
-					dirs->s_form.usr_len = len;
-				else if ((len = ft_intlen(last->s_stat.st_uid)) > dirs->s_form.usr_len)
-					dirs->s_form.usr_len = len;
-			}
-		}
-			
-		if (!(*flags & F_G)) 
-		{
-			if (( s_grp = getgrgid(last->s_stat.st_gid)))
-			{
-				if (s_grp && s_grp->gr_name && (len = ft_strlen(s_grp->gr_name)) > dirs->s_form.grp_len)
-					dirs->s_form.grp_len = len;
-				else if ((len = ft_intlen(last->s_stat.st_gid)) > dirs->s_form.grp_len)
-					dirs->s_form.grp_len = len;
-			}
-		}
-		if ((len = ft_intlen(last->s_stat.st_size)) > dirs->s_form.size_len)
-			dirs->s_form.size_len = len;
+		if ((s_pwd = getpwuid(last->s_stat.st_uid)) != NULL
+			&& ft_strlen(s_pwd->pw_name) > dirs->s_form.usr_len)
+			dirs->s_form.usr_len = ft_strlen(s_pwd->pw_name);
+		else if (ft_intlen(last->s_stat.st_uid) > dirs->s_form.usr_len)
+			dirs->s_form.usr_len = ft_intlen(last->s_stat.st_uid);
 	}
+	if (!(*flags & F_G))
+	{
+		if ((s_grp = getgrgid(last->s_stat.st_gid)) != NULL
+			&& ft_strlen(s_grp->gr_name) > dirs->s_form.grp_len)
+			dirs->s_form.grp_len = ft_strlen(s_grp->gr_name);
+		else if (ft_intlen(last->s_stat.st_gid) > dirs->s_form.grp_len)
+			dirs->s_form.grp_len = ft_intlen(last->s_stat.st_gid);
+	}
+	if (ft_intlen(last->s_stat.st_size) > dirs->s_form.size_len)
+		dirs->s_form.size_len = ft_intlen(last->s_stat.st_size);
 }
 
 int		ft_dir_fill(int *flags, t_dirs *dirs, char *path)
@@ -107,12 +98,11 @@ int		ft_dir_fill(int *flags, t_dirs *dirs, char *path)
 		if ((lstat(list->path, &list->s_stat)) == -1)
 			dirs->cool = 0;
 		dirs->total += list->s_stat.st_blocks;
-		ft_dir_form(flags, dirs);
+		(*flags & F_L) ? ft_dir_form(flags, dirs) : NULL;
 		list = list->next;
 	}
 	closedir(dir);
-	if (!(*flags & F_F))
-		ft_sorts(flags, dirs);
+	(!(*flags & F_F)) ? ft_sorts(flags, dirs) : NULL;
 	ft_prints(flags, dirs);
 	return (1);
 }
@@ -142,6 +132,6 @@ void	ft_dirs(int *flags, char *path)
 				ft_dirs(flags, list->path);
 			list = (*flags & F_R) ? list->prev : list->next;
 		}
+		ft_sort_clean(dirs);
 	}
-	ft_sort_clean(dirs);
 }

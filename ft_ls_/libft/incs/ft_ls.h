@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/09 18:33:42 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/10 13:36:12 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,11 @@
 # define F_RR 256
 # define F_D 512
 # define F_FF 1024
-# define F_GG 2048
-# define F_LL 4096
 # define F_P 8192
-# define F_2 16384
-# define F_3 32768
-
 # define F_I 65536
 # define F_M 131072
 # define F_REG 262144
 # define F_O 524288
-# define F_5 1048576
-# define F_6 2097152
-# define F_7 4194304
-# define F_8 8388608
 
 typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
@@ -100,7 +91,7 @@ typedef struct			s_dirs
 	struct s_info		*last;
 }						t_dirs;
 
-typedef struct	s_sort
+typedef struct			s_sort
 {
 	t_info				*list;
 	t_info				*next;
@@ -136,7 +127,7 @@ void					ft_sort_clean(t_dirs *dirs);
 int						ft_prints(int *flags, t_dirs *dirs);
 void					ft_print_def(int *flags, t_info *dir);
 void					ft_print_lst(int *flags, t_dirs *dirs, t_info *dir);
-void					ft_print_perm(t_stat *s_stat);
+void					ft_print_perm(int *flags, t_stat *s_stat);
 void					ft_print_perms(char *permissions, t_stat *s_stat);
 
 int						ft_errors(int *flags, char **error);
@@ -144,8 +135,5 @@ int						ft_error_flag(char *arg);
 int						ft_error_perm(int *flags, char *path);
 int						ft_error_dir(char *arg);
 int						ft_error_print(int *flags, t_dirs *dirs);
-
-void					ft_flag_print(int *flags);
-void					ft_list_print(t_dirs *dirs);
 
 #endif
