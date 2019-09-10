@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/10 14:40:42 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/10 14:48:40 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,5 @@ int		main(int argc, char **argv)
 			ft_dirs(&flags, path);
 		}
 	}
-	sleep(20);
 	return (1);
 }
