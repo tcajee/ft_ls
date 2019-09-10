@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/10 15:11:25 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/10 15:24:32 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_print_def(int *flags, t_info *list)
 	char	path[PATH_MAX];
 
 	ft_bzero(path, PATH_MAX);
-	if ((list->s_stat.st_mode & S_IFMT) == S_IFLNK)
+	if ((list->s_stat.st_mode & S_IFMT) == S_IFLNK && (*flags & F_L))
 		readlink(list->path, path, PATH_MAX);
 	ft_printf_("%s", list->name);
 	if (*flags & F_FF)
@@ -81,7 +81,7 @@ void	ft_print_def(int *flags, t_info *list)
 		else if (list->s_stat.st_mode & S_IXUSR)
 			ft_printf_("*");
 	}
-	else if ((list->s_stat.st_mode & S_IFMT) == S_IFLNK)
+	else if ((list->s_stat.st_mode & S_IFMT) == S_IFLNK && (*flags & F_L))
 		ft_printf_(" -> %s", path);
 	ft_printf_("\n");
 }
@@ -127,8 +127,7 @@ int		ft_prints(int *flags, t_dirs *dirs)
 	list = (*flags & F_R) ? dirs->last : dirs->list;
 	while (list && list->name && dirs->cool)
 	{
-		if ((!(*flags & F_A) || (*flags & F_AA)) && list->name[0] == '.' 
-				&& ft_ls_check(list->path) == 2)
+		if (!(*flags & F_A) && list->name[0] == '.')
 			if (!(*flags & F_REG))
 			{
 				list = (*flags & F_R) ? list->prev : list->next;
