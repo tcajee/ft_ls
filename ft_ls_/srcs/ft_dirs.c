@@ -6,7 +6,7 @@
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/11 15:12:19 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 15:27:21 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,12 +119,9 @@ void	ft_dirs(int *flags, char *path)
 		return ;
 	if (*flags & F_RR)
 	{
-		/* F_SET(*flags, F_0, F_P); */
 		l = (*flags & F_R) ? dir->last : dir->list;
 		while (l)
 		{
-			/* if (ft_ls_check(l->path) == 5) */
-			/* 	ft_error_perm(flags, l->name, dir); */
 			if (((l->name[0] == '.' && l->name[1] == '\0') || ((
 				l->name[0] == '.' && l->name[2] == '\0') && l->name[1]
 				== '.')) || (!(*flags & F_A) && l->name[0] == '.'))
