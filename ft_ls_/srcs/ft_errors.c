@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 11:36:46 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/11 13:55:24 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 15:11:39 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	ft_error_perm(int *flags, char *path, t_dir *dir)
 		ft_putstr_fd(path, 2);
 	ft_putendl_fd(": Permission denied", 2);
 	(dir) ? ft_sort_clean(dir) : NULL;
+	F_SET(*flags, F_0, F_P);
 	return (0);
 }
 
@@ -49,13 +50,13 @@ int	ft_error_print(int *flags, t_dir *dir)
 {
 	t_info	*list;
 
-	list = (*flags & F_R && !(*flags & F_F)) ? dir->last : dir->list;
+	list = (*flags & F_R) ? dir->last : dir->list;
 	while (list && list->name)
 	{
 		ft_putstr_fd("ls: ", 2);
 		ft_putstr_fd(list->name, 2);
 		ft_putendl_fd(": No such file or directory", 2);
-		list = (*flags & F_R && !(*flags & F_F)) ? list->prev : list->next;
+		list = (*flags & F_R) ? list->prev : list->next;
 	}
 	return (0);
 }

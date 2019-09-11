@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/11 12:17:37 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 15:15:19 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int		ft_flag_check(int *flags, char flag)
 	else if (flag == 'u')
 		return (*flags = (*flags & ~(F_T)) | F_U);
 	else if (flag == 'r')
-		return (*flags = (*flags & ~F_0) | F_R);
+		return ((*flags & F_F) ? *flags : (*flags = (*flags & ~F_0) | F_R));
 	else if (flag == 'f')
-		return (*flags = (*flags & ~(F_U + F_T)) | (F_F + F_A));
+		return (*flags = (*flags & ~(F_U + F_T + F_R)) | (F_F + F_A));
 	else if (flag == 'a')
 		return (*flags = (*flags & ~F_0) | F_A);
 	else if (flag == 'R')
@@ -35,7 +35,7 @@ int		ft_flag_check(int *flags, char flag)
 	else if (flag == 'd')
 		return (*flags = (*flags & ~F_RR) | F_D);
 	else if (flag == 'o')
-		return (*flags = (*flags & ~F_0) | F_O);
+		return (*flags = (*flags & ~F_1) | (F_L + F_O));
 	else if (flag == 'F')
 		return (*flags = (*flags & ~F_0) | F_FF);
 	return (ft_flag_check_(flags, flag));

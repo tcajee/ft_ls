@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/11 12:37:34 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 15:17:15 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int		ft_prints(int *flags, t_dir *dir)
 {
 	t_info	*list;
 
-	list = (*flags & F_R && !(*flags & F_F)) ? dir->last : dir->list;
+	list = (*flags & F_R) ? dir->last : dir->list;
 	(*flags & F_REG && !(*flags & F_P)) ? (ft_printf_("\n")) : NULL;
 	if ((*flags & F_M))
 		(*flags & F_P) ? ft_printf_("\n%s:\n", dir->root) :
@@ -127,19 +127,19 @@ int		ft_prints(int *flags, t_dir *dir)
 	else if (*flags & F_RR)
 		(*flags & F_P) ? ft_printf_("\n%s:\n", dir->root) :
 			ft_printf_("%s:\n", dir->root);
-	if (*flags & F_L && dir->cool && list->next->next)
+	if (*flags & F_L && dir->cool && ((*flags & F_R) ? list->prev : list->next))
 		ft_printf_("%s %d\n", "total", dir->total);
 	F_SET(*flags, F_0, F_P);
 	while (list && list->name && dir->cool)
 	{
 		if (!(*flags & F_A) && list->name[0] == '.')
 		{
-			list = (*flags & F_R && !(*flags & F_F)) ? list->prev : list->next;
+			list = (*flags & F_R) ? list->prev : list->next;
 			continue;
 		}
 		(*flags & F_1) ? ft_print_def(flags, list) : 0;
 		(*flags & F_L) ? ft_print_lst(flags, dir, list) : 0;
-		list = (*flags & F_R && !(*flags & F_F)) ? list->prev : list->next;
+		list = (*flags & F_R) ? list->prev : list->next;
 	}
 	return (1);
 }

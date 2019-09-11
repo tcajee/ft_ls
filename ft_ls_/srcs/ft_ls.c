@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/11 13:53:54 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 15:20:12 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@ int		ft_ls_print(int *flags, t_dir *dir)
 {
 	t_info	*l;
 
-	l = (*flags & F_R && !(*flags & F_F)) ? dir->last : dir->list;
+	l = (*flags & F_R) ? dir->last : dir->list;
 	while (l && l->name && dir->cool)
 	{
 		if (!(*flags & F_A) && l->name[0] == '.')
 			if (!(*flags & F_REG))
 			{
-				l = (*flags & F_R && !(*flags & F_F)) ? l->prev : l->next;
+				l = (*flags & F_R) ? l->prev : l->next;
 				continue;
 			}
 		if (*flags & F_1)
 			ft_print_def(flags, l);
 		else if (*flags & F_L)
 			ft_print_lst(flags, dir, l);
-		l = (*flags & F_R && !(*flags & F_F)) ? l->prev : l->next;
+		l = (*flags & F_R) ? l->prev : l->next;
 		F_SET(*flags, F_0, F_REG);
 	}
 	return (1);
@@ -122,7 +122,7 @@ int		main(int argc, char **argv)
 	ft_ls_file(&flags, argv + i);
 	while (argv[++i])
 	{
-		if (ft_ls_check(argv[i]) == 2)
+		if (ft_ls_check(argv[i]) == 2 ||ft_ls_check(argv[i]) == 5)
 			ft_dirs(&flags, argv[i]);
 		else if (ft_ls_check(argv[i]) == 3)
 		{
@@ -130,9 +130,5 @@ int		main(int argc, char **argv)
 			ft_dirs(&flags, path);
 		}
 	}
-	while (--i)
-		if (ft_ls_check(argv[i]) == 5)
-			ft_error_perm(&flags, argv[i], NULL);
-
 	return (1);
 }

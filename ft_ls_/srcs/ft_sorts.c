@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/11 12:11:39 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 15:00:50 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_sort_clean(t_dir *dir)
 	t_info	*list;
 	t_info	*next;
 
-	if (dir)
+	if (dir && dir->root)
 	{
 		list = dir->list;
 		while (list)
@@ -30,7 +30,7 @@ void	ft_sort_clean(t_dir *dir)
 			free(list);
 			list = next;
 		}
-		free(dir->root);
+		(dir->root) ? free(dir->root) : 0;
 		free(dir);
 	}
 }
