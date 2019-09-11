@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dir.c                                          :+:      :+:    :+:   */
+/*   ft_dirs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcajee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:23:43 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/11 15:27:21 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 15:40:05 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void	ft_dirs(int *flags, char *path)
 				l = (*flags & F_R) ? l->prev : l->next;
 				continue;
 			}
-			else if (ft_ls_check(l->path) == 2 ||ft_ls_check(l->path) == 5)
+			else if (ft_ls_check(l->path) == 2 || ft_ls_check(l->path) == 5)
 				ft_dirs(flags, l->path);
 			l = (*flags & F_R) ? l->prev : l->next;
 		}

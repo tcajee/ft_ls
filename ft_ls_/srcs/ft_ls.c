@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/11 15:20:12 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 15:39:14 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int		ft_ls_check(char *path)
 	if ((s_stat.st_mode & S_IFMT) == S_IFDIR)
 	{
 		return ((!(s_stat.st_mode & S_IRGRP) || !(s_stat.st_mode & S_IROTH)) ?
-			5: 2);
+			5 : 2);
 	}
 	if ((s_stat.st_mode & S_IFMT) == S_IFLNK)
 		return (3);
@@ -117,12 +117,12 @@ int		main(int argc, char **argv)
 	if ((argc - (i = ft_flags(&flags, argv)) > 1))
 		F_SET(flags, F_0, F_M);
 	(!argv[i--]) ? ft_dirs(&flags, ".") : 0;
-	(!argv[i + 1]) ? exit (1) : NULL;
+	(!argv[i + 1]) ? exit(1) : NULL;
 	ft_errors(&flags, argv + i);
 	ft_ls_file(&flags, argv + i);
 	while (argv[++i])
 	{
-		if (ft_ls_check(argv[i]) == 2 ||ft_ls_check(argv[i]) == 5)
+		if (ft_ls_check(argv[i]) == 2 || ft_ls_check(argv[i]) == 5)
 			ft_dirs(&flags, argv[i]);
 		else if (ft_ls_check(argv[i]) == 3)
 		{
