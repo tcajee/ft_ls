@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/10 12:57:21 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 11:02:41 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ int		ft_sort_comp(int *flags, t_info *a, t_info *b)
 {
 	if (*flags & F_T)
 	{
-		if (a->s_stat.st_mtime == b->s_stat.st_mtime)
+		if (a->s_stat.st_mtimespec.tv_sec == b->s_stat.st_mtimespec.tv_sec)
 		{
-			return (a->s_stat.st_mtime
-			!= b->s_stat.st_mtime) ?
-			(a->s_stat.st_mtime < b->s_stat.st_mtime) :
+			return (a->s_stat.st_mtimespec.tv_nsec
+			!= b->s_stat.st_mtimespec.tv_nsec) ?
+			(a->s_stat.st_mtimespec.tv_nsec < b->s_stat.st_mtimespec.tv_nsec) :
 			(ft_strcmp(a->name, b->name));
 		}
 		else
@@ -51,10 +51,10 @@ int		ft_sort_comp(int *flags, t_info *a, t_info *b)
 	}
 	else if ((*flags & F_U) && !(*flags & F_L))
 	{
-		if (a->s_stat.st_atime == b->s_stat.st_atime)
+		if (a->s_stat.st_atimespec.tv_sec == b->s_stat.st_atimespec.tv_sec)
 		{
-			return (a->s_stat.st_mtime != b->s_stat.st_mtime) ?
-			(a->s_stat.st_mtime < b->s_stat.st_mtime) :
+			return (a->s_stat.st_mtime != b->s_stat.st_mtimespec.tv_nsec) ?
+			(a->s_stat.st_mtimespec.tv_nsec < b->s_stat.st_mtimespec.tv_nsec) :
 			(ft_strcmp(a->name, b->name));
 		}
 		else
@@ -62,34 +62,6 @@ int		ft_sort_comp(int *flags, t_info *a, t_info *b)
 	}
 	return (ft_strcmp(a->name, b->name));
 }
-
-/* int		ft_sort_comp(int *flags, t_info *a, t_info *b) */
-/* { */
-/* 	if (*flags & F_T) */
-/* 	{ */
-/* 		if (a->s_stat.st_mtimespec.tv_sec == b->s_stat.st_mtimespec.tv_sec) */
-/* 		{ */
-/* 			return (a->s_stat.st_mtimespec.tv_nsec */
-/* 			!= b->s_stat.st_mtimespec.tv_nsec) ? */
-/* 			(a->s_stat.st_mtimespec.tv_nsec < b->s_stat.st_mtimespec.tv_nsec) : */
-/* 			(ft_strcmp(a->name, b->name)); */
-/* 		} */
-/* 		else */
-/* 			return (a->s_stat.st_mtime < b->s_stat.st_mtime); */
-/* 	} */
-/* 	else if ((*flags & F_U) && !(*flags & F_L)) */
-/* 	{ */
-/* 		if (a->s_stat.st_atimespec.tv_sec == b->s_stat.st_atimespec.tv_sec) */
-/* 		{ */
-/* 			return (a->s_stat.st_mtime != b->s_stat.st_mtimespec.tv_nsec) ? */
-/* 			(a->s_stat.st_mtimespec.tv_nsec < b->s_stat.st_mtimespec.tv_nsec) : */
-/* 			(ft_strcmp(a->name, b->name)); */
-/* 		} */
-/* 		else */
-/* 			return (a->s_stat.st_atime < b->s_stat.st_atime); */
-/* 	} */
-/* 	return (ft_strcmp(a->name, b->name)); */
-/* } */
 
 void	ft_sort_ins(int *flags, t_dirs *dirs, t_sort *s)
 {

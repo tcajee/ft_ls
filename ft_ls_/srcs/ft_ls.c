@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/10 14:51:53 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 11:03:16 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ int		main(int argc, char **argv)
 	ft_ls_file(&flags, argv + i);
 	while (argv[++i])
 	{
-		/* (flags & F_REG) ? (ft_printf_("\n")) : NULL; */
 		if (ft_ls_check(argv[i]) == 2)
 			ft_dirs(&flags, argv[i]);
 		else if (ft_ls_check(argv[i]) == 3)

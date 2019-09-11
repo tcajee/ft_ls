@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/10 15:24:32 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 11:30:54 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,19 +121,11 @@ int		ft_prints(int *flags, t_dirs *dirs)
 
 	(*flags & F_REG && !(*flags & F_P)) ? (ft_printf_("\n")) : NULL;
 	if ((*flags & F_M))
-	{
-		if (*flags & F_P)
-			ft_printf_("\n%s:\n", dirs->root);
-		else
+		(*flags & F_P) ? ft_printf_("\n%s:\n", dirs->root) :
 			ft_printf_("%s:\n", dirs->root);
-	}
 	else if (*flags & F_RR)
-	{
-		if (*flags & F_P)
-			ft_printf_("\n%s:\n", dirs->root);
-		else
+		(*flags & F_P) ? ft_printf_("\n%s:\n", dirs->root) :
 			ft_printf_("%s:\n", dirs->root);
-	}
 	if (*flags & F_L && dirs->cool)
 		ft_printf_("%s %d\n", "total", dirs->total);
 	F_SET(*flags, F_0, F_P);
@@ -145,10 +137,8 @@ int		ft_prints(int *flags, t_dirs *dirs)
 			list = (*flags & F_R) ? list->prev : list->next;
 			continue;
 		}
-		if (*flags & F_1)
-			ft_print_def(flags, list);
-		else if (*flags & F_L)
-			ft_print_lst(flags, dirs, list);
+		(*flags & F_1) ? ft_print_def(flags, list) : 0;
+		(*flags & F_L) ? ft_print_lst(flags, dirs, list) : 0;
 		list = (*flags & F_R) ? list->prev : list->next;
 	}
 	return (1);
