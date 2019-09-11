@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/11 12:17:15 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 13:53:54 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,15 @@ int		ft_ls_check(char *path)
 	if ((s_stat.st_mode & S_IFMT) == S_IFREG)
 		return (1);
 	if ((s_stat.st_mode & S_IFMT) == S_IFDIR)
-		return (2);
+	{
+		return ((!(s_stat.st_mode & S_IRGRP) || !(s_stat.st_mode & S_IROTH)) ?
+			5: 2);
+	}
 	if ((s_stat.st_mode & S_IFMT) == S_IFLNK)
 		return (3);
 	if ((s_stat.st_mode & S_IFMT) == S_IFCHR)
 		return (4);
-	return (0);
+	return (11);
 }
 
 int		main(int argc, char **argv)
@@ -113,11 +116,8 @@ int		main(int argc, char **argv)
 
 	if ((argc - (i = ft_flags(&flags, argv)) > 1))
 		F_SET(flags, F_0, F_M);
-	if (!argv[i--])
-	{
-		ft_dirs(&flags, ".");
-		return (1);
-	}
+	(!argv[i--]) ? ft_dirs(&flags, ".") : 0;
+	(!argv[i + 1]) ? exit (1) : NULL;
 	ft_errors(&flags, argv + i);
 	ft_ls_file(&flags, argv + i);
 	while (argv[++i])
@@ -130,5 +130,9 @@ int		main(int argc, char **argv)
 			ft_dirs(&flags, path);
 		}
 	}
+	while (--i)
+		if (ft_ls_check(argv[i]) == 5)
+			ft_error_perm(&flags, argv[i], NULL);
+
 	return (1);
 }
