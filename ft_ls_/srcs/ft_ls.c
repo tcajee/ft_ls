@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/11 16:28:47 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 16:35:47 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int		main(int argc, char **argv)
 	char	path[PATH_MAX];
 	int		flags;
 	int		i;
-	int		j;
 
 	if ((argc - (i = ft_flags(&flags, argv)) > 1))
 		F_SET(flags, F_0, F_M);
@@ -121,9 +120,8 @@ int		main(int argc, char **argv)
 	(!argv[i]) ? exit(1) : NULL;
 	ft_errors(&flags, argv + i - 1);
 	ft_ls_file(&flags, argv + i - 1);
-	j = argc - i;
-	i = (flags & F_R) ? argc - 1 : j - 1;
-	while (j--)
+	i = (flags & F_R) ? argc - 1 : argc - i - 1;
+	while (argv[i])
 	{
 		if (ft_ls_check(argv[i]) == 2 || ft_ls_check(argv[i]) == 5)
 			ft_dirs(&flags, argv[i]);
