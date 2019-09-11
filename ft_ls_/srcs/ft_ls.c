@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/11 15:50:24 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 16:28:47 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,14 +113,17 @@ int		main(int argc, char **argv)
 	char	path[PATH_MAX];
 	int		flags;
 	int		i;
+	int		j;
 
 	if ((argc - (i = ft_flags(&flags, argv)) > 1))
 		F_SET(flags, F_0, F_M);
-	(!argv[i--]) ? ft_dirs(&flags, ".") : 0;
-	(!argv[i + 1]) ? exit(1) : NULL;
-	ft_errors(&flags, argv + i);
-	ft_ls_file(&flags, argv + i);
-	while (argv[++i])
+	(!argv[i]) ? ft_dirs(&flags, ".") : 0;
+	(!argv[i]) ? exit(1) : NULL;
+	ft_errors(&flags, argv + i - 1);
+	ft_ls_file(&flags, argv + i - 1);
+	j = argc - i;
+	i = (flags & F_R) ? argc - 1 : j - 1;
+	while (j--)
 	{
 		if (ft_ls_check(argv[i]) == 2 || ft_ls_check(argv[i]) == 5)
 			ft_dirs(&flags, argv[i]);
@@ -129,6 +132,7 @@ int		main(int argc, char **argv)
 			readlink(argv[i], ft_memset(path, 0, PATH_MAX), PATH_MAX);
 			ft_dirs(&flags, path);
 		}
+		i = (flags & F_R) ? (i - 1) : (i + 1);
 	}
 	return (1);
 }
