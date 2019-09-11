@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:11:56 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/10 15:07:47 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 12:17:37 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ int		ft_flag_check_(int *flags, char flag)
 {
 	if (flag == 'i')
 		return (*flags = (*flags & ~F_0) | F_I);
-	else if (flag == 'A')
-		return ((*flags & F_A) ? *flags : (*flags = (*flags & ~F_0) | F_AA));
 	exit(ft_error_flag(&flag));
 }
 

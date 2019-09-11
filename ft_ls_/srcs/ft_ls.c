@@ -6,30 +6,30 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:13:54 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/11 11:03:16 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/11 12:17:15 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-int		ft_ls_print(int *flags, t_dirs *dirs)
+int		ft_ls_print(int *flags, t_dir *dir)
 {
-	t_info	*list;
+	t_info	*l;
 
-	list = (*flags & F_R) ? dirs->last : dirs->list;
-	while (list && list->name && dirs->cool)
+	l = (*flags & F_R && !(*flags & F_F)) ? dir->last : dir->list;
+	while (l && l->name && dir->cool)
 	{
-		if (!(*flags & F_A) && list->name[0] == '.')
+		if (!(*flags & F_A) && l->name[0] == '.')
 			if (!(*flags & F_REG))
 			{
-				list = (*flags & F_R) ? list->prev : list->next;
+				l = (*flags & F_R && !(*flags & F_F)) ? l->prev : l->next;
 				continue;
 			}
 		if (*flags & F_1)
-			ft_print_def(flags, list);
+			ft_print_def(flags, l);
 		else if (*flags & F_L)
-			ft_print_lst(flags, dirs, list);
-		list = (*flags & F_R) ? list->prev : list->next;
+			ft_print_lst(flags, dir, l);
+		l = (*flags & F_R && !(*flags & F_F)) ? l->prev : l->next;
 		F_SET(*flags, F_0, F_REG);
 	}
 	return (1);
@@ -37,27 +37,27 @@ int		ft_ls_print(int *flags, t_dirs *dirs)
 
 void	ft_ls_file(int *flags, char **argv)
 {
-	t_dirs	*dirs;
+	t_dir	*dir;
 	t_info	*list;
 
-	dirs = ft_dir_new(*(argv + 1));
-	list = dirs->list;
+	dir = ft_dir_new(*(argv + 1));
+	list = dir->list;
 	while (*++argv)
 	{
 		if (ft_ls_check(*argv) != 1 && ft_ls_check(*argv) != 4)
 			continue;
 		if (!list)
-			list = ft_dir_add(dirs->last);
-		dirs->last = list;
+			list = ft_dir_add(dir->last);
+		dir->last = list;
 		list->name = ft_strdup(*argv);
 		lstat(list->name, &list->s_stat);
-		(*flags & F_L) ? ft_dir_form(flags, dirs) : NULL;
+		(*flags & F_L) ? ft_dir_form(flags, dir) : NULL;
 		list = list->next;
 	}
 	if (!(*flags & F_F))
-		ft_sorts(flags, dirs);
-	ft_ls_print(flags, dirs);
-	ft_sort_clean(dirs);
+		ft_sorts(flags, dir);
+	ft_ls_print(flags, dir);
+	ft_sort_clean(dir);
 }
 
 char	*ft_ls_path(char *path, char *d_name)

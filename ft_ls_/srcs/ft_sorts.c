@@ -6,20 +6,20 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/11 11:02:41 by sminnaar         ###   ########.fr       */
+/*   Updated: 2019/09/11 12:11:39 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/incs/libft.h"
 
-void	ft_sort_clean(t_dirs *dirs)
+void	ft_sort_clean(t_dir *dir)
 {
 	t_info	*list;
 	t_info	*next;
 
-	if (dirs)
+	if (dir)
 	{
-		list = dirs->list;
+		list = dir->list;
 		while (list)
 		{
 			next = list->next;
@@ -30,8 +30,8 @@ void	ft_sort_clean(t_dirs *dirs)
 			free(list);
 			list = next;
 		}
-		free(dirs->root);
-		free(dirs);
+		free(dir->root);
+		free(dir);
 	}
 }
 
@@ -63,7 +63,7 @@ int		ft_sort_comp(int *flags, t_info *a, t_info *b)
 	return (ft_strcmp(a->name, b->name));
 }
 
-void	ft_sort_ins(int *flags, t_dirs *dirs, t_sort *s)
+void	ft_sort_ins(int *flags, t_dir *dir, t_sort *s)
 {
 	while (s->l_size > 0 || (s->n_size > 0 && s->next))
 	{
@@ -85,13 +85,13 @@ void	ft_sort_ins(int *flags, t_dirs *dirs, t_sort *s)
 		else if (s->n_size-- && !!(s->temp = s->next))
 			s->next = s->next->next;
 		(s->tail) ? s->tail->next = s->temp : NULL;
-		!(s->tail) ? dirs->list = s->temp : NULL;
+		!(s->tail) ? dir->list = s->temp : NULL;
 		s->temp->prev = s->tail;
 		s->tail = s->temp;
 	}
 }
 
-void	ft_sort_merge(int *flags, t_dirs *dirs, t_sort *sort)
+void	ft_sort_merge(int *flags, t_dir *dir, t_sort *sort)
 {
 	int		i;
 
@@ -110,12 +110,12 @@ void	ft_sort_merge(int *flags, t_dirs *dirs, t_sort *sort)
 			i++;
 		}
 		sort->n_size = sort->i_size;
-		ft_sort_ins(flags, dirs, sort);
+		ft_sort_ins(flags, dir, sort);
 		sort->list = sort->next;
 	}
 }
 
-void	ft_sorts(int *flags, t_dirs *dirs)
+void	ft_sorts(int *flags, t_dir *dir)
 {
 	t_sort	*sort;
 
@@ -124,15 +124,15 @@ void	ft_sorts(int *flags, t_dirs *dirs)
 	sort->i_size = 1;
 	while (sort->i_size)
 	{
-		sort->list = dirs->list;
-		dirs->list = NULL;
+		sort->list = dir->list;
+		dir->list = NULL;
 		sort->tail = NULL;
 		sort->m_count = 0;
-		ft_sort_merge(flags, dirs, sort);
+		ft_sort_merge(flags, dir, sort);
 		if (sort->tail)
 		{
 			sort->tail->next = NULL;
-			dirs->last = sort->tail;
+			dir->last = sort->tail;
 		}
 		if (sort->m_count <= 1)
 			break ;
