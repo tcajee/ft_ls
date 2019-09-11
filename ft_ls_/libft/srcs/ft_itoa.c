@@ -6,21 +6,21 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 15:38:25 by tcajee            #+#    #+#             */
-/*   Updated: 2019/08/20 10:12:53 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 12:02:47 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/libft.h"
 
-char	*ft_itoa(int n)
+char	*ft_itoa(long long n)
 {
-	char	out[12];
-	char	*new;
-	long	x;
-	size_t	i;
+	char		out[21];
+	char		*new;
+	long long	x;
+	size_t		i;
 
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
+	if (n == LLONG_MIN)
+		return (ft_strdup("-9223372036854775807"));
 	else if (n == 0)
 		return (ft_strdup("0"));
 	else if (n < 0)

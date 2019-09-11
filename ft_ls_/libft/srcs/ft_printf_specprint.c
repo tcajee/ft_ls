@@ -6,7 +6,7 @@
 /*   By: sminnaar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 17:12:11 by sminnaar          #+#    #+#             */
-/*   Updated: 2019/09/03 17:20:39 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 12:02:36 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_l(int width, va_list list)
 	char	*str;
 	int		spc;
 
-	str = ft_lltoa(va_arg(list, long long));
+	str = ft_itoa(va_arg(list, long long));
 	spc = width - ft_strlen(str);
 	while (spc > 0)
 	{

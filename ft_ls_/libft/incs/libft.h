@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:27:09 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/03 17:18:52 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 12:03:14 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ size_t				ft_strwlen(const char *s, int c);
 char				*ft_strrev(char *s);
 
 int					ft_atoi(const char *str);
-char				*ft_itoa(int n);
+char				*ft_itoa(long long n);
 char				*ft_lltoa(long long int n);
 
 int					ft_isalpha(int c);
