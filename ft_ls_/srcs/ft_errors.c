@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 11:36:46 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/11 16:38:35 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 16:42:30 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	ft_error_perm(int *flags, char *path, t_dir *dir)
 		ft_putstr_fd(path, 2);
 	ft_putendl_fd(": Permission denied", 2);
 	(dir) ? ft_sort_clean(dir) : NULL;
+	(*flags & F_P || *flags & F_REG) ? ft_putendl_fd("", 2) : 0;
 	F_SET(*flags, F_0, F_P);
 	return (0);
 }
