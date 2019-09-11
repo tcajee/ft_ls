@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/11 12:14:32 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 12:37:34 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int		ft_prints(int *flags, t_dir *dir)
 {
 	t_info	*list;
 
+	list = (*flags & F_R && !(*flags & F_F)) ? dir->last : dir->list;
 	(*flags & F_REG && !(*flags & F_P)) ? (ft_printf_("\n")) : NULL;
 	if ((*flags & F_M))
 		(*flags & F_P) ? ft_printf_("\n%s:\n", dir->root) :
@@ -126,10 +127,9 @@ int		ft_prints(int *flags, t_dir *dir)
 	else if (*flags & F_RR)
 		(*flags & F_P) ? ft_printf_("\n%s:\n", dir->root) :
 			ft_printf_("%s:\n", dir->root);
-	if (*flags & F_L && dir->cool)
+	if (*flags & F_L && dir->cool && list->next->next)
 		ft_printf_("%s %d\n", "total", dir->total);
 	F_SET(*flags, F_0, F_P);
-	list = (*flags & F_R && !(*flags & F_F)) ? dir->last : dir->list;
 	while (list && list->name && dir->cool)
 	{
 		if (!(*flags & F_A) && list->name[0] == '.')
