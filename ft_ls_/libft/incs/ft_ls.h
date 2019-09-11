@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:36:21 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/11 12:39:56 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/11 15:51:03 by tcajee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include <limits.h>
 
 # define E_FLAGS -1
-# define E_dir -2
+# define E_DIR -2
 # define E_PERMS -4
 # define E_PRINTS -8
 
