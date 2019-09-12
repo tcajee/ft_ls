@@ -6,7 +6,7 @@
 /*   By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 14:16:47 by tcajee            #+#    #+#             */
-/*   Updated: 2019/09/11 15:00:50 by tcajee           ###   ########.fr       */
+/*   Updated: 2019/09/12 10:08:21 by sminnaar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int		ft_sort_comp(int *flags, t_info *a, t_info *b)
 	{
 		if (a->s_stat.st_atimespec.tv_sec == b->s_stat.st_atimespec.tv_sec)
 		{
-			return (a->s_stat.st_mtime != b->s_stat.st_mtimespec.tv_nsec) ?
-			(a->s_stat.st_mtimespec.tv_nsec < b->s_stat.st_mtimespec.tv_nsec) :
-			(ft_strcmp(a->name, b->name));
+			return (a->s_stat.st_atimespec.tv_nsec !=
+			b->s_stat.st_atimespec.tv_nsec) ? (a->s_stat.st_atimespec.tv_nsec <
+			b->s_stat.st_atimespec.tv_nsec) : (ft_strcmp(a->name, b->name));
 		}
 		else
 			return (a->s_stat.st_atime < b->s_stat.st_atime);
