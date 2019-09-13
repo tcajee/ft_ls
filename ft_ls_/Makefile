@@ -6,7 +6,7 @@
 #    By: tcajee <tcajee@student.wethinkcode.co.za>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/29 13:11:02 by tcajee            #+#    #+#              #
-#    Updated: 2019/08/15 14:56:35 by tcajee           ###   ########.fr        #
+#    Updated: 2019/09/12 11:14:56 by tcajee           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,6 @@ NAME		= ft_ls
 SRCDIR		= ./srcs/
 SRCNAMES	= $(shell ls $(SRCDIR) | grep -E ".+\.c")
 SRC			= $(addprefix $(SRCDIR), $(SRCNAMES))
-# SRC			= ./srcs/ft_dirs.c ./srcs/ft_errors.c ./srcs/ft_flags.c \
-			  ./srcs/ft_ls.c ./srcs/ft_prints.c ./srcs/ft_sorts.c
 BUILDDIR	= ./build/
 BUILDOBJS	= $(addprefix $(BUILDDIR), $(SRCNAMES:.c=.o))
 
